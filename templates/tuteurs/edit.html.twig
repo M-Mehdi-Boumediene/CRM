@@ -1,0 +1,86 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Tuteur{% endblock %}
+
+{% block body %}
+   {{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+   <div class="app-main">
+    {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+ <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="lnr-users icon-gradient bg-strong-bliss"></i>
+                                </div>
+                              <div>Modifier le tuteur
+                                    <div class="page-title-subheading"> Modifier votre tuteur et sauvegarder </div>
+                                </div>
+                            </div>
+                           <div class="page-title-actions">
+                        
+                            <div class="d-inline-block dropdown">
+                            <a href="{{path('app_tuteurs_index')}}">
+                                <button  class="btn-shadow btn btn-info">
+                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                        <i class="fa fa-arrow-circle-left fa-w-20"></i>
+                                    </span>
+                                    Retour à la liste
+                                </button>
+                               </a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+               
+                    <div class="tabs-animation"> 
+                     <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                   {{ include('tuteurs/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+ 
+
+                                    {{ include('tuteurs/_delete_form.html.twig') }}
+
+                                    
+                                    </div>
+                                </div>
+                        
+                        
+                        </div>
+                    </div>
+                    
+         
+                     
+                    </div>
+                </div>
+   
+    </div> 
+
+
+    </div>
+     {{ block("Footer", "Menus/Footer.html.twig") }}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

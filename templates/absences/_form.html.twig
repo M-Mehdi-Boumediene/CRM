@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.user,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.user) }}
+	</div>
+	<div class="col-md-3">
+
+		{{ form_row(form.du,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.du) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.au,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.au) }}
+	</div>
+
+</div>
+<br>
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.classe) }}
+	</div>
+	<div class="col-md-3">
+
+		{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.module) }}
+	</div>
+
+
+</div>
+<br>
+<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+ou
+<a href="{{ path('app_etudiants_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}

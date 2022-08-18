@@ -1,0 +1,190 @@
+{% block MenuLeft %}
+
+	{% set route_name = app.request.attributes.get('_route') %}
+	<div class="app-sidebar sidebar-shadow">
+		<div class="app-header__logo">
+			<div class="logo-src"></div>
+			<div class="header__pane ml-auto">
+				<div>
+					<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="app-header__mobile-menu">
+			<div>
+				<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</button>
+			</div>
+		</div>
+		<div class="app-header__menu">
+			<span>
+				<button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+					<span class="btn-icon-wrapper">
+						<i class="fa fa-ellipsis-v fa-w-6"></i>
+					</span>
+				</button>
+			</span>
+		</div>
+		<div class="scrollbar-sidebar">
+			<div class="app-sidebar__inner">
+				<ul class="vertical-nav-menu">
+					<li class="app-sidebar__heading"></li>
+					<li>
+						<a href="{{path('app_main')}}" {% if route_name == "app_main" %} class="mm-active" {% else %} class=" " {% endif %} aria-expanded="false">
+							<i class="metismenu-icon pe-7s-diamond"></i>Dashboard
+						</a>
+					</li>
+					{% if is_granted('ROLE_ADMIN') %}
+
+						{% if app.user.roles[0] == "ROLE_ADMIN" %}
+
+							<li {% if route_name == "app_classes_index" %} class="mm-active" {% elseif route_name == "app_classes_edit" %} class="mm-active" {% elseif route_name == "app_classes_show" %} class="mm-active" {% elseif route_name == "app_classes_new" %} class="mm-active" {% elseif route_name == "app_blocs_index" %} class="mm-active" {% elseif route_name == "app_blocs_new" %} class="mm-active" {% elseif route_name == "app_blocs_edit" %} class="mm-active" {% elseif route_name == "app_blocs_show" %} class="mm-active" {% elseif route_name == "app_modules_index" %} class="mm-active" {% elseif route_name == "app_modules_new" %} class="mm-active" {% elseif route_name == "app_modules_edit" %} class="mm-active" {% elseif route_name == "app_modules_show" %} class="mm-active" {% elseif route_name == "app_intervenants_index" %} class="mm-active" {% elseif route_name == "app_intervenants_new" %} class="mm-active" {% elseif route_name == "app_intervenants_edit" %} class="mm-active" {% elseif route_name == "app_intervenants_show" %} class="mm-active" {% elseif route_name == "app_etudiants_index" %} class="mm-active" {% elseif route_name == "app_etudiants_new" %} class="mm-active" {% elseif route_name == "app_etudiants_edit" %} class="mm-active" {% elseif route_name == "app_etudiants_show" %} class="mm-active" {% elseif route_name == "app_entreprises_index" %} class="mm-active" {% elseif route_name == "app_entreprises_new" %} class="mm-active" {% elseif route_name == "app_entreprises_edit" %} class="mm-active" {% elseif route_name == "app_entreprises_show" %} class="mm-active" {% elseif route_name == "app_tuteurs_index" %} class="mm-active" {% elseif route_name == "app_tuteurs_new" %} class="mm-active" {% elseif route_name == "app_tuteurs_edit" %} class="mm-active" {% elseif route_name == "app_tuteurs_show" %} class="mm-active" {% elseif route_name == "app_users_index" %} class="mm-active" {% elseif route_name == "app_users_new" %} class="mm-active" {% elseif route_name == "app_users_edit" %} class="mm-active" {% elseif route_name == "app_users_show" %} class="mm-active" {% elseif route_name == "app_gestion_calendrier" %} class="mm-active" {% else %} class=" " {% endif %}>
+								<a href="#">
+									<i class="metismenu-icon pe-7s-config"></i>
+									Administration
+									<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+								</a>
+								<ul>
+									<li><a href="{{path('app_classes_index')}}"{% if route_name == "app_classes_index" %} class="mm-active"{% elseif route_name == "app_classes_new" %} class="mm-active"{% elseif route_name == "app_classes_edit" %} class="mm-active"{% elseif route_name == "app_classes_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des classes<i class="metismenu-state-icon "></i></a></li>
+
+									<li><a href="{{path('app_blocs_index')}}"{% if route_name == "app_blocs_index" %} class="mm-active"{% elseif route_name == "app_blocs_new" %} class="mm-active"{% elseif route_name == "app_blocs_edit" %} class="mm-active"{% elseif route_name == "app_blocs_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des blocs<i class="metismenu-state-icon "></i></a></li>
+
+									<li><a href="{{path('app_modules_index')}}"{% if route_name == "app_modules_index" %} class="mm-active"{% elseif route_name == "app_modules_new" %} class="mm-active"{% elseif route_name == "app_modules_edit" %} class="mm-active"{% elseif route_name == "app_modules_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des modules<i class="metismenu-state-icon "></i></a></li>
+
+									<li><a href="{{path('app_intervenants_index')}}"{% if route_name == "app_intervenants_index" %} class="mm-active"{% elseif route_name == "app_intervenants_new" %} class="mm-active"{% elseif route_name == "app_intervenants_edit" %} class="mm-active"{% elseif route_name == "app_intervenants_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des intervenants<i class="metismenu-state-icon "></i></a></li>
+
+									<li><a href="{{path('app_etudiants_index')}}"{% if route_name == "app_etudiants_index" %} class="mm-active"{% elseif route_name == "app_etudiants_new" %} class="mm-active"{% elseif route_name == "app_etudiants_edit" %} class="mm-active"{% elseif route_name == "app_etudiants_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des apprenants<i class="metismenu-state-icon "></i></a></li>
+									<li><a href="{{path('app_entreprises_index')}}"{% if route_name == "app_entreprises_index" %} class="mm-active"{% elseif route_name == "app_entreprises_new" %} class="mm-active"{% elseif route_name == "app_entreprises_edit" %} class="mm-active"{% elseif route_name == "app_entreprises_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des entreprises<i class="metismenu-state-icon "></i></a></li>
+
+									<li><a href="{{path('app_tuteurs_index')}}"{% if route_name == "app_tuteurs_index" %} class="mm-active"{% elseif route_name == "app_tuteurs_new" %} class="mm-active"{% elseif route_name == "app_tuteurs_edit" %} class="mm-active"{% elseif route_name == "app_tuteurs_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des tuteurs<i class="metismenu-state-icon "></i></a></li>
+
+
+									<li><a href="{{path('app_gestion_calendrier')}}"{% if route_name == "app_gestion_calendrier" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Calendrier<i class="metismenu-state-icon "></i></a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">
+									<i class="metismenu-icon pe-7s-settings"></i>
+									Paramètres des rôles
+									<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+								</a>
+								<ul>
+									<li><a href="#"><i class="metismenu-icon pe-7s-display2"></i>Liste des rôles<i class="metismenu-state-icon "></i></a></li>
+									<li><a href="#"><i class="metismenu-icon pe-7s-display2"></i>Actions des rôles<i class="metismenu-state-icon "></i></a></li>
+
+								</ul>
+							</li>
+						{% endif %}
+
+						{% else %}
+
+					{% endif %}
+					{% if is_granted('ROLE_ETUDIANT', 'ROLE_ADMIN')  %}
+
+
+						<li>
+							<a href="{{path('app_calendrier_etudiant')}}">
+								<i class="metismenu-icon pe-7s-display2"></i>Mon calendrier<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="{{path('app_absences_apprenants')}}">
+								<i class="metismenu-icon pe-7s-display2"></i>Mes absences<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="{{path('app_supportcours')}}">
+								<i class="metismenu-icon pe-7s-notebook"></i>Supports et cours
+							</a>
+						</li>
+						<li>
+							<a href="{{path('app_progressions_aprenant')}}">
+								<i class="metismenu-icon lnr-pie-chart"></i>Progression et résultat
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Mon parcours pro<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+
+
+						{% else %}
+
+					{% endif %}
+
+					{% if is_granted('ROLE_INTERVENANT', 'ROLE_ADMIN')  %}
+
+
+						<li>
+							<a href="{{path('app_calendrier_etudiant')}}">
+								<i class="metismenu-icon pe-7s-display2"></i>Mon calendrier<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+
+						<li>
+							<a href="{{path('app_intervenant_aprenant')}}">
+								<i class="metismenu-icon pe-7s-display2"></i>Mes apprenants<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="{{path('app_notes_index')}}">
+								<i class="metismenu-icon pe-7s-display2"></i>Gérer les notes
+								<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+
+						<li>
+							<a href="{{path('app_telechargements_index')}}">
+								<i class="metismenu-icon pe-7s-notebook"></i>Supports et cours
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Mon parcours pro<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+
+
+						{% else %}
+
+					{% endif %}
+
+					{% if is_granted('ROLE_TUTEUR', 'ROLE_ADMIN')  %}
+
+
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Nos apprenants<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Absences & assiduité<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Progressions & resultats<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+
+						{% else %}
+
+					{% endif %}
+
+
+				</div>
+			</div>
+		</div>
+
+
+	{% endblock %}

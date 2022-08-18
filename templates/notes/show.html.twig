@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block body %}
+    <h1>Notes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ note.id }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ note.note }}</td>
+            </tr>
+            <tr>
+                <th>Coefmodule</th>
+                <td>{{ note.coefmodule }}</td>
+            </tr>
+            <tr>
+                <th>Coefbloc</th>
+                <td>{{ note.coefbloc }}</td>
+            </tr>
+            <tr>
+                <th>Moy</th>
+                <td>{{ note.moy }}</td>
+            </tr>
+            <tr>
+                <th>Moygeneral</th>
+                <td>{{ note.moygeneral }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_notes_index') }}">back to list</a>
+
+    <a href="{{ path('app_notes_edit', {'id': note.id}) }}">edit</a>
+
+    {{ include('notes/_delete_form.html.twig') }}
+{% endblock %}

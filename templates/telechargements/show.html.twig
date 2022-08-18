@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Telechargements
+{% endblock %}
+
+{% block body %}
+	<h1>Telechargements</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ telechargement.id }}</td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td>{{ telechargement.name }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ telechargement.nom }}</td>
+			</tr>
+			<tr>
+				<th>CreatedAt</th>
+				<td>{{ telechargement.createdAt ? telechargement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_telechargements_index') }}">back to list</a>
+
+	<a href="{{ path('app_telechargements_edit', {'id': telechargement.id}) }}">edit</a>
+
+	{{ include('telechargements/_delete_form.html.twig') }}
+
+{% endblock %}

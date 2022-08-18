@@ -1,0 +1,36 @@
+.app-header.header-text-light .app-header__logo .logo-src {
+  background: url(assets/logoWhite.svg) !important;
+}
+.app-header__logo .logo-src {
+  height: 50px;
+  width: 160px;
+}
+
+.paginate_button.current {
+  background: #3f6ad8;
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+.checkbox {
+  margin-left: 5px;
+}
+label[for="users_isVerified"] {
+  display: none;
+}
+#users_isVerified {
+  display: none;
+}
+.chat-layout.app-inner-layout .app-inner-layout__sidebar {
+  width: 360px;
+  flex: 0 0 275px;
+}
+a {
+  color: #434344 !important;
+}
+
+.pe-7s-info:before
+{
+  display : none;
+}

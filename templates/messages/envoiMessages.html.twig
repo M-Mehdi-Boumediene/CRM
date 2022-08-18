@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+ {{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+      
+        <div class="app-main">
+         
+                 {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+   <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-diamond icon-gradient bg-strong-bliss"></i>
+                                </div>
+                                <div>Messagerie
+                                    <div class="page-title-subheading">Découvrez tous vos messages</div>
+                                </div>
+                            </div>
+                               <div class="page-title-actions">
+                        
+                                <div class="d-inline-block dropdown">
+                                 <a href="{{ path('app_envoi_messages') }}">
+                                <button  class="btn-shadow btn btn-info">
+                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                        <i class="fa fa-plus fa-w-20"></i>
+                                    </span>
+                                    Nouveau message
+                                </button>
+                               </a>
+                            </div>
+                        </div>
+                    </div>
+               
+                <br>
+                     
+                   <div class="app-main__inner p-0">
+                        <div class="app-inner-layout chat-layout">
+                      
+                        <div class="app-inner-layout__wrapper">
+                        <div class="app-inner-layout__content card">
+                          <div>
+                            <div class="app-inner-layout__top-pane">
+                              <div class="pane-left">
+                                <div class="mobile-app-menu-btn">
+                                  <button type="button" class="hamburger hamburger--elastic">
+                                    <span class="hamburger-box">
+                                      <span class="hamburger-inner"></span>
+                                    </span>
+                                  </button>
+                                </div>
+                                <h4 class="mb-0">Nouveau message</h4>
+                            
+                              </div>
+                             
+                            </div>
+                            <div class="bg-white" style="padding: 25px;margin-top: -10px;">
+                                   {{ form_start(form) }}
+  
+                <div class="row" >
+                    <div class="col-md-6">
+                    {{ form_row(form.objet,{'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.objet) }}
+                    </div>
+            
+                    <div class="col-md-4">
+                    {{ form_row(form.recipient,{'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.recipient) }}
+                    </div>
+                
+
+                </div>
+                <br>
+                <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.message,{'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.message) }}
+                        </div>
+                </div>
+            <br>
+                <button class="mt-1 btn btn-primary">{{ button_label|default('Envoyer') }}</button> ou <a href="{{ path('app_messages') }}">Retour à la liste</a>
+            
+            {{ form_end(form) }}
+                              
+                            </div>
+                          </div>
+                        </div>
+                      <div class="app-inner-layout__sidebar card">
+                          <ul class="nav flex-column">
+                        <br>
+                            
+                              <li class="nav-item">
+                                  <a href="{{ path('app_messages') }}" class="nav-link">
+                                      <i class="nav-link-icon pe-7s-chat"> </i>
+                                      <span>Boîte de réception</span>
+                                      <div class="ml-auto badge badge-pill badge-info">8</div>
+                                  </a>
+                              </li>
+                              <li class="nav-item">
+                                  <a href="javascript:void(0);" class="nav-link">
+                                      <i class="nav-link-icon pe-7s-wallet"> </i>
+                                      <span>Éléments envoyés</span>
+                                  
+                                  </a>
+                              </li>
+                          
+                              <li class="nav-item-divider nav-item"></li>
+                              <li class="nav-item">
+                                  <a href="javascript:void(0);" class="nav-link">
+                                      <i class="nav-link-icon pe-7s-box2"> </i>
+                                      <span>Corbeille</span>
+                                  </a>
+                              </li>
+                              <li class="nav-item-divider nav-item"></li>
+                              <li class="nav-item-header nav-item">Amis en-ligne</li>
+                              <li class="text-center p-2 nav-item">
+                                  <div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-primary badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/1.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-focus badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/2.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-warning badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/3.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-danger badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/4.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-info badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/5.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-success badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/6.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-secondary badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/7.jpg" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="avatar-icon-wrapper">
+                                          <div class="badge badge-warning badge-dot badge-dot-lg"></div>
+                                          <div class="avatar-icon">
+                                              <img src="assets/images/avatars/8.jpg" alt="">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </li>
+                              <li class="nav-item-btn text-center nav-item">
+                                  <button class="btn-wide btn-pill btn btn-success btn-sm">Démarrer une conversation</button>
+                              </li>
+                          
+                            
+                          </ul>
+                      </div>
+                      </div>
+                        </div>
+
+                     
+                    </div>
+                </div>
+               {{ block("Footer", "Menus/Footer.html.twig") }}
+            </div>
+
+         </div>
+{% endblock %}

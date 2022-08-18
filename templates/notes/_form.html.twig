@@ -1,0 +1,48 @@
+{{ form_start(form) }}
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.intervenant,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.intervenant) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.module) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.apprenant,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.apprenant) }}
+	</div>
+
+
+</div>
+<br>
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.note,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.note) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.coefmodule,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.coefmodule) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.coefbloc,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.coefbloc) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.moy,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.moy) }}
+	</div>
+
+
+</div>
+<br>
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.moygeneral,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.moygeneral) }}
+	</div>
+</div>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

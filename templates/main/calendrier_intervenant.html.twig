@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+		#calendrier {
+			width: 100%;
+			margin: 0;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div class="page-title-icon">
+								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+							</div>
+							<div>Calendrier
+								<div class="page-title-subheading">Gestion du calendrier</div>
+							</div>
+						</div>
+						<div class="page-title-actions">
+							{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+
+								<div class="d-inline-block dropdown">
+									<a href="{{path('app_calendrier_new')}}">
+										<button class="btn-shadow btn btn-success">
+											<span class="btn-icon-wrapper pr-2 opacity-7">
+												<i class="fa fa-plus fa-w-20"></i>
+											</span>
+											Ajouter un évènement
+										</button>
+									</a>
+								</div>
+
+								{% else %}
+
+
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+
+				<div class="tabs-animation">
+					<div class="main-card mb-3 card">
+						<div class="card-body">
+							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+								<div class="row">
+									<div id='calendrier'></div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}
+	{% block javascripts %}
+
+		<script>
+
+			window.onload = () => {
+let calendarElt = document.querySelector("#calendrier")
+let calendar = new FullCalendar.Calendar(calendarElt, {
+
+initialView: 'timeGridWeek',
+locale: 'fr',
+headerToolbar: {
+start: 'prev,next today',
+center: 'title',
+end: 'dayGridMonth,timeGridWeek',
+
+startTime: '10:00', // a start time (10am in this example)
+endTime: '18:00', // an end time (6pm in this example)
+
+},
+
+validRange: function (nowDate) {
+return {start: '2022-04-24', end: '2022-06-26'};
+},
+
+businessHours: [
+{ // specify an array instead
+daysOfWeek: [
+1, 2, 3, 4
+], // Monday, Tuesday, Wednesday
+startTime: '08:00', // 8am
+endTime: '18:00' // 6pm
+}, {
+daysOfWeek: [5], // Thursday, Friday
+startTime: '10:00', // 10am
+endTime: '17:00' // 4pm
+}
+],
+events: {{ data|raw() }}
+
+})
+
+calendar.render()
+}
+		</script>
+	{% endblock %}

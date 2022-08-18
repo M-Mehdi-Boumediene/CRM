@@ -1,0 +1,211 @@
+{{ form_start(form) }}
+<style></style>
+<div class="form-row">
+	<div class="col-md-2">
+		{{ form_row(form.titre,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.titre) }}
+	</div>
+	<div class="col-md-3">
+
+		{{ form_row(form.date,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.date) }}
+	</div>
+
+	<div class="col-md-3">
+		{{ form_label(form.heurdebut,'Heure debut ') }}
+		{{ form_row(form.heurdebut,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.heurdebut) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_label(form.duree,'Durée ') }}
+		{{ form_row(form.duree,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.duree) }}
+	</div>
+</div>
+<br>
+<div class="form-row">
+
+	<div class="col-md-3">
+		{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.classe) }}
+	</div>
+
+	<div class="col-md-3">
+		{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.module) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.intervenant,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.intervenant) }}
+	</div>
+</div>
+
+<br>
+<div class="form-row">
+	<div class="col-md-6">
+		{{ form_row(form.description,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.description) }}
+	</div>
+</div>
+<br>
+
+<div class="form-row">
+	<div class="col-md-6" style="display:none;">
+		{{ form_row(form.background_color,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.background_color) }}
+		{{ form_row(form.border_color,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.border_color) }}
+		{{ form_row(form.text_color,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.text_color) }}
+
+
+	</div>
+	<div style="display:none;">
+		{{ form_row(form.start,{'attr': {'class': 'form-control start'}}) }}
+
+		{{ form_row(form.end,{'attr': {'class': 'form-control end'}}) }}
+	</div>
+</div>
+<br>
+<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+ou
+<a href="{{ path('app_etudiants_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js" integrity="sha512-3z5bMAV+N1OaSH+65z+E0YCCEzU8fycphTBaOWkvunH9EtfahAlcJqAVN2evyg0m7ipaACKoVk6S9H2mEewJWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	var $sport = $('#calendrier_classe');
+// When sport gets selected ...
+$sport.change(function () { // ... retrieve the corresponding form.
+if (window.location.pathname == "/calendrier/new") {
+var $form = $(this).closest('form');
+// Simulate form data, but only include the selected sport value.
+var data = {}
+data[$sport.attr('name')] = $sport.val();
+// Submit data via AJAX to the form's action path.
+$.ajax({
+url: $form.attr('action'),
+type: $form.attr('method'),
+data: data,
+complete: function (html) { // Replace current position field ...
+$('#calendrier_module').replaceWith(
+// ... with the returned one from the AJAX response.
+$(html.responseText).find('#calendrier_module')
+);
+// Position field now displays the appropriate positions.
+$('#calendrier_module').select2();
+}
+});
+} else {
+var $form = $(this).closest('form');
+// Simulate form data, but only include the selected sport value.
+var data = $form.serializeArray()
+// Submit data via AJAX to the form's action path.
+$.ajax({
+url: $form.attr('action'),
+type: $form.attr('method'),
+data: data,
+complete: function (html) { // Replace current position field ...
+$('#calendrier_module').replaceWith(
+// ... with the returned one from the AJAX response.
+$(html.responseText).find('#calendrier_module')
+);
+$('#calendrier_module').select2();
+// Position field now displays the appropriate positions.
+}
+});
+}
+});
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+$('#calendrier_classe').select2();
+$('#calendrier_module').select2();
+$('#calendrier_intervenant').select2();
+});
+</script>
+
+<script>
+	$(document).ready(function () {
+$("#calendrier_date").change(function () {
+var date = $('#calendrier_date').val();
+var heuredebut = $('#calendrier_heurdebut').val();
+var datestart = date + 'T' + heuredebut + ":00"
+$('#calendrier_start').val(datestart);
+console.log(datestart)
+var duree = $('#calendrier_duree').val();
+var heuredebut = $('#calendrier_heurdebut').val();
+var datefin = date + 'T' + duree
+var a = Number(duree.split(":")[0]);
+var b = Number(heuredebut.split(":")[0]);
+var c = Number(duree.split(":")[1]);
+var d = Number(heuredebut.split(":")[1]);
+var total = a + b;
+var total2 = c + d;
+console.log(a + b)
+var datefin2 = date + 'T' + total + ':' + total2
+$('#calendrier_end').val(datefin2)
+});
+$("#calendrier_heurdebut").change(function () {
+var date = $('#calendrier_date').val();
+var heuredebut = $('#calendrier_heurdebut').val() + ':00';
+var datestart = date + 'T' + heuredebut
+$('#calendrier_start').val(datestart);
+console.log(date + 'T' + heuredebut)
+var duree = $('#calendrier_duree').val();
+var heuredebut = $('#calendrier_heurdebut').val() + ':00';
+var datefin = date + 'T' + duree + ':00'
+var a = Number(duree.split(":")[0]);
+var b = Number(heuredebut.split(":")[0]);
+var c = Number(duree.split(":")[1]);
+var d = Number(heuredebut.split(":")[1]);
+var total = a + b;
+var total2 = c + d;
+if (total2 < 10) {
+var totall = '0' + total2
+} else {
+var totall = total2
+}
+if (total < 10) {
+var total1 = '0' + total
+} else {
+var total1 = total
+}
+console.log(a + b)
+var datefin2 = date + 'T' + total1 + ':' + totall
+$('#calendrier_end').val(datefin2)
+});
+$("#calendrier_duree").change(function () {
+var date = $('#calendrier_date').val();
+var duree = $('#calendrier_duree').val();
+var heuredebut = $('#calendrier_heurdebut').val();
+var datefin = date + 'T' + duree + ':00'
+var a = Number(duree.split(":")[0]);
+var b = Number(heuredebut.split(":")[0]);
+var c = Number(duree.split(":")[1]);
+var d = Number(heuredebut.split(":")[1]);
+var total = a + b;
+var total2 = c + d;
+if (total2 < 10) {
+var totall = '0' + total2
+} else {
+var totall = total2
+}
+if (total < 10) {
+var total1 = '0' + total
+} else {
+var total1 = total
+}
+console.log(totall)
+var datefin2 = date + 'T' + total1 + ':' + totall
+$('#calendrier_end').val(datefin2)
+});
+});
+</script>

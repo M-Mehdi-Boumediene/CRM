@@ -1,0 +1,34 @@
+{{ form_start(form) }}
+
+<div class="form-row">
+
+	<div class="col-md-3">
+		{{ form_row(form.type,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.type) }}<br>
+
+
+	</div>
+	<div class="col-md-3">
+		{{ form_row(form.nom,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.nom) }}<br>
+
+
+	</div>
+
+	<div class="col-md-3">
+		{{ form_row(form.files,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.files) }}
+
+
+	</div>
+
+
+</div>
+
+
+<br>
+<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+ou
+<a href="{{ path('app_telechargements_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}

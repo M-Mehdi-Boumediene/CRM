@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New event
+{% endblock %}
+
+{% block body %}
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div class="page-title-icon">
+								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+							</div>
+							<div>Ajouter un nouvel événement
+								<div class="page-title-subheading">
+									Créez votre nouvel événement</div>
+							</div>
+						</div>
+						<div class="page-title-actions">
+
+							<div class="d-inline-block dropdown">
+								<a href="{{path('app_gestion_calendrier')}}">
+									<button class="mb-2 mr-2 btn btn-shadow btn-outline-2x btn-outline-secondary">
+										<span class="btn-icon-wrapper pr-2 opacity-7">
+											<i class="fa fa-arrow-circle-left fa-w-20"></i>
+										</span>
+										Retour à la liste
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tabs-animation">
+					<div class="main-card mb-3 card">
+						<div class="card-body">
+
+							<div class="row">
+								<div class="col-sm-12">
+
+									{{ include('calendrier/_form.html.twig') }}
+
+
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Progressions & Resultats
+{% endblock %}
+
+{% block body %}
+
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div class="page-title-icon">
+								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+							</div>
+							<div>Progressions & resultats
+								<div class="page-title-subheading">Informations</div>
+							</div>
+						</div>
+						<div class="page-title-actions">
+							{% if is_granted('ROLE_INTERVENANT', 'ROLE_ADMIN')  %}{% endif %}
+
+						</div>
+					</div>
+				</div>
+
+				<div class="tabs-animation">
+					<div class="row">
+
+						<div class="col-md-12">
+							<div class="main-card mb-3 card">
+								<div class="card-body">
+									<h5 class="card-title">Evaluation</h5>
+
+									<style type="text/css">
+										.tg {
+											border-collapse: collapse;
+											border-spacing: 0;
+										}
+										.tg td {
+											border-color: black;
+											border-style: solid;
+											border-width: 1px;
+											font-family: Arial, sans-serif;
+											font-size: 14px;
+											overflow: hidden;
+											padding: 10px 5px;
+											word-break: normal;
+										}
+										.tg th {
+											border-color: black;
+											border-style: solid;
+											border-width: 1px;
+											font-family: Arial, sans-serif;
+											font-size: 14px;
+											font-weight: normal;
+											overflow: hidden;
+											padding: 10px 5px;
+											word-break: normal;
+										}
+										.tg .tg-lk5k {
+											border-color: inherit;
+											color: #7030A0;
+											font-weight: bold;
+											text-align: center;
+											vertical-align: top
+										}
+										.tg .tg-fmsm {
+											border-color: inherit;
+											color: #C45911;
+											font-weight: bold;
+											text-align: left;
+											vertical-align: top
+										}
+										.tg .tg-kg9c {
+											background-color: #D9D9D9;
+											border-color: inherit;
+											text-align: left;
+											vertical-align: top
+										}
+										.tg .tg-c3ow {
+											border-color: inherit;
+											text-align: center;
+											vertical-align: top
+										}
+										.tg .tg-nbj5 {
+											background-color: #FFF;
+											border-color: inherit;
+											text-align: center;
+											vertical-align: top
+										}
+										.tg .tg-0pky {
+											border-color: inherit;
+											text-align: left;
+											vertical-align: top
+										}
+										.tg .tg-hhm8 {
+											border-color: inherit;
+											color: #C00000;
+											font-weight: bold;
+											text-align: center;
+											vertical-align: top
+										}
+										.tg {
+											border-collapse: collapse;
+											border-spacing: 0;
+											width: 100%;
+										}
+									</style>
+									<table class="tg">
+										<thead>
+											<tr>
+												<th class="tg-fmsm">Dimensionnement&nbsp;&nbsp;&nbsp;et affectation du matériel</th>
+												<th class="tg-lk5k" colspan="4">Niveau 1 : Débutant</th>
+												<th class="tg-lk5k" colspan="4">Niveau : 2 Exploitant</th>
+												<th class="tg-lk5k" colspan="4">Niveau : 3 Expert</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="tg-0pky">Objectif : être capable d’affecter un matériel<br>
+													à une tournée donnée en tenant compte des
+													<br>contraintes liées aux caractéristiques des<br>marchandises, des demandes du  client,
+													<br>et des ressources matérielles.</td>
+												<td class="tg-hhm8">MI</td>
+												<td class="tg-hhm8">MF</td>
+												<td class="tg-hhm8">BM</td>
+												<td class="tg-hhm8">TBM</td>
+												<td class="tg-hhm8">MI</td>
+												<td class="tg-hhm8">MF</td>
+												<td class="tg-hhm8">BM</td>
+												<td class="tg-hhm8">TBM</td>
+												<td class="tg-hhm8">MI</td>
+												<td class="tg-hhm8">MF</td>
+												<td class="tg-hhm8">BM</td>
+												<td class="tg-hhm8">TBM</td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Schématiser   une situation</td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-nbj5"></td>
+												<td class="tg-nbj5"></td>
+												<td class="tg-nbj5">x</td>
+												<td class="tg-nbj5"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Mise   en situation 1</td>
+												<td class="tg-0pky"></td>
+												<td class="tg-c3ow">x</td>
+												<td class="tg-0pky"></td>
+												<td class="tg-0pky"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Mise   en situation 2</td>
+												<td class="tg-0pky"></td>
+												<td class="tg-c3ow">x</td>
+												<td class="tg-0pky"></td>
+												<td class="tg-0pky"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Mise   en situation 4</td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Mise   en situation 3 – Réflexion Aller et retour</td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Mise   en situation 5 – Activités liées au Vrac</td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+											<tr>
+												<td class="tg-0pky">· Mise   en situation 6 – activités liées à la Citerne</td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-c3ow"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+												<td class="tg-kg9c"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}

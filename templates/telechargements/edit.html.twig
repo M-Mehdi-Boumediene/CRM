@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Telechargements
+{% endblock %}
+
+{% block body %}
+	<h1>Edit Telechargements</h1>
+
+	{{ include('telechargements/_form.html.twig', {'button_label': 'Update'}) }}
+
+	<a href="{{ path('app_telechargements_index') }}">back to list</a>
+
+	{{ include('telechargements/_delete_form.html.twig') }}
+
+
+{% endblock %}

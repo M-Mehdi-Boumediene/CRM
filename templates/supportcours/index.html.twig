@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Support et cours
+{% endblock %}
+
+{% block body %}
+	<style>
+		.accordion {
+			background-color: #eee;
+			color: #444;
+			cursor: pointer;
+			padding: 18px;
+			width: 100%;
+			border: none;
+			text-align: left;
+			outline: none;
+			font-size: 15px;
+			transition: 0.4s;
+		}
+		.active,
+		.accordion:hover {
+			background-color: #ccc;
+		}
+		.panel {
+			padding: 0 18px;
+			display: none;
+			background-color: white;
+			overflow: hidden;
+		}
+		.accordion {
+			margin: 10px;
+		}
+		.bloc {
+			background-color: #274c8d;
+			color: white;
+		}
+		.bloc:hover {
+			background-color: #274c8d;
+			color: white;
+		}
+		.module {
+			background-color: #4f70ad;
+			color: white;
+		}
+		.module:hover {
+			background-color: #4f70ad;
+			color: white;
+		}
+		.chapitre {
+			background-color: #7587a7;
+			color: white;
+		}
+		.chapitre:hover {
+			background-color: #7587a7;
+			color: white;
+		}
+	</style>
+
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div class="page-title-icon">
+								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+							</div>
+							<div>Support et cours
+
+							</div>
+						</div>
+						<div class="page-title-actions">
+
+							<div class="d-inline-block dropdown">
+								<a href="{{ path('app_telechargements_new') }}">
+									<button class="btn-shadow btn btn-success">
+										<span class="btn-icon-wrapper pr-2 opacity-7">
+											<i class="fa fa-plus fa-w-20"></i>
+										</span>
+										Ajouter des fichiers
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tabs-animation">
+					<div class="main-card mb-3 card">
+						<div class="card-body">
+
+							{% for etudiant in etudiants %}
+
+								{% for bloc in etudiant.classes.blocs %}
+									<button class="accordion bloc">{{bloc.nom}}</button>
+									<div class="panel">
+										{% for module in bloc.modules %}
+											<a href="{{path('app_supportcours_show',{id:module.id })}}">
+												<button class="accordion module">{{module.nom}}</button>
+											</a>
+										{% endfor %}
+									</div>
+								{% endfor %}
+
+							{% endfor %}
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+		<script>
+			var acc = document.getElementsByClassName("accordion");
+var i;
+for (i = 0; i < acc.length; i++) {
+acc[i].addEventListener("click", function () {
+this.classList.toggle("active");
+var panel = this.nextElementSibling;
+if (panel.style.display === "block") {
+panel.style.display = "none";
+} else {
+panel.style.display = "block";
+}
+});
+}
+		</script>
+	{% endblock %}

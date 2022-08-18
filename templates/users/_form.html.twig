@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+<style>
+	.hidden {
+		display: none;
+	}
+	#users_roles_0-ts-label {
+		display: none;
+	}
+</style>
+<div class="form-row">
+	<div class="col-md-6">
+		{{ form_row(form.email,{'attr': {'class': 'form-control' }}) }}
+		{{ form_errors(form.email) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_row(form.password,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.password) }}
+	</div>
+
+</div>
+<br>
+<br>
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.roles,{'attr': {'class': ''}}) }}
+		{{ form_errors(form.roles) }}
+	</div>
+
+	<div class="col-md-3 hidden">
+
+		{{ form_row(form.isVerified,{'attr': {'class': 'checkbox'}}) }}
+		{{ form_errors(form.isVerified) }}
+	</div>
+
+
+</div>
+
+<br>
+<button class="mt-1 btn btn-success">{{ button_label|default('sauvegarder') }}</button>
+ou
+<a href="{{ path('app_users_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}
+
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/css/tom-select.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
+
+<script>
+	var settings = {};
+new TomSelect('#users_roles_0', settings);
+</script>
