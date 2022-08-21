@@ -28,6 +28,29 @@
 				color: #444;
 				line-height: 35px !important;
 			}
+			.select2-container--default .select2-selection--single .select2-selection__rendered {
+				color: #747272 !important;
+
+			}
+			.bg-night-sky {
+				background-image: linear-gradient(0deg,#101f3a 0,#0b1a34 1%,#0b172c) !important;
+			}
+			.app-theme-white.fixed-header .app-header__logo {
+				background: rgb(11 26 51);
+			}
+			.select2-container--default {
+				width: 180px !important;
+			}
+			.col-md-2 {
+				flex: 0 0 18.66667%;
+				max-width: 18.66667%;
+			}
+			a {
+				background-color: transparent;
+				color: #424242;
+				text-decoration: none;
+			}
+			.dataTables_length label { display:none;}
 		</style>
 
 
@@ -36,10 +59,11 @@
 		<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar"> {% block body %}{% endblock %}
 
 
-			<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js" integrity="sha256-PL1mKrYeZkM5SsJ5nydN6463HLkV918bgDdYL0I5Z+k=" crossorigin="anonymous"></script>
 			{# <script type="text/javascript" src="{{asset('assets/scripts/main.d810cf0ae7f39f28f336.js')}}"></script> #}
 			{% block javascripts %}
-				{{ encore_entry_script_tags('main') }}
+
+				<script type="text/javascript" src="{{asset('assets/scripts/main.js')}}"></script>
+
 			{% endblock %}
 
 

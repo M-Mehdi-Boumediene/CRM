@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Documents;
 use App\Entity\Modules;
 use App\Form\ModulesType;
+use App\Form\FiltreType;
 use App\Repository\UsersRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\IntervenantsRepository;
@@ -22,10 +23,17 @@ class ModulesController extends AbstractController
     /**
      * @Route("/", name="app_modules_index", methods={"GET"})
      */
-    public function index(ModulesRepository $modulesRepository): Response
+    public function index(Request $request,ModulesRepository $modulesRepository): Response
     {
-        return $this->render('modules/index.html.twig', [
+        $form = $this->createForm(FiltreType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+   
+            return $this->redirectToRoute('app_modules_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('modules/index.html.twig', [
             'modules' => $modulesRepository->findAll(),
+            'form' => $form,
         ]);
     }
     /**

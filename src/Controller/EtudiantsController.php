@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Etudiants;
 use App\Entity\Tuteurs;
 use App\Form\EtudiantsType;
+use App\Form\FiltreType;
 use App\Repository\EtudiantsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,12 +35,18 @@ class EtudiantsController extends AbstractController
     /**
      * @Route("/", name="app_etudiants_index", methods={"GET"})
      */
-    public function index(EtudiantsRepository $etudiantsRepository): Response
+    public function index(Request $request,EtudiantsRepository $etudiantsRepository): Response
     {
-        
+        $form = $this->createForm(FiltreType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+   
+            return $this->redirectToRoute('app_blocs_index', [], Response::HTTP_SEE_OTHER);
+        }
           
-            return $this->render('etudiants/index.html.twig', [
+            return $this->renderForm('etudiants/index.html.twig', [
             'etudiants' => $etudiantsRepository->findAll(),
+            'form' => $form,
          
         ]);
     }

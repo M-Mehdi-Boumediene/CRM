@@ -6,6 +6,7 @@ use App\Entity\Intervenants;
 use App\Entity\Users;
 use App\Form\UsersType;
 use App\Form\IntervenantsType;
+use App\Form\FiltreType;
 use App\Repository\IntervenantsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\UsersRepository;
@@ -30,11 +31,17 @@ class IntervenantsController extends AbstractController
     /**
      * @Route("/", name="app_intervenants_index", methods={"GET"})
      */
-    public function index(IntervenantsRepository $intervenantRepository): Response
+    public function index(Request $request,IntervenantsRepository $intervenantRepository): Response
     {
-     
-        return $this->render('intervenants/index.html.twig', [
+        $form = $this->createForm(FiltreType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+   
+            return $this->redirectToRoute('app_intervenants_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('intervenants/index.html.twig', [
             'intervenants' => $intervenantRepository->findAll(),
+            'form' => $form,
         ]);
     }
 

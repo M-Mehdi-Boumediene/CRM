@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Blocs;
 use App\Entity\Classes;
 use App\Form\BlocsType;
+use App\Form\FiltreType;
 use App\Repository\BlocsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\ClassesRepository;
@@ -19,13 +20,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BlocsController extends AbstractController
 {
     /**
-     * @Route("/", name="app_blocs_index", methods={"GET"})
+     * @Route("/", name="app_blocs_index", methods={"GET", "POST"})
      */
-    public function index(BlocsRepository $blocsRepository): Response
+    public function index(Request $request, BlocsRepository $blocsRepository): Response
     {
-        
-        return $this->render('blocs/index.html.twig', [
+        $form = $this->createForm(FiltreType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+   
+            return $this->redirectToRoute('app_blocs_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('blocs/index.html.twig', [
             'blocs' => $blocsRepository->findAll(),
+            'form' => $form,
         ]);
     }
 

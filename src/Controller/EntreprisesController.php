@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Entreprises;
 use App\Form\EntreprisesType;
+use App\Form\FiltreType;
 use App\Repository\EntreprisesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class EntreprisesController extends AbstractController
 {
     /**
-     * @Route("/", name="app_entreprises_index", methods={"GET"})
+     * @Route("/", name="app_entreprises_index", methods={"GET", "POST"})
      */
-    public function index(EntreprisesRepository $entreprisesRepository): Response
+    public function index(Request $request, EntreprisesRepository $entreprisesRepository): Response
     {
-        return $this->render('entreprises/index.html.twig', [
+        $form = $this->createForm(FiltreType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+   
+            return $this->redirectToRoute('app_entreprises_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('entreprises/index.html.twig', [
             'entreprises' => $entreprisesRepository->findAll(),
+            'form' => $form,
         ]);
     }
 
