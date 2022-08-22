@@ -56,6 +56,16 @@ class Blocs
      */
     private $calendriers;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coefficient;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="bloc")
+     */
+    private $notes;
+
 
     public function __toString() {
         return $this->nom;
@@ -64,6 +74,7 @@ class Blocs
     {
         $this->modules = new ArrayCollection();
         $this->calendriers = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,6 +196,48 @@ class Blocs
             // set the owning side to null (unless already changed)
             if ($calendrier->getBloc() === $this) {
                 $calendrier->setBloc(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCoefficient(): ?string
+    {
+        return $this->coefficient;
+    }
+
+    public function setCoefficient(?string $coefficient): self
+    {
+        $this->coefficient = $coefficient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notes>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Notes $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setBloc($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Notes $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getBloc() === $this) {
+                $note->setBloc(null);
             }
         }
 

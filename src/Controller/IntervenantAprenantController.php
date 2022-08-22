@@ -18,14 +18,15 @@ class IntervenantAprenantController extends AbstractController
         $intervenant = $user->getIntervenants();
 
         foreach ($intervenant as $inter){
-          $classe =  $inter->getClasses();
+          $classe =  $inter->getClasses()->getId();
         }
 
-       
 
-        return $this->render('intervenant_aprenant/index.html.twig', [
-            'controller_name' => 'IntervenantAprenantController',
-            'classes' => $classesRepository->findByIntervenantEtudiant($classe),
+
+        return $this->renderForm('intervenant_aprenant/index.html.twig', [
+      
+            'classes' => $classesRepository->findByIntervenantEtudiant(1),
         ]);
+    
     }
 }

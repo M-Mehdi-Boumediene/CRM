@@ -5,9 +5,15 @@ namespace App\Controller;
 use App\Entity\Notes;
 use App\Form\NotesType;
 use App\Repository\NotesRepository;
+use App\Repository\IntervenantsRepository;
+use App\Repository\EtudiantsRepository;
+use App\Repository\ModulesRepository;
+use App\Repository\BlocsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -44,6 +50,80 @@ class NotesController extends AbstractController
             'note' => $note,
             'form' => $form,
         ]);
+    }
+
+    
+    /**
+     * @Route("/gestion", name="app_notes_gestion", methods={"GET", "POST"})
+     */
+    public function gestionnotes(Request $request, NotesRepository $notesRepository,intervenantsRepository $intervenantsRepository,etudiantsRepository $etudiantsRepository): Response
+    {
+        $note = new Notes();
+        $form = $this->createForm(NotesType::class, $note);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+        $class= $this->getUser()->getClasse();
+        $intervenant = $user->getIntervenants();
+
+        foreach ($intervenant as $inter){
+          $classe =  $inter->getClasses();
+        }
+
+
+        $etudiant = $etudiantsRepository->findByClasse(1);
+       
+        return $this->renderForm('notes/gestion.html.twig', [
+            'etudiants' => $etudiant,
+            'note' => $note,
+            'form' => $form,
+        ]);
+    }
+
+
+ /**
+     * @Route("/calendrier_absences", name="user_notes", methods={"GET", "POST"})
+     */
+    public function userNotes( EntityManagerInterface $em, IntervenantsRepository $intervenantsRepository, EtudiantsRepository $etudiantsRepository, ModulesRepository $modulesRepository, BlocsRepository $blocsRepository, Request $request): Response
+    {
+        $date = date('Y-m-d H:i:s');
+        $note = $request->query->get('note');
+        $etud = $request->query->get('user');
+        $type =  $request->query->get('type');
+        $lemodule =  $request->query->get('module');
+
+        $user = $this->getUser();
+        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$user));
+        $intervenant = $intervenantsRepository->findOneBy(array('user'=>$user));
+        $ap= $intervenant;
+        
+
+        $apprenant = $request->query->get('user');
+        $mod = $request->query->get('module');
+        $bloc = $request->query->get('blocid');
+        $module = $modulesRepository->findOneBy(array('nom'=>$mod));
+        $blocid = $blocsRepository->findOneBy(array('nom'=>$bloc));
+
+        $module_id = $module->getId();
+
+        /* calculer la moyene */
+        $coefficient = $module->getCoefficient();
+
+        $moyenne = ($note * $coefficient) / $coefficient;
+  
+    $sql = "INSERT INTO `notes` (`id`,`note`, `moduleid`, `etudiantid`, `intervenantid`, `type`, `moyenne`, `module_id`, `blocid`) VALUES (null,'$note','$lemodule','$etud','$ap','$type','$moyenne','$module_id','$blocid')";
+    $stmt = $em->getConnection()->prepare($sql);
+ 
+    $result = $stmt->execute();
+
+        // returns an array of Product objects  
+        $response = new JsonResponse();
+        $response->setContent(json_encode($note));
+        $response->headers->set('Content-Type','application/json');
+
+        return $response->setData(array('note'=>$note,'user'=>$user));
+
+    
+  
     }
 
     /**

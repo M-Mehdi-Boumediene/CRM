@@ -33,8 +33,11 @@ class CalendrierType extends AbstractType
         $builder
         ->add('titre',ChoiceType::class, [
             'choices' => [
-                'COUR' => 'COUR',
+                'COURS' => 'COURS',
                 'EXAMEN' => 'EXAMEN',
+                'ATELIER' => 'ATELIER',
+                'CONFÉRENCE' => 'CONFÉRENCE',
+                'DIVERS' => 'DIVERS',
                 
             ],
             'expanded' => false,
@@ -99,16 +102,7 @@ class CalendrierType extends AbstractType
                 'required' => true,
             ])
 
-            ->add('module', EntityType::class, [
-                'class' => Modules::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'choice_label' => 'nom',
-                'multiple'=>false,
-                'required' => true,
-            ])
+
 
             ->add('intervenant', EntityType::class, [
                 'class' => Intervenants::class,

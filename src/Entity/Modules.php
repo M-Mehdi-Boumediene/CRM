@@ -81,6 +81,16 @@ class Modules
      */
     private $files;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coefficient;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="module")
+     */
+    private $notes;
+
  
 
 
@@ -98,6 +108,7 @@ class Modules
         $this->documents = new ArrayCollection();
         $this->calendriers = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->notes = new ArrayCollection();
 
         
     }
@@ -347,6 +358,48 @@ class Modules
             // set the owning side to null (unless already changed)
             if ($file->getModule() === $this) {
                 $file->setModule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCoefficient(): ?string
+    {
+        return $this->coefficient;
+    }
+
+    public function setCoefficient(?string $coefficient): self
+    {
+        $this->coefficient = $coefficient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notes>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Notes $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Notes $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getModule() === $this) {
+                $note->setModule(null);
             }
         }
 

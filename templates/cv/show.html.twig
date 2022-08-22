@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cv
+{% endblock %}
+
+{% block body %}
+	<h1>Cv</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ cv.id }}</td>
+			</tr>
+			<tr>
+				<th>Type</th>
+				<td>{{ cv.type }}</td>
+			</tr>
+			<tr>
+				<th>Debut</th>
+				<td>{{ cv.debut ? cv.debut|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Fin</th>
+				<td>{{ cv.fin ? cv.fin|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Titre</th>
+				<td>{{ cv.titre }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ cv.description }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_cv_index') }}">back to list</a>
+
+	<a href="{{ path('app_cv_edit', {'id': cv.id}) }}">edit</a>
+
+	{{ include('cv/_delete_form.html.twig') }}
+{% endblock %}

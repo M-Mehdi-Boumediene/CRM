@@ -1,0 +1,105 @@
+{% block modalcv %}
+
+
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;margin-top: -16px;    margin-left: -16px; background-color: #f8f9fa!important;     padding: 0.6rem 1rem;">
+
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item active">
+									<a class="nav-link informations" href="#">Ajouter Expérience
+									</a>
+								</li>
+
+							</ul>
+
+						</div>
+					</nav>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					{{ form_start(form) }}
+
+					<div class="form-row">
+						<div class="col-md-6">
+							{{ form_row(form.debut,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.debut) }}
+						</div>
+						<div class="col-md-6">
+							{{ form_row(form.fin,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.fin) }}
+						</div>
+					</div>
+					<br>
+					<div class="form-row">
+						<div class="col-md-6 titre">
+							{{ form_row(form.titre,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.titre) }}
+						</div>
+						<div class="col-md-6 entreprise">
+							{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.entreprise) }}
+						</div>
+						<div class="col-md-6 formation">
+							{{ form_row(form.formation,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.formation) }}
+						</div>
+						<div class="col-md-6 formation">
+							{{ form_row(form.ecole,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.ecole) }}
+						</div>
+					</div>
+
+					<br>
+					<div class="form-row">
+						<div class="col-md-12">
+							{{ form_row(form.description|raw,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.description) }}
+						</div>
+						<div style="display:none;">
+							{{ form_row(form.type,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.type) }}
+						</div>
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn mr-2 mb-2 btn-success">Sauvegarder</button>
+
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+	<script>
+		$(".lancer").click(function () {
+$('#cv_type').val('Expérience')
+$('.formation').hide();
+$('.ecole').hide();
+$('.titre').show();
+$('.entreprise').show();
+});
+$(".lancer2").click(function () {
+$('#cv_type').val('Formation')
+$('.titre').hide();
+$('.entreprise').hide();
+$('.formation').show();
+$('.ecole').show();
+});
+	</script>
+
+{% endblock %}

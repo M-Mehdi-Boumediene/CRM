@@ -64,10 +64,7 @@ class Classes
      */
     private $calendrier;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="classe")
-     */
-    private $users;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Absences::class, mappedBy="classe")
@@ -78,6 +75,16 @@ class Classes
      * @ORM\OneToMany(targetEntity=Telechargements::class, mappedBy="classe")
      */
     private $telechargements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="classe")
+     */
+    private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="classes")
+     */
+    private $notes;
 
 
     public function __toString() {
@@ -91,9 +98,11 @@ class Classes
         $this->intervenants = new ArrayCollection();
         $this->modules = new ArrayCollection();
         $this->calendriers = new ArrayCollection();
-        $this->users = new ArrayCollection();
+   
         $this->absences = new ArrayCollection();
         $this->telechargements = new ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -291,32 +300,7 @@ class Classes
         return $this;
     }
 
-    /**
-     * @return Collection<int, Users>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(Users $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(Users $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeClasse($this);
-        }
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Absences>
@@ -372,6 +356,66 @@ class Classes
             // set the owning side to null (unless already changed)
             if ($telechargement->getClasse() === $this) {
                 $telechargement->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(Users $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getClasse() === $this) {
+                $user->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notes>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Notes $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setClasses($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Notes $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getClasses() === $this) {
+                $note->setClasses(null);
             }
         }
 

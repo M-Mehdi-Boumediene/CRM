@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CV
+{% endblock %}
+
+{% block body %}
+
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+		<style>
+			.vertical-time-simple {
+				padding: 0.5rem 0;
+				margin-left: -90px;
+				margin-top: -6px;
+			}
+			.timeline-title {
+				font-weight: bold !important;
+			}
+		</style>
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div class="page-title-icon">
+								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+							</div>
+							<div>Parcours professionnel
+								<div class="page-title-subheading">Votre CV</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="tabs-animation">
+					<div class="main-card mb-3 card">
+						<div class="card-header">
+							<i class="fa fa-user"></i>
+							&ensp;&ensp;Informations</div>
+						<div class="card-body">
+							<div class="col-md-8 col-sm-12">
+								<ul class="list-unstyled social-contacts-v2">
+									<li>
+										<i class="fa fa-user"></i>
+										<strong>Nom :
+										</strong>
+										{{intervenant.nom}}
+										{{intervenant.prenom}}
+									</li>
+									<hr>
+									<li>
+										<i class="fa fa-envelope"></i>
+										<strong>E-mail :
+										</strong>
+										{{intervenant.email}}
+									</li>
+									<hr>
+									<li>
+										<i class="fa fa-phone"></i>
+										<strong>Téléphone :
+										</strong>
+
+										{{intervenant.telephone}}
+									</li>
+									<hr>
+									<li>
+										<i class="fa fa-map-marker"></i>
+										<strong>Adresse :
+										</strong>
+										{{intervenant.adresse}}
+									</li>
+
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="main-card mb-3 card">
+						<div class="card-header">
+							<i class="fa fa-briefcase"></i>&ensp;  Expériences</div>
+						<div class="card-body">
+							{% for experience in experiences %}
+								<div class="row">
+									<div class="col-md-3">
+										{{experience.debut|date("m/d/Y")}}
+										-
+										{{experience.fin|date("m/d/Y")}}
+									</div>
+									<div class="col-md-8">
+										<div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+
+											<div class="vertical-timeline-item dot-success vertical-timeline-element">
+												<div>
+													<span class="vertical-timeline-element-icon bounce-in"></span>
+													<div class="vertical-timeline-element-content bounce-in">
+														<h4 class="timeline-title">{{experience.titre}}
+															à
+															{{experience.entreprise}}
+
+														</h4>
+														{{experience.description|nl2br}}
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+							<br><br>
+							<button type="button" class="btn mr-2 mb-2 btn-primary lancer" data-toggle="modal" data-target=".bd-example-modal-lg">Ajouter</button>
+
+						</div>
+					</div>
+
+					<div class="main-card mb-3 card">
+						<div class="card-header">
+							<i class="fa fa-graduation-cap"></i>&ensp; Formations</div>
+						<div class="card-body">
+
+							{% for formation in formations %}
+								<div class="row">
+									<div class="col-md-3">
+										{{formation.debut|date("m/d/Y")}}
+										-
+										{{formation.fin|date("m/d/Y")}}
+									</div>
+									<div class="col-md-8">
+										<div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+
+											<div class="vertical-timeline-item dot-success vertical-timeline-element">
+												<div>
+													<span class="vertical-timeline-element-icon bounce-in"></span>
+													<div class="vertical-timeline-element-content bounce-in">
+														<h4 class="timeline-title">{{formation.formation}}
+															à
+															{{formation.ecole}}
+
+														</h4>
+														{{formation.description|nl2br}}
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+							<button type="button" class="btn mr-2 mb-2 btn-primary lancer2" data-toggle="modal" data-target=".bd-example-modal-lg">Ajouter</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}
+	{% block modalcv %}
+
+		{{ block("modalcv", "Menus/modalcv.html.twig") }}
+
+	{% endblock %}
