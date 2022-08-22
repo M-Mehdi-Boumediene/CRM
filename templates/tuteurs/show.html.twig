@@ -3,6 +3,9 @@
 {% block title %}Tuteurs{% endblock %}
 
 {% block body %}
+
+    <link href="{{ asset('assets/css/theme2.css')}}" rel="stylesheet" type="text/css" media="all" />
+
   {{ block("MenuTop", "Menus/MenuTop.html.twig") }}
    <div class="app-main">
     {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
@@ -14,7 +17,7 @@
                                 <div class="page-title-icon">
                                     <i class="lnr-users icon-gradient bg-strong-bliss"></i>
                                 </div>
-                                <div> {{ tuteur.nom }} {{ tuteur.prenom }} 
+                                <div> 
                                     <div class="page-title-subheading" style="opacity: 1;">
                                  
                                      Créée Le {{ tuteur.createdAt ? tuteur.createdAt|date('Y-m-d H:i') : '' }} Par {{ tuteur.createdBy }}
@@ -48,12 +51,44 @@
                         </div>
                         </div>
                     </div>
-               
-           <div class="tabs-animation"> 
-           <div class="row">
-            <div class="col-md-6">
-    <div class="main-card mb-3 card">
-        <div class="card-header">Informations</div>
+
+
+<div class="tabs-animation"> 
+<div class="row">
+ 
+    <div class="container">       
+
+<div class="col-lg-11 col-xl-10">
+                <div class="media">
+                  <img alt="Image" src="{{ asset('assets/images/1.jpg')}}" class="avatar avatar-lg mt-1">
+                  <div class="media-body ml-3">
+                    <h4 class="mb-0">Tuteur</h4>
+                    <p class="lead">La Personne chargée d'une tutelle</p>
+                  </div>
+                </div>
+
+              <ul class="nav nav-tabs nav-fill" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#teams" role="tab" aria-controls="teams" aria-selected="true">Informations</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Apprenants</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="false">Progression & Resultats</a>
+                </li>
+              </ul>
+
+
+<div class="tab-content">
+                <div class="tab-pane fade active show" id="teams" role="tabpanel" data-filter-list="content-list-body">
+                  <div class="row content-list-head">
+                    <div class="col-auto">
+                     <h4> Informations</h4>
+                    </div>    <div class="container">
+                        <div class="main-card mb-3 card">
+      
+    
         <div class="card-body">
             <p><b>Nom :</b> {{tuteur.nom}}</p>
             <p><b>Prenom :</b> {{tuteur.prenom}}</p>
@@ -63,14 +98,20 @@
        
         </div>
     
-    </div>
-    
-</div>
-               
-                <div class="col-md-6">
-                    <div class="main-card mb-3 card">
+    </div></div>
+                  </div>
+                </div>
+                  <!--end of content-list-body-->
+
+              <div class="tab-pane fade" id="projects" role="tabpanel" data-filter-list="content-list-body">
+                  <div class="content-list">
+                    <div class="row content-list-head">
+                      <div class="col-auto">
+                      <h4> Apprenants</h4>
+                      </div>
+                      <div class="container">
+              <div class="main-card mb-3 card">
                         <div class="card-body">
-                            <h5 class="card-title">Apprenants</h5>
                                 <ul class="list-group list-group-flush">
                          {% for etudiant in etudiants %} 
                             <a href="{{path('app_etudiants_show',{id:etudiant.id})}}" class="list-group-item"> {{ etudiant.nom}} </a>
@@ -79,19 +120,42 @@
                                 </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="main-card mb-3 card">
+                    </div>
+                  </div>   </div>
+                  <!--end of content list-->
+            </div>
+
+            <div class="tab-pane fade" id="tasks" role="tabpanel" data-filter-list="content-list-body">
+                  <div class="row content-list-head">
+                    <div class="col-auto">
+                     <h4> Progression et résultat</h4>
+                    </div>
+                    
+                    <div class="container">
+
+                      <div class="main-card mb-3 card">
                         <div class="card-body">
-                            <h5 class="card-title">Progression et résultat</h5>
                             <ul class="list-group list-group-flush">
                          
                             
                             </ul>
                         </div>
                     </div>
+                    </div> </div>
+                   </div>
+                <!--end of tab-->
+
                 </div>
-            </div>
-            </div>
+              </div>
+         
+</div>
+</div>
+</div>
+</div>     
+             
+          
+    </div>
+ 
+ </div>
     {{ block("Footer", "Menus/Footer.html.twig") }}
 {% endblock %}
