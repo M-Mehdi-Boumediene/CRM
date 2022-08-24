@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Intervenants{% endblock %}
+{% block title %}Entreprises{% endblock %}
 
 {% block body %}
-    <link href="{{ asset('assets/css/theme2.css')}}" rel="stylesheet" type="text/css" media="all" />
 
 
   {{ block("MenuTop", "Menus/MenuTop.html.twig") }}
@@ -11,22 +10,32 @@
     {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
     <div class="app-main__outer">
                 <div class="app-main__inner">
-                    <div class="app-page-title">
-                        <div class="page-title-wrapper">
-                            <div class="page-title-heading">
-                                <div class="page-title-icon">
-                                    <i class="lnr-users icon-gradient bg-strong-bliss"></i>
-                                </div>
-                                <div>
-                                    <div class="page-title-subheading" style="opacity: 1;">
-                                 
-                                     Créée Le {{ entreprise.createdAt ? entreprise.createdAt|date('Y-m-d H:i') : '' }} Par {{ entreprise.createdBy }}
-                                    </div>
-                                </div>
-                            </div>
-                           <div class="page-title-actions">
-                        
-                            <div class="d-inline-block dropdown">
+                
+            
+
+			
+	<div class="tabs-animation">
+		<div class="row">
+
+		<div class="card mb-3">
+			<div class="card-header position-relative min-vh-25 mb-7">
+		    <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url({{ asset('../../assets/images/blue.jpg')}});"></div>
+							<!--/.bg-holder-->
+			<div class="avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('../../assets/images/entre.png')}}" width="200" alt=""></div>
+			</div>
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+											
+						<div>
+						<h4 class="mb-1"> {{ entreprise.nom }} <span data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Verified"><svg class="svg-inline--fa fa-check-circle fa-w-16 text-primary" data-fa-transform="shrink-4 down-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="check-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" style="transform-origin: 0.5em 0.625em;"><g transform="translate(256 256)"><g transform="translate(0, 64)  scale(0.75, 0.75)  rotate(0 0 0)"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z" transform="translate(-256 -256)"></path></g></g></svg><!-- <small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small> Font Awesome fontawesome.com --></span></h4>
+						<h5 class="fs-0 fw-normal">Ingénieur Logiciels a Technext Limited</h5>
+						<p class="text-500">Paris, France</p>
+						</div>
+	</div>
+	<div class="page-title-actions">
+
+		<div class="d-inline-block dropdown">
                             <a href="{{ path('app_entreprises_index') }}">
                                <button  class="mb-2 mr-2 btn btn-shadow btn-outline-2x btn-outline-secondary">
                                     <span class="btn-icon-wrapper pr-2 opacity-7">
@@ -47,121 +56,115 @@
                                 
                                 {{ include('entreprises/_delete_form.html.twig') }}
 
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-               
-
-
-
-
-
-
-<div class="tabs-animation"> 
-<div class="row">
- 
-    <div class="container">       
-
-<div class="col-lg-11 col-xl-10">
-                <div class="media">
-                  <img alt="Image" src="{{ asset('assets/images/entre.png')}}" class="avatar avatar-lg mt-1">
-                  <div class="media-body ml-3">
-                    <h4 class="mb-0">Entreprise</h4>
-                    <p class="lead">L'organisation institutionnelle qui apporte des Apprenants</p>
-                  </div>
-                </div>
-
-              <ul class="nav nav-tabs nav-fill" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#teams" role="tab" aria-controls="teams" aria-selected="true">Informations</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Tuteurs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="false">Etudiants</a>
-                </li>
-              </ul>
-
-
-<div class="tab-content">
-                <div class="tab-pane fade active show" id="teams" role="tabpanel" data-filter-list="content-list-body">
-                  <div class="row content-list-head">
-                    <div class="col-auto">
-                     <h4> Informations</h4>
-                    </div>    <div class="container">
-                        <div class="main-card mb-3 card">
-      
-    
-        <div class="card-body">
-  
-       <p><b>Raison sociale :</b> {{entreprise.nom}}</p>
-                    <p><b>Siret :</b> {{entreprise.siret}}</p>
-                    <p><b>Adresse :</b> {{ entreprise.adresse }}</p>
-                    <p><b>Téléphone :</b> {{entreprise.telephone}}</p>
-                    <p><b>Email :</b> {{entreprise.email}}</p>
         </div>
-    
-    </div></div>
-                  </div>
-                </div>
-                  <!--end of content-list-body-->
 
-              <div class="tab-pane fade" id="projects" role="tabpanel" data-filter-list="content-list-body">
-                  <div class="content-list">
-                    <div class="row content-list-head">
-                      <div class="col-auto">
-                      <h4> Tuteurs</h4>
-                      </div>
-                      <div class="container">
-              <div class="main-card mb-3 card">
-                        <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                      
-                            {% for tuteur in entreprise.tuteurs %}
-                               <a href="{{path('app_tuteurs_show',{id:tuteur.id})}}"> {{tuteur.nom}} {{tuteur.prenom}} </a>
-                            {% endfor %}
-                                </ul>
-                        </div>
-                    </div>
-                    </div>
-                  </div>   </div>
-                  <!--end of content list-->
-            </div>
 
-            <div class="tab-pane fade" id="tasks" role="tabpanel" data-filter-list="content-list-body">
-                  <div class="row content-list-head">
-                    <div class="col-auto">
-                     <h4> Etudiants</h4>
-                    </div>
-                    
-                    <div class="container">
+	</div>					
+	</div>	
+</div>
+								
+	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+				<li class="nav-item">
+				<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+									<span>Informations</span>
+									</a>
+									</li>
+									<li class="nav-item">
+									<a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+									<span>Tuteurs</span>
+									</a>
+									</li>
+										<li class="nav-item">
+									<a role="tab" class="nav-link" id="tab-3" data-toggle="tab" href="#tab-content-3">
+									<span>Apprenants</span>
+									</a>
+									</li>
+									
 
-                      <div class="main-card mb-3 card">
-                        <div class="card-body">
+								</ul>
+
+
+
+
+				<div class="tab-content">
+					<div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+					<div class="row">
+						<div class="col-md-12">
+						<div class="main-card mb-3 card">
+						<div class="card-body">
+							<h5 class="card-title">Informations </h5>
+
+								<div class="card-body">
+                                    <p><b>Raison sociale :</b> {{entreprise.nom}}</p>
+                                    <p><b>Siret :</b> {{entreprise.siret}}</p>
+                                    <p><b>Adresse :</b> {{ entreprise.adresse }}</p>
+                                    <p><b>Téléphone :</b> {{entreprise.telephone}}</p>
+                                    <p><b>Email :</b> {{entreprise.email}}</p>
+								</div>
+
+						</div>
+						</div>
+						</div>
+	
+					</div>
+					</div>
+
+
+
+				<div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+		 <div class="row">
+			<div class="col-md-12">
+				<div class="main-card mb-3 card">
+				<div class="card-body">
+				<h5 class="card-title">Tuteurs</h5>
+
+						<div class="card-body">
+										
                             <ul class="list-group list-group-flush">
-                         
+                               {% for tuteur in entreprise.tuteurs %}
+                                   <a href="{{path('app_tuteurs_show',{id:tuteur.id})}}"> {{tuteur.nom}} {{tuteur.prenom}} </a>
+                                 {% endfor %}
                             
                             </ul>
-                        </div>
-                    </div>
-                    </div> </div>
-                   </div>
-                <!--end of tab-->
+	
+						</div>
 
-                </div>
-              </div>
-         
+				</div>
+
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<div class="tab-pane tabs-animation fade" id="tab-content-3" role="tabpanel">
+		 <div class="row">
+			<div class="col-md-12">
+				<div class="main-card mb-3 card">
+				<div class="card-body">
+				<h5 class="card-title">Apprenants</h5>
+
+						<div class="card-body">
+
+
+						</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+			
+</div>
+	</div>
+		</div>
+			</div>
+				</div> 
+				
+</div>
+</div>
+
 </div>
 </div>
 </div>
-
-
-
-
-
-</div></div></div>
       
       
     {{ block("Footer", "Menus/Footer.html.twig") }}
