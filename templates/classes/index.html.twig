@@ -5,13 +5,17 @@
 
 {% block body %}
 
-	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
-	<div class="app-main">
-		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
+    <script src="{{ asset('assets/script/script.js')}}"></script>
+
+
+		{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
 		<div class="app-main__outer">
 			<div class="app-main__inner">
+
 				<div class="app-page-title">
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
@@ -22,8 +26,13 @@
 								<div class="page-title-subheading">Liste des classes</div>
 							</div>
 						</div>
-						<div class="page-title-actions">
+				<div class="page-title-actions">
 
+					<div class="d-inline-block dropdown show">
+		
+
+
+					</div>
 							<div class="d-inline-block dropdown">
 								<a href="{{ path('app_classes_new') }}">
 									<button class="btn-shadow btn btn-primary">
@@ -41,6 +50,16 @@
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">
+				<select>
+					<option>Choisissez la couleur</option>
+					<option value="filtre">Filtre</option>
+					<option value="red">Rouge</option>
+					<option value="green">Vert</option>
+  				</select>
+						{{ form_start(form) }}
+	
+				<div id="filtre">	
+ 					 		<div>				
 							<div style="
 																																		padding-bottom:5px;
 																																		text-align:left;
@@ -52,39 +71,63 @@
 									Filtrer par :
 								</b>
 							</div>
-							{{ form_start(form) }}
-							<div class="row">
+							<div class="row" id="content">
 
-								<div class="col-md-2">
+						<div class="col-md-2">
 									{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form.classe) }}
-								</div>
-								<div class="col-md-2">
+						</div>
+						<div class="col-md-2">
 									{{ form_row(form.apprenant,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form.apprenant) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.intervenants,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.intervenants) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.bloc,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.bloc) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.module) }}
-								</div>
+						</div>
 
-								<button class="mb-2 mr-2 btn btn-gradient-primary" style="    margin-top: 3px;
-																																																																																    margin-left: 14px;">
-									<i class="fa fa-fw" aria-hidden="true" title="Copy to use filter"></i>
-									{{ button_label|default('') }}</button>
+						<div class="col-md-2">
+							{{ form_row(form.intervenants,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.intervenants) }}
+						</div>
 
+						<div class="col-md-2">
+							{{ form_row(form.bloc,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.bloc) }}
+						</div>
 
-							</div>
+						<div class="col-md-2">
+							{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form.module) }}
+						</div>
+								
+  						<button class="mb-2 mr-2 btn btn-gradient-primary" style="    margin-top: 3px;																																																																								    margin-left: 14px;">
+							<i class="fa fa-fw" aria-hidden="true" title="Copy to use filter"></i>
+								{{ button_label|default('') }}
+						</button>
+				<div class="app-header-left">
+					<div class="search-wrapper">
+					<div class="input-holder">
+					<input type="text" class="search-input" placeholder="Rechercher">
+						<button class="search-icon"><span></span></button>
+					</div>
+				<button class="close"></button>
+				</div>
+			</div>
+					</div>
+				</div>
+			</div>
+             
+	               {{ form_end(form) }}
 
-							{{ form_end(form) }}
+				   <button id="show" onclick="show();">
+Filtre
+				   </button>
+				<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+					<li class="nav-item">
+					<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+					<span>Filtres</span>
+					</a>
+					</li>
+				</ul>		
+						
+						
 							<br><br>
 							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
@@ -93,17 +136,13 @@
 										<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
 											<thead>
 												<tr role="row">
-
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Date de création</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Créé par</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
-
-
 												</tr>
 											</thead>
 											<tbody>
-
 												{% for class in classes %}
 													<tr role="row" class="odd">
 
@@ -144,7 +183,6 @@
 												{% endfor %}
 
 											</tbody>
-
 										</table>
 										<nav class="" aria-label="Page navigation example">
 											<ul class="pagination" style="float:right;">
@@ -179,13 +217,9 @@
 										</nav>
 									</div>
 								</div>
-
-
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 
@@ -197,6 +231,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+	
 
 	<script>
 

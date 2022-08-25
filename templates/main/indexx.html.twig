@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classes
+{% endblock %}
+
+{% block body %}
+
+
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+
+
+<div id='content'>Hello World</div>
+<input type='button' id='hideshow' value='hide/show'>
+
+
+
+</div>
+</div>
+</div>
+	<script>
+			jQuery(document).ready(function(){
+    jQuery('#hideshow').on('click', function(event) {        
+        jQuery('#content').toggle('show');
+    });
+});
+	</script>
+
+
+  {% endblock %}  
