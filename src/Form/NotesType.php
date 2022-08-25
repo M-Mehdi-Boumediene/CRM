@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class NotesType extends AbstractType
 {
     private $em;
@@ -30,7 +30,19 @@ class NotesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-         
+        ->add('type', ChoiceType::class, [
+            'choices' => [
+                'Devoir' => 'Devoir',
+                'Examen' => 'Examen',
+           
+                
+            ],
+            'expanded' => false,
+            'multiple' => false,
+            'required' => true,
+           
+            'label' => false 
+        ])
             ->add('moduleid', EntityType::class, [
                 'class' => Modules::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -38,7 +50,7 @@ class NotesType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
-              
+                'label'=>false,
             ])
             ->add('classes', EntityType::class, [
                 'class' => Classes::class,
@@ -46,14 +58,16 @@ class NotesType extends AbstractType
                 'choice_label' => 'nom',
                 'empty_data'=>'',
                 'required'=>false,
+                'label'=>false,
          
             ])
             ->add('blocid', EntityType::class, [
                 'class' => Blocs::class,
-            
+                'label'=>false,
                 'choice_label' => 'nom',
                 'empty_data'=>'',
                 'required'=>false,
+              
          
             ])
       
@@ -97,7 +111,7 @@ class NotesType extends AbstractType
                     'class' => Blocs::class,
                     'choice_label' => 'nom',
                     'choices' => $form->getData()->getBlocs(),
-        
+                    'label'=>false,
                     'required'=>true
                     
                 ]);
@@ -112,9 +126,10 @@ class NotesType extends AbstractType
 
                 $form ->getParent()->add('moduleid', EntityType::class, [
                     'class' => Modules::class,
+                    'label'=>false,
                     'choice_label' => 'nom',
                     'choices' => $form->getData()->getModules(),
-        
+                    'label'=>false,
                     'required'=>true
                     
                 ]);
@@ -134,7 +149,9 @@ class NotesType extends AbstractType
 
                     $form->add('blocid', EntityType::class, [
                         'class' => Blocs::class,
+
                         'choice_label' => 'nom',
+                        'label'=>false,
                         'attr' => ['class' => 'bloc'],
                         'choices' => $blocs->getClasses()->getBlocs(),
                         'required'=>true
@@ -147,6 +164,7 @@ class NotesType extends AbstractType
                     $form->add('blocid', EntityType::class, [
                         'class' => Blocs::class,
                         'choice_label' => 'nom',
+                        'label'=>false,
                         'attr' => ['class' => 'bloc'],
                         'choices' => [],
                         'required'=>true
@@ -175,7 +193,8 @@ class NotesType extends AbstractType
                         'choice_label' => 'nom',
                         'attr' => ['class' => 'module'],
                         'choices' => $module->getBloc()->getModule(),
-                        'required'=>true
+                        'required'=>true,
+                        'label'=>false,
                         
                     ]);
                     
@@ -187,7 +206,8 @@ class NotesType extends AbstractType
                         'choice_label' => 'nom',
                         'attr' => ['class' => 'bloc'],
                         'choices' => [],
-                        'required'=>true
+                        'required'=>true,
+                        'label'=>false,
                         
                     ]);
 

@@ -20,7 +20,7 @@ class CvApprenantController extends AbstractController
         $user = $this->getUser();
         $role = $this->getUser()->getRoles();
 
-        $intervenant = $intervenantsRepository->findOneBy(array('user'=>$user));
+        $intervenant = $intervenantsRepository->findOneBy(array('email'=>$user->getEmail()));
         $experience = $cvRepository->findBy(array('intervenant'=>$intervenant,'type'=>'Expérience'));
         $formation = $cvRepository->findBy(array('intervenant'=>$intervenant,'type'=>'Formation'));
 

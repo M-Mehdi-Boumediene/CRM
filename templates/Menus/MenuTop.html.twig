@@ -2,7 +2,7 @@
 	<div class="app-header header-shadow bg-night-sky header-text-light">
 		<div class="app-header__logo">
 			<h3 style="    color: white;
-								    font-weight: bold;font-size:26px;">NEW CRM</h3>
+												    font-weight: bold;font-size:20px;">NEW CRM</h3>
 			<div class="header__pane ml-auto">
 				<div>
 					<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -40,9 +40,9 @@
 
 						<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
 							<div class="dropdown-menu-header mb-0">
-								<div class="dropdown-menu-header-inner bg-deep-blue">
-									<div class="menu-header-image opacity-1" style="background-image: url('assets/images/dropdown-header/city3.jpg');"></div>
-									<div class="menu-header-content text-dark">
+								<div class="dropdown-menu-header-inner bg-focus">
+									<div class="menu-header-image opacity-1" style="background-image: url('/assets/images/dropdown-header/city3.jpg');"></div>
+									<div class="menu-header-content text-white">
 										<h5 class="menu-header-title">Notifications</h5>
 										<h6 class="menu-header-subtitle">You have
 											<b>21</b>
@@ -364,9 +364,9 @@
 						</button>
 						<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
 							<div class="dropdown-menu-header mb-0">
-								<div class="dropdown-menu-header-inner bg-deep-blue">
-									<div class="menu-header-image opacity-1" style="background-image: url('assets/images/dropdown-header/city3.jpg');"></div>
-									<div class="menu-header-content text-dark">
+								<div class="dropdown-menu-header-inner bg-focus">
+									<div class="menu-header-image opacity-1" style="background-image: url('/assets/images/dropdown-header/city3.jpg');"></div>
+									<div class="menu-header-content text-white">
 										<h5 class="menu-header-title">Messages</h5>
 
 										{% if app.user.received|length >0%}
@@ -453,7 +453,7 @@
 									</a>
 									<div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
 										<div class="dropdown-menu-header">
-											<div class="dropdown-menu-header-inner bg-info">
+											<div class="dropdown-menu-header-inner bg-focus">
 												<div class="menu-header-image opacity-2" style="background-image: url('{{asset('assets/images/dropdown-header/city3.jpg')}}');"></div>
 												<div class="menu-header-content text-left">
 													<div class="widget-content p-0">
@@ -461,7 +461,7 @@
 															<div class="widget-content-left mr-3">
 																<img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/user01.png')}}" alt="">
 															</div>
-															<div class="widget-content-left">
+															<div class="widget-content-left" style="color:white;">
 																{% if is_granted('ROLE_ETUDIANT') %}
 
 																	{% if app.user.roles[0] == "ROLE_ETUDIANT" %}
@@ -584,9 +584,11 @@
 
 							</div>
 							<div class="widget-content-right header-user-info ml-3">
-								<button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-									<i class="fa text-white fa-calendar pr-1 pl-1"></i>
-								</button>
+								<a href="{{path('app_gestion_calendrier')}}">
+									<button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+										<i class="fa text-white fa-calendar pr-1 pl-1"></i>
+									</button>
+								</a>
 							</div>
 						</div>
 					</div>

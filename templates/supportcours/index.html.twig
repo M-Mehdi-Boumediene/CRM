@@ -31,7 +31,7 @@
 			margin: 10px;
 		}
 		.bloc {
-			background-color: #274c8d;
+			background-color: #0b1831;
 			color: white;
 		}
 		.bloc:hover {
@@ -39,7 +39,7 @@
 			color: white;
 		}
 		.module {
-			background-color: #4f70ad;
+			background-color: #294c8f;
 			color: white;
 		}
 		.module:hover {
@@ -67,7 +67,7 @@
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+								<i class="pe-7s-notebook icon-gradient bg-strong-bliss"></i>
 							</div>
 							<div>Support et cours
 
@@ -94,18 +94,19 @@
 						<div class="card-body">
 
 							{% for etudiant in etudiants %}
-
-								{% for bloc in etudiant.classes.blocs %}
-									<button class="accordion bloc">{{bloc.nom}}</button>
-									<div class="panel">
-										{% for module in bloc.modules %}
-											<a href="{{path('app_supportcours_show',{id:module.id })}}">
-												<button class="accordion module">{{module.nom}}</button>
-											</a>
-										{% endfor %}
-									</div>
-								{% endfor %}
-
+								<button class="accordion bloc">{{etudiant.classes.nom}}</button>
+								<div class="panel">
+									{% for bloc in etudiant.classes.blocs %}
+										<button class="accordion bloc">{{bloc.nom}}</button>
+										<div class="panel">
+											{% for module in bloc.modules %}
+												<a href="{{path('app_supportcours_show',{id:module.id })}}">
+													<button class="accordion module">{{module.nom}}</button>
+												</a>
+											{% endfor %}
+										</div>
+									{% endfor %}
+								</div>
 							{% endfor %}
 						</div>
 					</div>

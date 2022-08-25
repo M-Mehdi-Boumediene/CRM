@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 class ModulesType extends AbstractType
 {
     private $em;
@@ -34,10 +34,12 @@ public function __construct(EntityManagerInterface $entityManager)
             ->add('nom')
             ->remove('created_at')
             ->remove('created_by')
-
+            ->add('coefficient',TextType::class, [
+               
+                ])
             ->add('classes', EntityType::class, [
                 'class' => Classes::class,
-            
+                'label' => false,
                 'choice_label' => 'nom',
                 'empty_data'=>'',
                 'required'=>false,
@@ -58,6 +60,7 @@ public function __construct(EntityManagerInterface $entityManager)
                 'multiple' => true,
                 'mapped'=> false,
                 'required'=> false,
+              
         
             
             ])
@@ -93,6 +96,7 @@ public function __construct(EntityManagerInterface $entityManager)
 
                         $form->add('bloc', EntityType::class, [
                             'class' => Blocs::class,
+                            'label' => false,
                             'choice_label' => 'nom',
                             'attr' => ['class' => 'bloc'],
                             'choices' => $blocs->getClasse()->getBlocs(),
@@ -104,6 +108,7 @@ public function __construct(EntityManagerInterface $entityManager)
                         
                         $form->add('bloc', EntityType::class, [
                             'class' => Blocs::class,
+                            'label' => false,
                             'choice_label' => 'nom',
                             'attr' => ['class' => 'bloc'],
                             'choices' => [],

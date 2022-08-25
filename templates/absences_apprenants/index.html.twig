@@ -16,7 +16,7 @@
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+								<i class="pe-7s-clock icon-gradient bg-strong-bliss"></i>
 							</div>
 							<div>Absences
 								<div class="page-title-subheading">Informations</div>
@@ -54,7 +54,7 @@
 												<tr role="row">
 													<th>Etat</th>
 													<th>Date/Heur</th>
-
+													<th>Action</th>
 
 												</tr>
 											</thead>
@@ -84,7 +84,10 @@
 
 
 														</td>
+														<td>
+															Justifier L'absence
 
+														</td>
 
 													</tr>
 												{% else %}
@@ -109,24 +112,65 @@
 						<div class="col-md-6">
 							<div class="main-card mb-3 card">
 								<div class="card-body">
-									<div class="chartjs-size-monitor">
-										<div class="chartjs-size-monitor-expand">
-											<div class=""></div>
-										</div>
-										<div class="chartjs-size-monitor-shrink">
-											<div class=""></div>
-										</div>
+									<h5 class="card-title">Mes Retards</h5>
+									<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+										<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+											<thead>
+												<tr role="row">
+													<th>Etat</th>
+													<th>Date/Heur</th>
+													<th>Action</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+												{% for absence in absences %}
+													<tr>
+
+														<td>
+															{% if absence.absent == 1 %}
+																Absent
+															{% elseif absence.enretard == 1 %}
+																En retard
+																{% else %}
+
+															{% endif %}
+														</td>
+
+														<td>
+															{% if absence.absent == 1 %}
+																{{ absence.dateabsence|date('Y-m-d H:i:s') }}
+															{% elseif absence.enretard == 1 %}
+																{{ absence.dateretard|date('Y-m-d H:i:s') }}
+																{% else %}
+
+															{% endif %}
+
+
+														</td>
+														<td>
+															Justifier L'absence
+
+														</td>
+
+
+													</tr>
+												{% else %}
+													<tr>
+														<td colspan="7">no records found</td>
+													</tr>
+												{% endfor %}
+
+											</tbody>
+
+										</table>
+
+
 									</div>
-									<div class="chartjs-size-monitor">
-										<div class="chartjs-size-monitor-expand">
-											<div class=""></div>
-										</div>
-										<div class="chartjs-size-monitor-shrink">
-											<div class=""></div>
-										</div>
-									</div>
-									<h5 class="card-title">Mon assiduité</h5>
-									<canvas id="chart-area" width="450" height="225" style="display: block; width: 450px; height: 225px;" class="chartjs-render-monitor"></canvas>
+
+
 								</div>
 							</div>
 						</div>

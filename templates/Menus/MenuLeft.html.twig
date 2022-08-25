@@ -38,7 +38,7 @@
 					<li class="app-sidebar__heading"></li>
 					<li>
 						<a href="{{path('app_main')}}" {% if route_name == "app_main" %} class="mm-active" {% else %} class=" " {% endif %} aria-expanded="false">
-							<i class="metismenu-icon pe-7s-diamond"></i>Dashboard
+							<i class="metismenu-icon pe-7s-diamond"></i>Tableau de bord
 						</a>
 					</li>
 					{% if is_granted('ROLE_ADMIN') %}
@@ -93,12 +93,12 @@
 
 						<li>
 							<a href="{{path('app_calendrier_etudiant')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Mon calendrier<i class="metismenu-state-icon "></i>
+								<i class="metismenu-icon pe-7s-date"></i>Mon calendrier<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
 						<li>
 							<a href="{{path('app_absences_apprenants')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Mes absences<i class="metismenu-state-icon "></i>
+								<i class="metismenu-icon pe-7s-clock"></i>Mes absences<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
 						<li>
@@ -108,12 +108,12 @@
 						</li>
 						<li>
 							<a href="{{path('app_telechargements_index')}}">
-								<i class="metismenu-icon pe-7s-notebook"></i>Remises de devoirs
+								<i class="metismenu-icon pe-7s-paperclip"></i>Remises de devoirs
 							</a>
 						</li>
 						<li>
 							<a href="{{path('app_progressions_aprenant')}}">
-								<i class="metismenu-icon lnr-pie-chart"></i>Mes notes
+								<i class="metismenu-icon pe-7s-check"></i>Mes notes
 							</a>
 						</li>
 						<li>
@@ -132,38 +132,38 @@
 
 						<li>
 							<a href="{{path('app_calendrier_etudiant')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Mon calendrier<i class="metismenu-state-icon "></i>
+								<i class="metismenu-icon pe-7s-date"></i>Mon calendrier<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
 
 						<li>
 							<a href="{{path('app_intervenant_aprenant')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Mes apprenants<i class="metismenu-state-icon "></i>
+								<i class="metismenu-icon pe-7s-study"></i>Mes apprenants<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
-									<li>
+						<li>
 							<a href="{{path('app_absences_index')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Gérer les absences
+								<i class="metismenu-icon pe-7s-alarm"></i>Gérer les absences
 								<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
 						<li>
 							<a href="{{path('app_notes_gestion')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Gérer les notes
+								<i class="metismenu-icon pe-7s-check"></i>Gérer les notes
 								<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
 
 						<li>
 							<a href="{{path('app_modules_index')}}">
-								<i class="metismenu-icon pe-7s-display2"></i>Gérer les modules
+								<i class="metismenu-icon pe-7s-notebook"></i>Gérer les modules
 								<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
 
 						<li>
 							<a href="{{path('app_telechargements_index')}}">
-								<i class="metismenu-icon pe-7s-notebook"></i>Remises de devoirs
+								<i class="metismenu-icon pe-7s-paperclip"></i>Remises de devoirs
 							</a>
 						</li>
 

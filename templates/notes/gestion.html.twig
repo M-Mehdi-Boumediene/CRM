@@ -15,7 +15,7 @@
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+								<i class="pe-7s-check icon-gradient bg-strong-bliss"></i>
 							</div>
 							<div>Ajouter une note
 								<div class="page-title-subheading">
@@ -43,11 +43,34 @@
 						<div class="card-body">
 							{{ form_start(form) }}
 							<div class="form-row">
+
+									<div class="col-md-2">
+									<label for="pet-select">Type:</label>
+
+									<select name="type" id="type" class="type form-control">
+										<option value="Devoir">Devoir</option>
+										<option value="Examen">Examen</option>
+									</select>
+									<br>
+								</div>
+		
 								<div class="col-md-3">
 
 									{{ form_row(form.classes,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form.classes) }}
 									<br>
+
+								</div>
+									<div class="col-md-3">
+
+
+									{{ form_row(form.blocid,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.blocid) }}
+									<br>
+
+								</div>
+											<div class="col-md-3">
+
 
 								</div>
 								<div class="col-md-3">
@@ -57,47 +80,42 @@
 									<br>
 
 								</div>
-								<div class="col-md-3">
-
-
-									{{ form_row(form.blocid,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.blocid) }}
+							
+								<div class="col-md-2">
+										<label for="pet-select">coefficient:</label>
+									<input  type="number" class="coefficient form-control">
 									<br>
 
 								</div>
 
-
-								<div class="col-md-3">
-									<label for="pet-select">Type:</label>
-
-									<select name="type" id="type" class="type form-control">
-										<option value="Devoir">Devoir</option>
-										<option value="Examen">Examen</option>
-									</select>
-									<br>
-								</div>
+						
 
 							</div>
 							{{ form_end(form) }}
-
+<br>
 							<table>
 								<tr>
-									<th>Etudiant</th>
-									<th>Note /20</th>
+									<th>Apprenant</th>
+									<th>&nbsp;&nbsp;&nbsp; Note /20</th>
+									<th>&nbsp;&nbsp;&nbsp;Observation</th>
+									<th>&nbsp;&nbsp;&nbsp;Pièce jointe</th>
 
 								</tr>
 								{% for etudiant in etudiants %}
 									<tr>
 										<td>{{etudiant.nom }}
 											{{etudiant.prenom }}
-											&nbsp;&nbsp;&nbsp;</td>
-										<td><input user="{{etudiant.id }}" type="text" class="etudiant"></td>
-
+											</td>
+										<td class="col-md-2"><input user="{{etudiant.id }}" type="number" class="etudiant form-control "></td>
+										<td class="col-md-4"><input  type="textarea" class="obeservation form-control"></td>
+										<td class="col-md-4">
+									<input type="file" id="piece" name="piece" accept="image/png, image/jpeg">
+										</td>
 									</tr>
 
 								{% endfor %}
 							</table>
-
+<br>
 							<button type="button" class="btn btn-success sauvegarder">sauvegarder</button>
 
 						</div>

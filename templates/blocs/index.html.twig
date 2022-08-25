@@ -16,7 +16,7 @@
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+								<i class="pe-7s-menu icon-gradient bg-ripe-malin"></i>
 							</div>
 							<div>Blocs
 								<div class="page-title-subheading">Liste des blocs</div>
@@ -26,7 +26,7 @@
 
 							<div class="d-inline-block dropdown">
 								<a href="{{ path('app_blocs_new') }}">
-									<button class="btn-shadow btn btn-success">
+									<button class="btn-shadow btn btn-primary">
 										<span class="btn-icon-wrapper pr-2 opacity-7">
 											<i class="fa fa-plus fa-w-20"></i>
 										</span>
@@ -44,10 +44,10 @@
 							{{ form_start(form) }}
 							<div class="row">
 								<div style="
-																																																																																																														    text-align: right;
-																																																																																																														    margin-top: 8px;
-																																																																																																															    margin-left: 17px;
-																																																																																																														">
+																																																																																																																								    text-align: right;
+																																																																																																																								    margin-top: 8px;
+																																																																																																																									    margin-left: 17px;
+																																																																																																																								">
 									<b>
 										Filtrer par :
 									</b>
@@ -75,7 +75,7 @@
 
 
 								<button class="mb-2 mr-2 btn btn-gradient-primary" style="    margin-top: 3px;
-																																								    margin-left: 14px;">
+																																																		    margin-left: 14px;">
 									<i class="fa fa-fw" aria-hidden="true" title="Copy to use filter"></i>
 									{{ button_label|default('Filtrer') }}</button>
 
@@ -114,7 +114,7 @@
 															<a href="{{ path('app_classes_show', {'id': bloc.classe.id}) }}">{{ bloc.classe.nom }}</a>
 
 														</td>
-												
+
 
 														<td class="sorting_1 dtr-control">
 
@@ -133,6 +133,37 @@
 											</tbody>
 
 										</table>
+										<nav class="" aria-label="Page navigation example">
+											<ul class="pagination" style="float:right;">
+												<li class="page-item">
+													<a href="javascript:void(0);" class="page-link" aria-label="Previous">
+														<span aria-hidden="true">«</span>
+														<span class="sr-only">Previous</span>
+													</a>
+												</li>
+												<li class="page-item">
+													<a href="javascript:void(0);" class="page-link">1</a>
+												</li>
+												<li class="page-item active">
+													<a href="javascript:void(0);" class="page-link">2</a>
+												</li>
+												<li class="page-item">
+													<a href="javascript:void(0);" class="page-link">3</a>
+												</li>
+												<li class="page-item">
+													<a href="javascript:void(0);" class="page-link">4</a>
+												</li>
+												<li class="page-item">
+													<a href="javascript:void(0);" class="page-link">5</a>
+												</li>
+												<li class="page-item">
+													<a href="javascript:void(0);" class="page-link" aria-label="Next">
+														<span aria-hidden="true">»</span>
+														<span class="sr-only">Next</span>
+													</a>
+												</li>
+											</ul>
+										</nav>
 									</div>
 								</div>
 
