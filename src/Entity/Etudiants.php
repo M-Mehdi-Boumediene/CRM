@@ -91,6 +91,11 @@ class Etudiants
      */
     private $ville;
 
+    /**
+     * @ORM\OneToOne(targetEntity=TableauNotes::class, mappedBy="etudiant", cascade={"persist", "remove"})
+     */
+    private $tableauNotes;
+
 
 
    
@@ -313,6 +318,28 @@ class Etudiants
     public function setVille(?Villes $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getTableauNotes(): ?TableauNotes
+    {
+        return $this->tableauNotes;
+    }
+
+    public function setTableauNotes(?TableauNotes $tableauNotes): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($tableauNotes === null && $this->tableauNotes !== null) {
+            $this->tableauNotes->setEtudiant(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($tableauNotes !== null && $tableauNotes->getEtudiant() !== $this) {
+            $tableauNotes->setEtudiant($this);
+        }
+
+        $this->tableauNotes = $tableauNotes;
 
         return $this;
     }

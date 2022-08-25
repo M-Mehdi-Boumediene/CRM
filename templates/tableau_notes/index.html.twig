@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TableauNotes index{% endblock %}
+
+{% block body %}
+    <h1>TableauNotes index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Note1</th>
+                <th>Note2</th>
+                <th>Note3</th>
+                <th>Observation1</th>
+                <th>Observation2</th>
+                <th>Observation3</th>
+                <th>Piecepath</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tableau_note in tableau_notes %}
+            <tr>
+                <td>{{ tableau_note.id }}</td>
+                <td>{{ tableau_note.note1 }}</td>
+                <td>{{ tableau_note.note2 }}</td>
+                <td>{{ tableau_note.note3 }}</td>
+                <td>{{ tableau_note.observation1 }}</td>
+                <td>{{ tableau_note.observation2 }}</td>
+                <td>{{ tableau_note.observation3 }}</td>
+                <td>{{ tableau_note.piecepath }}</td>
+                <td>
+                    <a href="{{ path('app_tableau_notes_show', {'id': tableau_note.id}) }}">show</a>
+                    <a href="{{ path('app_tableau_notes_edit', {'id': tableau_note.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tableau_notes_new') }}">Create new</a>
+{% endblock %}

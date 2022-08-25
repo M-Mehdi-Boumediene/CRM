@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TableauNotes{% endblock %}
+
+{% block body %}
+    <h1>TableauNotes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tableau_note.id }}</td>
+            </tr>
+            <tr>
+                <th>Note1</th>
+                <td>{{ tableau_note.note1 }}</td>
+            </tr>
+            <tr>
+                <th>Note2</th>
+                <td>{{ tableau_note.note2 }}</td>
+            </tr>
+            <tr>
+                <th>Note3</th>
+                <td>{{ tableau_note.note3 }}</td>
+            </tr>
+            <tr>
+                <th>Observation1</th>
+                <td>{{ tableau_note.observation1 }}</td>
+            </tr>
+            <tr>
+                <th>Observation2</th>
+                <td>{{ tableau_note.observation2 }}</td>
+            </tr>
+            <tr>
+                <th>Observation3</th>
+                <td>{{ tableau_note.observation3 }}</td>
+            </tr>
+            <tr>
+                <th>Piecepath</th>
+                <td>{{ tableau_note.piecepath }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tableau_notes_index') }}">back to list</a>
+
+    <a href="{{ path('app_tableau_notes_edit', {'id': tableau_note.id}) }}">edit</a>
+
+    {{ include('tableau_notes/_delete_form.html.twig') }}
+{% endblock %}

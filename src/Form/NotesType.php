@@ -19,6 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 class NotesType extends AbstractType
 {
     private $em;
@@ -71,35 +72,13 @@ class NotesType extends AbstractType
          
             ])
       
-            ->remove('apprenant', EntityType::class, [
-                'class' => Etudiants::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'choice_label' => function (Etudiants $etudiant) {
-                    return $etudiant->getNom() . ' ' . $etudiant->getPrenom();
-            
-                    // or better, move this logic to Customer, and return:
-                    // return $customer->getFullname();
-                },
-               
-                ])
-           
-            ->remove('intervenant', EntityType::class, [
-                'class' => Intervenants::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'choice_label' => function (Intervenants $intervenant) {
-                    return $intervenant->getNom() . ' ' . $intervenant->getPrenom();
-            
-                    // or better, move this logic to Customer, and return:
-                    // return $customer->getFullname();
-                },
-              
+            ->add('tableau', CollectionType::class, [
+                'entry_type' => TableauNotesType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'label' => false
             ])
+
         ;
 
         $builder->get('classes')->addEventListener(

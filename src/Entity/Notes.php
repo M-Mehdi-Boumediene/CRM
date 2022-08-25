@@ -72,6 +72,16 @@ class Notes
      */
     private $classes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauNotes::class, inversedBy="notes")
+     */
+    private $tableau;
+
+    public function __construct()
+    {
+        $this->tableau = new ArrayCollection();
+    }
+
 
 
 
@@ -199,6 +209,30 @@ class Notes
     public function setClasses(?Classes $classes): self
     {
         $this->classes = $classes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauNotes>
+     */
+    public function getTableau(): Collection
+    {
+        return $this->tableau;
+    }
+
+    public function addTableau(TableauNotes $tableau): self
+    {
+        if (!$this->tableau->contains($tableau)) {
+            $this->tableau[] = $tableau;
+        }
+
+        return $this;
+    }
+
+    public function removeTableau(TableauNotes $tableau): self
+    {
+        $this->tableau->removeElement($tableau);
 
         return $this;
     }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TableauNotes{% endblock %}
+
+{% block body %}
+    <h1>Create new TableauNotes</h1>
+
+    {{ include('tableau_notes/_form.html.twig') }}
+
+    <a href="{{ path('app_tableau_notes_index') }}">back to list</a>
+{% endblock %}
