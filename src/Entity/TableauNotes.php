@@ -52,11 +52,6 @@ class TableauNotes
     private $observation3;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $piecepath;
-
-    /**
      * @ORM\OneToOne(targetEntity=Etudiants::class, inversedBy="tableauNotes", cascade={"persist", "remove"})
      */
     private $etudiant;
@@ -66,9 +61,17 @@ class TableauNotes
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="tableauNotes")
+     */
+    private $copie;
+
+
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->copie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,17 +151,7 @@ class TableauNotes
         return $this;
     }
 
-    public function getPiecepath(): ?string
-    {
-        return $this->piecepath;
-    }
-
-    public function setPiecepath(?string $piecepath): self
-    {
-        $this->piecepath = $piecepath;
-
-        return $this;
-    }
+   
 
     public function getEtudiant(): ?Etudiants
     {
@@ -194,6 +187,36 @@ class TableauNotes
     {
         if ($this->notes->removeElement($note)) {
             $note->removeTableau($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Files>
+     */
+    public function getCopie(): Collection
+    {
+        return $this->copie;
+    }
+
+    public function addCopie(Files $copie): self
+    {
+        if (!$this->copie->contains($copie)) {
+            $this->copie[] = $copie;
+            $copie->setTableauNotes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCopie(Files $copie): self
+    {
+        if ($this->copie->removeElement($copie)) {
+            // set the owning side to null (unless already changed)
+            if ($copie->getTableauNotes() === $this) {
+                $copie->setTableauNotes(null);
+            }
         }
 
         return $this;

@@ -39,6 +39,11 @@ class Files
      */
     private $telechargements;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TableauNotes::class, inversedBy="copie")
+     */
+    private $tableauNotes;
+
   
 
     public function getId(): ?int
@@ -90,6 +95,18 @@ class Files
     public function setTelechargements(?Telechargements $telechargements): self
     {
         $this->telechargements = $telechargements;
+
+        return $this;
+    }
+
+    public function getTableauNotes(): ?TableauNotes
+    {
+        return $this->tableauNotes;
+    }
+
+    public function setTableauNotes(?TableauNotes $tableauNotes): self
+    {
+        $this->tableauNotes = $tableauNotes;
 
         return $this;
     }

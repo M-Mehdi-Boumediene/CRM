@@ -38,7 +38,7 @@
 					<div class="col-md-3">Pièce jointe</div>
 						<div class="col-md-3">
 					
-				{{ form_row(tableau.etudiant,{'attr': {'class': 'form-control '}}) }}
+				{{ form_row(tableau.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
 				{{ form_errors(tableau.etudiant) }}
 						</div>
 
@@ -46,27 +46,23 @@
 						
 				{{ form_row(tableau.note1,{'attr': {'class': 'form-control '}}) }}
 				{{ form_errors(tableau.note1) }}
-				<br>
-						{{ form_row(tableau.observation1,{'attr': {'class': 'form-control '}}) }}
+				
+						</div>
+						
+					<div class="col-md-3">
+						
+				{{ form_row(tableau.observation1,{'attr': {'class': 'form-control '}}) }}
 				{{ form_errors(tableau.observation1) }}
-						</div>
-							<div class="col-md-3">
-						
-				{{ form_row(tableau.note2,{'attr': {'class': 'form-control '}}) }}
-				{{ form_errors(tableau.note2) }}
-				<br>
-						{{ form_row(tableau.observation2,{'attr': {'class': 'form-control '}}) }}
-				{{ form_errors(tableau.observation2) }}
-						</div>
-									<div class="col-md-3">
-						
-				{{ form_row(tableau.note3,{'attr': {'class': 'form-control '}}) }}
-				{{ form_errors(tableau.note3) }}
-				<br>
-						{{ form_row(tableau.observation3,{'attr': {'class': 'form-control '}}) }}
-				{{ form_errors(tableau.observation3) }}
-						</div>
 								
+				
+						</div>
+			<div class="col-md-3">
+						
+				{{ form_row(tableau.copie,{'attr': {'class': 'form-control '}}) }}
+				{{ form_errors(tableau.copie) }}
+								
+				
+						</div>
 									
 		
 			</div>
@@ -76,7 +72,7 @@
 	{% endmacro %}
 	
 			
-	<div class="tags" style="width:100%; "  data-prototype="{{ _self.tagCollectionItem(form.tableau.vars.prototype)|e }}">
+	<div class="tags" style="width:100%; " data-index="{{ form.tableau|length > 0 ? form.tableau|last.vars.name + 1 : 0 }}" data-prototype="{{ _self.tagCollectionItem(form.tableau.vars.prototype)|e('html_attr') }}">
 
 	
 							
@@ -98,6 +94,7 @@
 
 <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 <script>
 const addTagLink = document.createElement('a')
@@ -132,3 +129,34 @@ const addFormToCollection = (e) => {
 
 addTagLink.addEventListener("click", addFormToCollection)
 </script>
+
+{% for etudiant in etudiants %}
+
+
+<input class="etudiantsListe" type="text" value="{{etudiant.id}}" style="display:none;">
+
+
+{% endfor %}
+
+<script>
+$( ".etudiantsListe" ).each(function(index) {
+
+  addTagLink.click();
+
+
+});
+
+
+var counter = 1;
+$('.etudiant').each(function () {
+		$(this).val(counter)
+
+  
+    counter++;
+});
+
+
+
+
+</script>
+

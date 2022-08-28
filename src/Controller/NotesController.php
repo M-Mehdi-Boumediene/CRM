@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etudiants;
 use App\Entity\Notes;
 use App\Form\NotesType;
 use App\Repository\NotesRepository;
@@ -10,6 +11,8 @@ use App\Repository\EtudiantsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\BlocsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,21 +37,37 @@ class NotesController extends AbstractController
     /**
      * @Route("/new", name="app_notes_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, NotesRepository $notesRepository): Response
+    public function new(Request $request, NotesRepository $notesRepository, etudiantsRepository $etudiantsRepository): Response
     {
         $note = new Notes();
         $form = $this->createForm(NotesType::class, $note);
         $form->handleRequest($request);
+/*
+        if($form->get('classes')->getData()){
+            $classe = $form->get('classes')->getData();
+            $etudiant = $etudiantsRepository->findByClasse($classe);
+            return $this->renderForm('notes/new.html.twig', [
+                'note' => $note,
+                'form' => $form,
+                'etudiants' => $etudiant,
+              
+            ]);
+        }
+
+       */
 
         if ($form->isSubmitted() && $form->isValid()) {
             $notesRepository->add($note, true);
 
             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
         }
+        $etudiant = $etudiantsRepository->findByClasse(1);
 
         return $this->renderForm('notes/new.html.twig', [
             'note' => $note,
             'form' => $form,
+            'etudiants' => $etudiant,
+          
         ]);
     }
 
@@ -139,20 +158,48 @@ class NotesController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_notes_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Notes $note, NotesRepository $notesRepository): Response
+    public function edit($id,Request $request, Notes $note, NotesRepository $notesRepository, etudiantsRepository $etudiantsRepository,EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(NotesType::class, $note);
+
+        if (null === $task = $entityManager->getRepository(Notes::class)->find($id)) {
+            throw $this->createNotFoundException('No task found for id '.$id);
+        }
+        $originalTags = new ArrayCollection();
+
+        foreach ($task->getTableau() as $tag) {
+            $originalTags->add($tag);
+        }
+
+        $form = $this->createForm(NotesType::class,$task->getId());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $notesRepository->add($note, true);
+              foreach ($originalTags as $tag) {
+                if (false === $task ->getTableau()->contains($tag)) {
+                    // remove the Task from the Tag
+                    $tag->getNotes()->removeElement($task);
 
-            return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
+                    // if it was a many-to-one relationship, remove the relationship like this
+                    // $tag->setTask(null);
+
+                    $entityManager->persist($tag);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    // $entityManager->remove($tag);
+                }
+            }
+
+            $entityManager->persist($task);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_notes_edit', ['id' => $id]);
         }
-
+        $etudiant = $etudiantsRepository->findByClasse(1);
         return $this->renderForm('notes/edit.html.twig', [
             'note' => $note,
             'form' => $form,
+              'etudiants' => $etudiant,
+          
         ]);
     }
 

@@ -20,16 +20,15 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use App\Form\DataTransformer\ClassesToNumbersTransformer;
 class NotesType extends AbstractType
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->em = $entityManager;
-    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
         ->add('type', ChoiceType::class, [
             'choices' => [
@@ -55,7 +54,8 @@ class NotesType extends AbstractType
             ])
             ->add('classes', EntityType::class, [
                 'class' => Classes::class,
-            
+                'expanded' => false,
+                'multiple' => false,
                 'choice_label' => 'nom',
                 'empty_data'=>'',
                 'required'=>false,
@@ -76,133 +76,28 @@ class NotesType extends AbstractType
                 'entry_type' => TableauNotesType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'prototype' => true,
+                'prototype_name' => '__children_name__',
+                'attr' => array (
+                        'class' => "child-collection",
+                ),
+                'by_reference' => false,
                 'label' => false
+                
             ])
 
         ;
 
-        $builder->get('classes')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
+   
 
-                $form ->getParent()->add('blocid', EntityType::class, [
-                    'class' => Blocs::class,
-                    'choice_label' => 'nom',
-                    'choices' => $form->getData()->getBlocs(),
-                    'label'=>false,
-                    'required'=>true
-                    
-                ]);
-
-            }
-        );
-
-        $builder->get('blocid')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-
-                $form ->getParent()->add('moduleid', EntityType::class, [
-                    'class' => Modules::class,
-                    'label'=>false,
-                    'choice_label' => 'nom',
-                    'choices' => $form->getData()->getModules(),
-                    'label'=>false,
-                    'required'=>true
-                    
-                ]);
-
-            }
-        );
-
-        $builder->addEventListener(
-            FormEvents::POST_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-                $blocs = $data->getBlocid();
-
-                if($blocs){
-                    $form->get('classes')->setData($blocs->getClasse());
-
-                    $form->add('blocid', EntityType::class, [
-                        'class' => Blocs::class,
-
-                        'choice_label' => 'nom',
-                        'label'=>false,
-                        'attr' => ['class' => 'bloc'],
-                        'choices' => $blocs->getClasses()->getBlocs(),
-                        'required'=>true
-                        
-                    ]);
-                    
-                }else{
-
-                    
-                    $form->add('blocid', EntityType::class, [
-                        'class' => Blocs::class,
-                        'choice_label' => 'nom',
-                        'label'=>false,
-                        'attr' => ['class' => 'bloc'],
-                        'choices' => [],
-                        'required'=>true
-                        
-                    ]);
-
-                }
-        
-
-
-            }
-        );
-
-        $builder->addEventListener(
-            FormEvents::POST_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-                $module = $data->getModuleid();
-
-                if($module){
-                    $form->get('blocid')->setData($module->getModules());
-
-                    $form->add('moduleid', EntityType::class, [
-                        'class' => Modules::class,
-                        'choice_label' => 'nom',
-                        'attr' => ['class' => 'module'],
-                        'choices' => $module->getBloc()->getModule(),
-                        'required'=>true,
-                        'label'=>false,
-                        
-                    ]);
-                    
-                }else{
-
-                    
-                    $form->add('blocid', EntityType::class, [
-                        'class' => Blocs::class,
-                        'choice_label' => 'nom',
-                        'attr' => ['class' => 'bloc'],
-                        'choices' => [],
-                        'required'=>true,
-                        'label'=>false,
-                        
-                    ]);
-
-                }
-        
-
-
-            }
-        );
+   
         
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Notes::class,
+            'data_class' => null,
         ]);
     }
 }

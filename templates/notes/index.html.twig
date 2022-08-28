@@ -51,10 +51,10 @@
 
 
 													<th>Id</th>
-													<th>Note</th>
-													<th>Coefmodule</th>
-													<th>Coefbloc</th>
-													<th>Moy</th>
+													<th>Apprenant</th>
+													<th>Note1</th>
+													<th>Note2</th>
+													<th>Note3</th>
 													<th>Moygeneral</th>
 													<th>actions</th>
 
@@ -65,11 +65,11 @@
 												{% for note in notes %}
 													<tr>
 														<td>{{ note.id }}</td>
-														<td>{{ note.note }}</td>
-														<td>{{ note.coefmodule }}</td>
-														<td>{{ note.coefbloc }}</td>
-														<td>{{ note.moy }}</td>
-														<td>{{ note.moygeneral }}</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
 														<td>
 															<a href="{{ path('app_notes_edit', {'id': note.id}) }}">edit</a>
 														</td>
