@@ -161,8 +161,8 @@ class NotesController extends AbstractController
     public function edit($id,Request $request, Notes $note, NotesRepository $notesRepository, etudiantsRepository $etudiantsRepository,EntityManagerInterface $entityManager): Response
     {
 
-        if (null === $task = $entityManager->getRepository(Notes::class)->find($id)) {
-            throw $this->createNotFoundException('No task found for id '.$id);
+        if (null === $task = $entityManager->getRepository(Notes::class)->find($note)) {
+            throw $this->createNotFoundException('No task found for id '.$note);
         }
         $originalTags = new ArrayCollection();
 
@@ -170,7 +170,7 @@ class NotesController extends AbstractController
             $originalTags->add($tag);
         }
 
-        $form = $this->createForm(NotesType::class,$task->getId());
+        $form = $this->createForm(NotesType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -187,10 +187,12 @@ class NotesController extends AbstractController
                     // if you wanted to delete the Tag entirely, you can also do that
                     // $entityManager->remove($tag);
                 }
+
+                $entityManager->persist($task);
+                $entityManager->flush();
             }
 
-            $entityManager->persist($task);
-            $entityManager->flush();
+       
 
             return $this->redirectToRoute('app_notes_edit', ['id' => $id]);
         }

@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\Blocs;
 use App\Entity\Classes;
 use App\Form\BlocsType;
-use App\Form\FiltreType;
+use App\Form\SearchType;
+use App\Form\FiltreBlocType;
 use App\Repository\BlocsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\ClassesRepository;
@@ -24,15 +25,35 @@ class BlocsController extends AbstractController
      */
     public function index(Request $request, BlocsRepository $blocsRepository): Response
     {
-        $form = $this->createForm(FiltreType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_blocs_index', [], Response::HTTP_SEE_OTHER);
+  
+
+        $form2 = $this->createForm(FiltreBlocType::class);
+        $form2->handleRequest($request);
+
+    
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+        $filtre = $form2->get('classe')->getData();
+        
+            if($filtre == null){
+                $filtre = empty($filtre);
+            }
+            if($value == null){
+                $value = empty($value);
+            }
+       
+        $blocs =  $blocsRepository->searchMot($value,$filtre);
+            return $this->renderForm('blocs/index.html.twig', [
+                'blocs' => $blocs,
+         
+                'form2' => $form2,
+            ]);
         }
+        $blocs =  $blocsRepository->findAll();
         return $this->renderForm('blocs/index.html.twig', [
-            'blocs' => $blocsRepository->findAll(),
-            'form' => $form,
+            'blocs' => $blocs,
+            'form2' => $form2,
         ]);
     }
 

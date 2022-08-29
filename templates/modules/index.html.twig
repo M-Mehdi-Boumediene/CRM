@@ -41,163 +41,142 @@
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">
-							{{ form_start(form) }}
+							{{ form_start(form2) }}
+
 							<div class="row">
-								<div style="
-																																																																																										    text-align: right;
-																																																																																										    margin-top: 8px;
-																																																																																											    margin-left: 17px;
-																																																																																										">
-									<b>
-										Filtrer par :
-									</b>
+								{{ form_start(form2) }}
+
+								<div class="col-md-3">
+									{{ form_row(form2.search,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.search) }}
 								</div>
-								<div class="col-md-2" style="display:none;">
-									{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.classe) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.apprenant,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.apprenant) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.intervenants,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.intervenants) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.bloc,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.bloc) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.module) }}
+								<div class="col-md-3">
+									{{ form_row(form2.bloc,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.bloc) }}
 								</div>
 
-								<button class="mb-2 mr-2 btn btn-gradient-primary" style="    margin-top: 3px;
-																				    margin-left: 14px;">
-									<i class="fa fa-fw" aria-hidden="true" title="Copy to use filter"></i>
-									{{ button_label|default('Filtrer') }}</button>
-
+								<button class="btn">{{ button_label|default('Rechercher') }}</button>
 
 							</div>
-
-							{{ form_end(form) }}
-							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
-
-								<div class="row">
-									<div class="col-sm-12">
-										<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
-											<thead>
-												<tr role="row">
-
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Bloc</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
-
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
+							{{ form_end(form2) }}
+						</div>
 
 
+						<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+							<div class="row">
+								<div class="col-sm-12">
+									<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+										<thead>
+											<tr role="row">
+
+												<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
+												<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Bloc</th>
+												<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
+
+												<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
+
+
+											</tr>
+										</thead>
+										<tbody>
+
+											{% for module in modules %}
+												<tr role="row" class="odd">
+
+													<td class="sorting_1 dtr-control">
+														<a href="{{ path('app_modules_show', {'id': module.id}) }}">{{ module.nom }}</a>
+													</td>
+
+													<td class="sorting_1 dtr-control">
+
+														<a href="{{ path('app_blocs_show', {'id': module.bloc.id}) }}">{{ module.bloc.nom }}</a>
+
+													</td>
+
+													<td class="sorting_1 dtr-control">
+
+														<a href="{{ path('app_classes_show', {'id': module.classes.id}) }}">{{ module.classes.nom }}</a>
+
+													</td>
+
+
+													<td class="sorting_1 dtr-control">
+														<a href="{{ path('app_modules_edit', {'id': module.id}) }}">
+															<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
+																<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
+														</a>
+													</td>
 												</tr>
-											</thead>
-											<tbody>
+											{% else %}
+												<tr role="row" class="odd">
+													<td class="sorting_1 dtr-control" colspan="6">no records found</td>
+												</tr>
+											{% endfor %}
 
-												{% for module in modules %}
-													<tr role="row" class="odd">
+										</tbody>
 
-														<td class="sorting_1 dtr-control">
-															<a href="{{ path('app_modules_show', {'id': module.id}) }}">{{ module.nom }}</a>
-														</td>
-
-														<td class="sorting_1 dtr-control">
-
-															<a href="{{ path('app_blocs_show', {'id': module.bloc.id}) }}">{{ module.bloc.nom }}</a>
-
-														</td>
-
-														<td class="sorting_1 dtr-control">
-
-															<a href="{{ path('app_classes_show', {'id': module.classes.id}) }}">{{ module.classes.nom }}</a>
-
-														</td>
-
-
-														<td class="sorting_1 dtr-control">
-															<a href="{{ path('app_modules_edit', {'id': module.id}) }}">
-																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
-																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
-															</a>
-														</td>
-													</tr>
-												{% else %}
-													<tr role="row" class="odd">
-														<td class="sorting_1 dtr-control" colspan="6">no records found</td>
-													</tr>
-												{% endfor %}
-
-											</tbody>
-
-										</table>
-										<nav class="" aria-label="Page navigation example">
-											<ul class="pagination" style="float:right;">
-												<li class="page-item">
-													<a href="javascript:void(0);" class="page-link" aria-label="Previous">
-														<span aria-hidden="true">«</span>
-														<span class="sr-only">Previous</span>
-													</a>
-												</li>
-												<li class="page-item">
-													<a href="javascript:void(0);" class="page-link">1</a>
-												</li>
-												<li class="page-item active">
-													<a href="javascript:void(0);" class="page-link">2</a>
-												</li>
-												<li class="page-item">
-													<a href="javascript:void(0);" class="page-link">3</a>
-												</li>
-												<li class="page-item">
-													<a href="javascript:void(0);" class="page-link">4</a>
-												</li>
-												<li class="page-item">
-													<a href="javascript:void(0);" class="page-link">5</a>
-												</li>
-												<li class="page-item">
-													<a href="javascript:void(0);" class="page-link" aria-label="Next">
-														<span aria-hidden="true">»</span>
-														<span class="sr-only">Next</span>
-													</a>
-												</li>
-											</ul>
-										</nav>
-									</div>
+									</table>
+									<nav class="" aria-label="Page navigation example">
+										<ul class="pagination" style="float:right;">
+											<li class="page-item">
+												<a href="javascript:void(0);" class="page-link" aria-label="Previous">
+													<span aria-hidden="true">«</span>
+													<span class="sr-only">Previous</span>
+												</a>
+											</li>
+											<li class="page-item">
+												<a href="javascript:void(0);" class="page-link">1</a>
+											</li>
+											<li class="page-item active">
+												<a href="javascript:void(0);" class="page-link">2</a>
+											</li>
+											<li class="page-item">
+												<a href="javascript:void(0);" class="page-link">3</a>
+											</li>
+											<li class="page-item">
+												<a href="javascript:void(0);" class="page-link">4</a>
+											</li>
+											<li class="page-item">
+												<a href="javascript:void(0);" class="page-link">5</a>
+											</li>
+											<li class="page-item">
+												<a href="javascript:void(0);" class="page-link" aria-label="Next">
+													<span aria-hidden="true">»</span>
+													<span class="sr-only">Next</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
 								</div>
-
-
 							</div>
+
+
 						</div>
 					</div>
-
-
 				</div>
+
+
 			</div>
-
 		</div>
+
 	</div>
-	{{ block("Footer", "Menus/Footer.html.twig") }}
+</div>
+{{ block("Footer", "Menus/Footer.html.twig") }}
 
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-	<script>
+<script>
 
-		$(document).ready(function () {
+	$(document).ready(function () {
 $('#filtre_apprenant').select2();
 $('#filtre_intervenants').select2();
 $('#filtre_classe').select2();
 $('#filtre_bloc').select2();
 $('#filtre_module').select2();
 });
-	</script>
-{% endblock %}
+</script>{% endblock %}

@@ -73,6 +73,21 @@ class ClassesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function searchMot($value)
+    {
+        return $this->createQueryBuilder('u')
+
+    
+            ->andWhere('u.nom LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
     // /**
     //  * @return Classes[] Returns an array of Classes objects
     //  */

@@ -6,6 +6,7 @@ use App\Entity\Classes;
 use App\Entity\Modules;
 use App\Form\ClassesType;
 use App\Form\FiltreType;
+use App\Form\SearchType;
 use App\Repository\UsersRepository;
 use App\Repository\ClassesRepository;
 use App\Repository\ModulesRepository;
@@ -30,14 +31,27 @@ class ClassesController extends AbstractController
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_classes_index', [], Response::HTTP_SEE_OTHER);
+        $form2 = $this->createForm(SearchType::class);
+        $form2->handleRequest($request);
+        
+        $value = $form2->get('search')->getData();
+        $classes =  $classesRepository->searchMot($value);
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+      
+            return $this->renderForm('classes/index.html.twig', [
+                'classes' => $classes,
+                'form' => $form,
+                'form2' => $form2,
+            ]);
+
         }
+ 
 
         return $this->renderForm('classes/index.html.twig', [
-            'classes' => $classesRepository->findAll(),
+            'classes' => $classes,
             'form' => $form,
+            'form2' => $form2,
         ]);
     }
 

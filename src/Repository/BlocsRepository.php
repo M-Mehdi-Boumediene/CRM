@@ -87,6 +87,24 @@ class BlocsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
+
+    public function searchMot($value,$classe)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.Classe', 'c')
+         
+            ->orWhere('c.id = :classe')
+            ->orWhere('u.nom LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+            ->setParameter('classe', $classe)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Blocs[] Returns an array of Blocs objects
     //  */

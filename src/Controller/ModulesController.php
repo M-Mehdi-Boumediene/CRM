@@ -6,6 +6,7 @@ use App\Entity\Documents;
 use App\Entity\Modules;
 use App\Form\ModulesType;
 use App\Form\FiltreType;
+use App\Form\FiltreModuleType;
 use App\Repository\UsersRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\IntervenantsRepository;
@@ -21,19 +22,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ModulesController extends AbstractController
 {
     /**
-     * @Route("/", name="app_modules_index", methods={"GET"})
+     * @Route("/", name="app_modules_index", methods={"GET", "POST"})
      */
     public function index(Request $request,ModulesRepository $modulesRepository): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_modules_index', [], Response::HTTP_SEE_OTHER);
+
+        $form2 = $this->createForm(FiltreModuleType::class);
+        $form2->handleRequest($request);
+
+    
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+        $filtre = $form2->get('bloc')->getData();
+        
+            if($filtre == null){
+                $filtre = empty($filtre);
+            }
+            if($value == null){
+                $value = empty($value);
+            }
+       
+        $modules =  $modulesRepository->searchMot($value,$filtre);
+            return $this->renderForm('modules/index.html.twig', [
+                'modules' => $modules,
+         
+                'form2' => $form2,
+            ]);
         }
         return $this->renderForm('modules/index.html.twig', [
             'modules' => $modulesRepository->findAll(),
-            'form' => $form,
+            'form2' => $form2,
         ]);
     }
     /**
