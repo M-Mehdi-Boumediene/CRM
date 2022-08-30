@@ -6,6 +6,7 @@ use App\Entity\Etudiants;
 use App\Entity\Tuteurs;
 use App\Form\EtudiantsType;
 use App\Form\FiltreType;
+use App\Form\FiltreApprenantType;
 use App\Repository\EtudiantsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,20 +34,41 @@ class EtudiantsController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
     }
     /**
-     * @Route("/", name="app_etudiants_index", methods={"GET"})
+     * @Route("/", name="app_etudiants_index", methods={"GET", "POST"})
      */
     public function index(Request $request,EtudiantsRepository $etudiantsRepository): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_blocs_index', [], Response::HTTP_SEE_OTHER);
+        $form2 = $this->createForm(FiltreApprenantType::class);
+        $form2->handleRequest($request);
+
+    
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+        $module = $form2->get('module')->getData();
+        $classe = $form2->get('classe')->getData();
+        
+            if($module == null){
+                $module = empty($module);
+            }
+            if($value == null){
+                $value = empty($value);
+            }
+            if($classe == null){
+                $classe = empty($classe);
+            }
+       
+        $etudiants =  $etudiantsRepository->searchMot($value,$module,$classe);
+            return $this->renderForm('etudiants/index.html.twig', [
+                'etudiants' => $etudiants,
+                'form2' => $form2,
+            ]);
         }
-          
             return $this->renderForm('etudiants/index.html.twig', [
             'etudiants' => $etudiantsRepository->findAll(),
-            'form' => $form,
+            'form2' => $form2,
          
         ]);
     }

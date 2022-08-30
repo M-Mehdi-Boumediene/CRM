@@ -34,7 +34,9 @@ class BlocsController extends AbstractController
 
         if ($form2->isSubmitted() && $form2->isValid()) {
             $value = $form2->get('search')->getData();
-        $filtre = $form2->get('classe')->getData();
+       
+       
+         $filtre = $form2->get('classe')->getData();
         
             if($filtre == null){
                 $filtre = empty($filtre);

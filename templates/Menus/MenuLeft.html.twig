@@ -62,7 +62,7 @@
 
 									<li><a href="{{path('app_etudiants_index')}}"{% if route_name == "app_etudiants_index" %} class="mm-active"{% elseif route_name == "app_etudiants_new" %} class="mm-active"{% elseif route_name == "app_etudiants_edit" %} class="mm-active"{% elseif route_name == "app_etudiants_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des apprenants<i class="metismenu-state-icon "></i></a></li>
 									<li><a href="{{path('app_absences_index')}}"><i class="metismenu-icon pe-7s-display2"></i>Gérer les absences<i class="metismenu-state-icon "></i></a></li>
-									<li><a href="{{path('app_notes_gestion')}}"><i class="metismenu-icon pe-7s-display2"></i>Gérer les notes<i class="metismenu-state-icon "></i></a></li>
+									<li><a href="{{path('app_notes_index')}}"><i class="metismenu-icon pe-7s-display2"></i>Gérer les notes<i class="metismenu-state-icon "></i></a></li>
 									<li><a href="{{path('app_entreprises_index')}}"{% if route_name == "app_entreprises_index" %} class="mm-active"{% elseif route_name == "app_entreprises_new" %} class="mm-active"{% elseif route_name == "app_entreprises_edit" %} class="mm-active"{% elseif route_name == "app_entreprises_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des entreprises<i class="metismenu-state-icon "></i></a></li>
 
 									<li><a href="{{path('app_tuteurs_index')}}"{% if route_name == "app_tuteurs_index" %} class="mm-active"{% elseif route_name == "app_tuteurs_new" %} class="mm-active"{% elseif route_name == "app_tuteurs_edit" %} class="mm-active"{% elseif route_name == "app_tuteurs_show" %} class="mm-active"{% else %} class=" "{% endif %}><i class="metismenu-icon pe-7s-display2"></i>Liste des tuteurs<i class="metismenu-state-icon "></i></a></li>
@@ -148,7 +148,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="{{path('app_notes_gestion')}}">
+							<a href="{{path('app_notes_index')}}">
 								<i class="metismenu-icon pe-7s-check"></i>Gérer les notes
 								<i class="metismenu-state-icon "></i>
 							</a>

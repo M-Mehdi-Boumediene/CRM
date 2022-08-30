@@ -75,16 +75,21 @@ class ModulesRepository extends ServiceEntityRepository
         ;
     }
 
-    public function searchMot($value,$bloc)
+    public function searchMot($value,$bloc,$classe)
     {
         return $this->createQueryBuilder('u')
 
             ->innerJoin('u.bloc', 'c')
-         
+            ->innerJoin('c.Classe', 'm')
+
             ->orWhere('c.id = :bloc')
             ->orWhere('u.nom LIKE :value')
+            ->orWhere('m.id = :classe')
+
             ->setParameter('value', '%'.$value.'%')
             ->setParameter('bloc', $bloc)
+            ->setParameter('classe', $classe)
+
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()

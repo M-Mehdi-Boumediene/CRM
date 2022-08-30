@@ -7,6 +7,7 @@ use App\Entity\Users;
 use App\Form\UsersType;
 use App\Form\IntervenantsType;
 use App\Form\FiltreType;
+use App\Form\FiltreIntervenantType;
 use App\Repository\IntervenantsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\UsersRepository;
@@ -29,19 +30,42 @@ class IntervenantsController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
     }
     /**
-     * @Route("/", name="app_intervenants_index", methods={"GET"})
+     * @Route("/", name="app_intervenants_index", methods={"GET", "POST"})
      */
     public function index(Request $request,IntervenantsRepository $intervenantRepository): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_intervenants_index', [], Response::HTTP_SEE_OTHER);
+        $form2 = $this->createForm(FiltreIntervenantType::class);
+        $form2->handleRequest($request);
+
+    
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+        $module = $form2->get('module')->getData();
+        $classe = $form2->get('classe')->getData();
+        
+            if($module == null){
+                $module = empty($module);
+            }
+            if($value == null){
+                $value = empty($value);
+            }
+            if($classe == null){
+                $classe = empty($classe);
+            }
+       
+        $intervenants =  $intervenantRepository->searchMot($value,$module,$classe);
+            return $this->renderForm('intervenants/index.html.twig', [
+                'intervenants' => $intervenants,
+                'form2' => $form2,
+            ]);
         }
         return $this->renderForm('intervenants/index.html.twig', [
             'intervenants' => $intervenantRepository->findAll(),
             'form' => $form,
+            'form2' => $form2,
         ]);
     }
 

@@ -45,6 +45,22 @@ class TuteursRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchMot($value)
+    {
+        return $this->createQueryBuilder('u')
+
+    
+            ->andWhere('u.nom LIKE :value')
+       
+            ->orWhere('u.email LIKE :value')
+            ->orWhere('u.telephone LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Tuteurs[] Returns an array of Tuteurs objects
     //  */

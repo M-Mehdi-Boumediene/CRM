@@ -41,49 +41,30 @@
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">
-							{{ form_start(form) }}
+							{{ form_start(form2) }}
+
 							<div class="row">
-								<div style="
-																																																																																																																																																						    text-align: right;
-																																																																																																																																																						    margin-top: 8px;
-																																																																																																																																																							    margin-left: 17px;
-																																																																																																																																																						">
-									<b>
-										Filtrer par :
-									</b>
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.classe) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.module) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.bloc,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.bloc) }}
-								</div>
-								<div class="col-md-2">
-									{{ form_row(form.apprenant,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.apprenant) }}
+								{{ form_start(form2) }}
+
+								<div class="col-md-3">
+									{{ form_row(form2.search,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.search) }}
 								</div>
 
-								<div class="col-md-2" style="display:none;">
-									{{ form_row(form.intervenants,{'attr': {'class': 'form-control'}}) }}
-									{{ form_errors(form.intervenants) }}
+								<div class="col-md-3">
+									{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.classe) }}
 								</div>
+								<div class="col-md-3">
+									{{ form_row(form2.module,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.module) }}
+								</div>
+								<button class="btn">{{ button_label|default('Rechercher') }}</button>
 
 
-								<button class="mb-2 mr-2 btn btn-gradient-primary" style="    margin-top: 3px;
-																																																																																    margin-left: 14px;">
-									<i class="fa fa-fw" aria-hidden="true" title="Copy to use filter"></i>
-									{{ button_label|default('Filtrer') }}</button>
-
-
+								{{ form_end(form2) }}
 							</div>
 
-							{{ form_end(form) }}
 							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
 								<div class="row">

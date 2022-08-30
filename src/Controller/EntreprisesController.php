@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Entreprises;
 use App\Form\EntreprisesType;
 use App\Form\FiltreType;
+use App\Form\FiltreEntrepriseType;
 use App\Repository\EntreprisesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,14 +25,25 @@ class EntreprisesController extends AbstractController
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_entreprises_index', [], Response::HTTP_SEE_OTHER);
+        $form2 = $this->createForm(FiltreEntrepriseType::class);
+        $form2->handleRequest($request);
+        
+        $value = $form2->get('search')->getData();
+        $entreprises =  $entreprisesRepository->searchMot($value);
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+      
+            return $this->renderForm('entreprises/index.html.twig', [
+                'entreprises' => $entreprises,
+                'form' => $form,
+                'form2' => $form2,
+            ]);
+
         }
 
         return $this->renderForm('entreprises/index.html.twig', [
             'entreprises' => $entreprisesRepository->findAll(),
-            'form' => $form,
+            'form2' => $form2,
         ]);
     }
 

@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\DataTransformer\ClassesToNumbersTransformer;
-class FiltreModuleType extends AbstractType
+class FiltreIntervenantType extends AbstractType
 {
     private $em;
 
@@ -36,8 +36,10 @@ class FiltreModuleType extends AbstractType
             'required' => false
         ])
 
-        ->add('bloc', EntityType::class, [
-            'class' => Blocs::class,
+
+      
+        ->add('classe', EntityType::class, [
+            'class' => Classes::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
                     ->orderBy('u.nom', 'ASC');
@@ -48,9 +50,9 @@ class FiltreModuleType extends AbstractType
             'multiple' => false,
             'required' => false
         ])
-      
-        ->add('classe', EntityType::class, [
-            'class' => Classes::class,
+
+        ->add('module', EntityType::class, [
+            'class' => Modules::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
                     ->orderBy('u.nom', 'ASC');

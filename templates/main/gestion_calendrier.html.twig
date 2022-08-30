@@ -6,6 +6,9 @@
 	{{ encore_entry_link_tags('app') }}
 
 	<style>
+		form {
+			width: 100%;
+		}
 		#calendrier {
 			width: 100%;
 			margin: 0;
@@ -65,6 +68,20 @@
 
 								<div class="row">
 
+									{{ form_start(form2) }}
+									<div class="row">
+										<div class="col-md-3">
+											{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
+											{{ form_errors(form2.classe) }}
+
+
+										</div>
+										<div class="col-md-3">
+											<button class="btn">{{ button_label|default('Rechercher') }}</button>
+										</div>
+									</div>
+									{{ form_end(form2) }}
+
 									<div id='calendrier'></div>
 
 
@@ -120,6 +137,10 @@ slotMinTime: "08:00",
 slotMaxTime: "18:00",
 editable: true,
 events: {{ data.data|raw() }},
+validRange: {
+    start: '2017-05-01',
+    end: '2017-06-01'
+  },
 eventClick: function (info) {
 let jour = info.event.start.getDay();
 let mois = info.event.start.getMonth();

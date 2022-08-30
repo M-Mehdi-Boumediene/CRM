@@ -37,6 +37,7 @@ class ModulesController extends AbstractController
         if ($form2->isSubmitted() && $form2->isValid()) {
             $value = $form2->get('search')->getData();
         $filtre = $form2->get('bloc')->getData();
+        $classe = $form2->get('classe')->getData();
         
             if($filtre == null){
                 $filtre = empty($filtre);
@@ -44,11 +45,13 @@ class ModulesController extends AbstractController
             if($value == null){
                 $value = empty($value);
             }
+            if($classe == null){
+                $classe = empty($classe);
+            }
        
-        $modules =  $modulesRepository->searchMot($value,$filtre);
+        $modules =  $modulesRepository->searchMot($value,$filtre,$classe);
             return $this->renderForm('modules/index.html.twig', [
                 'modules' => $modules,
-         
                 'form2' => $form2,
             ]);
         }

@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\DataTransformer\ClassesToNumbersTransformer;
-class FiltreModuleType extends AbstractType
+class FiltreCalendrierType extends AbstractType
 {
     private $em;
 
@@ -30,25 +30,7 @@ class FiltreModuleType extends AbstractType
     {
         
         $builder
-        ->add('search', TextType::class, [
-
-            'label' => false ,
-            'required' => false
-        ])
-
-        ->add('bloc', EntityType::class, [
-            'class' => Blocs::class,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->orderBy('u.nom', 'ASC');
-            },
-            'choice_label' => 'nom',
-            'label'=>false,
-            'empty_data'=>'',
-            'multiple' => false,
-            'required' => false
-        ])
-      
+  
         ->add('classe', EntityType::class, [
             'class' => Classes::class,
             'query_builder' => function (EntityRepository $er) {
@@ -61,6 +43,8 @@ class FiltreModuleType extends AbstractType
             'multiple' => false,
             'required' => false
         ])
+      
+      
 
         ;
 

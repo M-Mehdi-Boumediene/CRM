@@ -76,11 +76,13 @@ class Classes
      */
     private $telechargements;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="classe")
+
+        /**
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="classe")
      */
     private $users;
 
+    
     /**
      * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="classes")
      */

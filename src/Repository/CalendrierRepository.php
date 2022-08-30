@@ -44,7 +44,19 @@ class CalendrierRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function searchMot($classe)
+    {
+        return $this->createQueryBuilder('u')
 
+            ->innerJoin('u.classe', 'c')
+        
+            ->andWhere('c.id = :classe')
+            ->setParameter('classe', $classe)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Calendrier[] Returns an array of Calendrier objects
     //  */

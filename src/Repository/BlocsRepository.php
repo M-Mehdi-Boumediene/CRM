@@ -95,7 +95,7 @@ class BlocsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('u')
 
             ->innerJoin('u.Classe', 'c')
-         
+        
             ->orWhere('c.id = :classe')
             ->orWhere('u.nom LIKE :value')
             ->setParameter('value', '%'.$value.'%')

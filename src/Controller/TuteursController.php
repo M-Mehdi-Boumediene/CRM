@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Tuteurs;
 use App\Form\TuteursType;
 use App\Form\FiltreType;
+use App\Form\FiltreTuteurType;
 use App\Repository\UsersRepository;
 use App\Repository\TuteursRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,14 +26,26 @@ class TuteursController extends AbstractController
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-   
-            return $this->redirectToRoute('app_tuteurs_index', [], Response::HTTP_SEE_OTHER);
+        $form2 = $this->createForm(FiltreTuteurType::class);
+        $form2->handleRequest($request);
+        
+        $value = $form2->get('search')->getData();
+        $tuteurs =  $tuteursRepository->searchMot($value);
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+      
+            return $this->renderForm('tuteurs/index.html.twig', [
+                'tuteurs' => $tuteurs,
+                'form' => $form,
+                'form2' => $form2,
+            ]);
+
         }
 
         return $this->renderForm('tuteurs/index.html.twig', [
             'tuteurs' => $tuteursRepository->findAll(),
             'form' => $form,
+            'form2' => $form2,
         ]);
     }
 

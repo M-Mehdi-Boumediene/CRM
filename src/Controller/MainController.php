@@ -9,6 +9,7 @@ use App\Repository\ApprenantsRepository;
 use App\Entity\Absences;
 use App\Entity\Users;
 use App\Form\AbsencesType;
+use App\Form\FiltreCalendrierType;
 use App\Repository\EtudiantsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +36,63 @@ class MainController extends AbstractController
      */
     public function calendrier(CalendrierRepository $calendrier,EtudiantsRepository $apprenants,Request $request, AbsencesRepository $absencesRepository): Response
     {
+
+
+        $form2 = $this->createForm(FiltreCalendrierType::class);
+        $form2->handleRequest($request);
+
+    
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+       
+         $filtre = $form2->get('classe')->getData();
+        
+         $events = $calendrier->searchMot($filtre);
+         $rdvs = [];
+         $rdvs2 = [];
+         foreach ($events as $event){
+             
+             $rdvs[] = [
+                 'id' => $event->getId(),
+                 'start' => $event->getStart()->format('Y-m-d H:i'),
+                 'end' => $event->getEnd()->format('Y-m-d H:i'),
+                 'backgroundColor' => $event->getBackgroundColor(),
+                 'borderColor' => $event->getBackgroundColor(),
+                 'textColor' => $event->getTextColor(),
+                 'title' => $event->getTitre(),
+                 'description' => $event->getDescription(),
+                 'classe' => $event->getClasse()->getNom(),
+              
+                 'module' => $event->getModule()->getNom(),
+                 'intervenant' => $event->getIntervenant()->getNom(),
+                 'textColor' => $event->getTextColor(),
+                 'allDay' => $event->getAllDay(),
+                 'type' => $event->getType(),
+ 
+ 
+             ];
+ 
+ 
+             
+             $classe= $event->getClasse()->getId();
+ 
+ 
+             $data = json_encode($rdvs);
+      
+             
+         }
+         $etudiants = $apprenants->findByClasse($classe);
+   
+            return $this->renderForm('main/gestion_calendrier.html.twig', [
+      
+                'etudiants_calendar' => $etudiants,
+            'data' => compact('data'),
+                'form2' => $form2,
+                'rdvs'=>$rdvs,
+            ]);
+        }
+
         $events = $calendrier->findAll();
         $rdvs = [];
         $rdvs2 = [];
@@ -73,9 +131,11 @@ class MainController extends AbstractController
         $etudiants = $apprenants->findByClasse($classe);
 
          
-        return $this->render('main/gestion_calendrier.html.twig', [
+        return $this->renderForm('main/gestion_calendrier.html.twig', [
             'etudiants_calendar' => $etudiants,
             'data' => compact('data'),
+        
+            'form2' => $form2,
           
         ]
     
