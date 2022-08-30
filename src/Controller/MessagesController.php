@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Users;
+use App\Entity\Messages;
+use App\Form\MessagesType;
+use App\Form\ReponseMessageType;
+use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Form\MessagesType;
-use App\Entity\Messages;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\UsersRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MessagesController extends AbstractController
 {
@@ -50,6 +52,39 @@ class MessagesController extends AbstractController
         ]);
     }
 
+
+     /**
+     * @Route("/messages-repond/{objet}/{recipient}", name="app_repond_messages")
+     */
+    public function repondMessages(Request $request,String $objet, $recipient): Response
+    {
+        $utilisateur =
+        $message = new Messages;
+        $form = $this->createForm(ReponseMessageType::class, $message);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $message->setSender($this->getUser());
+            $message->setRecipient($utilisateur);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            $this->addFlash("message","Le message à été envoyé avec succès.");
+            $request->getSession()
+            ->getFlashBag()
+            ->add('message', 'Le message à été envoyé avec succès.');
+            return $this->redirectToRoute('app_messages');
+        }
+
+        return $this->render('messages/reponseMessages.html.twig', [
+            'controller_name' => 'MessagesController',
+            'form'=> $form->createView(),
+            'objet'=> $objet,
+            'recipient'=> $recipient,
+        ]);
+    }
+
+
     /**
      * @Route("/messages/{id}", name="app_read_messages")
      */
@@ -60,7 +95,27 @@ class MessagesController extends AbstractController
         $em->persist($message);
         $em->flush();
 
-        return $this->render('messages/readMessage.html.twig', compact("message") );
-            
+        return $this->render('messages/readMessage.html.twig',  compact("message"));
+                
+    }
+
+    /**
+     * @Route("/sent", name="sent")
+     */
+    public function sent(): Response
+    {
+        return $this->render('messages/sent.html.twig');
+    }
+    
+      /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(Messages $message): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($message);
+        $em->flush();
+
+        return $this->redirectToRoute("received");
     }
 }

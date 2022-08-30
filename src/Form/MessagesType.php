@@ -41,8 +41,7 @@ class MessagesType extends AbstractType
                 'multiple' => false,
                 'required' => false
             ])
-    
-        ;
+         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

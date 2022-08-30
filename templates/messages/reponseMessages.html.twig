@@ -10,7 +10,7 @@
                  {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
 
-            <div class="app-main__outer">
+   <div class="app-main__outer">
                 <div class="app-main__inner">
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
@@ -54,64 +54,39 @@
                                     </span>
                                   </button>
                                 </div>
-                                <h4 class="mb-0">Boîte de réception ({{ app.user.received|length}})</h4>
+                                <h4 class="mb-0">Répond au message Intitulé par : {{objet}} </h4>
                             
                               </div>
-                              <div class="pane-right">
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                      <i class="fa fa-search fa-w-16 "></i>
-                                    </div>
-                                  </div>
-                                  <input placeholder="Search..." type="text" class="form-control">
-                                </div>
-                              </div>
+                             
                             </div>
-                            <div class="bg-white">
-                              <div class="table-responsive">
-                                <table class="text-nowrap table-lg mb-0 table table-hover">
-                                  <tbody>
-                                  {% for message in app.user.received %}
-                                
-                                    <tr>
-                              
-                                      <td>
-                                        <div class="widget-content p-0">
-                                          <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                              <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
-                                            </div>
-                                            <div class="widget-content-left">
-                                              <div class="widget-heading"><a href="{{path('app_read_messages', {id: message.id})}}">{{message.sender.email }}</a></div>
-                                            
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td class="text-left">{{message.objet }}</td>
-                                
-                                      <td class="text-right">
-                                        <i class="fa fa-calendar-alt opacity-4 mr-2"></i>
-                                        {{message.createdAt|date('d/m/Y h:i')}}
-                                      </td>
-                                  <td class="text-left">
-                                    {% if message.isRead == 0 %}
-                                      {% set etat = "Message non lu" %}
-                                      {% else %}
-                                          {% set etat = " Message lu" %}
-                                      {% endif %}
+                            <div class="bg-white" style="padding: 25px;margin-top: -10px;">
+                {{ form_start(form) }}
+  
+                <div class="row" >
+              
+                  <div class="col-md-6">
+                    {{ form_row(form.objet,{'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.objet) }}
+                    </div>
 
-                                      {{etat}}
-                                  
-                                  </td>
-                                    </tr>
-                              
-                                    {% endfor %}
-                                
-                                  </tbody>
-                                </table>
-                              </div>
+                    <div class="col-md-4">
+                        <h5>  </h5>
+                        <h5> {{recipient}} </h5>
+                    </div>
+                
+
+                </div>
+                <br>
+                <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.message,{'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.message) }}
+                        </div>
+                </div>
+            <br>
+                <button class="mt-1 btn btn-primary">{{ button_label|default('Envoyer') }}</button> ou <a href="{{ path('app_messages') }}">Retour à la liste</a>
+            
+            {{ form_end(form) }}
                               
                             </div>
                           </div>
@@ -142,7 +117,7 @@
                                       <span>Corbeille</span>
                                   </a>
                               </li>
-                       
+                   
                           </ul>
                       </div>
                       </div>
@@ -153,5 +128,6 @@
                 </div>
                {{ block("Footer", "Menus/Footer.html.twig") }}
             </div>
-        </div>
+
+         </div>
 {% endblock %}

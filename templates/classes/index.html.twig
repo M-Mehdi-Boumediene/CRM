@@ -6,7 +6,6 @@
 {% block body %}
 
 
-    <script src="{{ asset('assets/script/script.js')}}"></script>
 
 
 		{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
@@ -50,12 +49,7 @@
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">
-				<select>
-					<option>Choisissez la couleur</option>
-					<option value="filtre">Filtre</option>
-					<option value="red">Rouge</option>
-					<option value="green">Vert</option>
-  				</select>
+			
 						{{ form_start(form) }}
 	
 				<div id="filtre">	
@@ -101,32 +95,24 @@
 							<i class="fa fa-fw" aria-hidden="true" title="Copy to use filter"></i>
 								{{ button_label|default('') }}
 						</button>
-				<div class="app-header-left">
-					<div class="search-wrapper">
+		
+			<div class="search-wrapper">
 					<div class="input-holder">
 					<input type="text" class="search-input" placeholder="Rechercher">
 						<button class="search-icon"><span></span></button>
 					</div>
 				<button class="close"></button>
-				</div>
 			</div>
-					</div>
+
+
+			
+		</div>
 				</div>
 			</div>
              
 	               {{ form_end(form) }}
 
-				   <button id="show" onclick="show();">
-Filtre
-				   </button>
-				<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-					<li class="nav-item">
-					<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-					<span>Filtres</span>
-					</a>
-					</li>
-				</ul>		
-						
+
 						
 							<br><br>
 							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
