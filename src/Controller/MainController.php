@@ -82,14 +82,21 @@ class MainController extends AbstractController
       
              
          }
-         $etudiants = $apprenants->findByClasse($classe);
+         
+         if($events){
+            $etudiants = $apprenants->findByClasse($classe);
+         }else{
+            $etudiants = null;
+            $data = null;
+         }
+       
    
             return $this->renderForm('main/gestion_calendrier.html.twig', [
       
                 'etudiants_calendar' => $etudiants,
-            'data' => compact('data'),
+                'data' => compact('data'),
                 'form2' => $form2,
-                'rdvs'=>$rdvs,
+                'events'=>$events,
             ]);
         }
 
@@ -130,13 +137,13 @@ class MainController extends AbstractController
 
         $etudiants = $apprenants->findByClasse($classe);
 
-         
+         $events= null;
         return $this->renderForm('main/gestion_calendrier.html.twig', [
             'etudiants_calendar' => $etudiants,
             'data' => compact('data'),
-        
+            
             'form2' => $form2,
-          
+            'events'=>$events,
         ]
     
     );

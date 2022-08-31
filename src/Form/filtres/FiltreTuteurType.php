@@ -31,7 +31,9 @@ class FiltreTuteurType extends AbstractType
         
         $builder
         ->add('search', TextType::class, [
-
+            'attr' => array(
+                'placeholder' => 'Ecrire un mot ou n°'
+            ),
             'label' => false 
         ])
       

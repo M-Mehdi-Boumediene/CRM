@@ -9,7 +9,24 @@
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
+		<style>
+			form {
+				display: contents;
+			}
+			.select2 {
+				width: 100% !important;
 
+
+				font-size: 1rem;
+				font-weight: 400;
+				line-height: 1.5;
+				color: #495057;
+				background-color: #fff;
+				background-clip: padding-box;
+
+				border-radius: 0.25rem;
+			}
+		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -42,7 +59,11 @@
 					<div class="main-card mb-3 card">
 						<div class="card-body">
 							{{ form_start(form2) }}
-
+							<div class="row">
+								<div class="col-md-12" style="padding-bottom: 5px;">
+									<b>Recherche</b>
+								</div>
+							</div>
 							<div class="row">
 								{{ form_start(form2) }}
 
@@ -59,12 +80,16 @@
 									{{ form_errors(form2.classe) }}
 								</div>
 
-								<button class="btn">{{ button_label|default('Rechercher') }}</button>
-
+								<button type="submit" class="btn-shadow btn btn-primary">
+									<span class="btn-icon-wrapper pr-2 opacity-7">
+										<i class="fa fa-search fa-w-20"></i>
+									</span>
+									Rechercher
+								</button>
 
 								{{ form_end(form2) }}
 							</div>
-
+							<br>
 
 							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
@@ -177,11 +202,8 @@
 	<script>
 
 		$(document).ready(function () {
-$('#filtre_apprenant').select2();
-$('#filtre_intervenants').select2();
-$('#filtre_classe').select2();
-$('#filtre_bloc').select2();
-$('#filtre_module').select2();
+$("#filtre_module_bloc").select2({placeholder: "Filtrer par module", allowClear: true});
+$("#filtre_module_classe").select2({placeholder: "Filtrer par classe", allowClear: true});
 });
 	</script>
 {% endblock %}

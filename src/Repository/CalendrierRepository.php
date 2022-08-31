@@ -44,6 +44,7 @@ class CalendrierRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    
     public function searchMot($classe)
     {
         return $this->createQueryBuilder('u')

@@ -31,20 +31,25 @@ class FiltreBlocType extends AbstractType
         
         $builder
         ->add('search', TextType::class, [
-
+            
             'label' => false ,
+            'attr' => array(
+                'placeholder' => 'Ecrire un mot ou n°'
+            ),
             'required' => false
         ])
 
         ->add('classe', EntityType::class, [
             'class' => Classes::class,
+    
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
                     ->orderBy('u.nom', 'ASC');
             },
             'choice_label' => 'nom',
             'label'=>false,
-            'empty_data'=>'',
+       
+         
             'multiple' => false,
             'required' => false
         ])

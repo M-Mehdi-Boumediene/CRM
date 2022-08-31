@@ -5,15 +5,7 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
 
-	<style>
-		form {
-			width: 100%;
-		}
-		#calendrier {
-			width: 100%;
-			margin: 0;
-		}
-	</style>
+
 {% endblock %}
 
 {% block body %}
@@ -22,7 +14,18 @@
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
-
+		<style>
+			form {
+				width: 100%;
+			}
+			#calendrier {
+				width: 100%;
+				margin: 0;
+			}
+			.select2-container {
+				width: 100% !important;
+			}
+		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -64,60 +67,101 @@
 					<div class="main-card mb-3 card">
 						<div class="card-body">
 
-							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
-								<div class="row">
-
-									{{ form_start(form2) }}
-									<div class="row">
-										<div class="col-md-3">
-											{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
-											{{ form_errors(form2.classe) }}
-
-
-										</div>
-										<div class="col-md-3">
-											<button class="btn">{{ button_label|default('Rechercher') }}</button>
-										</div>
-									</div>
-									{{ form_end(form2) }}
-
-									<div id='calendrier'></div>
-
-
-									<button type="button" class="btn mr-2 mb-2 btn-primary lancer" data-toggle="modal" data-target=".bd-example-modal-lg" style="display:none;">Large modal</button>
-
-
+							<div class="row">
+								<div class="col-md-12" style="padding-bottom: 5px;">
+									<b>Recherche</b>
 								</div>
+							</div>
+
+							<div class="row" style="padding-right:12px;padding-left: 12px;
+}">
+
+								{{ form_start(form2) }}
+								<div class="row">
+									<div class="col-md-3">
+										{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
+										{{ form_errors(form2.classe) }}
+
+
+									</div>
+											<div class="col-md-3">
+										{{ form_row(form2.intervenant,{'attr': {'class': 'form-control'}}) }}
+										{{ form_errors(form2.intervenant) }}
+
+
+									</div>
+											<div class="col-md-3">
+										{{ form_row(form2.apprenant,{'attr': {'class': 'form-control'}}) }}
+										{{ form_errors(form2.apprenant) }}
+
+
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn-shadow btn btn-primary">
+											<span class="btn-icon-wrapper pr-2 opacity-7">
+												<i class="fa fa-search fa-w-20"></i>
+											</span>
+											Rechercher
+										</button>
+									</div>
+								</div>
+								<br>
+								{{ form_end(form2) }}
+
+								<div id='calendrier'></div>
+
+
+								<button type="button" class="btn mr-2 mb-2 btn-primary lancer" data-toggle="modal" data-target=".bd-example-modal-lg" style="display:none;">Large modal</button>
 
 
 							</div>
+
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 
-		</div>
 
-		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
-		<script>
-			window.onload = () => {
+		</div>
+	</div>
+
+</div>
+{% if events %}
+
+	{% set start = events[0].start|date("Y-m-d")  %}
+	{% set end = events[0].end|date("Y-m-d")  %}
+
+{% else %}
+	{% set start = null %}
+	{% set end = null %}
+
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
+<script>
+
+
+	window.onload = () => {
 let calendarElt = document.querySelector("#calendrier")
 let calendar = new FullCalendar.Calendar(calendarElt, {
 initialView: 'timeGridWeek',
 locale: 'fr',
-
+buttonText: {
+    today:    'Aujourd\'hui',
+    month:    'Mois',
+    week:     'Semaine',
+    day:      'Jour',
+    list:     'Liste'
+},
 minTime: "08:00:00",
 maxTime: "18:00:00",
 headerToolbar: {
-start: 'prev,next today',
-center: 'title',
-end: 'dayGridMonth,timeGridWeek'
-
-},
+    left: 'prev,next today',
+    center: 'title',
+    right: 'timeGridDay,timeGridWeek,dayGridMonth,listMonth'
+  },
 
 businessHours: [
 { // specify an array instead
@@ -138,9 +182,9 @@ slotMaxTime: "18:00",
 editable: true,
 events: {{ data.data|raw() }},
 validRange: {
-    start: '2017-05-01',
-    end: '2017-06-01'
-  },
+start: "{{ start }}",
+end: "{{ start }}"
+},
 eventClick: function (info) {
 let jour = info.event.start.getDay();
 let mois = info.event.start.getMonth();
@@ -208,13 +252,21 @@ info.el.style.borderColor = 'red';
 })
 calendar.render()
 }
-		</script>
-	{% endblock %}
+</script>{% endblock %}{% block modal %}
 
+{{ block("modal", "Menus/modal.html.twig") }}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-	{% block modal %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
-		{{ block("modal", "Menus/modal.html.twig") }}
-		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-	{% endblock %}
+<script>
+
+	$(document).ready(function () {
+$("#filtre_calendrier_classe").select2({placeholder: "Filtrer par classe", allowClear: true});
+$("#filtre_calendrier_intervenant").select2({placeholder: "Filtrer par intervenant", allowClear: true});
+$("#filtre_calendrier_apprenant").select2({placeholder: "Filtrer par apprenant", allowClear: true});
+
+});
+</script>{% endblock %}

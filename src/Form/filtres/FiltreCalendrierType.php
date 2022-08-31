@@ -44,7 +44,30 @@ class FiltreCalendrierType extends AbstractType
             'required' => false
         ])
       
-      
+        ->add('intervenant', EntityType::class, [
+            'class' => Intervenants::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.nom', 'ASC');
+            },
+            'choice_label' => 'nom',
+            'label'=>false,
+            'empty_data'=>'',
+            'multiple' => false,
+            'required' => false
+        ])
+        ->add('apprenant', EntityType::class, [
+            'class' => Etudiants::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.nom', 'ASC');
+            },
+            'choice_label' => 'nom',
+            'label'=>false,
+            'empty_data'=>'',
+            'multiple' => false,
+            'required' => false
+        ])
 
         ;
 
