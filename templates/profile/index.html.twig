@@ -23,6 +23,30 @@
     <script src="{{ asset('assets/js/config.js')}}"></script>
     <script src="{{ asset('assets/js/overlayscrollbars/OverlayScrollbars.min.js')}}"></script>
 
+<style>
+.solution {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  background-color: #e9c111;
+  color: #ff4500;
+  box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.07);
+}
+
+.reponse {
+  width: 700px;
+  padding: 20px 0;
+}
+
+.cache {
+  display: none;
+}
+</style>
+
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
@@ -34,10 +58,15 @@
     <link href="{{ asset('assets/css/theme.min.css')}}" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user-rtl.min.css')}}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('assets/css/user.min.css')}}" rel="stylesheet" id="user-style-default">
+    <script src="{{ asset('assets/script/script.js')}}"></script>
 
 
 <div class="app-main__outer">
 			<div class="app-main__inner">
+
+
+ 
+
 
 
 				<div class="app-page-title">
@@ -50,7 +79,7 @@
 								<div class="page-title-subheading">Modifier Votre Profile</div>
 							</div>
 						</div>
-					
+	
 					</div>
 				</div>
 
@@ -118,5 +147,11 @@
 
 		</div>
 	</div>
+
+  
+
+
+
+  </script>
 	{{ block("Footer", "Menus/Footer.html.twig") }}
 {% endblock %}
