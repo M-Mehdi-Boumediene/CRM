@@ -22,7 +22,7 @@ class BlocsRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws ORMException
+     * @throws ORMException  
      * @throws OptimisticLockException
      */
     public function add(Blocs $entity, bool $flush = true): void

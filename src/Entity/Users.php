@@ -164,6 +164,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $telechargements;
 
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="Remove")
+     */
+    private $removed;
+
    
 
    
@@ -184,6 +191,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->calendriers = new ArrayCollection();
         $this->absences = new ArrayCollection();
         $this->telechargements = new ArrayCollection();
+        $this->removed = new ArrayCollection();
       
  
      
@@ -779,6 +787,37 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($telechargement->getUser() === $this) {
                 $telechargement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+ 
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getRemoved(): Collection
+    {
+        return $this->removed;
+    }
+
+    public function addRemoved(Messages $removed): self
+    {
+        if (!$this->removed->contains($removed)) {
+            $this->removed[] = $removed;
+            $removed->setRemove($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemoved(Messages $removed): self
+    {
+        if ($this->removed->removeElement($removed)) {
+            // set the owning side to null (unless already changed)
+            if ($removed->getRemove() === $this) {
+                $removed->setRemove(null);
             }
         }
 

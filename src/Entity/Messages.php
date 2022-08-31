@@ -51,6 +51,16 @@ class Messages
      */
     private $recipient;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $remove_msg;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="removed")
+     */
+    private $Remove;
+
 
     public function __construct()
     {
@@ -130,6 +140,30 @@ class Messages
     public function setRecipient(?Users $recipient): self
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    public function isRemoveMsg(): ?bool
+    {
+        return $this->remove_msg;
+    }
+
+    public function setRemoveMsg(?bool $remove_msg): self
+    {
+        $this->remove_msg = $remove_msg;
+
+        return $this;
+    }
+
+    public function getRemove(): ?Users
+    {
+        return $this->Remove;
+    }
+
+    public function setRemove(?Users $Remove): self
+    {
+        $this->Remove = $Remove;
 
         return $this;
     }

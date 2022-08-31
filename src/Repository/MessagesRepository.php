@@ -45,6 +45,44 @@ class MessagesRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function archive()
+    {
+        
+        return $this->createQueryBuilder('u')
+      
+        ->select('u')
+        ->where('u.remove_msg = :true')
+        ->setParameter('true',1)
+        ->orderBy('u.id', 'ASC')
+        ->getQuery()
+        ->getResult();
+    
+    }
+
+
+
+
+
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function MessageList(Messages $message)
+    {
+        
+        $query = $this->createQueryBuilder('u')
+        ->select('u')
+        ->where('u.remove_msg = :true')
+        ->setParameter('true',true)
+        ->orderBy('u.id', 'ASC')
+        ->getQuery();
+        
+    }
     // /**
     //  * @return Messages[] Returns an array of Messages objects
     //  */

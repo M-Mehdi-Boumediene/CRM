@@ -105,6 +105,11 @@
                                       {{etat}}
                                   
                                   </td>
+                                    <td>
+                                   <a href="{{path('archiver',{'id': message.id})}}">Supprimer </a>
+                                  </td>
+
+                                  
                                     </tr>
                               
                                     {% endfor %}
@@ -124,11 +129,11 @@
                                   <a href="{{ path('app_messages') }}" class="nav-link">
                                       <i class="nav-link-icon pe-7s-chat"> </i>
                                       <span>Boîte de réception</span>
-                                      <div class="ml-auto badge badge-pill badge-info">8</div>
+                                      <div class="ml-auto badge badge-pill badge-info">({{ app.user.received|length}})</div>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="javascript:void(0);" class="nav-link">
+                                  <a href="{{path('sent')}}" class="nav-link">
                                       <i class="nav-link-icon pe-7s-wallet"> </i>
                                       <span>Éléments envoyés</span>
                                   
@@ -137,7 +142,7 @@
                           
                               <li class="nav-item-divider nav-item"></li>
                               <li class="nav-item">
-                                  <a href="javascript:void(0);" class="nav-link">
+                                          <a href="{{ path('corbeille') }}" class="nav-link">
                                       <i class="nav-link-icon pe-7s-box2"> </i>
                                       <span>Corbeille</span>
                                   </a>
