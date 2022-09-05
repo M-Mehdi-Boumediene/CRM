@@ -1,18 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Users
+{% block title %}Notes
 {% endblock %}
 
 {% block body %}
-<style>
-.panel-success,.tags,.btn{
-	display:none;
-}
-</style>
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+<style>
 
+</style>
 
 		<div class="app-main__outer">
 			<div class="app-main__inner">
@@ -69,4 +66,10 @@
 	</div>
 
 	{{ block("Footer", "Menus/Footer.html.twig") }}
+
+    <script>
+    $('#notes_classes').val({{id}})
+
+
+    </script>
 {% endblock %}

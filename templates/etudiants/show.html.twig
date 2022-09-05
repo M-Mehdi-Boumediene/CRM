@@ -4,129 +4,211 @@
 {% endblock %}
 
 {% block body %}
-	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+
+
+{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 		<div class="app-main__outer">
 			<div class="app-main__inner">
+			
+
+			
+	<div class="tabs-animation">
+		<div class="row">
+
+		<div class="card mb-3">
+			<div class="card-header position-relative min-vh-25 mb-7">
+		    <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url({{ asset('../../assets/images/4.jpg')}});"></div>
+							<!--/.bg-holder-->
+			<div class="avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('../../assets/images/3.jpg')}}" width="200" alt=""></div>
+			</div>
 				<div class="app-page-title">
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
-							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
-							</div>
-							<div>
-								{{ etudiant.nom }}
-								{{ etudiant.prenom }}
-								<div class="page-title-subheading" style="opacity: 1;">
-
-									Créée Le
-									{{ etudiant.createdAt ? etudiant.createdAt|date('Y-m-d H:i') : '' }}
-									Par
-									{{ etudiant.createdBy }}
-								</div>
-							</div>
+											
+						<div>
+						<h4 class="mb-1"> {{ etudiant.nom }}
+							{{ etudiant.prenom }}<span data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Verified"><svg class="svg-inline--fa fa-check-circle fa-w-16 text-primary" data-fa-transform="shrink-4 down-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="check-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" style="transform-origin: 0.5em 0.625em;"><g transform="translate(256 256)"><g transform="translate(0, 64)  scale(0.75, 0.75)  rotate(0 0 0)"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z" transform="translate(-256 -256)"></path></g></g></svg><!-- <small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small> Font Awesome fontawesome.com --></span></h4>
+						<h5 class="fs-0 fw-normal">Ingénieur Logiciels a Technext Limited</h5>
+						<p class="text-500">Paris, France</p>
 						</div>
-						<div class="page-title-actions">
+	</div>
+	<div class="page-title-actions">
 
-							<div class="d-inline-block dropdown">
-								<a href="{{ path('app_etudiants_index') }}">
-									<button class="mb-2 mr-2 btn btn-shadow btn-outline-2x btn-outline-secondary">
-										<span class="btn-icon-wrapper pr-2 opacity-7">
-											<i class="fa fa-fw" aria-hidden="true" title="Copy to use arrow-circle-left"></i>
-										</span>
-										Retour à la liste
-									</button>
+	<div class="d-inline-block dropdown">
+		<a href="{{ path('app_etudiants_index') }}">
+		<button class="mb-2 mr-2 btn btn-shadow btn-outline-2x btn-outline-secondary">
+		<span class="btn-icon-wrapper pr-2 opacity-7">
+			<i class="fa fa-fw" aria-hidden="true" title="Copy to use arrow-circle-left"></i>
+		</span>
+				Retour à la liste
+		</button>
+		</a>
+		<a href="{{ path('app_etudiants_edit',{id:etudiant.id}) }}">
+			<button class="mb-2 mr-2 btn-outline-2x btn btn-shadow-warning btn-outline-warning">
+				<span class="btn-icon-wrapper pr-2 opacity-7">
+					<i class="fa fa-fw" aria-hidden="true" title="Copy to use edit"></i>
+				</span>
+					Modifier
+			</button>
+		</a>
+				{{ include('etudiants/_delete_form.html.twig') }}
 
-								</a>
-								<a href="{{ path('app_etudiants_edit',{id:etudiant.id}) }}">
-									<button class="mb-2 mr-2 btn-outline-2x btn btn-shadow-warning btn-outline-warning">
-										<span class="btn-icon-wrapper pr-2 opacity-7">
-											<i class="fa fa-fw" aria-hidden="true" title="Copy to use edit"></i>
-										</span>
-										Modifier
-									</button>
-								</a>
-
-								{{ include('etudiants/_delete_form.html.twig') }}
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="tabs-animation">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="main-card mb-3 card">
-								<div class="card-header">Informations</div>
-								<div class="card-body">
-									<p>
-										<b>Nom :</b>
-										{{etudiant.nom}}</p>
-									<p>
-										<b>Prenom :</b>
-										{{etudiant.prenom}}</p>
-									<p>
-										<b>Adresse :</b>
-										{{ etudiant.adresse }}</p>
-									<p></p>
-									<p>
-										<b>Code postal :</b>
-										{% for code in etudiant.ville %}
-											{{code.nom}}
-										{% endfor %}
-									</p>
-									<p>
-										<b>Département :</b>
-										{% for departement in etudiant.codepostale %}
-											{{departement.nom}}
-										{% endfor %}
-									</p>
-									<b>Téléphone :</b>
-									{{etudiant.telephone}}</p>
-								<p>
-									<b>Email :</b>
-									{{etudiant.email}}</p>
-
-							</div>
-
-						</div>
-
-					</div>
-					<div class="col-md-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Classes</h5>
-								<ul class="list-group list-group-flush">
-
-									<a href="javascript:void(0);" class="list-group-item">
-										-
-
+	</div>
+	</div>					
+	</div>	
+</div>
+								
+	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+				<li class="nav-item">
+				<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+									<span>Informations Personnelles</span>
 									</a>
+									</li>
+									<li class="nav-item">
+									<a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+									<span>Classe</span>
+									</a>
+									</li>
+										<li class="nav-item">
+									<a role="tab" class="nav-link" id="tab-3" data-toggle="tab" href="#tab-content-3">
+									<span>Absences</span>
+									</a>
+									</li>
+									<li class="nav-item">
+									<a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+									<span>Progression & Resultats</span>
+									</a>
+									</li>
 
 								</ul>
-							</div>
+
+
+
+
+				<div class="tab-content">
+					<div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+					<div class="row">
+						<div class="col-md-12">
+						<div class="main-card mb-3 card">
+						<div class="card-body">
+							<h5 class="card-title">Informations Personnelles</h5>
+
+								<div class="card-body">
+							<h5 class="fs-0 fw-normal">	
+							Nom :{{ etudiant.nom }}
+								{{ etudiant.prenom }}
+							</h5>
+									<h5 class="fs-0 fw-normal">
+									Code Postal : 	
+									{% for code in etudiant.ville %}
+										{{code.nom}}
+									{% endfor %}	
+									</h5>
+
+									<h5 class="fs-0 fw-normal">
+									Adresse : 
+										{{ etudiant.adresse }}   
+									</h5>
+									<h5 class="fs-0 fw-normal">
+									Département : 
+									{% for departement in etudiant.codepostale %}
+										{{departement.nom}}
+									{% endfor %}
+									</h5>
+														
+									<h5 class="fs-0 fw-normal">
+									Téléphone :
+										{{etudiant.telephone}}
+									</h5>
+
+									<h5 class="fs-0 fw-normal">
+									Email :
+										{{etudiant.email}}
+									</h5>
+								</div>
+
+
 						</div>
+						</div>
+						</div>
+	
+					</div>
 					</div>
 
-					<div class="col-md-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Absences</h5>
-								<ul class="list-group list-group-flush"></ul>
-							</div>
+
+
+				<div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+		 <div class="row">
+			<div class="col-md-12">
+				<div class="main-card mb-3 card">
+				<div class="card-body">
+				<h5 class="card-title">Classes</h5>
+
+						<div class="card-body">
+							
 						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Progression et résultat</h5>
-								<ul class="list-group list-group-flush"></ul>
-							</div>
+
+				</div>
+
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<div class="tab-pane tabs-animation fade" id="tab-content-3" role="tabpanel">
+		 <div class="row">
+			<div class="col-md-12">
+				<div class="main-card mb-3 card">
+				<div class="card-body">
+				<h5 class="card-title">Absences</h5>
+
+						<div class="card-body">
+										
+
+
+								
 						</div>
+
+				</div>
+
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+			<div class="row">
+			<div class="col-md-12">
+			<div class="main-card mb-3 card">
+				<div class="card-body">
+					<h5 class="card-title"> Progression & Resultats</h5>
+				<div class="card-body">
+									
+			</div>  
+			</div>
+			</div>
+		</div>
+					
 					</div>
+						</div>
+						</div>
+						</div>
+						</div> 
+
+
+
+						
+				</div>
+					
+				
+
+				</div>
+						</div>
 				</div>
 			</div>
 			{{ block("Footer", "Menus/Footer.html.twig") }}
+			<div class="app-drawer-overlay d-none animated fadeIn"></div><script type="text/javascript" src="{{ asset('assets/scripts/main.d810cf0ae7f39f28f336.js')}}"></script>
+
+
 		{% endblock %}

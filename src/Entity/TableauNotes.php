@@ -62,7 +62,7 @@ class TableauNotes
     private $notes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="tableauNotes")
+     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="tableauNotes", cascade={"all"})
      */
     private $copie;
 

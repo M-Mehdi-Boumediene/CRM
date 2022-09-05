@@ -77,20 +77,18 @@ class EtudiantsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
 
-            ->innerJoin('u.classes', 'c')
-            ->innerJoin('u.modules', 'm')
-   
+        ->innerJoin('u.classes', 'c')
+        ->innerJoin('c.modules', 'm')
 
-          
-            ->orWhere('u.nom LIKE :value')
-            ->orWhere('u.prenom LIKE :value')
-            
-            ->orWhere('c.id = :classe')
-            ->orWhere('m.id = :module')
 
-            ->setParameter('value', '%'.$value.'%')
-            ->setParameter('classe', $classe)
-            ->setParameter('module', $module)
+        ->where('u.nom LIKE :value')
+        ->orWhere('u.prenom LIKE :value')
+        ->orWhere('c.id = :classe')
+        ->andWhere('m.id = :module')
+
+        ->setParameter('value', '%'.$value.'%')
+        ->setParameter('classe', $classe)
+        ->setParameter('module', $module)
 
 
             ->orderBy('u.id', 'ASC')

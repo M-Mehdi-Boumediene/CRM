@@ -46,9 +46,21 @@ class MainController extends AbstractController
         if ($form2->isSubmitted() && $form2->isValid()) {
 
        
-         $filtre = $form2->get('classe')->getData();
-        
-         $events = $calendrier->searchMot($filtre);
+         $classe = $form2->get('classe')->getData();
+         $intervenant = $form2->get('intervenant')->getData();
+         $apprenant = $form2->get('apprenant')->getData();
+
+         if($classe == null){
+            $classe = empty($classe);
+        }
+        if($intervenant == null){
+            $intervenant = empty($intervenant);
+        }
+        if($apprenant == null){
+            $apprenant = empty($apprenant);
+        }
+
+         $events = $calendrier->searchMot($classe,$intervenant,$apprenant);
          $rdvs = [];
          $rdvs2 = [];
          foreach ($events as $event){
@@ -182,6 +194,7 @@ class MainController extends AbstractController
      */
     public function calendrierEtudiant(CalendrierRepository $calendrier,UsersRepository $users, EtudiantsRepository $apprenants ): Response
     {
+
         $events = $calendrier->findAll();
         $rdvs = [];
         foreach ($events as $event){
@@ -206,10 +219,12 @@ class MainController extends AbstractController
             ];
 
             $data = json_encode($rdvs);
+            
             $classe= $event->getClasse()->getId();
         }
         $etudiants = $apprenants->findByClasse($classe);
-        return $this->render('main/gestion_calendrier.html.twig', [
+
+        return $this->render('main/calendrier_etudiant.html.twig', [
             'etudiants_calendar' => $etudiants,
             'data' => compact('data'),
           

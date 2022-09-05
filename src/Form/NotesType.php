@@ -77,7 +77,7 @@ class NotesType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'prototype' => true,
-                'prototype_name' => '__children_name__',
+      
                 'attr' => array (
                         'class' => "child-collection",
                 ),
@@ -94,10 +94,5 @@ class NotesType extends AbstractType
         
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Notes::class,
-        ]);
-    }
+
 }
