@@ -4,27 +4,36 @@
 {% endblock %}
 
 {% block body %}
+
+
+
+
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 		<div class="app-main__outer">
 			<div class="app-main__inner">
+			
+
+		
+<div class="tabs-animation">
+					<div class="row">
+
+      <div class="card mb-3">
+            <div class="card-header position-relative min-vh-25 mb-7">
+              <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url({{ asset('../../assets/images/4.jpg')}});"></div>
+              <!--/.bg-holder-->
+              <div class="avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('../../assets/images/2.jpg')}}" width="200" alt=""></div>
+            </div>
 				<div class="app-page-title">
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
-							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
-							</div>
+							
 							<div>
-								{{ intervenant.nom }}
-								{{ intervenant.prenom }}
-								<div class="page-title-subheading" style="opacity: 1;">
-
-									Créée Le
-									{{ intervenant.createdAt ? intervenant.createdAt|date('Y-m-d H:i') : '' }}
-									Par
-									{{ intervenant.createdBy }}
-								</div>
+							 <h4 class="mb-1"> {{ intervenant.nom }}
+								{{ intervenant.prenom }}<span data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Verified"><svg class="svg-inline--fa fa-check-circle fa-w-16 text-primary" data-fa-transform="shrink-4 down-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="check-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" style="transform-origin: 0.5em 0.625em;"><g transform="translate(256 256)"><g transform="translate(0, 64)  scale(0.75, 0.75)  rotate(0 0 0)"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z" transform="translate(-256 -256)"></path></g></g></svg><!-- <small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small> Font Awesome fontawesome.com --></span></h4>
+                		  <h5 class="fs-0 fw-normal">Ingénieur Logiciels a Technext Limited</h5>
+              			    <p class="text-500">Paris, France</p>
 							</div>
 						</div>
 						<div class="page-title-actions">
@@ -49,96 +58,143 @@
 								{{ include('intervenants/_delete_form.html.twig') }}
 
 							</div>
-						</div>
-					</div>
+						</div>					
+					</div>	
 				</div>
+				
+				<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+					<li class="nav-item">
+					<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+					<span>Informations Personnelles</span>
+					</a>
+					</li>
+					<li class="nav-item">
+					<a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+					<span>Renseignements Scolaires</span>
+					</a>
+					</li>
+					<li class="nav-item">
+					<a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+					<span>Parcours Professionnelles</span>
+					</a>
+					</li>
 
-				<div class="tabs-animation">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="main-card mb-3 card">
-								<div class="card-header">Informations</div>
-								<div class="card-body">
-									<p>
-										<b>Nom :</b>
-										{{intervenant.nom}}</p>
-									<p>
-										<b>Prenom :</b>
-										{{intervenant.prenom}}</p>
-									<p>
-										<b>Ville :</b>
-										{{ intervenant.ville.nom }}</p>
-								</p>
-								<p>
-									<b>Code postal :</b>
-									{{ intervenant.codepostale.nom }}</p>
-							</p>
-							<p>
-								<b>Adresse :</b>
-								{{ intervenant.adresse }}</p>
-							<p>
-								<b>Téléphone :</b>
-								{{intervenant.telephone}}</p>
-							<p>
-								<b>Email :</b>
-								{{intervenant.email}}</p>
-
-						</div>
-
-					</div>
-
-				</div>
-				<div class="col-md-6">
-					<div class="main-card mb-3 card">
-						<div class="card-body">
-							<h5 class="card-title">Classes</h5>
-							<ul class="list-group list-group-flush">
-
-								<a href="javascript:void(0);" class="list-group-item">
-									{{intervenant.classes.nom}}
-									-
-									{% for bloc in intervenant.classes.blocs %}
-										{{bloc.nom}}
-									{% endfor %}
-								</a>
-
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="main-card mb-3 card">
-						<div class="card-body">
-							<h5 class="card-title">Apprenants</h5>
-							<ul class="list-group list-group-flush">
-								{% for etudiant in intervenant.classes.etudiants %}
-									<a href="javascript:void(0);" class="list-group-item">
-										{{ etudiant.nom}}
-									</a>
-								{% endfor %}
-
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="main-card mb-3 card">
-						<div class="card-body">
-							<h5 class="card-title">Modules</h5>
-							<ul class="list-group list-group-flush">
+				</ul>
 
 
-								{% for module in modules %}
-									{{module.nom}}
-								{% endfor %}
 
 
-							</ul>
-						</div>
-					</div>
+<div class="tab-content">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="main-card mb-3 card">
+        <div class="card-body">
+             <h5 class="card-title">Informations Personnelles</h5>
+
+                <div class="card-body">
+					<h5 class="fs-0 fw-normal">
+					Ville  : 
+					{{ intervenant.ville.nom }}
+					</h5>
+
+					<h5 class="fs-0 fw-normal">
+					Code Postal : 		
+					</h5>
+
+					<h5 class="fs-0 fw-normal">
+					Adresse : 
+					{{ intervenant.adresse }}     
+					</h5>
+					<h5 class="fs-0 fw-normal">
+					Téléphone :
+					</h5>
+
+					<h5 class="fs-0 fw-normal">
+					Email :
+					</h5>
+                </div>
+
+
+        </div>
+        </div>
+        </div>
+
+    </div>
+    </div>
+    
+        <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+        <div class="row">
+        <div class="col-md-12">
+        <div class="main-card mb-3 card">
+        <div class="card-body">
+        <h5 class="card-title">Renseignements Scolaire</h5>
+
+                       <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                     
+                            
+								<h5 class="fs-0 fw-normal">
+								<b>	Classe </b>:
+								{{intervenant.classes.nom}}
+
+									</h5>
+                            </ul>
+
+
+								<h5 class="fs-0 fw-normal">
+                    		 		<b>  Modules </b>:
+					 		<ul class="list-group list-group-flush">
+ 
+ 
+                                {% for module in modules %}
+                               <div class="container">     
+							   		{{module.nom}}<br>
+								</div>
+                                {% endfor %}
+ 
+ 
+                            </ul>
+
+                      
+                    </h5>
+                        </div>
+
+        </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+        <div class="row">
+        <div class="col-md-12">
+        <div class="main-card mb-3 card">
+        <div class="card-body">
+        <h5 class="card-title">Parcours Pro</h5>
+			<div class="card-body">
+  					 
+        </div>  </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div> 
+
+
+
+          
+</div>
+     
+ 
+
+</div>
+        </div>
 				</div>
 			</div>
-		</div>
-		{{ block("Footer", "Menus/Footer.html.twig") }}
+			{{ block("Footer", "Menus/Footer.html.twig") }}
+			<div class="app-drawer-overlay d-none animated fadeIn"></div><script type="text/javascript" src="{{ asset('assets/scripts/main.d810cf0ae7f39f28f336.js')}}"></script>
+
 	{% endblock %}

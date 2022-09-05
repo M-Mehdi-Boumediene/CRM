@@ -75,7 +75,7 @@
 							</div>
 
 							<div class="row" style="padding-right:12px;padding-left: 12px;
-}">
+									}">
 
 								{{ form_start(form2) }}
 								<div class="row">
@@ -85,13 +85,13 @@
 
 
 									</div>
-											<div class="col-md-3">
+									<div class="col-md-3">
 										{{ form_row(form2.intervenant,{'attr': {'class': 'form-control'}}) }}
 										{{ form_errors(form2.intervenant) }}
 
 
 									</div>
-											<div class="col-md-3">
+									<div class="col-md-3">
 										{{ form_row(form2.apprenant,{'attr': {'class': 'form-control'}}) }}
 										{{ form_errors(form2.apprenant) }}
 
@@ -149,19 +149,19 @@ let calendar = new FullCalendar.Calendar(calendarElt, {
 initialView: 'timeGridWeek',
 locale: 'fr',
 buttonText: {
-    today:    'Aujourd\'hui',
-    month:    'Mois',
-    week:     'Semaine',
-    day:      'Jour',
-    list:     'Liste'
+today: 'Aujourd\'hui',
+month: 'Mois',
+week: 'Semaine',
+day: 'Jour',
+list: 'Liste'
 },
 minTime: "08:00:00",
 maxTime: "18:00:00",
 headerToolbar: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'timeGridDay,timeGridWeek,dayGridMonth,listMonth'
-  },
+left: 'prev,next today',
+center: 'title',
+right: 'timeGridDay,timeGridWeek,dayGridMonth,listMonth'
+},
 
 businessHours: [
 { // specify an array instead

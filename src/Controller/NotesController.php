@@ -4,15 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Etudiants;
 use App\Entity\Notes;
+use App\Entity\TableauNotes;
 use App\Form\NotesType;
 use App\Repository\NotesRepository;
 use App\Repository\IntervenantsRepository;
+use App\Repository\TableauNotesRepository;
+use App\Repository\FilesRepository;
 use App\Repository\EtudiantsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\BlocsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use App\Entity\Files;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,10 +64,77 @@ class NotesController extends AbstractController
 
             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
         }
-        $etudiant = $etudiantsRepository->findByClasse(1);
+        $etudiant = $etudiantsRepository->findAll();
 
         return $this->renderForm('notes/new.html.twig', [
             'note' => $note,
+            'form' => $form,
+            'etudiants' => $etudiant,
+          
+        ]);
+    }
+
+    /**
+     * @Route("/new/{id}", name="app_notes_newbyclass", methods={"GET", "POST"})
+     */
+    public function newbyclasse(Request $request, $id,NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    {
+      
+        $note = new Notes();
+     
+        $form = $this->createForm(NotesType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+          
+            $tableau = $form->get('tableau');
+            foreach($tableau as $tableau){
+                $tableaunotes = new TableauNotes();
+                $newfile= new Files();
+            $files = $tableau->get('copie')->getData();
+
+            foreach($files as $file){
+                $em = $this->getDoctrine()->getManager();
+                // Je génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+
+                // Je copie le fichier dans le dossier uploads
+                $file->move(
+                    $this->getParameter('videos_directory'),
+                    $fichier
+                );
+
+                // Je stocke le document dans la BDD (nom du fichier)
+              
+                $date = new \DateTimeImmutable('now');
+                $newfile->setName($fichier);
+                $newfile->setTableauNotes($tableaunotes);
+                $newfile->setNom('fichier');
+
+               
+ 
+            }
+            $TableauNotesRepository->add($tableaunotes);
+            $tableaunotes->addCopie($newfile);
+            $FilesRepository->add($newfile);
+            }
+            
+          
+      
+   
+            $notesRepository->add($note, true);
+  
+            // Je boucle sur les documents
+           
+    
+
+            return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
+        }
+        $etudiant = $etudiantsRepository->findByclasse($id);
+
+        return $this->renderForm('notes/newByclasse.html.twig', [
+            'note' => $note,
+            'id'=>$id,
             'form' => $form,
             'etudiants' => $etudiant,
           

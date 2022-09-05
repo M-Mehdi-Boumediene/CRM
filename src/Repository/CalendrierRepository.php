@@ -45,14 +45,20 @@ class CalendrierRepository extends ServiceEntityRepository
         }
     }
     
-    public function searchMot($classe)
+    public function searchMot($classe,$intervenant,$apprenant)
     {
         return $this->createQueryBuilder('u')
 
             ->innerJoin('u.classe', 'c')
+            ->innerJoin('c.intervenants', 'i')
+            ->innerJoin('c.etudiants', 'e')
         
             ->andWhere('c.id = :classe')
+            ->andWhere('i.id = :intervenant')
+            ->andWhere('e.id = :etudiant')
             ->setParameter('classe', $classe)
+            ->setParameter('intervenant', $intervenant)
+            ->setParameter('etudiant', $apprenant)
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()

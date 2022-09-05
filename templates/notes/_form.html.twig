@@ -5,7 +5,54 @@
 	max-width: 24%;
 	padding:5px;
 }
+.panel-success {
+    border-color: #dddddd;
+}
+.panel-success>.panel-heading {
+    background: linear-gradient(to bottom, #fff 0%, #f6f6f6 19%, #ededed 100%);
+    border-color: #dddddd;
+    color: #000;
+}
+.panel-title {
+
+	    font-size: 15px;
+    padding: 15px;
+}
+#show_discount_button {
+    border-radius: 3px;
+    font-size: 0.9em;
+    margin-right: 5px;
+    position: relative;
+    color: #000;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: -87px;
+}
+.btn-glow {
+    font-size: 12px;
+    border-radius: 4px;
+    color: #333;
+    padding: 5px 10px;
+    text-align: center;
+    box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #ccc;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #eef0f1));
+    background: -webkit-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -o-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -ms-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: linear-gradient(to bottom, #fff 0%, #eef0f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eef0f1',GradientType=0 );
+}
+.bolder{
+	font-weight:bold;
+}
 </style>
+
 <div class="row">
 	<div class="col-md-3">
 		{{ form_label(form.classes, 'Classe') }}
@@ -28,12 +75,34 @@
 		{{ form_errors(form.moduleid) }}
 	</div>
 </div>
-<br>
+	<br><hr>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>Apprenants</strong>
+			</h3>
+			<div class="pull-right">
+			<a id="show_discount_button" class="btn-glow btn-xs discount1 bolder">Note 1</a>
+				<a id="show_discount_button" class="btn-glow btn-xs discount2">Note 2</a>
+					<a id="show_discount_button" class="btn-glow btn-xs discount3">Note 3</a>
+			</div>
+		</div>
+
+
+
+
+
+
+	</div>
 
 	{% macro tagCollectionItem(tableau) %}
+
+
+
+
 						<div class="row">
 				<div class="col-md-3">Apprenant</div>
-					<div class="col-md-3">Note /20</div>
+					<div class="col-md-3 titrenote">Note1 /20</div>
 					<div class="col-md-3">Observation</div>
 					<div class="col-md-3">Pièce jointe</div>
 						<div class="col-md-3">
@@ -44,16 +113,26 @@
 
 					<div class="col-md-3">
 						
-				{{ form_row(tableau.note1,{'attr': {'class': 'form-control '}}) }}
+				{{ form_row(tableau.note1,{'attr': {'class': 'form-control note1 '}}) }}
 				{{ form_errors(tableau.note1) }}
+
+					{{ form_row(tableau.note2,{'attr': {'class': 'form-control note2 '}}) }}
+				{{ form_errors(tableau.note2) }}
+
+					{{ form_row(tableau.note3,{'attr': {'class': 'form-control note3 '}}) }}
+				{{ form_errors(tableau.note3) }}
 				
 						</div>
 						
 					<div class="col-md-3">
 						
-				{{ form_row(tableau.observation1,{'attr': {'class': 'form-control '}}) }}
+				{{ form_row(tableau.observation1,{'attr': {'class': 'form-control  observation1'}}) }}
 				{{ form_errors(tableau.observation1) }}
-								
+					{{ form_row(tableau.observation2,{'attr': {'class': 'form-control  observation2'}}) }}
+				{{ form_errors(tableau.observation2) }}
+
+				{{ form_row(tableau.observation3,{'attr': {'class': 'form-control  observation3'}}) }}
+				{{ form_errors(tableau.observation3) }}
 				
 						</div>
 			<div class="col-md-3">
@@ -67,14 +146,15 @@
 		
 			</div>
 		
-			
+	<hr>
 		
 	{% endmacro %}
 	
 			
 	<div class="tags" style="width:100%; " data-index="{{ form.tableau|length > 0 ? form.tableau|last.vars.name + 1 : 0 }}" data-prototype="{{ _self.tagCollectionItem(form.tableau.vars.prototype)|e('html_attr') }}">
 
-	
+				<div class="panel-body" style="font-size: 11px;color: black;padding-right: 0;padding-left: 1px; padding-bottom: 20px;    display: inline;">
+
 							
 		{% for tableau in form.tableau %}
 
@@ -82,7 +162,7 @@
 
 		{% endfor %}
 
-	
+	</div>
 			
 		
 	</div>
@@ -133,7 +213,7 @@ addTagLink.addEventListener("click", addFormToCollection)
 {% for etudiant in etudiants %}
 
 
-<input class="etudiantsListe" type="text" value="{{etudiant.id}}" style="display:none;">
+<input class="etudiantsListe {{loop.index}}" type="text" value="{{etudiant.id}}" style="display:none;" >
 
 
 {% endfor %}
@@ -143,18 +223,75 @@ $( ".etudiantsListe" ).each(function(index) {
 
   addTagLink.click();
 
-
-});
-
-
-var counter = 5;
+var counter =1;
 $('.etudiant').each(function () {
-		$(this).val(counter)
+		$(this).val($('.'+counter).val())
 
   
     counter++;
 });
 
+});
+
+
+
+
+
+$( "#notes_classes" ).change(function() {
+	
+window.location = '/notes/new/'+$(this).val();
+
+
+});
+
+
+$('.note2').hide()
+$('.observation2').hide()
+$('.note3').hide()
+$('.observation3').hide()
+
+$( ".discount1" ).click(function() {
+$(this).addClass( "bolder" );
+$('.titrenote').text('Note1 /20')	
+$(".discount2").removeClass( "bolder" );
+$(".discount3").removeClass( "bolder" );		
+$('.note1').show()
+$('.observation1').show()
+
+$('.note2').hide()
+$('.observation2').hide()
+
+$('.note3').hide()
+$('.observation3').hide()
+});
+$( ".discount2" ).click(function() {
+$(this).addClass( "bolder" );	
+$('.titrenote').text('Note2 /20')
+$(".discount1").removeClass( "bolder" );
+$(".discount3").removeClass( "bolder" );	
+$('.note1').hide()
+$('.observation1').hide()
+
+$('.note2').show()
+$('.observation2').show()
+
+$('.note3').hide()
+$('.observation3').hide()
+});
+$( ".discount3" ).click(function() {
+	$(this).addClass( "bolder" );	
+	$('.titrenote').text('Note3 /20')
+$(".discount1").removeClass( "bolder" );
+$(".discount2").removeClass( "bolder" );	
+$('.note1').hide()
+$('.observation1').hide()
+
+$('.note2').hide()
+$('.observation2').hide()
+
+$('.note3').show()
+$('.observation3').show()
+});
 
 
 

@@ -50,7 +50,12 @@ class FiltreCalendrierType extends AbstractType
                 return $er->createQueryBuilder('u')
                     ->orderBy('u.nom', 'ASC');
             },
-            'choice_label' => 'nom',
+         
+            'choice_label' => function($intervenant, $key, $index) {
+                /** @var Intervenants $intervenant */
+                return $intervenant->getNom() . ' ' . $intervenant->getPrenom();
+            },
+
             'label'=>false,
             'empty_data'=>'',
             'multiple' => false,
@@ -62,7 +67,10 @@ class FiltreCalendrierType extends AbstractType
                 return $er->createQueryBuilder('u')
                     ->orderBy('u.nom', 'ASC');
             },
-            'choice_label' => 'nom',
+            'choice_label' => function($apprenant, $key, $index) {
+                /** @var Apprenants $apprenant */
+                return $apprenant->getNom() . ' ' . $apprenant->getPrenom();
+            },
             'label'=>false,
             'empty_data'=>'',
             'multiple' => false,
