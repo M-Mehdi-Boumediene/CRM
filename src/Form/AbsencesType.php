@@ -4,6 +4,7 @@ namespace App\Form;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Classes;
 use App\Entity\Blocs;
@@ -29,38 +30,18 @@ class AbsencesType extends AbstractType
             'choice_label' => 'nom',
             'multiple'=>false
         ])
-        ->add('module', EntityType::class, [
-            'class' => Modules::class,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->orderBy('u.nom', 'ASC');
-            },
-            'choice_label' => 'nom',
-            'multiple'=>false
-        ])
-        ->add('du',DateTimeType::class,[
-            'label' => 'Date début',
-            'widget' => "single_text"
-        ])
-        ->add('au',DateTimeType::class,[
-            'label' => 'Date fin',
-            'widget' => "single_text"
+     
+        ->add('tableau', CollectionType::class, [
+            'entry_type' => TableauAbsencesType::class,
+            'entry_options' => ['label' => false],
+            'allow_add' => true,
+            'prototype' => true,
+  
+       
+            'by_reference' => false,
+            'label' => false
             
         ])
-            ->add('user', EntityType::class, [
-                'class' => Users::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.email', 'ASC')
-                        ->where('u.roles LIKE :role')
-                        ->orWhere('u.roles LIKE :role2')
-                            ->setParameter('role','%"'.'ROLE_ETUDIANT'.'"%')
-                            ->setParameter('role2','%"'.'ROLE_INTERVENANT'.'"%')
-                        ;
-                },
-                'choice_label' => 'email',
-                'multiple'=>false
-            ])
            
             
         ;

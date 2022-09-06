@@ -108,6 +108,21 @@ class Absences
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauNotes::class, mappedBy="absences")
+     */
+    private $tableauNotes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauAbsences::class, mappedBy="tableau")
+     */
+    private $tableauAbsences;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauAbsences::class, inversedBy="absences")
+     */
+    private $tableau;
+
  
 
 
@@ -120,6 +135,9 @@ class Absences
     {
         $this->etudiant = new ArrayCollection();
         $this->intervenant = new ArrayCollection();
+        $this->tableauNotes = new ArrayCollection();
+        $this->tableauAbsences = new ArrayCollection();
+        $this->tableau = new ArrayCollection();
 
     
     }
@@ -355,6 +373,84 @@ class Absences
     public function setUser(?Users $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauNotes>
+     */
+    public function getTableauNotes(): Collection
+    {
+        return $this->tableauNotes;
+    }
+
+    public function addTableauNote(TableauNotes $tableauNote): self
+    {
+        if (!$this->tableauNotes->contains($tableauNote)) {
+            $this->tableauNotes[] = $tableauNote;
+            $tableauNote->addAbsence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTableauNote(TableauNotes $tableauNote): self
+    {
+        if ($this->tableauNotes->removeElement($tableauNote)) {
+            $tableauNote->removeAbsence($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauAbsences>
+     */
+    public function getTableauAbsences(): Collection
+    {
+        return $this->tableauAbsences;
+    }
+
+    public function addTableauAbsence(TableauAbsences $tableauAbsence): self
+    {
+        if (!$this->tableauAbsences->contains($tableauAbsence)) {
+            $this->tableauAbsences[] = $tableauAbsence;
+            $tableauAbsence->addTableau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTableauAbsence(TableauAbsences $tableauAbsence): self
+    {
+        if ($this->tableauAbsences->removeElement($tableauAbsence)) {
+            $tableauAbsence->removeTableau($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauAbsences>
+     */
+    public function getTableau(): Collection
+    {
+        return $this->tableau;
+    }
+
+    public function addTableau(TableauAbsences $tableau): self
+    {
+        if (!$this->tableau->contains($tableau)) {
+            $this->tableau[] = $tableau;
+        }
+
+        return $this;
+    }
+
+    public function removeTableau(TableauAbsences $tableau): self
+    {
+        $this->tableau->removeElement($tableau);
 
         return $this;
     }

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TableauAbsences index{% endblock %}
+
+{% block body %}
+    <h1>TableauAbsences index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dateabsence</th>
+                <th>Retard</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tableau_absence in tableau_absences %}
+            <tr>
+                <td>{{ tableau_absence.id }}</td>
+                <td>{{ tableau_absence.dateabsence ? tableau_absence.dateabsence|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tableau_absence.retard ? tableau_absence.retard|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_tableau_absences_show', {'id': tableau_absence.id}) }}">show</a>
+                    <a href="{{ path('app_tableau_absences_edit', {'id': tableau_absence.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tableau_absences_new') }}">Create new</a>
+{% endblock %}

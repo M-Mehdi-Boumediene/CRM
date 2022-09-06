@@ -96,6 +96,11 @@ class Etudiants
      */
     private $tableauNotes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauAbsences::class, mappedBy="etudiant")
+     */
+    private $tableauAbsences;
+
 
 
 
@@ -111,6 +116,7 @@ class Etudiants
         $this->absences = new ArrayCollection();
         $this->tuteurs = new ArrayCollection();
         $this->tableauNotes = new ArrayCollection();
+        $this->tableauAbsences = new ArrayCollection();
 
    
     }
@@ -349,6 +355,33 @@ class Etudiants
     {
         if ($this->tableauNotes->removeElement($tableauNote)) {
             $tableauNote->removeEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauAbsences>
+     */
+    public function getTableauAbsences(): Collection
+    {
+        return $this->tableauAbsences;
+    }
+
+    public function addTableauAbsence(TableauAbsences $tableauAbsence): self
+    {
+        if (!$this->tableauAbsences->contains($tableauAbsence)) {
+            $this->tableauAbsences[] = $tableauAbsence;
+            $tableauAbsence->addEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTableauAbsence(TableauAbsences $tableauAbsence): self
+    {
+        if ($this->tableauAbsences->removeElement($tableauAbsence)) {
+            $tableauAbsence->removeEtudiant($this);
         }
 
         return $this;

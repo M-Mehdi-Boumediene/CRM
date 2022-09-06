@@ -68,6 +68,8 @@ class TableauNotes
      */
     private $etudiant;
 
+
+
   
 
 
@@ -77,6 +79,7 @@ class TableauNotes
         $this->notes = new ArrayCollection();
         $this->copie = new ArrayCollection();
         $this->etudiant = new ArrayCollection();
+
 
     }
 
@@ -241,6 +244,8 @@ class TableauNotes
 
         return $this;
     }
+
+   
 
    
 }
