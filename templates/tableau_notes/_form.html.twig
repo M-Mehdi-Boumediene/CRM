@@ -1,4 +1,178 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<style>
+.tableau{
+	display: inline-block;
+	max-width: 24%;
+	padding:5px;
+}
+.panel-success {
+    border-color: #dddddd;
+}
+.panel-success>.panel-heading {
+    background: linear-gradient(to bottom, #fff 0%, #f6f6f6 19%, #ededed 100%);
+    border-color: #dddddd;
+    color: #000;
+}
+.panel-title {
+
+	    font-size: 15px;
+    padding: 15px;
+}
+#show_discount_button {
+    border-radius: 3px;
+    font-size: 0.9em;
+    margin-right: 5px;
+    position: relative;
+    color: #000;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: -87px;
+}
+.btn-glow {
+    font-size: 12px;
+    border-radius: 4px;
+    color: #333;
+    padding: 5px 10px;
+    text-align: center;
+    box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #ccc;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #eef0f1));
+    background: -webkit-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -o-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -ms-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: linear-gradient(to bottom, #fff 0%, #eef0f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eef0f1',GradientType=0 );
+}
+.bolder{
+	font-weight:bold;
+}
+#tableau_notes_etudiant{
+display: none;
+}
+</style>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>Apprenants</strong>
+			</h3>
+			<div class="pull-right">
+			<a id="show_discount_button" class="btn-glow btn-xs discount1 bolder">Note 1</a>
+				<a id="show_discount_button" class="btn-glow btn-xs discount2">Note 2</a>
+					<a id="show_discount_button" class="btn-glow btn-xs discount3">Note 3</a>
+			</div>
+		</div>
+
+
+
+	<div class="row" style="width:100%;">
+				<div class="col-md-3"> </div>
+					<div class="col-md-3 titrenote">Note1 /20</div>
+					<div class="col-md-3">Observation</div>
+					<div class="col-md-3">Pièce jointe</div>
+						<div class="col-md-3" id="etudiant">
+					
+				{{ form_row(form.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
+				{{ form_errors(form.etudiant) }}
+						</div>
+
+					<div class="col-md-3">
+						
+				{{ form_row(form.note1,{'attr': {'class': 'form-control note1 '}}) }}
+				{{ form_errors(form.note1) }}
+
+					{{ form_row(form.note2,{'attr': {'class': 'form-control note2 '}}) }}
+				{{ form_errors(form.note2) }}
+
+					{{ form_row(form.note3,{'attr': {'class': 'form-control note3 '}}) }}
+				{{ form_errors(form.note3) }}
+				
+						</div>
+						
+					<div class="col-md-3">
+						
+				{{ form_row(form.observation1,{'attr': {'class': 'form-control  observation1'}}) }}
+				{{ form_errors(form.observation1) }}
+					{{ form_row(form.observation2,{'attr': {'class': 'form-control  observation2'}}) }}
+				{{ form_errors(form.observation2) }}
+
+				{{ form_row(form.observation3,{'attr': {'class': 'form-control  observation3'}}) }}
+				{{ form_errors(form.observation3) }}
+				
+						</div>
+			<div class="col-md-3">
+						
+				{{ form_row(form.copie,{'attr': {'class': 'form-control '}}) }}
+				{{ form_errors(form.copie) }}
+								
+				
+						</div>
+									
+		
+			</div>
+
+
+	</div>
+ 				
+		<hr>
+
+    <button class="mt-1 btn btn-success">Sauvegarder</button>
 {{ form_end(form) }}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script>
+$('.note2').hide()
+$('.observation2').hide()
+$('.note3').hide()
+$('.observation3').hide()
+
+$( ".discount1" ).click(function() {
+$(this).addClass( "bolder" );
+$('.titrenote').text('Note1 /20')	
+$(".discount2").removeClass( "bolder" );
+$(".discount3").removeClass( "bolder" );		
+$('.note1').show()
+$('.observation1').show()
+
+$('.note2').hide()
+$('.observation2').hide()
+
+$('.note3').hide()
+$('.observation3').hide()
+});
+$( ".discount2" ).click(function() {
+$(this).addClass( "bolder" );	
+$('.titrenote').text('Note2 /20')
+$(".discount1").removeClass( "bolder" );
+$(".discount3").removeClass( "bolder" );	
+$('.note1').hide()
+$('.observation1').hide()
+
+$('.note2').show()
+$('.observation2').show()
+
+$('.note3').hide()
+$('.observation3').hide()
+});
+$( ".discount3" ).click(function() {
+	$(this).addClass( "bolder" );	
+	$('.titrenote').text('Note3 /20')
+$(".discount1").removeClass( "bolder" );
+$(".discount2").removeClass( "bolder" );	
+$('.note1').hide()
+$('.observation1').hide()
+
+$('.note2').hide()
+$('.observation2').hide()
+
+$('.note3').show()
+$('.observation3').show()
+});
+
+$('#etudiant').append($( "#tableau_notes_etudiant option:selected" ).text())
+</script>

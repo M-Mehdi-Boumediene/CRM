@@ -73,7 +73,7 @@ class Notes
     private $classes;
 
     /**
-     * @ORM\ManyToMany(targetEntity=TableauNotes::class, inversedBy="notes",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=TableauNotes::class, inversedBy="notes",cascade={"all"})
      */
     private $tableau;
 

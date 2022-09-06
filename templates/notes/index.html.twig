@@ -48,30 +48,50 @@
 										<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
 											<thead>
 												<tr role="row">
-
-
-													<th>Id</th>
+													<th>Classe</th>
 													<th>Apprenant</th>
+													<th>Type</th>
+													<th>Module</th>
 													<th>Note1</th>
 													<th>Note2</th>
 													<th>Note3</th>
-													<th>Moygeneral</th>
+													<th>Copies</th>
 													<th>actions</th>
 
 												</tr>
 											</thead>
 											<tbody>
 
-												{% for note in notes %}
+												{% for note in tableNotes %}
 													<tr>
-														<td>{{ note.id }}</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
 														<td>
-															<a href="{{ path('app_notes_edit', {'id': note.id}) }}">edit</a>
+														{% for classe in note.notes %}
+														{{classe.classes.nom}} 
+															{% endfor %}
+														</td>
+														<td>
+																{% for etudiant in note.etudiant %}
+														{{etudiant.nom}} {{etudiant.prenom}}
+															{% endfor %}
+														</td>
+														
+														<td>{{note.notes[0].type}}</td>
+																<td>
+														{% for classe in note.notes %}
+														{{classe.module.nom}} 
+															{% endfor %}
+														</td>
+														<td>{% if note.note1 %}{{note.note1}}/20 {% else %} {% endif %}</td>
+														<td>{% if note.note2 %}{{note.note2}}/20 {% else %} {% endif %}</td>
+														<td>{% if note.note3 %}{{note.note3}}/20 {% else %} {% endif %}</td>
+														<td>
+																		{% for copie in note.copie %}
+																		<a target="_blank" href="{{asset('uploads/')}}{{copie.name}}">Copie - {{copie|length}} </a><br>
+														 
+															{% endfor %}
+														</td>
+														<td>
+															<a href="{{ path('app_tableau_notes_edit', {'id': note.id}) }}">Modifier</a>
 														</td>
 													</tr>
 												{% else %}
