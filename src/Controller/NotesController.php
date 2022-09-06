@@ -30,10 +30,11 @@ class NotesController extends AbstractController
     /**
      * @Route("/", name="app_notes_index", methods={"GET"})
      */
-    public function index(NotesRepository $notesRepository): Response
+    public function index(NotesRepository $notesRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
         return $this->render('notes/index.html.twig', [
             'notes' => $notesRepository->findAll(),
+            'tableNotes' => $TableauNotesRepository->findAll(),
         ]);
     }
 
@@ -109,12 +110,36 @@ class NotesController extends AbstractController
                 $date = new \DateTimeImmutable('now');
                 $newfile->setName($fichier);
                 $newfile->setTableauNotes($tableaunotes);
-                $newfile->setNom('fichier');
+                $newfile->setNom('Copie');
 
                
  
             }
             $TableauNotesRepository->add($tableaunotes);
+
+            $tableaunotes->addNote($note);
+            $note->addTableau($tableaunotes);
+            
+            $note->setType($form->get('type')->getData());
+            $note->setClasses($form->get('classes')->getData());
+            $note->setModule($form->get('moduleid')->getData());
+            $note->setBloc($form->get('blocid')->getData());
+
+           $etudiants = $tableau->get('etudiant')->getData();
+          
+                
+            $tableaunotes->addEtudiant($etudiants[0]);
+ 
+      
+            $tableaunotes->setNote1($tableau->get('note1')->getData());
+            $tableaunotes->setObservation1($tableau->get('observation1')->getData());
+         
+            $tableaunotes->setNote2($tableau->get('note2')->getData());
+            $tableaunotes->setObservation2($tableau->get('observation2')->getData());
+
+            $tableaunotes->setNote3($tableau->get('note3')->getData());
+            $tableaunotes->setObservation3($tableau->get('observation3')->getData());
+
             $tableaunotes->addCopie($newfile);
             $FilesRepository->add($newfile);
             }

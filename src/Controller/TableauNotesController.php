@@ -57,7 +57,7 @@ class TableauNotesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tableauNotesRepository->add($tableauNote, true);
 
-            return $this->redirectToRoute('app_tableau_notes_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('tableau_notes/edit.html.twig', [

@@ -48,11 +48,15 @@ class TableauNotesType extends AbstractType
           
             ->add('etudiant', EntityType::class, [
                 'class' => Etudiants::class,
-                'choice_label' => 'nom',
-                'empty_data'=>'',
-                'required'=>false,
-           
-                'multiple' => false,
+          
+                'choice_label' => function($apprenant, $key, $index) {
+                    /** @var Apprenants $apprenant */
+                    return $apprenant->getNom() . ' ' . $apprenant->getPrenom();
+                },
+                'required'=>true,
+                'expanded'=>false,
+                'multiple' => true,
+         
                 'label'=>false,
                 'data_class' => null,
                 

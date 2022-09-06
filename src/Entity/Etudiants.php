@@ -92,9 +92,13 @@ class Etudiants
     private $ville;
 
     /**
-     * @ORM\OneToOne(targetEntity=TableauNotes::class, mappedBy="etudiant", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity=TableauNotes::class, mappedBy="etudiant")
      */
     private $tableauNotes;
+
+
+
+
 
 
 
@@ -106,6 +110,7 @@ class Etudiants
         $this->modules = new ArrayCollection();
         $this->absences = new ArrayCollection();
         $this->tuteurs = new ArrayCollection();
+        $this->tableauNotes = new ArrayCollection();
 
    
     }
@@ -322,29 +327,34 @@ class Etudiants
         return $this;
     }
 
-    public function getTableauNotes(): ?TableauNotes
+    /**
+     * @return Collection<int, TableauNotes>
+     */
+    public function getTableauNotes(): Collection
     {
         return $this->tableauNotes;
     }
 
-    public function setTableauNotes(?TableauNotes $tableauNotes): self
+    public function addTableauNote(TableauNotes $tableauNote): self
     {
-        // unset the owning side of the relation if necessary
-        if ($tableauNotes === null && $this->tableauNotes !== null) {
-            $this->tableauNotes->setEtudiant(null);
+        if (!$this->tableauNotes->contains($tableauNote)) {
+            $this->tableauNotes[] = $tableauNote;
+            $tableauNote->addEtudiant($this);
         }
-
-        // set the owning side of the relation if necessary
-        if ($tableauNotes !== null && $tableauNotes->getEtudiant() !== $this) {
-            $tableauNotes->setEtudiant($this);
-        }
-
-        $this->tableauNotes = $tableauNotes;
 
         return $this;
     }
 
-   
+    public function removeTableauNote(TableauNotes $tableauNote): self
+    {
+        if ($this->tableauNotes->removeElement($tableauNote)) {
+            $tableauNote->removeEtudiant($this);
+        }
+
+        return $this;
+    }
+
+ 
 
    
 

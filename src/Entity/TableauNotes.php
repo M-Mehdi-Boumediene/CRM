@@ -51,13 +51,10 @@ class TableauNotes
      */
     private $observation3;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Etudiants::class, inversedBy="tableauNotes", cascade={"persist", "remove"})
-     */
-    private $etudiant;
+
 
     /**
-     * @ORM\ManyToMany(targetEntity=Notes::class, mappedBy="tableau")
+     * @ORM\ManyToMany(targetEntity=Notes::class, mappedBy="tableau", cascade={"all"})
      */
     private $notes;
 
@@ -66,12 +63,21 @@ class TableauNotes
      */
     private $copie;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Etudiants::class, inversedBy="tableauNotes")
+     */
+    private $etudiant;
+
+  
+
 
 
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->copie = new ArrayCollection();
+        $this->etudiant = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -153,17 +159,7 @@ class TableauNotes
 
    
 
-    public function getEtudiant(): ?Etudiants
-    {
-        return $this->etudiant;
-    }
-
-    public function setEtudiant(?Etudiants $etudiant): self
-    {
-        $this->etudiant = $etudiant;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Notes>
@@ -221,4 +217,30 @@ class TableauNotes
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Etudiants>
+     */
+    public function getEtudiant(): Collection
+    {
+        return $this->etudiant;
+    }
+
+    public function addEtudiant(Etudiants $etudiant): self
+    {
+        if (!$this->etudiant->contains($etudiant)) {
+            $this->etudiant[] = $etudiant;
+        }
+
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiants $etudiant): self
+    {
+        $this->etudiant->removeElement($etudiant);
+
+        return $this;
+    }
+
+   
 }
