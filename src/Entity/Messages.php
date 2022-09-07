@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MessagesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,17 +46,15 @@ class Messages
     private $sender;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="received")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $recipient;
-
-
 
 
     public function __construct()
     {
         $this->created_at = new \DateTime();
-        $this->recipient = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,29 +122,15 @@ class Messages
         return $this;
     }
 
-    /**
-     * @return Collection<int, Users>
-     */
-    public function getRecipient(): Collection
+    public function getRecipient(): ?Users
     {
         return $this->recipient;
     }
 
-    public function addRecipient(Users $recipient): self
+    public function setRecipient(?Users $recipient): self
     {
-        if (!$this->recipient->contains($recipient)) {
-            $this->recipient[] = $recipient;
-        }
+        $this->recipient = $recipient;
 
         return $this;
     }
-
-    public function removeRecipient(Users $recipient): self
-    {
-        $this->recipient->removeElement($recipient);
-
-        return $this;
-    }
-
-   
 }
