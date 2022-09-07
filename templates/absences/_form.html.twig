@@ -1,16 +1,259 @@
 {{ form_start(form) }}
+<style>
+.tableau{
+	display: inline-block;
+	max-width: 24%;
+	padding:5px;
+}
+.panel-success {
+    border-color: #dddddd;
+}
+.panel-success>.panel-heading {
+    background: linear-gradient(to bottom, #fff 0%, #f6f6f6 19%, #ededed 100%);
+    border-color: #dddddd;
+    color: #000;
+}
+.panel-title {
 
+	    font-size: 15px;
+    padding: 15px;
+}
+#show_discount_button {
+    border-radius: 3px;
+    font-size: 0.9em;
+    margin-right: 5px;
+    position: relative;
+    color: #000;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: -87px;
+}
+.btn-glow {
+    font-size: 12px;
+    border-radius: 4px;
+    color: #333;
+    padding: 5px 10px;
+    text-align: center;
+    box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #ccc;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #eef0f1));
+    background: -webkit-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -o-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -ms-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: linear-gradient(to bottom, #fff 0%, #eef0f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eef0f1',GradientType=0 );
+}
+.bolder{
+	font-weight:bold;
+}
+.etudiant,.add_tag_list{
+	display: none;
+}
+.absence,.retard {
+	margin-bottom:23px;
+}
+#etudiant{
+	padding-left: 30px;
+	font-weight:bold;
+}
+.titrenote{
+	
+}
+</style>
 
-<div class="form-row">
+<div class="row">
 	<div class="col-md-3">
-		{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
+	
+		{{ form_row(form.classe,{'attr': {'class': 'form-control select'}}) }}
 		{{ form_errors(form.classe) }}
 	</div>
 
-</div>
-<br>
-<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
-ou
-<a href="{{ path('app_etudiants_index') }}">Retour à la liste</a>
 
+</div>
+	<br><hr>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>Apprenants</strong>
+			</h3>
+			<div class="pull-right">
+			<a id="show_discount_button" class="btn-glow btn-xs discount1 bolder">Absences</a>
+				<a id="show_discount_button" class="btn-glow btn-xs discount2">Retards</a>
+					
+			</div>
+		</div>
+
+
+
+
+
+
+	</div>
+
+	{% macro tagCollectionItem(tableau) %}
+
+
+
+
+						<div class="row" style="    width: 100% !important;">
+				<div class="col-md-3"></div>
+					<div class="col-md-3 titrenote">Date d'absence</div>
+					<div class="col-md-3"></div>
+					<div class="col-md-3"></div>
+						<div class="col-md-3" id="etudiant">
+					
+				{{ form_row(tableau.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
+				{{ form_errors(tableau.etudiant) }}
+						</div>
+
+					<div class="col-md-3">
+						
+				{{ form_row(tableau.dateabsence,{'attr': {'class': 'form-control absence '}}) }}
+				{{ form_errors(tableau.dateabsence) }}
+
+				{{ form_row(tableau.retard,{'attr': {'class': 'form-control retard '}}) }}
+				{{ form_errors(tableau.retard) }}
+						</div>
+				
+			
+	
+		
+	<hr>
+		
+	{% endmacro %}
+	
+			
+	<div class="tags" style="width:100%; " data-index="{{ form.tableau|length > 0 ? form.tableau|last.vars.name + 1 : 0 }}" data-prototype="{{ _self.tagCollectionItem(form.tableau.vars.prototype)|e('html_attr') }}">
+
+				<div class="panel-body" style="font-size: 11px;color: black;padding-right: 0;padding-left: 1px; padding-bottom: 20px;    display: inline;">
+
+							
+		{% for tableau in form.tableau %}
+
+	{{ _self.tagCollectionItem(tableau) }}
+
+		{% endfor %}
+
+	</div>
+			
+		
+	</div>
+	
+
+
+<br>
+
+
+<button type="submit" class="mt-1 btn btn-success">Sauvegarder</button>
 {{ form_end(form) }}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script>
+const addTagLink = document.createElement('a')
+addTagLink.classList.add('add_tag_list')
+addTagLink.href='#'
+addTagLink.innerText='Add a tag'
+addTagLink.dataset.collectionHolderClass='tags'
+
+const newLinkLi = document.createElement('div').append(addTagLink)
+
+const collectionHolder = document.querySelector('div.tags')
+collectionHolder.appendChild(addTagLink)
+
+const addFormToCollection = (e) => {
+	const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+      const item = document.createElement('div');
+		
+      item.innerHTML = collectionHolder
+        .dataset
+        .prototype
+        .replace(
+          /__name__/g,
+          collectionHolder.dataset.index
+        );
+
+      collectionHolder.appendChild(item);
+
+      collectionHolder.dataset.index++;
+	  collectionHolder.appendChild(addTagLink)
+}
+
+addTagLink.addEventListener("click", addFormToCollection)
+</script>
+
+{% for etudiant in etudiants %}
+
+
+<input class="etudiantsListe {{loop.index}}" type="text" value="{{etudiant.id}}" style="display:none;" >
+
+
+{% endfor %}
+
+<script>
+$( ".etudiantsListe" ).each(function(index) {
+
+  addTagLink.click();
+
+var counter =1;
+$('.etudiant').each(function () {
+		$(this).val($('.'+counter).val())
+
+  
+    counter++;
+});
+
+});
+
+
+
+
+
+$( "#absences_classe" ).change(function() {
+	
+window.location = '/absences/new/'+$(this).val();
+
+
+});
+
+
+$('.retard').hide()
+
+$( ".discount1" ).click(function() {
+$(this).addClass( "bolder" );
+$('.titrenote').text("Date d'absence")	
+$(".discount2").removeClass( "bolder" );
+
+$('.absence').show()
+$('.retard').hide()
+
+});
+$( ".discount2" ).click(function() {
+$(this).addClass( "bolder" );	
+$('.titrenote').text("Durée du retard")
+$(".discount1").removeClass( "bolder" );
+
+$('.absence').hide()
+$('.retard').show()
+
+});
+
+
+
+$( "div#etudiant" ).each(function(index) {
+$(this).addClass( "index"+index );
+
+$(".index"+index).append($( "#absences_tableau_"+index+"_etudiant option:selected" ).text())
+
+});
+
+
+
+
+</script>
+

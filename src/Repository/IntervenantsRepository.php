@@ -84,11 +84,14 @@ class IntervenantsRepository extends ServiceEntityRepository
             ->innerJoin('c.modules', 'm')
    
 
-            ->where('u.nom LIKE :value')
-            ->orWhere('u.prenom LIKE :value')
-            ->orWhere('c.id = :classe')
+        
+      
+            ->Where('c.id = :classe')
             ->andWhere('m.id = :module')
-
+            ->orWhere('u.nom LIKE :value')
+            ->orWhere('u.prenom LIKE :value')
+            ->orWhere('u.email LIKE :value')
+            ->orWhere('u.telephone LIKE :value')
             ->setParameter('value', '%'.$value.'%')
             ->setParameter('classe', $classe)
             ->setParameter('module', $module)

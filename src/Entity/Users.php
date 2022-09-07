@@ -164,6 +164,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $telechargements;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Messages::class, mappedBy="recipient")
+     */
+    private $messages;
+
    
 
    
@@ -184,6 +189,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->calendriers = new ArrayCollection();
         $this->absences = new ArrayCollection();
         $this->telechargements = new ArrayCollection();
+        $this->messages = new ArrayCollection();
       
  
      
@@ -780,6 +786,33 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             if ($telechargement->getUser() === $this) {
                 $telechargement->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Messages $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->addRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            $message->removeRecipient($this);
         }
 
         return $this;

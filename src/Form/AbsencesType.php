@@ -47,10 +47,5 @@ class AbsencesType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Absences::class,
-        ]);
-    }
+   
 }

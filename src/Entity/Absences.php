@@ -108,15 +108,8 @@ class Absences
      */
     private $user;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=TableauNotes::class, mappedBy="absences")
-     */
-    private $tableauNotes;
+  
 
-    /**
-     * @ORM\ManyToMany(targetEntity=TableauAbsences::class, mappedBy="tableau")
-     */
-    private $tableauAbsences;
 
     /**
      * @ORM\ManyToMany(targetEntity=TableauAbsences::class, inversedBy="absences")
@@ -135,8 +128,7 @@ class Absences
     {
         $this->etudiant = new ArrayCollection();
         $this->intervenant = new ArrayCollection();
-        $this->tableauNotes = new ArrayCollection();
-        $this->tableauAbsences = new ArrayCollection();
+    
         $this->tableau = new ArrayCollection();
 
     
@@ -377,32 +369,7 @@ class Absences
         return $this;
     }
 
-    /**
-     * @return Collection<int, TableauNotes>
-     */
-    public function getTableauNotes(): Collection
-    {
-        return $this->tableauNotes;
-    }
 
-    public function addTableauNote(TableauNotes $tableauNote): self
-    {
-        if (!$this->tableauNotes->contains($tableauNote)) {
-            $this->tableauNotes[] = $tableauNote;
-            $tableauNote->addAbsence($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTableauNote(TableauNotes $tableauNote): self
-    {
-        if ($this->tableauNotes->removeElement($tableauNote)) {
-            $tableauNote->removeAbsence($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, TableauAbsences>

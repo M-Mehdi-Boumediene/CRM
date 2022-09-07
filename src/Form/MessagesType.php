@@ -10,8 +10,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Users;
+use Container3Cf44cE\getFosCkEditor_Form_TypeService;
 
 class MessagesType extends AbstractType
 {
@@ -21,14 +23,13 @@ class MessagesType extends AbstractType
             ->add('objet',TextType::class,[
                 'attr'=> [
                     'class'=>'form-control'
-                ]
+                ],
+                'label'=>false,
                 ])
 
-            ->add('message',TextareaType::class, [
+            ->add('message',CkEditorType::class, [
 
-                    'attr'=> [
-                        'class'=>'form-control'
-                    ]
+               
                 ])
     
             ->add('recipient', EntityType::class, [
@@ -37,8 +38,12 @@ class MessagesType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.email', 'ASC');
                 },
-                'choice_label' => 'email',
-                'multiple' => false,
+                'choice_label' => function($user, $key, $index) {
+                    /** @var Users $user */
+                    return $user->getEmail() . ' ' . $user->getPrenom() . ' ' . $user->getNom();
+                },
+                'label'=>false,
+                'multiple' => true,
                 'required' => false
             ])
     
