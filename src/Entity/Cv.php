@@ -44,15 +44,7 @@ class Cv
      */
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Etudiants::class, inversedBy="cvs")
-     */
-    private $etudiant;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Intervenants::class, inversedBy="cvs")
-     */
-    private $intervenant;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -134,29 +126,7 @@ class Cv
         return $this;
     }
 
-    public function getEtudiant(): ?Etudiants
-    {
-        return $this->etudiant;
-    }
-
-    public function setEtudiant(?Etudiants $etudiant): self
-    {
-        $this->etudiant = $etudiant;
-
-        return $this;
-    }
-
-    public function getIntervenant(): ?Intervenants
-    {
-        return $this->intervenant;
-    }
-
-    public function setIntervenant(?Intervenants $intervenant): self
-    {
-        $this->intervenant = $intervenant;
-
-        return $this;
-    }
+   
 
     public function getEntreprise(): ?string
     {

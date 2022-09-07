@@ -105,7 +105,7 @@
 					<div class="col-md-3 titrenote">Note1 /20</div>
 					<div class="col-md-3">Observation</div>
 					<div class="col-md-3">Pièce jointe</div>
-						<div class="col-md-3">
+						<div class="col-md-3" id="etudiant">
 					
 				{{ form_row(tableau.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
 				{{ form_errors(tableau.etudiant) }}
@@ -172,7 +172,7 @@
 <br>
 
 
-<button class="btn">{{ button_label|default('Save') }}</button>
+<button type="submit" class="mt-1 btn btn-success">Sauvegarder</button>
 {{ form_end(form) }}
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 

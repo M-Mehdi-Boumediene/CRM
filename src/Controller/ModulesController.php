@@ -55,6 +55,7 @@ class ModulesController extends AbstractController
                 'form2' => $form2,
             ]);
         }
+        
         return $this->renderForm('modules/index.html.twig', [
             'modules' => $modulesRepository->findAll(),
             'form2' => $form2,

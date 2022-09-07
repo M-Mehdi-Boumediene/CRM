@@ -49,26 +49,35 @@
 											<thead>
 												<tr role="row">
 
-													<th>Id</th>
-													<th>Date</th>
-													<th>Created_at</th>
-													<th>Created_by</th>
-													<th>Du</th>
-													<th>Au</th>
+
+													<th>Classe</th>
+													<th>Apprenant</th>
+													<th>Date d'absence</th>
+													<th>Durée de retard</th>
 													<th>actions</th>
 
 												</tr>
 											</thead>
 											<tbody>
 
-												{% for absence in absences %}
+												{% for absence in tableAbsences %}
 													<tr>
-														<td>{{ absence.id }}</td>
-														<td>{{ absence.date ? absence.date|date('Y-m-d H:i:s') : '' }}</td>
-														<td>{{ absence.createdAt ? absence.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-														<td>{{ absence.createdBy }}</td>
-														<td>{{ absence.du ? absence.du|date('Y-m-d H:i:s') : '' }}</td>
-														<td>{{ absence.au ? absence.au|date('Y-m-d H:i:s') : '' }}</td>
+														<td>
+															{% for classe in absence.absences %}
+																{{classe.classe.nom}}
+															{% endfor %}
+														</td>
+														<td>
+															{% for etudiant in absence.etudiant %}
+																{{etudiant.nom}}
+																{{etudiant.prenom}}
+															{% endfor %}
+														</td>
+													
+														<td>{% if absence.dateabsence %} {{ absence.dateabsence|date('Y-m-d') }} {% else %} {% endif %}</td>
+
+														<td>{% if absence.retard %} {{ absence.retard|date('H:i') }}  {% else %} {% endif %}</td>
+
 														<td>
 															<a href="{{ path('app_absences_show', {'id': absence.id}) }}">show</a>
 															<a href="{{ path('app_absences_edit', {'id': absence.id}) }}">edit</a>
