@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Absences;
 use App\Entity\TableauAbsences;
 use App\Form\AbsencesType;
+use App\Form\FiltreAbsencesType;
 use App\Repository\AbsencesRepository;
 use App\Repository\IntervenantsRepository;
 use App\Repository\TableauAbsencesRepository;
@@ -22,13 +23,41 @@ use Symfony\Component\Routing\Annotation\Route;
 class AbsencesController extends AbstractController
 {
     /**
-     * @Route("/", name="app_absences_index", methods={"GET"})
+     * @Route("/", name="app_absences_index", methods={"GET","POST"})
      */
-    public function index(AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository): Response
+    public function index(request $request, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository): Response
     {
-        return $this->render('absences/index.html.twig', [
+        $form2 = $this->createForm(FiltreAbsencesType::class);
+        $form2->handleRequest($request);
+
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+            $apprenant = $form2->get('apprenant')->getData();
+        $classe = $form2->get('classe')->getData();
+        
+            if($apprenant == null){
+                $apprenant = empty($apprenant);
+            }
+            if($value == null){
+                $value = empty($value);
+            }
+            if($classe == null){
+                $classe = empty($classe);
+            }
+       
+        $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$apprenant,$classe);
+            return $this->renderForm('absences/index.html.twig', [
+                'tableAbsences' => $tableAbsences,
+                'form2' => $form2,
+            ]);
+        }
+
+        
+        return $this->renderForm('absences/index.html.twig', [
             'absences' => $absencesRepository->findAll(),
             'tableAbsences' => $TableauAbsencesRepository->findAll(),
+            'form2' => $form2,
         ]);
     }
 

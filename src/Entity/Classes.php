@@ -77,16 +77,18 @@ class Classes
     private $telechargements;
 
 
-        /**
-     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="classe")
-     */
-    private $users;
+
 
     
     /**
      * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="classes")
      */
     private $notes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="classe")
+     */
+    private $users;
 
 
     public function __toString() {
@@ -103,8 +105,9 @@ class Classes
    
         $this->absences = new ArrayCollection();
         $this->telechargements = new ArrayCollection();
-        $this->users = new ArrayCollection();
+
         $this->notes = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -364,35 +367,7 @@ class Classes
         return $this;
     }
 
-    /**
-     * @return Collection<int, Users>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(Users $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(Users $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getClasse() === $this) {
-                $user->setClasse(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     /**
      * @return Collection<int, Notes>
@@ -418,6 +393,36 @@ class Classes
             // set the owning side to null (unless already changed)
             if ($note->getClasses() === $this) {
                 $note->setClasses(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(Users $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getClasse() === $this) {
+                $user->setClasse(null);
             }
         }
 

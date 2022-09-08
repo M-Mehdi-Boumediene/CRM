@@ -23,12 +23,12 @@ class AbsencesType extends AbstractType
 
         ->add('classe', EntityType::class, [
             'class' => Classes::class,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->orderBy('u.nom', 'ASC');
-            },
+            'expanded' => false,
+            'multiple' => false,
             'choice_label' => 'nom',
-            'multiple'=>false
+            'empty_data'=>'',
+            'required'=>false,
+            'label'=>'Classe',
         ])
      
         ->add('tableau', CollectionType::class, [

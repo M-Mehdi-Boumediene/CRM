@@ -166,6 +166,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $classe;
 
+ 
+
    
 
    
@@ -776,7 +778,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-  
+   
 
    
 }

@@ -41,6 +41,34 @@
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">
+
+								{{ form_start(form2) }}
+							<div class="row">
+								<div class="col-md-12" style="padding-bottom: 5px;">
+									<b>Recherche</b>
+								</div>
+							</div>
+							<div class="row">
+								{{ form_start(form2) }}
+
+								<div class="col-md-3">
+									{{ form_row(form2.search,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.search) }}
+								</div>
+
+								<div class="col-md-3">
+									{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.classe) }}
+								</div>
+						
+								<button type="submit" class="btn-shadow btn btn-primary" style="    width: 116px;">
+									<span class="btn-icon-wrapper pr-2 opacity-7">
+										<i class="fa fa-search fa-w-20"></i>
+									</span>
+									Rechercher
+								</button>
+
+								{{ form_end(form2) }}
 							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
 								<div class="row">

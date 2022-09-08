@@ -6,6 +6,7 @@ use App\Entity\Etudiants;
 use App\Entity\Notes;
 use App\Entity\TableauNotes;
 use App\Form\NotesType;
+use App\Form\FiltreNotesType;
 use App\Repository\NotesRepository;
 use App\Repository\IntervenantsRepository;
 use App\Repository\TableauNotesRepository;
@@ -28,13 +29,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class NotesController extends AbstractController
 {
     /**
-     * @Route("/", name="app_notes_index", methods={"GET"})
+     * @Route("/", name="app_notes_index", methods={"GET","POST"})
      */
-    public function index(NotesRepository $notesRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function index(Request $request,NotesRepository $notesRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
-        return $this->render('notes/index.html.twig', [
+        $form2 = $this->createForm(FiltreNotesType::class);
+        $form2->handleRequest($request);
+
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+            $apprenant = $form2->get('apprenant')->getData();
+        $classe = $form2->get('classe')->getData();
+        
+            if($apprenant == null){
+                $apprenant = empty($apprenant);
+            }
+            if($value == null){
+                $value = empty($value);
+            }
+            if($classe == null){
+                $classe = empty($classe);
+            }
+       
+        $tableNotes =  $TableauNotesRepository->searchMot($value,$apprenant,$classe);
+            return $this->renderForm('notes/index.html.twig', [
+                'tableNotes' => $tableNotes,
+                'form2' => $form2,
+            ]);
+        }
+
+        return $this->renderForm('notes/index.html.twig', [
             'notes' => $notesRepository->findAll(),
             'tableNotes' => $TableauNotesRepository->findAll(),
+            'form2' => $form2,
         ]);
     }
 

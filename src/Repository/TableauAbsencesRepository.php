@@ -39,6 +39,33 @@ class TableauAbsencesRepository extends ServiceEntityRepository
         }
     }
 
+
+
+
+    public function searchMot($value,$intervenant,$classe)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('c.classes', 'm')
+   
+      
+            ->Where('c.id = :classe')
+            ->andWhere('m.id = :etudiant')
+            ->orWhere('c.nom LIKE :value')
+            ->orWhere('c.prenom LIKE :value')
+            ->orWhere('c.email LIKE :value')
+            ->orWhere('c.telephone LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+            ->setParameter('classe', $classe)
+            ->setParameter('etudiant', $intervenant)
+
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 //    /**
 //     * @return TableauAbsences[] Returns an array of TableauAbsences objects
 //     */
