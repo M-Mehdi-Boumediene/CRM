@@ -64,6 +64,23 @@ class TableauNotesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function paretudiant($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+     
+            ->andWhere('c.id = :etudiant')
+    
+
+            ->setParameter('etudiant', $etudiant)
+
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 //    /**
 //     * @return TableauNotes[] Returns an array of TableauNotes objects
 //     */

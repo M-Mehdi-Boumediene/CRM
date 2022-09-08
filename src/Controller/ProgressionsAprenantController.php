@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\EtudiantsRepository;
-use App\Repository\NotesRepository;
+use App\Repository\TableauNotesRepository;
 use App\Repository\ClassesRepository;
 use App\Entity\Etudiants;
 use App\Repository\AbsencesRepository;
@@ -16,7 +16,7 @@ class ProgressionsAprenantController extends AbstractController
     /**
      * @Route("/progressions/aprenant", name="app_progressions_aprenant")
      */
-    public function index( EtudiantsRepository $etudiantsRepository,  AbsencesRepository $absencesRepository, NotesRepository $notesRepository, ClassesRepository $classesRepository): Response
+    public function index( EtudiantsRepository $etudiantsRepository,  AbsencesRepository $absencesRepository, TableauNotesRepository $TableauNotesRepository, ClassesRepository $classesRepository): Response
     {
 
         $delay = new \Datetime('last month');
@@ -31,7 +31,7 @@ class ProgressionsAprenantController extends AbstractController
             'controller_name' => 'ProgressionsAprenantController',
             'etudiants' => $etudiantsRepository->findBy(array('user'=>$user)),
 
-            'notes' => $notesRepository->findBy(array('etudiantid'=>$etudiant)),
+            'notes' => $TableauNotesRepository->paretudiant($etudiant),
             'etudiant' => $etudiant,
          
         ]);

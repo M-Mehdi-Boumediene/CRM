@@ -64,9 +64,9 @@
 													<tr>
 
 														<td>
-															{% if absence.absent == 1 %}
+															{% if absence.dateabsence  %}
 																Absent
-															{% elseif absence.enretard == 1 %}
+															{% elseif absence.retard %}
 																En retard
 																{% else %}
 
@@ -74,10 +74,10 @@
 														</td>
 
 														<td>
-															{% if absence.absent == 1 %}
+															{% if absence.dateabsence %}
 																{{ absence.dateabsence|date('Y-m-d H:i:s') }}
-															{% elseif absence.enretard == 1 %}
-																{{ absence.dateretard|date('Y-m-d H:i:s') }}
+															{% elseif absence.retard %}
+																{{ absence.retard|date('Y-m-d H:i:s') }}
 																{% else %}
 
 															{% endif %}
@@ -130,9 +130,9 @@
 													<tr>
 
 														<td>
-															{% if absence.absent == 1 %}
-																Absent
-															{% elseif absence.enretard == 1 %}
+														
+														
+															{% if absence.retard %}
 																En retard
 																{% else %}
 
@@ -140,20 +140,16 @@
 														</td>
 
 														<td>
-															{% if absence.absent == 1 %}
-																{{ absence.dateabsence|date('Y-m-d H:i:s') }}
-															{% elseif absence.enretard == 1 %}
-																{{ absence.dateretard|date('Y-m-d H:i:s') }}
+													
+															{% if absence.retard  %}
+																{{ absence.retard|date('Y-m-d H:i:s') }}
 																{% else %}
 
 															{% endif %}
 
 
 														</td>
-														<td>
-															Justifier L'absence
-
-														</td>
+													
 
 
 													</tr>

@@ -63,6 +63,21 @@
 		strong {
 			font-weight: 500;
 		}
+				.table-scroll {
+			margin: 0;
+			width: 100%;
+		}
+		table {
+			border: 1px solid gray;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		table td,
+		table th {
+			border: 1px solid gray;
+			padding: 0.5rem 0.75rem;
+			vertical-align: middle;
+		}
 	</style>
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
@@ -96,74 +111,63 @@
 								<div class="card-body">
 
 									{% for etudiant in etudiant %}
-										<div id="accordion" class="accordion-wrapper mb-3">
-											<div class="card">
-												<div id="headingOne" class="card-header">
-													<button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
-														<h5 class="m-0 p-0">Classe:
-															{{etudiant.classes.nom}}</h5>
-													</button>
-												</div>
-												<div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
-													<div class="card-body">
-														{% for note in notes %}
-															<div id="accordion2" class="accordion-wrapper mb-3">
-																<div class="card">
-																	<div id="headingOne" class="card-header">
+									
+										<div class="table-scroll">
+															<table>
 
-																		<button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
-																			<h5 class="m-0 p-0">Bloc:
-																				{{note.module.bloc.nom}}</h5>
-																		</button>
-																	</div>
-																	<div data-parent="#accordion2" id="collapseOne2" aria-labelledby="headingOne" class="collapse" style="">
-																		<div class="card-body">
-																			{% for module in note.module.bloc.modules %}
-																				<div id="accordion3" class="accordion-wrapper mb-3">
-																					<div class="card">
-																						<div id="headingOne" class="card-header">
+																<tbody>
 
-																							<button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
-																								<h5 class="m-0 p-0">Module:
-																									{{module.nom}}</h5>
-																							</button>
-																						</div>
-																						<div data-parent="#accordion3" id="collapseOne3" aria-labelledby="headingOne" class="collapse" style="">
-																							<div class="card-body">
-																								<b>
-																									Type :
-																								</b>
-																								{{note.type}}
-																								&ensp; &ensp; &ensp;
-																								<b>
-																									Coefficient :
-																								</b>
-																								{{note.module.coefficient}}
-																								&ensp; &ensp; &ensp;
-																								<b>Note :
-																								</b>
-																								{{note.note}}/20
-																							</div>
-																						</div>
-																					</div>
+																	<tr>
+																		<td style="    border-top: solid 1px white;
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    border-left: solid 1px white; border-right: solid 1px white;"></td>
+																		<td style="    border-top: solid 1px white;
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    border-left: solid 1px white;"></td>
+																		<th scope="col">Coef</th>
+																		<th scope="col">Note 1</th>
+																		<th scope="col">Note 2</th>
+																		<th scope="col">Note 3</th>
+																		<th scope="col">Moyenne</th>
 
-																				</div>
-																			{% endfor %}
-																		</div>
-																	</div>
-																</div>
+																		{% for bloc in etudiant.classes.blocs %}
+																			<tr>
 
-															</div>
-														{% endfor %}
+																				<th rowspan="3" scope="rowgroup">{{bloc.nom}}
+																					<br><br>
+																					Coef:
+																					{{bloc.coefficient}}</th>
 
-													</div>
-												</div>
+																				{% for module in bloc.modules %}
+																					<tr>
 
-											</div>
+																						<th scope="row">{{module.nom}}</th>
+
+																						<td>{{module.coefficient}}</td>
+																						
+
+																						{% for tableau in module.classes.notes %}
+
+																						
+
+																								<td>{{tableau.tableau[0].note1}}</td>
+																								<td>{{tableau.tableau[0].note2}}</td>
+																								<td>{{tableau.tableau[0].note3}}</td>
+																								<td></td>
+																						
 
 
-										</div>
+																						{% endfor %}
+																					</tr>
 
+
+																				{% endfor %}
+																			</tr>
+																		{% endfor %}
+
+																	</tr>
+																</tbody>
+
+															</table>
+														</div>
 
 									{% endfor %}
 								</div>
