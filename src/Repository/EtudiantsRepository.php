@@ -50,16 +50,28 @@ class EtudiantsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->innerJoin('e.classes', 'a')
-            ->leftJoin('e.modules', 'm')
+    
             ->where('a.id = :classe')
             ->setParameter('classe', $classe)
        
-      
+    
             ->getQuery()
             ->getResult()
         ;
     }
-
+    public function findByclasseName($classe)
+    {
+        return $this->createQueryBuilder('e')
+            ->innerJoin('e.classes', 'a')
+    
+            ->where('a.nom = :classe')
+            ->setParameter('classe', $classe)
+       
+    
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     public function findByUser($user)
     {
         return $this->createQueryBuilder('e')

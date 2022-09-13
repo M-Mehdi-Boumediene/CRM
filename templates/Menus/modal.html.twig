@@ -190,9 +190,11 @@
 								</a>
 							</li>
 							<li class="nav-item etudiants">
-								<a class="nav-link" href="#">Étudiants / Absences</a>
+								<a class="nav-link" href="#">Gérer Les Absences</a>
 							</li>
-
+							<li class="nav-item notes">
+								<a class="nav-link" href="#">Gérer Les Notes</a>
+							</li>
 
 						</ul>
 
@@ -203,41 +205,353 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<table class="table_etudiants" id="tblFruits">
-					<th>Nom / Prenom
-						<br><br></th>
-					<th>Etat
-						<br><br></th>
-					{% if etudiants_calendar %}
-						{% for etudiant in etudiants_calendar %}
-							<tr style="border-bottom: solid 1px  #dddddd;" id="etat{{etudiant.id}}">
-								<td style="padding-right:30px;     padding-bottom: 10px;">
 
 
-									{{etudiant.prenom}}
-									{{etudiant.nom}}<br>
-								</td>
-								<td style="padding-bottom: 10px;">
+			
+<div class="tableau_notes">
+{{ form_start(form3) }}
+<style>
+.tableau{
+	display: inline-block;
+	max-width: 24%;
+	padding:5px;
+}
+.panel-success {
+    border-color: #dddddd;
+}
+.panel-success>.panel-heading {
+    background: linear-gradient(to bottom, #fff 0%, #f6f6f6 19%, #ededed 100%);
+    border-color: #dddddd;
+    color: #000;
+}
+.panel-title {
+
+	    font-size: 15px;
+    padding: 15px;
+}
+#show_discount_button {
+    border-radius: 3px;
+    font-size: 0.9em;
+    margin-right: 5px;
+    position: relative;
+    color: #000;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: -87px;
+}
+.btn-glow {
+    font-size: 12px;
+    border-radius: 4px;
+    color: #333;
+    padding: 5px 10px;
+    text-align: center;
+    box-shadow: 0px 1px 0px 0px rgb(255 255 255 / 20%) inset, 0px 1px 0px 0px #ccc;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #eef0f1));
+    background: -webkit-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -o-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: -ms-linear-gradient(top, #fff 0%, #eef0f1 100%);
+    background: linear-gradient(to bottom, #fff 0%, #eef0f1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eef0f1',GradientType=0 );
+}
+.bolder{
+	font-weight:bold;
+}
+.etudiant,.add_tag_list{
+	display: none;
+}
+.absence,.retard {
+	margin-bottom:23px;
+}
+#etudiant{
+	padding-left: 30px;
+	font-weight:bold;
+}
+.titrenote{
+	
+}
+.hidden{
+	display:none;
+}
+</style>
+
+<div class="row">
+	<div class="col-md-3 ">
+		{{ form_label(form3.classes, 'Classe') }}
+		{{ form_row(form3.classes,{'attr': {'class': 'form-control select'}}) }}
+		{{ form_errors(form3.classes) }}
+	</div>
+		<div class="col-md-3">
+		{{ form_label(form3.moduleid, 'Module') }}
+		{{ form_row(form3.moduleid,{'attr': {'class': 'form-control select'}}) }}
+		{{ form_errors(form3.moduleid) }}
+	</div>
+	<div class="col-md-3">
+		{{ form_label(form3.type, 'Type') }}
+		{{ form_row(form3.type,{'attr': {'class': 'form-control select'}}) }}
+		{{ form_errors(form3.type) }}
+	</div>
+	<div class="col-md-3 hidden">
+		{{ form_label(form3.blocid, 'Bloc') }}
+		{{ form_row(form3.blocid,{'attr': {'class': 'form-control select'}}) }}
+		{{ form_errors(form3.blocid) }}
+	</div>
+
+</div>
+	<br><hr>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<strong>Apprenants</strong>
+			</h3>
+			<div class="pull-right">
+			<a id="show_discount_button" class="btn-glow btn-xs discount1 bolder">Note 1</a>
+				<a id="show_discount_button" class="btn-glow btn-xs discount2">Note 2</a>
+					<a id="show_discount_button" class="btn-glow btn-xs discount3">Note 3</a>
+			</div>
+		</div>
 
 
-									<fieldset>
-										<label for="Présent{{etudiant.id}}">Présent</label>
-										<input type="checkbox" id="Présent{{etudiant.id}}" name="{{etudiant.id}}" class="Présent" user="{{etudiant.id}}">&nbsp;&nbsp;&nbsp;
-										<label for="Enretard{{etudiant.id}}">En retard</label>
-										<input type="checkbox" id="Enretard{{etudiant.id}}" name="{{etudiant.id}}" user="{{etudiant.id}}">&nbsp;&nbsp;&nbsp;
-										<label for="Absent{{etudiant.id}}">Absent</label>
-										<input type="checkbox" id="Absent{{etudiant.id}}" name="{{etudiant.id}}" user="{{etudiant.id}}"></td>
-								</td>
-							</tr>
-						</fieldset>
-					</td>
-				</tr>
 
-			</td>
-		</tr>
 
-	</td>
-</tr>{% endfor %}{% else %}{% endif %}</table><br></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div><script type="text/javascript"></script><script>$(".Présent").each(function (index) {
+
+
+	</div>
+
+	{% macro tagCollectionItem(tableau) %}
+
+
+
+
+						<div class="row">
+				<div class="col-md-3"> </div>
+					<div class="col-md-3 titrenote">Note1 /20</div>
+					<div class="col-md-3">Observation</div>
+					<div class="col-md-3">Pièce jointe</div>
+						<div class="col-md-3" id="etudiant">
+					
+				{{ form_row(tableau.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
+				{{ form_errors(tableau.etudiant) }}
+						</div>
+
+					<div class="col-md-3">
+						
+				{{ form_row(tableau.note1,{'attr': {'class': 'form-control note1 '}}) }}
+				{{ form_errors(tableau.note1) }}
+
+					{{ form_row(tableau.note2,{'attr': {'class': 'form-control note2 '}}) }}
+				{{ form_errors(tableau.note2) }}
+
+					{{ form_row(tableau.note3,{'attr': {'class': 'form-control note3 '}}) }}
+				{{ form_errors(tableau.note3) }}
+				
+						</div>
+						
+					<div class="col-md-3">
+						
+				{{ form_row(tableau.observation1,{'attr': {'class': 'form-control  observation1'}}) }}
+				{{ form_errors(tableau.observation1) }}
+					{{ form_row(tableau.observation2,{'attr': {'class': 'form-control  observation2'}}) }}
+				{{ form_errors(tableau.observation2) }}
+
+				{{ form_row(tableau.observation3,{'attr': {'class': 'form-control  observation3'}}) }}
+				{{ form_errors(tableau.observation3) }}
+				
+						</div>
+			<div class="col-md-3">
+						
+				{{ form_row(tableau.copie,{'attr': {'class': 'form-control '}}) }}
+				{{ form_errors(tableau.copie) }}
+								
+				
+						</div>
+									
+		
+			</div>
+		
+	<hr>
+		
+	{% endmacro %}
+	
+			
+	<div class="tags" style="width:100%; " data-index="{{ form3.tableau|length > 0 ? form3.tableau|last.vars.name + 1 : 0 }}" data-prototype="{{ _self.tagCollectionItem(form3.tableau.vars.prototype)|e('html_attr') }}">
+
+				<div class="panel-body" style="font-size: 11px;color: black;padding-right: 0;padding-left: 1px; padding-bottom: 20px;    display: inline;">
+
+							
+		{% for tableau in form3.tableau %}
+
+	{{ _self.tagCollectionItem(tableau) }}
+
+		{% endfor %}
+
+	</div>
+			
+		
+	</div>
+	
+
+
+<br>
+
+
+<button type="submit" class="mt-1 btn btn-success">Sauvegarder</button>
+{{ form_end(form3) }}
+
+</div>
+<div class="tableau_absences">
+
+	{{ form_start(form4) }}
+						<style>
+							.tableau {
+								display: inline-block;
+								max-width: 24%;
+								padding: 5px;
+							}
+							.panel-success {
+								border-color: #dddddd;
+							}
+							.panel-success > .panel-heading {
+								background: linear-gradient(to bottom, #fff 0%, #f6f6f6 19%, #ededed 100%);
+								border-color: #dddddd;
+								color: #000;
+							}
+							.panel-title {
+
+								font-size: 15px;
+								padding: 15px;
+							}
+							#show_discount_button {
+								border-radius: 3px;
+								font-size: 0.9em;
+								margin-right: 5px;
+								position: relative;
+								color: #000;
+								padding: 10px;
+								text-decoration: none;
+								margin-top: -87px;
+							}
+							.btn-glow {
+								font-size: 12px;
+								border-radius: 4px;
+								color: #333;
+								padding: 5px 10px;
+								text-align: center;
+								box-shadow: 0 1px 0 0 rgb(255 255 255 / 20%) inset, 0 1px 0 0 #ccc;
+								display: inline-block;
+								border: 1px solid #e5e5e5;
+								vertical-align: middle;
+								cursor: pointer;
+								background: #ffffff;
+								background: -moz-linear-gradient(top, #fff 0%, #eef0f1 100%);
+								background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #eef0f1));
+								background: -webkit-linear-gradient(top, #fff 0%, #eef0f1 100%);
+								background: -o-linear-gradient(top, #fff 0%, #eef0f1 100%);
+								background: -ms-linear-gradient(top, #fff 0%, #eef0f1 100%);
+								background: linear-gradient(to bottom, #fff 0%, #eef0f1 100%);
+								filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eef0f1',GradientType=0);
+							}
+							.bolder {
+								font-weight: bold;
+							}
+							.etudiant,
+							.add_tag_list {
+								display: none;
+							}
+							.absence,
+							.retard {
+								margin-bottom: 23px;
+							}
+							#etudiant {
+								padding-left: 30px;
+								font-weight: bold;
+							}
+							.titrenote {}
+						</style>
+
+						<div class="row">
+							<div class="col-md-3">
+
+								{{ form_row(form4.classe,{'attr': {'class': 'form-control select'}}) }}
+								{{ form_errors(form4.classe) }}
+							</div>
+
+
+						</div>
+						<br><hr>
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<strong>Apprenants</strong>
+								</h3>
+								<div class="pull-right">
+									<a id="show_discount_button" class="btn-glow btn-xs discount1 bolder">Absences</a>
+									<a id="show_discount_button" class="btn-glow btn-xs discount2">Retards</a>
+
+								</div>
+							</div>
+
+
+						</div>
+
+						{% macro tag2CollectionItem(tableau2) %}
+
+
+							<div class="row" style="    width: 100% !important;">
+								<div class="col-md-3"></div>
+								<div class="col-md-3 titrenote">Date d'absence</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-3"></div>
+								<div class="col-md-3" id="etudiant">
+
+									{{ form_row(tableau2.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
+									{{ form_errors(tableau2.etudiant) }}
+								</div>
+
+								<div class="col-md-3">
+
+									{{ form_row(tableau2.dateabsence,{'attr': {'class': 'form-control absence '}}) }}
+									{{ form_errors(tableau2.dateabsence) }}
+
+									{{ form_row(tableau2.retard,{'attr': {'class': 'form-control retard '}}) }}
+									{{ form_errors(tableau2.retard) }}
+								</div>
+
+
+								<hr>
+
+							{% endmacro %}
+
+
+							<div class="tags2" style="width:100%; " data-index="{{ form4.tableau|length > 0 ? form4.tableau|last.vars.name + 1 : 0 }}" data-prototype="{{ _self.tag2CollectionItem(form4.tableau.vars.prototype)|e('html_attr') }}">
+
+								<div class="panel-body" style="font-size: 11px;color: black;padding-right: 0;padding-left: 1px; padding-bottom: 20px;    display: inline;">
+
+
+									{% for tableau in form4.tableau %}
+
+										{{ _self.tag2CollectionItem(tableau2) }}
+
+									{% endfor %}
+
+								</div>
+
+
+							</div>
+
+
+							<br>
+
+
+							<button type="submit" class="mt-1 btn btn-success">Sauvegarder</button>
+							{{ form_end(form4) }}
+</div>
+		<br></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div><script type="text/javascript"></script><script>$(".Présent").each(function (index) {
 console.log(index + ": " + $(this).attr("id"));
 
 var tblFruits = document.getElementById('etat' + $(this).attr('user'));
@@ -270,10 +584,10 @@ user: $(this).attr('user')
 },
 success: function (data) { // $('#magasinDatas').html(data);
 if (data.etat == 1) {
-$("#Présent"+data.user).attr("checked", "checked")
+$("#Présent" + data.user).attr("checked", "checked")
 
 } else {
-$("#Présent"+data.user).attr("checked", false)
+$("#Présent" + data.user).attr("checked", false)
 }
 
 }
@@ -337,4 +651,192 @@ $('#etat' + data.user).html('Absent ' + "<i class='fa fa-fw'> </i>");
 });
 
 
-});</script>{% endblock %}
+});
+$('.tableau_notes').hide();
+$('.tableau_absences').hide();
+$("li.notes").click(function () {
+
+$('.detail').hide();
+$('.du').hide();
+$('.au').hide();
+$('.classe').hide();
+$('.bloc').hide();
+$('.module').hide();
+$('.intervenant').hide();
+$('.detail').hide();
+$('.du').hide();
+$('.au').hide();
+$('.classe').hide();
+$('.bloc').hide();
+$('.module').hide();
+$('.intervenant').hide();
+$('.table_etudiants').hide();
+$('.tableau_absences').hide();
+$('.tableau_notes').show();
+});
+
+</script>
+
+
+<script>
+const addTagLink = document.createElement('a')
+addTagLink.classList.add('add_tag_list')
+addTagLink.href='#'
+addTagLink.innerText='Add a tag'
+addTagLink.dataset.collectionHolderClass='tags'
+
+const newLinkLi = document.createElement('div').append(addTagLink)
+
+const collectionHolder = document.querySelector('div.tags')
+collectionHolder.appendChild(addTagLink)
+
+const addFormToCollection = (e) => {
+	const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+      const item = document.createElement('div');
+		
+      item.innerHTML = collectionHolder
+        .dataset
+        .prototype
+        .replace(
+          /__name__/g,
+          collectionHolder.dataset.index
+        );
+
+      collectionHolder.appendChild(item);
+
+      collectionHolder.dataset.index++;
+	  collectionHolder.appendChild(addTagLink)
+}
+
+addTagLink.addEventListener("click", addFormToCollection)
+</script>
+<script>
+			const addTagLink2 = document.createElement('a')
+addTagLink2.classList.add('add_tag_list')
+addTagLink2.href = '#'
+addTagLink2.innerText = 'Add a tag'
+addTagLink2.dataset.collectionHolder2Class = 'tags2'
+
+const newLinkLi2 = document.createElement('div').append(addTagLink2)
+
+const collectionHolder2 = document.querySelector('.tags2')
+collectionHolder2.appendChild(addTagLink2)
+
+const addFormToCollection2 = (e) => {
+const collectionHolder2 = document.querySelector('.' + e.currentTarget.dataset.collectionHolder2Class);
+
+const item = document.createElement('div');
+
+item.innerHTML = collectionHolder2.dataset.prototype.replace(/__name__/g, collectionHolder2.dataset.index);
+
+collectionHolder2.appendChild(item);
+
+collectionHolder2.dataset.index ++;
+collectionHolder2.appendChild(addTagLink2)
+} 
+
+addTagLink2.addEventListener("click", addFormToCollection2)
+		</script>
+{% for etudiant in etudiants %}
+
+
+<input class="etudiantsListe {{loop.index}}" type="text" value="{{etudiant.id}}" style="display:none;" >
+
+
+{% endfor %}
+
+
+
+<script>
+$( ".etudiantsListe" ).each(function(index) {
+
+  addTagLink.click();
+  addTagLink2.click();
+var counter =1;
+$('.etudiant').each(function () {
+		$(this).val($('.'+counter).val())
+
+  
+    counter++;
+});
+
+});
+
+
+$( "#notes_classes" ).change(function() {
+	
+window.location = '/notes/new/'+$(this).val();
+
+
+});
+
+
+$('.note2').hide()
+$('.observation2').hide()
+$('.note3').hide()
+$('.observation3').hide()
+
+$( ".discount1" ).click(function() {
+$(this).addClass( "bolder" );
+$('.titrenote').text('Note1 /20')	
+$(".discount2").removeClass( "bolder" );
+$(".discount3").removeClass( "bolder" );		
+$('.note1').show()
+$('.observation1').show()
+
+$('.note2').hide()
+$('.observation2').hide()
+
+$('.note3').hide()
+$('.observation3').hide()
+});
+$( ".discount2" ).click(function() {
+$(this).addClass( "bolder" );	
+$('.titrenote').text('Note2 /20')
+$(".discount1").removeClass( "bolder" );
+$(".discount3").removeClass( "bolder" );	
+$('.note1').hide()
+$('.observation1').hide()
+
+$('.note2').show()
+$('.observation2').show()
+
+$('.note3').hide()
+$('.observation3').hide()
+});
+$( ".discount3" ).click(function() {
+	$(this).addClass( "bolder" );	
+	$('.titrenote').text('Note3 /20')
+$(".discount1").removeClass( "bolder" );
+$(".discount2").removeClass( "bolder" );	
+$('.note1').hide()
+$('.observation1').hide()
+
+$('.note2').hide()
+$('.observation2').hide()
+
+$('.note3').show()
+$('.observation3').show()
+});
+
+
+$( "div#etudiant" ).each(function(index) {
+
+$(this).addClass( "index"+index );
+
+$(".index"+index).append($( "#notes_tableau_"+index+"_etudiant option:selected" ).text())
+
+});
+
+$( "div#etudiant" ).each(function(index) {
+$(this).addClass( "index"+index );
+
+$(".index"+index).append($( "#absences_tableau_"+index+"_etudiant option:selected" ).text())
+
+});
+
+
+</script>
+
+{% endblock %}

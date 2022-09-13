@@ -10,7 +10,21 @@
 
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
-
+		<style>
+			#messages_recipient,
+			#messages_objet {
+				display: none;
+			}
+			label[for=messages_recipient] {
+				display: none;
+			}
+			label[for=messages_objet] {
+				display: none;
+			}
+			label[for=messages_message] {
+				display: none;
+			}
+		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -21,7 +35,7 @@
 							</div>
 							<div>Messagerie
 								<div class="page-title-subheading">
-									{{message.objet}}</div>
+									{{message.message|raw()}}</div>
 							</div>
 						</div>
 						<div class="page-title-actions">
@@ -45,28 +59,23 @@
 							<div class="app-inner-layout__wrapper">
 								<div class="app-inner-layout__content card">
 									<div class="table-responsive">
-										<div class="app-inner-layout__top-pane">
-											<div class="pane-left">
-												<div class="mobile-app-menu-btn">
-													<button type="button" class="hamburger hamburger--elastic">
-														<span class="hamburger-box">
-															<span class="hamburger-inner"></span>
-														</span>
-													</button>
-												</div>
+							
 
-											</div>
-
-										</div>
 										<div class="chat-wrapper">
 											<div class="chat-box-wrapper">
+
 												<div>
+
 													<div class="avatar-icon-wrapper mr-1">
 														<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>
 														<div class="avatar-icon avatar-icon-lg rounded">
-															<img src="{{asset('assets/images/avatars/3.jpg')}}" alt="">
+
+															<img src="{{asset('assets/images/avatars/3.jpg')}}" alt=""><br>
+
 														</div>
+
 													</div>
+
 												</div>
 												<div>
 													<div class="chat-box">{{message.message|raw()}}</div>
@@ -82,7 +91,41 @@
 										<div class="app-inner-layout__bottom-pane d-block text-center">
 											<div class="mb-0 position-relative row form-group">
 												<div class="col-sm-12">
-													<input placeholder="Répondre..." type="text" class="form-control-lg form-control">
+
+													{{ form_start(form) }}
+
+													<div class="row">
+														<div class="col-md-12">
+															{{ form_label(form.recipient, 'Envoyer à :') }}
+															{{ form_row(form.recipient,{'attr': {'class': 'form-control hidden','value': message.sender.id}}) }}
+															{{ form_errors(form.recipient) }}
+														</div>
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-md-6">
+															{{ form_label(form.objet, 'Objet :') }}
+															{{ form_row(form.objet,{'attr': {'class': 'form-control','value':message.objet}}) }}
+															{{ form_errors(form.objet) }}
+														</div>
+
+
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-md-12">
+															<h5 style="text-align:left;">Rrépondre</h5>
+															{{ form_row(form.message,{'attr': {'class': 'form-control'}}) }}
+
+															{{ form_errors(form.message) }}
+														</div>
+													</div>
+													<br>
+													<button class="mt-1 btn btn-primary">{{ button_label|default('Envoyer') }}</button>
+													ou
+													<a href="{{ path('app_messages') }}">Retour à la liste</a>
+
+													{{ form_end(form) }}
 												</div>
 											</div>
 										</div>
@@ -115,7 +158,6 @@
 											</a>
 										</li>
 										<li class="nav-item-divider nav-item"></li>
-								
 
 
 									</ul>

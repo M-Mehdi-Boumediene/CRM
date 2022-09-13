@@ -32,9 +32,13 @@ class NotesType extends AbstractType
         $builder
         ->add('type', ChoiceType::class, [
             'choices' => [
-                'Devoir' => 'Devoir',
-                'Examen' => 'Examen',
-           
+                'COURS' => 'COURS',
+                'DEVOIR' => 'DEVOIR',
+                'EXAMEN' => 'EXAMEN',
+                'ATELIER' => 'ATELIER',
+                'CONFÉRENCE' => 'CONFÉRENCE',
+                'DIVERS' => 'DIVERS',
+         
                 
             ],
             'expanded' => false,
@@ -51,6 +55,7 @@ class NotesType extends AbstractType
                 },
                 'choice_label' => 'nom',
                 'label'=>false,
+                'required' => true,
             ])
             ->add('classes', EntityType::class, [
                 'class' => Classes::class,
@@ -58,7 +63,7 @@ class NotesType extends AbstractType
                 'multiple' => false,
                 'choice_label' => 'nom',
                 'empty_data'=>'',
-                'required'=>false,
+                'required' => true,
                 'label'=>false,
          
             ])
@@ -67,7 +72,7 @@ class NotesType extends AbstractType
                 'label'=>false,
                 'choice_label' => 'nom',
                 'empty_data'=>'',
-                'required'=>false,
+                'required' => true,
               
          
             ])
