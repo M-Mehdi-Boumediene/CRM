@@ -278,15 +278,31 @@
 .hidden{
 	display:none;
 }
+.bolder{
+	font-weight:bold;
+}
+.etudiant,.add_tag_list{
+	display: none;
+}
+.absence,.retard {
+	margin-bottom:23px;
+}
+#etudiant{
+	padding-left: 30px;
+	font-weight:bold;
+}
+.titrenote{
+	
+}
 </style>
 
 <div class="row">
-	<div class="col-md-3 ">
+	<div class="col-md-3 hidden">
 		{{ form_label(form3.classes, 'Classe') }}
 		{{ form_row(form3.classes,{'attr': {'class': 'form-control select'}}) }}
 		{{ form_errors(form3.classes) }}
 	</div>
-		<div class="col-md-3">
+		<div class="col-md-3 hidden">
 		{{ form_label(form3.moduleid, 'Module') }}
 		{{ form_row(form3.moduleid,{'attr': {'class': 'form-control select'}}) }}
 		{{ form_errors(form3.moduleid) }}
@@ -475,7 +491,7 @@
 						</style>
 
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-3 hidden">
 
 								{{ form_row(form4.classe,{'attr': {'class': 'form-control select'}}) }}
 								{{ form_errors(form4.classe) }}
@@ -483,15 +499,15 @@
 
 
 						</div>
-						<br><hr>
+						
 						<div class="panel panel-success">
 							<div class="panel-heading">
 								<h3 class="panel-title">
 									<strong>Apprenants</strong>
 								</h3>
 								<div class="pull-right">
-									<a id="show_discount_button" class="btn-glow btn-xs discount1 bolder">Absences</a>
-									<a id="show_discount_button" class="btn-glow btn-xs discount2">Retards</a>
+									<a id="show_discount_button" class="btn-glow btn-xs discount1absence bolder">Absences</a>
+									<a id="show_discount_button" class="btn-glow btn-xs discount2retard">Retards</a>
 
 								</div>
 							</div>
@@ -504,12 +520,12 @@
 
 							<div class="row" style="    width: 100% !important;">
 								<div class="col-md-3"></div>
-								<div class="col-md-3 titrenote">Date d'absence</div>
+								<div class="col-md-3 titrenoteab">Date d'absence</div>
+								<div class="col-md-3"> </div>
 								<div class="col-md-3"></div>
-								<div class="col-md-3"></div>
-								<div class="col-md-3" id="etudiant">
+								<div class="col-md-3" id="etudiant2">
 
-									{{ form_row(tableau2.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
+									{{ form_row(tableau2.etudiant,{'attr': {'class': 'form-control hidden etudiant2'}}) }}
 									{{ form_errors(tableau2.etudiant) }}
 								</div>
 
@@ -546,7 +562,13 @@
 
 
 							<br>
+{% for etudiant in etudiants %}
 
+
+<input class="etudiantsListe {{loop.index}}" type="text" value="{{etudiant.id}}" style="display:none;">
+
+
+{% endfor %}
 
 							<button type="submit" class="mt-1 btn btn-success">Sauvegarder</button>
 							{{ form_end(form4) }}
@@ -738,13 +760,7 @@ collectionHolder2.appendChild(addTagLink2)
 
 addTagLink2.addEventListener("click", addFormToCollection2)
 		</script>
-{% for etudiant in etudiants %}
 
-
-<input class="etudiantsListe {{loop.index}}" type="text" value="{{etudiant.id}}" style="display:none;" >
-
-
-{% endfor %}
 
 
 
@@ -761,7 +777,30 @@ $('.etudiant').each(function () {
     counter++;
 });
 
+var counter2 =1;
+$('.etudiant2').each(function () {
+		$(this).val($('.'+counter2).val())
+
+    counter2++;
 });
+
+});
+
+$( "div#etudiant" ).each(function(index) {
+
+$(this).addClass( "index"+index );
+
+
+});
+
+$( "div#etudiant2" ).each(function(index) {
+
+$(this).addClass( "index"+index );
+
+$(".index"+index).append($( "#absences_tableau_"+index+"_etudiant option:selected" ).text())
+});
+
+
 
 
 $( "#notes_classes" ).change(function() {
@@ -821,20 +860,31 @@ $('.observation3').show()
 });
 
 
-$( "div#etudiant" ).each(function(index) {
+$('.retard').hide()
 
-$(this).addClass( "index"+index );
+$( ".discount1absence" ).click(function() {
+$(this).addClass( "bolder" );
+$('.titrenoteab').text("Date d'absence")	
+$(".discount2retard").removeClass( "bolder" );
 
-$(".index"+index).append($( "#notes_tableau_"+index+"_etudiant option:selected" ).text())
+$('.absence').show()
+$('.retard').hide()
+
+});
+$( ".discount2retard" ).click(function() {
+$(this).addClass( "bolder" );	
+$('.titrenoteab').text("Durée du retard")
+$(".discount1absence").removeClass( "bolder" );
+
+$('.absence').hide()
+$('.retard').show()
 
 });
 
-$( "div#etudiant" ).each(function(index) {
-$(this).addClass( "index"+index );
 
-$(".index"+index).append($( "#absences_tableau_"+index+"_etudiant option:selected" ).text())
 
-});
+
+
 
 
 </script>

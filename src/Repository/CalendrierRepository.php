@@ -53,9 +53,11 @@ class CalendrierRepository extends ServiceEntityRepository
             ->innerJoin('c.intervenants', 'i')
             ->innerJoin('c.etudiants', 'e')
         
-            ->andWhere('c.id = :classe')
-            ->andWhere('i.id = :intervenant')
-            ->andWhere('e.id = :etudiant')
+            ->orWhere('c.id = :classe')
+            
+            ->orWhere('i.id = :intervenant')
+            ->orWhere('e.id = :etudiant')
+            
             ->setParameter('classe', $classe)
             ->setParameter('intervenant', $intervenant)
             ->setParameter('etudiant', $apprenant)

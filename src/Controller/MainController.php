@@ -173,11 +173,91 @@ class MainController extends AbstractController
              return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
          }
  
+         $note = new Notes();
+     
+         $form3 = $this->createForm(NotesType::class);
+         $form3->handleRequest($request);
+ 
+         if ($form3->isSubmitted() && $form3->isValid()) {
+           
+             $tableau = $form3->get('tableau');
+             foreach($tableau as $tableau){
+                 $tableaunotes = new TableauNotes();
+                 $newfile= new Files();
+             $files = $tableau->get('copie')->getData();
+ 
+             foreach($files as $file){
+                 $em = $this->getDoctrine()->getManager();
+                 // Je génère un nouveau nom de fichier
+                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+ 
+                 // Je copie le fichier dans le dossier uploads
+                 $file->move(
+                     $this->getParameter('videos_directory'),
+                     $fichier
+                 );
+ 
+                 // Je stocke le document dans la BDD (nom du fichier)
+               
+                 $date = new \DateTimeImmutable('now');
+                 $newfile->setName($fichier);
+                 $newfile->setTableauNotes($tableaunotes);
+                 $newfile->setNom('Copie');
+ 
+                
+  
+             }
+             $TableauNotesRepository->add($tableaunotes);
+ 
+             $tableaunotes->addNote($note);
+             $note->addTableau($tableaunotes);
+             
+             $note->setType($form3->get('type')->getData());
+             $note->setClasses($form3->get('classes')->getData());
+             $note->setModule($form3->get('moduleid')->getData());
+             $note->setBloc($form3->get('blocid')->getData());
+ 
+
+             
+            $etudiants = $tableau->get('etudiant')->getData();
+           
+                 
+             $tableaunotes->addEtudiant($etudiants[0]);
+  
+       
+             $tableaunotes->setNote1($tableau->get('note1')->getData());
+             $tableaunotes->setObservation1($tableau->get('observation1')->getData());
+          
+             $tableaunotes->setNote2($tableau->get('note2')->getData());
+             $tableaunotes->setObservation2($tableau->get('observation2')->getData());
+ 
+             $tableaunotes->setNote3($tableau->get('note3')->getData());
+             $tableaunotes->setObservation3($tableau->get('observation3')->getData());
+ 
+             $tableaunotes->addCopie($newfile);
+             $FilesRepository->add($newfile);
+             }
+             
+           
+       
+    
+             $notesRepository->add($note, true);
+   
+             // Je boucle sur les documents
+            
+     
+ 
+             return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+         }
+         
+
             return $this->renderForm('main/gestion_calendrier.html.twig', [
       
                 'etudiants_calendar' => $etudiants,
+                'etudiants' => $etudiants,
                 'data' => compact('data'),
                 'form2' => $form2,
+                'form3' => $form3,
                 'form4' => $form4,
                 'events'=>$events,
             ]);

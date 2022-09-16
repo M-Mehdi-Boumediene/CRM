@@ -41,8 +41,7 @@ class NotesType extends AbstractType
          
                 
             ],
-            'expanded' => false,
-            'multiple' => false,
+ 
             'required' => true,
            
             'label' => false 
