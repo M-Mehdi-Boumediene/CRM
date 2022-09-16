@@ -43,7 +43,7 @@ class MessagesType extends AbstractType
                     return $user->getEmail() . ' ' . $user->getPrenom() . ' ' . $user->getNom();
                 },
                 'label'=>false,
-                'multiple' => false,
+                'multiple' => true,
                 'required' => false
             ])
     

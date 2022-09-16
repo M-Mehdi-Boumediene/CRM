@@ -64,10 +64,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sent;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="recipient", orphanRemoval=true)
-     */
-    private $received;
 
  
 
@@ -166,6 +162,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $classe;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Messages::class, mappedBy="recipient")
+     */
+    private $messages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Messages::class, inversedBy="recipient")
+     */
+    private $received;
+
  
 
    
@@ -176,7 +182,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->sent = new ArrayCollection();
-        $this->received = new ArrayCollection();
+      
         $this->blocs = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
         $this->etudiants = new ArrayCollection();
@@ -188,6 +194,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->calendriers = new ArrayCollection();
         $this->absences = new ArrayCollection();
         $this->telechargements = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->received = new ArrayCollection();
       
  
      
@@ -353,36 +361,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Messages>
-     */
-    public function getReceived(): Collection
-    {
-        return $this->received;
-    }
-
-    public function addReceived(Messages $received): self
-    {
-        if (!$this->received->contains($received)) {
-            $this->received[] = $received;
-            $received->setRecipient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReceived(Messages $received): self
-    {
-        if ($this->received->removeElement($received)) {
-            // set the owning side to null (unless already changed)
-            if ($received->getRecipient() === $this) {
-                $received->setRecipient(null);
-            }
-        }
-
-        return $this;
-    }
-
+  
    
 
     /**
@@ -774,6 +753,57 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setClasse(?Classes $classe): self
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Messages $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->addRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            $message->removeRecipient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getReceived(): Collection
+    {
+        return $this->received;
+    }
+
+    public function addReceived(Messages $received): self
+    {
+        if (!$this->received->contains($received)) {
+            $this->received[] = $received;
+        }
+
+        return $this;
+    }
+
+    public function removeReceived(Messages $received): self
+    {
+        $this->received->removeElement($received);
 
         return $this;
     }

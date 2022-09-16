@@ -36,8 +36,15 @@ class MessagesController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $message->setSender($this->getUser());
             $recipients = $form->get('recipient')->getData();
-       
-                $message->setRecipient($recipients);
+            foreach($recipients as $recipients){
+               
+        
+           
+                $message->addRecipient($recipients);
+   
+
+            }
+               
         
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
