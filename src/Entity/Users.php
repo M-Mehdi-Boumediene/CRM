@@ -163,12 +163,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $classe;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Messages::class, mappedBy="recipient")
+     * @ORM\ManyToMany(targetEntity=Messages::class)
      */
     private $messages;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Messages::class, inversedBy="recipient")
+     * @ORM\ManyToMany(targetEntity=Messages::class, inversedBy="users")
      */
     private $received;
 

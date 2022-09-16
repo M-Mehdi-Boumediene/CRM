@@ -48,7 +48,7 @@ class Messages
     private $sender;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="received")
+     * @ORM\ManyToMany(targetEntity=Users::class)
      */
     private $recipient;
 
