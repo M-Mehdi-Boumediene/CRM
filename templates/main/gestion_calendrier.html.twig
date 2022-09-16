@@ -75,7 +75,7 @@
 							</div>
 
 							<div class="row" style="padding-right:12px;padding-left: 12px;
-																											}">
+																		}">
 
 								{{ form_start(form2) }}
 								<div class="row">
@@ -181,10 +181,7 @@ slotMinTime: "08:00",
 slotMaxTime: "18:00",
 editable: true,
 events: {{ data.data|raw() }},
-validRange: {
-start: "{{ start }}",
-end: "{{ start }}"
-},
+
 eventClick: function (info) {
 let jour = info.event.start.getDay();
 let mois = info.event.start.getMonth();
@@ -263,12 +260,15 @@ $("#notes_type option:selected").text(type);
 info.el.style.borderColor = 'red';
 
 
+
 }
 })
 calendar.render()
 
 
 }
+
+
 </script>{% endblock %}{% block modal %}
 
 {{ block("modal", "Menus/modal.html.twig") }}
