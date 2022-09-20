@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/entreprises")
@@ -20,7 +21,7 @@ class EntreprisesController extends AbstractController
     /**
      * @Route("/", name="app_entreprises_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, EntreprisesRepository $entreprisesRepository): Response
+    public function index(Request $request, EntreprisesRepository $entreprisesRepository, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
@@ -30,9 +31,14 @@ class EntreprisesController extends AbstractController
         
         $value = $form2->get('search')->getData();
         $entreprises =  $entreprisesRepository->searchMot($value);
+
         if ($form2->isSubmitted() && $form2->isValid()) {
 
-      
+              $entreprises = $paginator->paginate(
+            $entreprises, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
             return $this->renderForm('entreprises/index.html.twig', [
                 'entreprises' => $entreprises,
                 'form' => $form,
@@ -41,6 +47,12 @@ class EntreprisesController extends AbstractController
 
         }
 
+        $entreprises =  $entreprisesRepository->findAll();
+        $entreprises = $paginator->paginate(
+            $entreprises, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->renderForm('entreprises/index.html.twig', [
             'entreprises' => $entreprisesRepository->findAll(),
             'form2' => $form2,

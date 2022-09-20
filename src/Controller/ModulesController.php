@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/modules")
  */
@@ -24,7 +24,7 @@ class ModulesController extends AbstractController
     /**
      * @Route("/", name="app_modules_index", methods={"GET", "POST"})
      */
-    public function index(Request $request,ModulesRepository $modulesRepository): Response
+    public function index(Request $request,ModulesRepository $modulesRepository, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
@@ -32,7 +32,7 @@ class ModulesController extends AbstractController
         $form2 = $this->createForm(FiltreModuleType::class);
         $form2->handleRequest($request);
 
-    
+        $modules =  $modulesRepository->findAll();
 
         if ($form2->isSubmitted() && $form2->isValid()) {
             $value = $form2->get('search')->getData();
@@ -50,14 +50,28 @@ class ModulesController extends AbstractController
             }
        
         $modules =  $modulesRepository->searchMot($value,$filtre,$classe);
+
+        $modules = $paginator->paginate(
+            $modules, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
             return $this->renderForm('modules/index.html.twig', [
                 'modules' => $modules,
                 'form2' => $form2,
             ]);
         }
-        
+ 
+        $modules =  $modulesRepository->findAll();
+
+        $modules = $paginator->paginate(
+            $modules, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+  
         return $this->renderForm('modules/index.html.twig', [
-            'modules' => $modulesRepository->findAll(),
+            'modules' => $modules,
             'form2' => $form2,
         ]);
     }
@@ -119,6 +133,7 @@ class ModulesController extends AbstractController
 
             return $this->redirectToRoute('app_modules_index', [], Response::HTTP_SEE_OTHER);
         }
+        
 
         return $this->renderForm('modules/new.html.twig', [
             'module' => $module,

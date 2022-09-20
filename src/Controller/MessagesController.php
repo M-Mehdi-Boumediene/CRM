@@ -27,27 +27,66 @@ class MessagesController extends AbstractController
         ]);
     }
 
+
+ /**
+     * @Route("/messages/envoyés", name="app_messages_envoyés")
+     */
+    public function elements(UsersRepository $usersRepository): Response
+    {
+
+
+        return $this->render('messages/elementsEnvoyer.html.twig', [
+            'controller_name' => 'MessagesController',
+           
+        ]);
+    }
+ /**
+     * @Route("/messages/brouillons", name="app_messages_brouillons")
+     */
+    public function brouillons(UsersRepository $usersRepository): Response
+    {
+
+        return $this->render('messages/brouillons.html.twig', [
+            'controller_name' => 'MessagesController',
+           
+        ]);
+    }
+
      /**
      * @Route("/messages-envoi", name="app_envoi_messages")
      */
     public function envoiMessages(Request $request): Response
     {
         $message = new Messages;
-        $form = $this->createForm(MessagesType::class, $message);
+        $user = new Users;
+        $form = $this->createForm(MessagesType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
             $recipients = $form->get('recipient')->getData();
             foreach($recipients as $recipients){
                
-
-         
-         
-
                 $message->setSender($this->getUser());
                 $message->addRecipient($recipients);
             
                 $message->addUser($recipients);
+                $message->setObjet($form->get('objet')->getData());
+                $message->setMessage($form->get('message')->getData());
+            
+            }
+
+            $users = $form->get('users')->getData();
+
+            foreach($users as $users){
+               
+                $message->setSender($this->getUser());
+
+                $message->addRecipient($users);
+        
+                $message->addUser($users);
+                $message->setObjet($form->get('objet')->getData());
+                $message->setMessage($form->get('message')->getData());
+            
    
             
             }

@@ -14,7 +14,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ApiResource()
-
  */
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -162,10 +161,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $classe;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Messages::class)
-     */
-    private $messages;
 
     /**
      * @ORM\ManyToMany(targetEntity=Messages::class, inversedBy="users")
@@ -194,7 +189,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->calendriers = new ArrayCollection();
         $this->absences = new ArrayCollection();
         $this->telechargements = new ArrayCollection();
-        $this->messages = new ArrayCollection();
+
         $this->received = new ArrayCollection();
       
  
@@ -757,32 +752,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Messages>
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
 
-    public function addMessage(Messages $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->addRecipient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Messages $message): self
-    {
-        if ($this->messages->removeElement($message)) {
-            $message->removeRecipient($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Messages>

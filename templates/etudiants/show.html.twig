@@ -228,56 +228,53 @@
 
 																<tbody>
 
-																	<tr>
-																		<td style="    border-top: solid 1px white;
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    border-left: solid 1px white; border-right: solid 1px white;"></td>
-																		<td style="    border-top: solid 1px white;
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    border-left: solid 1px white;"></td>
-																		<th scope="col">Coef</th>
-																		<th scope="col">Note 1</th>
-																		<th scope="col">Note 2</th>
-																		<th scope="col">Note 3</th>
-																		<th scope="col">Moyenne</th>
+																	<td style="    border-top: solid 1px white;"></td>
 
-																		{% for bloc in etudiant.classes.blocs %}
-																			<tr>
+																	<td style="    border-top: solid 1px white;"></td>
 
-																				<th rowspan="3" scope="rowgroup">{{bloc.nom}}
-																					<br><br>
-																					Coef:
-																					{{bloc.coefficient}}</th>
+																	<th scope="col">Coef</th>
+																	<th scope="col">Note 1</th>
+																	<th scope="col">Note 2</th>
+																	<th scope="col">Note 3</th>
+																	<th scope="col">Moyenne</th>
 
-																				{% for module in bloc.modules %}
-																					<tr>
+																	{% for bloc in etudiant.classes.blocs %}
+
+																		<tr>
+
+																			<th rowspan="3" scope="rowgroup">{{bloc.nom}}
+																				<br><br>
+																				Coef:
+																				{{bloc.coefficient}}</th>
+
+																			{% for module in bloc.modules %}
+
+																				<tr>
+																					{% for tableau in etudiant.tableauNotes %}
 
 																						<th scope="row">{{module.nom}}</th>
 
 																						<td>{{module.coefficient}}</td>
-																						
-
-																						{% for tableau in module.classes.notes %}
-
-																						
-
-																								<td>{{tableau.tableau[0].note1}}</td>
-																								<td>{{tableau.tableau[0].note2}}</td>
-																								<td>{{tableau.tableau[0].note3}}</td>
-																								<td></td>
-																						
 
 
-																						{% endfor %}
-																					</tr>
+																						<td>{{tableau.note1}}</td>
+																						<td>{{tableau.note2}}</td>
+																						<td>{{tableau.note3}}</td>
+																						<td></td>
 
+																					{% endfor %}
+																				</tr>
 
-																				{% endfor %}
-																			</tr>
+																		</tr>
 																		{% endfor %}
 
-																	</tr>
+
+																	{% endfor %}
 																</tbody>
 
 															</table>
+
+
 														</div>
 
 													</div>
@@ -297,5 +294,5 @@
 		</div>
 	</div>
 </div>
-{{ block("Footer", "Menus/Footer.html.twig") }}<div class="app-drawer-overlay d-none animated fadeIn"></div>
-<script type="text/javascript" src="{{ asset('assets/scripts/main.d810cf0ae7f39f28f336.js')}}"></script>{% endblock %}
+{{ block("Footer", "Menus/Footer.html.twig") }}
+<div class="app-drawer-overlay d-none animated fadeIn"></div>{% endblock %}

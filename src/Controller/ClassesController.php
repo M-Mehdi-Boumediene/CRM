@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Classes;
 use App\Entity\Modules;
 use App\Form\ClassesType;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/classes")
  */
@@ -26,7 +27,7 @@ class ClassesController extends AbstractController
     /**
      * @Route("/", name="app_classes_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, ClassesRepository $classesRepository): Response
+    public function index(Request $request, ClassesRepository $classesRepository, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
@@ -38,7 +39,11 @@ class ClassesController extends AbstractController
         $classes =  $classesRepository->searchMot($value);
         if ($form2->isSubmitted() && $form2->isValid()) {
 
-      
+            $classes = $paginator->paginate(
+                $classes, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                10 // Nombre de résultats par page
+            );
             return $this->renderForm('classes/index.html.twig', [
                 'classes' => $classes,
                 'form' => $form,
@@ -47,7 +52,11 @@ class ClassesController extends AbstractController
 
         }
  
-
+        $classes = $paginator->paginate(
+            $classes, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->renderForm('classes/index.html.twig', [
             'classes' => $classes,
             'form' => $form,

@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/intervenants")
@@ -32,7 +33,7 @@ class IntervenantsController extends AbstractController
     /**
      * @Route("/", name="app_intervenants_index", methods={"GET", "POST"})
      */
-    public function index(Request $request,IntervenantsRepository $intervenantRepository): Response
+    public function index(Request $request,IntervenantsRepository $intervenantRepository, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
@@ -57,13 +58,24 @@ class IntervenantsController extends AbstractController
             }
        
         $intervenants =  $intervenantRepository->searchMot($value,$module,$classe);
+        $intervenants = $paginator->paginate(
+            $intervenants, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
             return $this->renderForm('intervenants/index.html.twig', [
                 'intervenants' => $intervenants,
                 'form2' => $form2,
             ]);
         }
+        $intervenants =  $intervenantRepository->findAll();
+        $intervenants = $paginator->paginate(
+            $intervenants, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->renderForm('intervenants/index.html.twig', [
-            'intervenants' => $intervenantRepository->findAll(),
+            'intervenants' => $intervenants,
             'form' => $form,
             'form2' => $form2,
         ]);
@@ -98,6 +110,11 @@ class IntervenantsController extends AbstractController
          
             $user->setCreatedBy($this->getUser()->getEmail());
             $user->setUser($user);
+            $user->setNom($form->get('nom')->getData());
+            $user->setPrenom($form->get('prenom')->getData());
+            $user->setAdresse($form->get('adresse')->getData());
+        
+            
             $user->setEmail($form->get('user')->get('email')->getData());
             $user->setRoles(['ROLE_INTERVENANT']);
             $user->setCreatedAt($date);

@@ -21,7 +21,7 @@ use App\Repository\IntervenantsRepository;
 use App\Repository\ModulesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/etudiants")
  */
@@ -36,7 +36,7 @@ class EtudiantsController extends AbstractController
     /**
      * @Route("/", name="app_etudiants_index", methods={"GET", "POST"})
      */
-    public function index(Request $request,EtudiantsRepository $etudiantsRepository): Response
+    public function index(Request $request,EtudiantsRepository $etudiantsRepository, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
@@ -61,13 +61,31 @@ class EtudiantsController extends AbstractController
             }
        
         $etudiants =  $etudiantsRepository->searchMot($value,$module,$classe);
+
+
+
+        $etudiants = $paginator->paginate(
+            $etudiants, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
             return $this->renderForm('etudiants/index.html.twig', [
                 'etudiants' => $etudiants,
                 'form2' => $form2,
             ]);
         }
+
+        $etudiants =  $etudiantsRepository->findAll();
+
+
+
+        $etudiants = $paginator->paginate(
+            $etudiants, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
             return $this->renderForm('etudiants/index.html.twig', [
-            'etudiants' => $etudiantsRepository->findAll(),
+            'etudiants' => $etudiants,
             'form2' => $form2,
          
         ]);
@@ -101,6 +119,10 @@ class EtudiantsController extends AbstractController
             $user->setCreatedBy($this->getUser()->getEmail());
             $user->setUser($user);
             $user->setEmail($form->get('user')->get('email')->getData());
+            $user->setNom($form->get('nom')->getData());
+            $user->setPrenom($form->get('prenom')->getData());
+            $user->setAdresse($form->get('adresse')->getData());
+            
             $user->setRoles(['ROLE_ETUDIANT']);
             $user->setCreatedAt($date);
             $user->setPassword($password);
