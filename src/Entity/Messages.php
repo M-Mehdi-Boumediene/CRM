@@ -57,6 +57,11 @@ class Messages
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Documents::class, mappedBy="messages")
+     */
+    private $documents;
+
 
 
     public function __construct()
@@ -64,6 +69,7 @@ class Messages
         $this->created_at = new \DateTime();
         $this->recipient = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,6 +183,36 @@ class Messages
     {
         if ($this->users->removeElement($user)) {
             $user->removeReceived($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Documents>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Documents $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setMessages($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Documents $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getMessages() === $this) {
+                $document->setMessages(null);
+            }
         }
 
         return $this;

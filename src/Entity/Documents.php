@@ -64,6 +64,11 @@ class Documents
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Messages::class, inversedBy="documents")
+     */
+    private $messages;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,18 @@ class Documents
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getMessages(): ?Messages
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?Messages $messages): self
+    {
+        $this->messages = $messages;
 
         return $this;
     }

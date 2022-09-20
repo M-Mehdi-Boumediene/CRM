@@ -119,6 +119,10 @@ class EtudiantsController extends AbstractController
             $user->setCreatedBy($this->getUser()->getEmail());
             $user->setUser($user);
             $user->setEmail($form->get('user')->get('email')->getData());
+            $user->setNom($form->get('nom')->getData());
+            $user->setPrenom($form->get('prenom')->getData());
+            $user->setAdresse($form->get('adresse')->getData());
+            
             $user->setRoles(['ROLE_ETUDIANT']);
             $user->setCreatedAt($date);
             $user->setPassword($password);

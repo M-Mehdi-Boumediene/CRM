@@ -4,11 +4,24 @@
 {% endblock %}
 
 {% block body %}
-<style>
-.select2 {
-    width:100% !important;
-}
-</style>
+	<style>
+		.select2 {
+			width: 100% !important;
+		}
+
+		.nav-link {
+
+			float: left;
+			font-weight: normal;
+		}
+		.app-page-title .page-title-actions {
+			margin-left: 20px;
+		}
+		#messages_documents {
+			display: none;
+		}
+	</style>
+
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 
 	<div class="app-main">
@@ -22,13 +35,40 @@
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="pe-7s-diamond icon-gradient bg-strong-bliss"></i>
+								<i class="pe-7s-mail icon-gradient bg-strong-bliss"></i>
 							</div>
-							<div>Messagerie
-								<div class="page-title-subheading">Découvrez tous vos messages</div>
+							<div>Nouveau message
+
 							</div>
 						</div>
 						<div class="page-title-actions">
+							<a href="{{ path('app_messages') }}" class="nav-link">
+								<i class="nav-link-icon pe-7s-chat"></i>
+								<span>Boîte de réception</span>&ensp;
+								<div class="ml-auto badge badge-pill badge-info">
+									{% for message in app.user.received %}
+										{% if message.isRead == 0 %}
+											{{ app.user.received|length}}
+										{% else %}
+											0
+										{% endif %}
+									{% endfor %}
+								</div>
+							</a>
+
+
+							<a href="javascript:void(0);" class="nav-link">
+								<i class="nav-link-icon pe-7s-wallet"></i>
+								<span>Éléments envoyés</span>
+
+							</a>
+
+
+							<a href="javascript:void(0);" class="nav-link">
+								<i class="nav-link-icon pe-7s-box2"></i>
+								<span>Corbeille</span>
+							</a>
+
 
 							<div class="d-inline-block dropdown">
 								<a href="{{ path('app_envoi_messages') }}">
@@ -60,7 +100,7 @@
 														</span>
 													</button>
 												</div>
-												<h4 class="mb-0">Nouveau message</h4>
+
 
 											</div>
 
@@ -70,15 +110,22 @@
 
 											<div class="row">
 												<div class="col-md-12">
-                                                {{ form_label(form.recipient, 'Envoyer à :') }}
+													{{ form_label(form.recipient, 'À : ') }}
 													{{ form_row(form.recipient,{'attr': {'class': 'form-control'}}) }}
 													{{ form_errors(form.recipient) }}
 												</div>
+
+												<div class="col-md-12">
+													<br>
+													{{ form_label(form.users, 'Copie à: ') }}
+													{{ form_row(form.users,{'attr': {'class': 'form-control'}}) }}
+													{{ form_errors(form.users) }}
+												</div>
 											</div>
-                                            <br>
+											<br>
 											<div class="row">
 												<div class="col-md-6">
-                                                    {{ form_label(form.objet, 'Objet :') }}
+													{{ form_label(form.objet, 'Objet :') }}
 													{{ form_row(form.objet,{'attr': {'class': 'form-control'}}) }}
 													{{ form_errors(form.objet) }}
 												</div>
@@ -91,6 +138,17 @@
 													{{ form_row(form.message,{'attr': {'class': 'form-control'}}) }}
 													{{ form_errors(form.message) }}
 												</div>
+												<div class="col-md-12">
+													<br>
+													<i class="pe-7s-paperclip joindre" style="    font-size: 18px;
+																																																																											    color: #484848;
+																																																																											    cursor: pointer; float:right;">
+														Joindre un fichier</i>
+													<br>
+													<br>
+													{{ form_row(form.documents,{'attr': {'class': 'form-control'}}) }}
+													{{ form_errors(form.documents) }}
+												</div>
 											</div>
 											<br>
 											<button class="mt-1 btn btn-primary">{{ button_label|default('Envoyer') }}</button>
@@ -102,37 +160,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="app-inner-layout__sidebar card">
-									<ul class="nav flex-column">
-										<br>
 
-										<li class="nav-item">
-											<a href="{{ path('app_messages') }}" class="nav-link">
-												<i class="nav-link-icon pe-7s-chat"></i>
-												<span>Boîte de réception</span>
-												<div class="ml-auto badge badge-pill badge-info">8</div>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="javascript:void(0);" class="nav-link">
-												<i class="nav-link-icon pe-7s-wallet"></i>
-												<span>Éléments envoyés</span>
-
-											</a>
-										</li>
-
-										<li class="nav-item-divider nav-item"></li>
-										<li class="nav-item">
-											<a href="javascript:void(0);" class="nav-link">
-												<i class="nav-link-icon pe-7s-box2"></i>
-												<span>Corbeille</span>
-											</a>
-										</li>
-										<li class="nav-item-divider nav-item"></li>
-
-
-									</ul>
-								</div>
 							</div>
 						</div>
 
@@ -153,5 +181,26 @@
 tags: true,
 tokenSeparators: [',', ' ']
 })
+$("#messages_users").select2({
+tags: true,
+tokenSeparators: [',', ' ']
+})
+
+
+$('.joindre').click(function () {
+
+var clicks = $(this).data('clicks');
+if (clicks) {
+
+$("#messages_documents").show();
+
+} else {
+$("#messages_documents").hide();
+}
+$(this).data("clicks", ! clicks);
+});
+
+
+
 		</script>
 	{% endblock %}

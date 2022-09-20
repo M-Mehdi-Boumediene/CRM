@@ -47,7 +47,7 @@ class BlocsController extends AbstractController
        
         $blocs =  $blocsRepository->searchMot($value,$filtre);
 
-        $blocs = $blocs->paginate(
+        $blocs = $paginator->paginate(
             $blocs, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             10 // Nombre de résultats par page

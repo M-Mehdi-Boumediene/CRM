@@ -15,19 +15,19 @@
 		.app-page-title .page-title-actions {
 			margin-left: 20px;
 		}
-		.nav-link .nav-link-icon {
-			color: #000000;
-			font-size: 18px;
-			margin-left: -10px;
-			opacity: .45;
-			text-align: center;
-			width: 30px;
-			font-weight: 900;
-		}
-		.app-page-title .page-title-actions {
-			margin-left: 20px;
-			width: 100%;
-		}
+    .nav-link .nav-link-icon {
+    color: #000000;
+    font-size: 18px;
+    margin-left: -10px;
+    opacity: .45;
+    text-align: center;
+    width: 30px;
+    font-weight: 900;
+}
+.app-page-title .page-title-actions {
+    margin-left: 20px;
+    width: 100%;
+}
 	</style>
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 
@@ -42,11 +42,11 @@
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="pe-7s-mail icon-gradient bg-strong-bliss"></i>
+					<i class="pe-7s-mail icon-gradient bg-strong-bliss"> </i>
 							</div>
 							<div>
-								Messagerie
-
+Messagerie
+						
 							</div>
 						</div>
 						<div class="page-title-actions">
@@ -56,16 +56,15 @@
 								<span>Boîte de réception
 								</span>&ensp;
 								<div class="ml-auto badge badge-pill badge-info">
-{% set total = 0 %}{% for message in app.user.received %}{% if message.isRead == 0 %}{% set total = total +1 %}{% else %}{% set total = 0 %}{% endif %}{% endfor %}{{total}}
-
-								</div>
+                				{% set total = 0 %}{% for message in app.user.received %}{% if message.isRead == 0 %}{% set total = total +1 %}{% else %}{% set total = 0 %}{% endif %}{% endfor %}{{total}}
+                
+                </div>
 							</a>
 
 
 							<a href="{{path('app_messages_envoyés')}}" class="nav-link">
 								<i class="nav-link-icon pe-7s-wallet"></i>
-								<span>Éléments envoyés</span>
-								&ensp;
+								<span>Éléments envoyés </span>&ensp;
                                 				<div class="ml-auto badge badge-pill badge-info">
                 				{% set total = 0 %}{% for message in app.user.sent %}{% if message.isRead == 0 %}{% set total = total +1 %}{% else %}{% set total = 0 %}{% endif %}{% endfor %}{{total}}
                 
@@ -74,7 +73,7 @@
 							</a>
 
 
-							<a href="{{path('app_messages_brouillons')}}" class="nav-link">
+			<a href="{{path('app_messages_brouillons')}}" class="nav-link">
 								<i class="nav-link-icon pe-7s-file"></i>
 								<span>Brouillons</span>
 
@@ -91,11 +90,11 @@
 									<button class="btn-shadow btn btn-info">
 										<span class="btn-icon-wrapper pr-2 opacity-7">
 											<i class="pe-7s-pen" style="    font-weight: bold;
-																																																												    color: white;
-																																																												    font-size: 18px;"></i>
+    color: white;
+    font-size: 18px;"></i>
 										</span>
 										<span style="    position: relative;
-																																																							    float: right;">Nouveau message</span>
+    float: right;">Nouveau message</span>
 									</button>
 								</a>
 							</div>
@@ -119,7 +118,7 @@
 														</span>
 													</button>
 												</div>
-												<h4 class="mb-0">Boîte de réception ({% set total = 0 %}{% for message in app.user.received %}{% if message.isRead == 0 %}{% set total = total +1 %}{% else %}{% set total = 0 %}{% endif %}{% endfor %}{{total}})</h4>
+												<h4 class="mb-0">Éléments envoyés ({% set total = 0 %}{% for message in app.user.sent %}{% if message.isRead == 0 %}{% set total = total +1 %}{% else %}{% set total = 0 %}{% endif %}{% endfor %}{{total}})</h4>
 
 											</div>
 											<div class="pane-right">
@@ -137,7 +136,7 @@
 											<div class="table-responsive">
 												<table class="text-nowrap table-lg mb-0 table table-hover">
 													<tbody>
-														{% for message in app.user.received %}
+														{% for message in app.user.sent %}
 
 															<tr>
 
@@ -149,7 +148,7 @@
 																			</div>
 																			<div class="widget-content-left">
 																				<div class="widget-heading">
-																					<a href="{{path('app_read_messages', {id: message.id})}}">{{message.sender.email }}</a>
+																					<a href="{{path('app_read_messages', {id: message.id})}}">{{message.sender.prenom }} {{message.sender.nom }}</a>
 																				</div>
 
 																			</div>
