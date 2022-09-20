@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\MessagesType;
 use App\Entity\Messages;
+use App\Entity\Users;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UsersRepository;
 use App\Repository\MessagesRepository;
@@ -19,6 +20,7 @@ class MessagesController extends AbstractController
      */
     public function index(UsersRepository $usersRepository): Response
     {
+
         return $this->render('messages/index.html.twig', [
             'controller_name' => 'MessagesController',
            
@@ -34,13 +36,26 @@ class MessagesController extends AbstractController
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $message->setSender($this->getUser());
+
             $recipients = $form->get('recipient')->getData();
-       
-                $message->setRecipient($recipients);
+            foreach($recipients as $recipients){
+               
+
+         
+         
+
+                $message->setSender($this->getUser());
+                $message->addRecipient($recipients);
+            
+                $message->addUser($recipients);
+   
+            
+            }
+               
         
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
+      
             $em->flush();
 
             $this->addFlash("message","Le message à été envoyé avec succès.");

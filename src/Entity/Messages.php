@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MessagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,15 +48,22 @@ class Messages
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="received")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Users::class)
      */
     private $recipient;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="received")
+     */
+    private $users;
+
 
 
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->recipient = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,15 +131,56 @@ class Messages
         return $this;
     }
 
-    public function getRecipient(): ?Users
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getRecipient(): Collection
     {
         return $this->recipient;
     }
 
-    public function setRecipient(?Users $recipient): self
+    public function addRecipient(Users $recipient): self
     {
-        $this->recipient = $recipient;
+        if (!$this->recipient->contains($recipient)) {
+            $this->recipient[] = $recipient;
+        }
 
         return $this;
     }
+
+    public function removeRecipient(Users $recipient): self
+    {
+        $this->recipient->removeElement($recipient);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(Users $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addReceived($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeReceived($this);
+        }
+
+        return $this;
+    }
+
+    
 }
