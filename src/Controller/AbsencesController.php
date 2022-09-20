@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/absences")
  */
@@ -25,7 +25,7 @@ class AbsencesController extends AbstractController
     /**
      * @Route("/", name="app_absences_index", methods={"GET","POST"})
      */
-    public function index(request $request, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository): Response
+    public function index(request $request, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository, PaginatorInterface $paginator): Response
     {
         $form2 = $this->createForm(FiltreAbsencesType::class);
         $form2->handleRequest($request);
@@ -45,18 +45,28 @@ class AbsencesController extends AbstractController
             if($classe == null){
                 $classe = empty($classe);
             }
+            $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$apprenant,$classe);
+            $tableAbsences = $paginator->paginate(
+                $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                10 // Nombre de résultats par page
+            );
        
-        $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$apprenant,$classe);
             return $this->renderForm('absences/index.html.twig', [
                 'tableAbsences' => $tableAbsences,
                 'form2' => $form2,
             ]);
         }
 
-        
+        $tableAbsences =  $TableauAbsencesRepository->findAll();
+        $tableAbsences = $paginator->paginate(
+            $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->renderForm('absences/index.html.twig', [
             'absences' => $absencesRepository->findAll(),
-            'tableAbsences' => $TableauAbsencesRepository->findAll(),
+            'tableAbsences' => $tableAbsences,
             'form2' => $form2,
         ]);
     }

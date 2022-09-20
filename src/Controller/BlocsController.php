@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/blocs")
  */
@@ -23,14 +23,14 @@ class BlocsController extends AbstractController
     /**
      * @Route("/", name="app_blocs_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, BlocsRepository $blocsRepository): Response
+    public function index(Request $request, BlocsRepository $blocsRepository, PaginatorInterface $paginator): Response
     {
   
 
         $form2 = $this->createForm(FiltreBlocType::class);
         $form2->handleRequest($request);
 
-    
+
 
         if ($form2->isSubmitted() && $form2->isValid()) {
             $value = $form2->get('search')->getData();
@@ -46,13 +46,28 @@ class BlocsController extends AbstractController
             }
        
         $blocs =  $blocsRepository->searchMot($value,$filtre);
+
+        $blocs = $blocs->paginate(
+            $blocs, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
             return $this->renderForm('blocs/index.html.twig', [
                 'blocs' => $blocs,
          
                 'form2' => $form2,
             ]);
         }
+      
         $blocs =  $blocsRepository->findAll();
+
+        $blocs = $paginator->paginate(
+            $blocs, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 // Nombre de résultats par page
+        );
+        
+        
         return $this->renderForm('blocs/index.html.twig', [
             'blocs' => $blocs,
             'form2' => $form2,
@@ -128,3 +143,8 @@ class BlocsController extends AbstractController
         return $this->redirectToRoute('app_blocs_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+
+
+
+
+
