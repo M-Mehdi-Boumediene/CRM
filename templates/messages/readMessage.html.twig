@@ -25,6 +25,43 @@
 				display: none;
 			}
 		</style>
+		<style>
+
+			.nav-link {
+
+				float: left;
+				font-weight: normal;
+			}
+			.app-page-title .page-title-actions {
+				margin-left: 20px;
+			}
+			.nav-link .nav-link-icon {
+				color: #000000;
+				font-size: 18px;
+				margin-left: -10px;
+				opacity: .45;
+				text-align: center;
+				width: 30px;
+				font-weight: 900;
+			}
+			.app-page-title .page-title-actions {
+				margin-left: 20px;
+				width: 100%;
+			}
+			#messages_users {
+				display: none;
+
+			}
+			#messages_brouillon {
+				display: none;
+			}
+			#messages_documents {
+				display: none;
+			}
+			form {
+				display: none;
+			}
+		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -33,19 +70,72 @@
 							<div class="page-title-icon">
 								<i class="pe-7s-diamond icon-gradient bg-strong-bliss"></i>
 							</div>
-							<div>Messagerie
-						
-							</div>
+							<div></div>
 						</div>
 						<div class="page-title-actions">
+
+
+							<a href="{{ path('app_messages') }}" class="nav-link">
+								<i class="nav-link-icon pe-7s-chat"></i>
+								<span>Boîte de réception
+								</span>&ensp;
+								<div class="ml-auto badge badge-pill badge-info">
+									{% set total = 0 %}
+									{% for message in app.user.received %}
+										{% if message.isRead == 0 %}
+											{% set total = total +1 %}
+										{% else %}
+											{% set total = 0 %}
+										{% endif %}
+									{% endfor %}
+									{{total}}
+
+								</div>
+							</a>
+
+
+							<a href="{{path('app_messages_envoyés')}}" class="nav-link">
+								<i class="nav-link-icon pe-7s-wallet"></i>
+								<span>Éléments envoyés</span>
+								&ensp;
+								<div class="ml-auto badge badge-pill badge-info">
+									{% set total = 0 %}
+									{% for message in app.user.sent %}
+										{% if message.isRead == 0 %}
+											{% set total = total +1 %}
+										{% else %}
+											{% set total = 0 %}
+										{% endif %}
+									{% endfor %}
+									{{total}}
+
+								</div>
+
+							</a>
+
+
+							<a href="{{path('app_messages_brouillons')}}" class="nav-link">
+								<i class="nav-link-icon pe-7s-file"></i>
+								<span>Brouillons</span>
+
+							</a>
+
+							<a href="{{path('app_messages_corbeille')}}" class="nav-link">
+								<i class="nav-link-icon pe-7s-trash"></i>
+								<span>Corbeille</span>
+							</a>
+
 
 							<div class="d-inline-block dropdown">
 								<a href="{{ path('app_envoi_messages') }}">
 									<button class="btn-shadow btn btn-info">
 										<span class="btn-icon-wrapper pr-2 opacity-7">
-											<i class="fa fa-plus fa-w-20"></i>
+											<i class="pe-7s-pen" style="    font-weight: bold;
+																																																																																																																																																																								    color: white;
+																																																																																																																																																																								    font-size: 18px;"></i>
 										</span>
-										Nouveau message
+										<span style="    position: relative;
+																																																																																																																																																										    float: right;">Nouveau message</span>
 									</button>
 								</a>
 							</div>
@@ -58,33 +148,56 @@
 							<div class="app-inner-layout__wrapper">
 								<div class="app-inner-layout__content card">
 									<div class="table-responsive">
-							
 
+										<div class="row" style="padding-left:27px;padding-top:20px;    width: 100%;">
+											<div class="col-md-2" style="    max-width: 50px;">
+												<div class="avatar-icon-wrapper mr-1">
+													<div class="avatar-icon avatar-icon-lg rounded">
+
+														<img src="{{asset('assets/images/avatars/3.jpg')}}" alt=""><br>
+
+													</div>
+
+												</div>
+											</div>
+											<div class="col-md-6">
+
+												<h3>{{message.objet}}</h3>
+												<b>{{message.sender.prenom}}
+													{{message.sender.nom}}</b><br>
+												À moi
+												<small class="opacity-6">
+													<i class="fa fa-calendar-alt mr-1"></i>
+													{{message.createdAt|date('d/m/Y h:i')}}
+												</small>
+											</div>
+										</div>
 										<div class="chat-wrapper">
 											<div class="chat-box-wrapper">
 
-												<div>
+
+												<div class="row">
 
 													<div class="avatar-icon-wrapper mr-1">
-														<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>
-														<div class="avatar-icon avatar-icon-lg rounded">
-
-															<img src="{{asset('assets/images/avatars/3.jpg')}}" alt=""><br>
-
-														</div>
+														<div class="avatar-icon avatar-icon-lg rounded"></div>
 
 													</div>
 
 												</div>
 												<div>
 													<div class="chat-box">{{message.message|raw()}}</div>
-													<small class="opacity-6">
-														<i class="fa fa-calendar-alt mr-1"></i>
-														{{message.createdAt|date('d/m/Y h:i')}}
-													</small>
+
 												</div>
+
+
 											</div>
 
+										</div>
+
+										<div style="float:left; padding-left:70px;padding-top:30px;    position: absolute;">
+											<button class="btn-shadow btn btn-info rep">
+												<i class="pe-7s-refresh"></i>
+												Répondre</button>
 
 										</div>
 										<div class="app-inner-layout__bottom-pane d-block text-center">
@@ -118,58 +231,63 @@
 
 															{{ form_errors(form.message) }}
 														</div>
+
+														<div class="col-md-12">
+															<br>
+															<i class="pe-7s-paperclip joindre" style="    font-size: 18px;
+																																																																																																																																																																																																																																				    color: #484848;
+																																																																																																																																																																																																																																				    cursor: pointer; float:right;">
+																Joindre un fichier</i>
+															<br>
+															<br>
+															{{ form_row(form.documents,{'attr': {'class': 'form-control'}}) }}
+															{{ form_errors(form.documents) }}
+														</div>
 													</div>
 													<br>
-													<button class="mt-1 btn btn-primary">{{ button_label|default('Envoyer') }}</button>
-													ou
-													<a href="{{ path('app_messages') }}">Retour à la liste</a>
+													<div style="float:left">
+														<button class="mt-1 btn btn-info">{{ button_label|default('Envoyer le message') }}</button>
 
-													{{ form_end(form) }}
+														ou
+														<a href="{{ path('app_messages') }}">Retour à la liste</a>
+													</div>
+													<div style="float:right;">
+														<button class="mt-1 btn btn-danger supprimer" style="float:right;">{{ button_label|default('Supprimer le message') }}</button>
+													</div>
 												</div>
+
+												{{ form_end(form) }}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="app-inner-layout__sidebar card">
-									<ul class="nav flex-column">
-										<br>
-
-										<li class="nav-item">
-											<a href="{{ path('app_messages') }}" class="nav-link">
-												<i class="nav-link-icon pe-7s-chat"></i>
-												<span>Boîte de réception</span>
-												<div class="ml-auto badge badge-pill badge-info">8</div>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="javascript:void(0);" class="nav-link">
-												<i class="nav-link-icon pe-7s-wallet"></i>
-												<span>Éléments envoyés</span>
-
-											</a>
-										</li>
-
-										<li class="nav-item-divider nav-item"></li>
-										<li class="nav-item">
-											<a href="javascript:void(0);" class="nav-link">
-												<i class="nav-link-icon pe-7s-box2"></i>
-												<span>Corbeille</span>
-											</a>
-										</li>
-										<li class="nav-item-divider nav-item"></li>
-
-
-									</ul>
-								</div>
 							</div>
+
 						</div>
 					</div>
-
-
 				</div>
-			</div>
 
+
+			</div>
 		</div>
+
 	</div>
-	{{ block("Footer", "Menus/Footer.html.twig") }}
-</div></div>{% endblock %}
+</div>
+{{ block("Footer", "Menus/Footer.html.twig") }}</div></div><script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script><script>$('.joindre').click(function () {
+
+var clicks = $(this).data('clicks');
+if (clicks) {
+
+$("#messages_documents").show();
+
+} else {
+$("#messages_documents").hide();
+}
+$(this).data("clicks", ! clicks);
+});
+
+$('.rep').click(function () {
+
+$('form').show("slow");
+$(this).hide("slow");
+});</script>{% endblock %}

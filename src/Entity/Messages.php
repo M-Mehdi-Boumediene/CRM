@@ -62,6 +62,16 @@ class Messages
      */
     private $documents;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $brouillon = 0;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $supprimer = 0;
+
 
 
     public function __construct()
@@ -214,6 +224,30 @@ class Messages
                 $document->setMessages(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBrouillon(): ?string
+    {
+        return $this->brouillon;
+    }
+
+    public function setBrouillon(?string $brouillon): self
+    {
+        $this->brouillon = $brouillon;
+
+        return $this;
+    }
+
+    public function getSupprimer(): ?string
+    {
+        return $this->supprimer;
+    }
+
+    public function setSupprimer(?string $supprimer): self
+    {
+        $this->supprimer = $supprimer;
 
         return $this;
     }

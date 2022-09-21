@@ -73,4 +73,140 @@ class MessagesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findBybrouillon($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+
+        ->andWhere('u.brouillon = :brouillon')
+        ->andWhere('u.sender = :user')
+   
+
+
+        ->setParameter('brouillon', 1)
+        ->setParameter('user', $user)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    public function findBybrouillonisread($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+
+        ->andWhere('u.brouillon = :brouillon')
+        ->andWhere('u.sender = :user')
+   
+        ->andWhere('u.is_read = :number')
+
+        ->setParameter('brouillon', 1)
+        ->setParameter('user', $user)
+        ->setParameter('number', 0)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
+    public function findBysuppisread($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+
+        ->andWhere('u.supprimer = :supprimer')
+        ->andWhere('u.sender = :user')
+   
+        ->andWhere('u.is_read = :number')
+
+        ->setParameter('supprimer', 1)
+        ->setParameter('user', $user)
+        ->setParameter('number', 0)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
+    public function findByrecusisread($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+
+        ->andWhere('u.supprimer = :supprimer')
+        ->andWhere('u.brouillon = :supprimer')
+        ->andWhere('u.sender = :user')
+   
+        ->andWhere('u.is_read = :number')
+
+        ->setParameter('supprimer', 0)
+        ->setParameter('user', $user)
+        ->setParameter('number', 0)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
+    
+    public function findByuser($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+        ->innerJoin('u.users', 'a')
+        ->andWhere('a.id = :user')
+   
+        ->setParameter('user', $user)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    public function findBysender($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+  
+        ->andWhere('u.sender = :user')
+   
+        ->setParameter('user', $user)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    public function findBysenderisread($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+  
+        ->andWhere('u.sender = :user')
+        ->andWhere('u.is_read = :number')
+        ->setParameter('user', $user)
+        ->setParameter('number', 0)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
+    public function findBysupp($user)
+    {
+        return $this->createQueryBuilder('u')
+            
+  
+        ->andWhere('u.supprimer = :supprimer')
+        ->andWhere('u.sender = :user')
+   
+
+
+        ->setParameter('supprimer', 1)
+        ->setParameter('user', $user)
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }
