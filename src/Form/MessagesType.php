@@ -73,6 +73,16 @@ class MessagesType extends AbstractType
         
             
             ])
+
+
+            ->add('brouillon',TextType::class,[
+                'attr'=> [
+                    'class'=>'form-control'
+                ],
+                'label'=>false,
+                ])
+
+          
         ;
     }
 

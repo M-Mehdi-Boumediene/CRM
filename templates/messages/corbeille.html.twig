@@ -28,16 +28,6 @@
 			margin-left: 20px;
 			width: 100%;
 		}
-		.page,
-		.current,
-		.previous,
-		.first,
-		.next,
-		.last {
-			border: solid 1px;
-			padding: 5px;
-			margin: 2px;
-		}
 	</style>
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 
@@ -54,11 +44,11 @@
 							<div class="page-title-icon">
 								<i class="pe-7s-mail icon-gradient bg-strong-bliss"></i>
 							</div>
-							<div></div>
+						
 						</div>
 						<div class="page-title-actions">
 
-							<a href="{{ path('app_messages') }}" class="nav-link">
+						<a href="{{ path('app_messages') }}" class="nav-link">
 								<i class="nav-link-icon pe-7s-chat"></i>
 								<span>Boîte de réception
 								</span>&ensp;
@@ -128,18 +118,16 @@
 
 								</div>
 							</a>
-
-
 							<div class="d-inline-block dropdown">
 								<a href="{{ path('app_envoi_messages') }}">
 									<button class="btn-shadow btn btn-info">
 										<span class="btn-icon-wrapper pr-2 opacity-7">
 											<i class="pe-7s-pen" style="    font-weight: bold;
-																																																																																																																																				    color: white;
-																																																																																																																																				    font-size: 18px;"></i>
+																																																																								    color: white;
+																																																																								    font-size: 18px;"></i>
 										</span>
 										<span style="    position: relative;
-																																																																																																																									    float: right;">Nouveau message</span>
+																																																																		    float: right;">Nouveau message</span>
 									</button>
 								</a>
 							</div>
@@ -163,11 +151,15 @@
 														</span>
 													</button>
 												</div>
-												<h4 class="mb-0">Boîte de réception ({% set total = 0 %}
+												<h4 class="mb-0">Corbeille ({% set total = 0 %}
 													{% for message in messages %}
-														{% set total = total +1 %}
+														{% if message.isRead == 0 %}
+															{% set total = total +1 %}
+														{% else %}
+															{% set total = 0 %}
+														{% endif %}
 													{% endfor %}
-													{{total}} )</h4>
+													{{total}})</h4>
 
 											</div>
 											<div class="pane-right">
@@ -227,9 +219,6 @@
 
 													</tbody>
 												</table>
-												<nav class="" aria-label="Page navigation example" style="float:right;">
-													{{ knp_pagination_render(messages) }}
-												</nav>
 											</div>
 
 										</div>

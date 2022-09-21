@@ -11,44 +11,118 @@ use App\Entity\Users;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UsersRepository;
 use App\Repository\MessagesRepository;
-
+use Knp\Component\Pager\PaginatorInterface;
 
 class MessagesController extends AbstractController
 {
     /**
-     * @Route("/messages", name="app_messages")
+     * @Route("/messages", name="app_messages", methods={"GET", "POST"})
      */
-    public function index(UsersRepository $usersRepository): Response
+    public function index(Request $request, MessagesRepository $messagesRepository,PaginatorInterface $paginator): Response
     {
-
+        
+        $user = $this->getUser();
+        $messages =  $messagesRepository->findByuser($user);
+        $recus =  $messagesRepository->findByrecusisread($user);
+        $elements =  $messagesRepository->findBysenderisread($user);
+        $brouillons =  $messagesRepository->findBybrouillonisread($user);
+        $suppressions =  $messagesRepository->findBysuppisread($user);
+        $messages = $paginator->paginate(
+            $messages, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->render('messages/index.html.twig', [
             'controller_name' => 'MessagesController',
+            'messages' =>  $messages,
+            'elements' =>  $elements,
+            'brouillons' =>  $brouillons,
+            'suppressions' =>  $suppressions,
+            'recus' =>  $recus,
            
         ]);
     }
 
 
  /**
-     * @Route("/messages/envoyés", name="app_messages_envoyés")
+     * @Route("/messages/envoyés", name="app_messages_envoyés", methods={"GET", "POST"})
      */
-    public function elements(UsersRepository $usersRepository): Response
+    public function elements(Request $request,MessagesRepository $messagesRepository, PaginatorInterface $paginator): Response
     {
+        $user = $this->getUser();
+        $messages =  $messagesRepository->findBysender($user);
 
-
+        $elements =  $messagesRepository->findBysenderisread($user);
+        $brouillons =  $messagesRepository->findBybrouillonisread($user);
+        $suppressions =  $messagesRepository->findBysuppisread($user);
+        $recus =  $messagesRepository->findByrecusisread($user);
+        $messages = $paginator->paginate(
+            $messages, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->render('messages/elementsEnvoyer.html.twig', [
             'controller_name' => 'MessagesController',
+            'messages' =>  $messages,
+            'elements' =>  $elements,
+            'brouillons' =>  $brouillons,
+            'suppressions' =>  $suppressions,
+            'recus' =>  $recus,
            
         ]);
     }
  /**
-     * @Route("/messages/brouillons", name="app_messages_brouillons")
+     * @Route("/messages/brouillons", name="app_messages_brouillons", methods={"GET", "POST"})
      */
-    public function brouillons(UsersRepository $usersRepository): Response
+    public function brouillons(Request $request,MessagesRepository $messagesRepository, PaginatorInterface $paginator): Response
     {
 
+        $user = $this->getUser();
+         $messages =  $messagesRepository->findBybrouillon($user);
+         $elements =  $messagesRepository->findBysenderisread($user);
+         $brouillons =  $messagesRepository->findBybrouillonisread($user);
+         $recus =  $messagesRepository->findByrecusisread($user);
+         $suppressions =  $messagesRepository->findBysuppisread($user);
+         $messages = $paginator->paginate(
+            $messages, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->render('messages/brouillons.html.twig', [
             'controller_name' => 'MessagesController',
+            'messages' =>  $messages,
+            'elements' =>  $elements,
+            'brouillons' =>  $brouillons,
+            'suppressions' =>  $suppressions,
+            'recus' =>  $recus,
            
+        ]);
+    }
+
+     /**
+     * @Route("/messages/corbeille", name="app_messages_corbeille", methods={"GET", "POST"})
+     */
+    public function corbeille(Request $request,MessagesRepository $messagesRepository, PaginatorInterface $paginator): Response
+    {
+        $user = $this->getUser();
+        $messages =  $messagesRepository->findBysupp($user);
+        $elements =  $messagesRepository->findBysenderisread($user);
+        $brouillons =  $messagesRepository->findBybrouillonisread($user);
+        $recus =  $messagesRepository->findByrecusisread($user);
+        $suppressions =  $messagesRepository->findBysuppisread($user);
+        $messages = $paginator->paginate(
+            $messages, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+
+        return $this->render('messages/corbeille.html.twig', [
+            'controller_name' => 'MessagesController',
+            'messages' =>  $messages,
+            'elements' =>  $elements,
+            'brouillons' =>  $brouillons,
+            'suppressions' =>  $suppressions,
+            'recus' =>  $recus,
         ]);
     }
 
@@ -90,8 +164,8 @@ class MessagesController extends AbstractController
    
             
             }
-               
-        
+            
+            $message->setBrouillon($form->get('brouillon')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
       

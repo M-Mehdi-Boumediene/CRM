@@ -20,6 +20,12 @@
 		#messages_documents {
 			display: none;
 		}
+		.users {
+			display: none;
+		}
+		#messages_brouillon {
+			display: none;
+		}
 	</style>
 
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
@@ -37,35 +43,60 @@
 							<div class="page-title-icon">
 								<i class="pe-7s-mail icon-gradient bg-strong-bliss"></i>
 							</div>
-							<div>Nouveau message
+							<div>
+								Message
 
 							</div>
 						</div>
 						<div class="page-title-actions">
+
 							<a href="{{ path('app_messages') }}" class="nav-link">
 								<i class="nav-link-icon pe-7s-chat"></i>
-								<span>Boîte de réception</span>&ensp;
+								<span>Boîte de réception
+								</span>&ensp;
 								<div class="ml-auto badge badge-pill badge-info">
+									{% set total = 0 %}
 									{% for message in app.user.received %}
 										{% if message.isRead == 0 %}
-											{{ app.user.received|length}}
+											{% set total = total +1 %}
 										{% else %}
-											0
+											{% set total = 0 %}
 										{% endif %}
 									{% endfor %}
+									{{total}}
+
 								</div>
 							</a>
 
 
-							<a href="javascript:void(0);" class="nav-link">
+							<a href="{{path('app_messages_envoyés')}}" class="nav-link">
 								<i class="nav-link-icon pe-7s-wallet"></i>
 								<span>Éléments envoyés</span>
+								&ensp;
+								<div class="ml-auto badge badge-pill badge-info">
+									{% set total = 0 %}
+									{% for message in app.user.sent %}
+										{% if message.isRead == 0 %}
+											{% set total = total +1 %}
+										{% else %}
+											{% set total = 0 %}
+										{% endif %}
+									{% endfor %}
+									{{total}}
+
+								</div>
 
 							</a>
 
 
-							<a href="javascript:void(0);" class="nav-link">
-								<i class="nav-link-icon pe-7s-box2"></i>
+							<a href="{{path('app_messages_brouillons')}}" class="nav-link">
+								<i class="nav-link-icon pe-7s-file"></i>
+								<span>Brouillons</span>
+
+							</a>
+
+							<a href="{{path('app_messages_corbeille')}}" class="nav-link">
+								<i class="nav-link-icon pe-7s-trash"></i>
 								<span>Corbeille</span>
 							</a>
 
@@ -74,9 +105,12 @@
 								<a href="{{ path('app_envoi_messages') }}">
 									<button class="btn-shadow btn btn-info">
 										<span class="btn-icon-wrapper pr-2 opacity-7">
-											<i class="fa fa-plus fa-w-20"></i>
+											<i class="pe-7s-pen" style="    font-weight: bold;
+																																																																																																												    color: white;
+																																																																																																												    font-size: 18px;"></i>
 										</span>
-										Nouveau message
+										<span style="    position: relative;
+																																																																																																			    float: right;">Nouveau message</span>
 									</button>
 								</a>
 							</div>
@@ -113,11 +147,14 @@
 													{{ form_label(form.recipient, 'À : ') }}
 													{{ form_row(form.recipient,{'attr': {'class': 'form-control'}}) }}
 													{{ form_errors(form.recipient) }}
+
+													<span class="copie" style="float:right;cursor:pointer;    ">Copie à</span>
+
 												</div>
 
-												<div class="col-md-12">
-													<br>
-													{{ form_label(form.users, 'Copie à: ') }}
+												<div class="col-md-12 users">
+
+													{{ form_label(form.users, 'Copie à : ') }}
 													{{ form_row(form.users,{'attr': {'class': 'form-control'}}) }}
 													{{ form_errors(form.users) }}
 												</div>
@@ -140,21 +177,31 @@
 												</div>
 												<div class="col-md-12">
 													<br>
-													<i class="pe-7s-paperclip joindre" style="    font-size: 18px;
-																																																																											    color: #484848;
-																																																																											    cursor: pointer; float:right;">
-														Joindre un fichier</i>
+													<span class="joindre" style="cursor:pointer;">
+														<i class="pe-7s-paperclip " style="       font-size: 28px;
+																																																												    color: #484848;
+																																																												    cursor: pointer;
+																																																												    float: left;
+																																																												    padding-right: 8px;"></i>Joindre un fichier
+													</span>
 													<br>
 													<br>
 													{{ form_row(form.documents,{'attr': {'class': 'form-control'}}) }}
 													{{ form_errors(form.documents) }}
 												</div>
 											</div>
+											{{ form_row(form.brouillon,{'attr': {'class': 'form-control '}}) }}
+											{{ form_errors(form.brouillon) }}
 											<br>
-											<button class="mt-1 btn btn-primary">{{ button_label|default('Envoyer') }}</button>
-											ou
-											<a href="{{ path('app_messages') }}">Retour à la liste</a>
+											<div style="float:left">
+												<button class="mt-1 btn btn-info">{{ button_label|default('Envoyer le message') }}</button>
 
+												ou
+												<a href="{{ path('app_messages') }}">Retour à la liste</a>
+												</div>
+													<div style="float:right;">
+												<button class="mt-1 btn btn-info sauvegarder" style="float:right;">{{ button_label|default('Sauvegarder dans brouillons') }}</button>
+											</div>
 											{{ form_end(form) }}
 
 										</div>
@@ -201,6 +248,26 @@ $(this).data("clicks", ! clicks);
 });
 
 
+$('.copie').click(function () {
 
+var clicks = $(this).data('clicks');
+if (clicks) {
+
+$(".users").show();
+
+} else {
+$(".users").hide();
+}
+$(this).data("clicks", ! clicks);
+});
+
+
+$('#messages_brouillon').val(0);
+
+
+$('.sauvegarder').click(function () {
+$('#messages_brouillon').val(1);
+
+});
 		</script>
 	{% endblock %}
