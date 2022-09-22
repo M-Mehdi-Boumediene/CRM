@@ -17,7 +17,7 @@
 		.app-page-title .page-title-actions {
 			margin-left: 20px;
 		}
-		#messages_documents {
+		#messages_files {
 			display: none;
 		}
 		.users {
@@ -186,15 +186,15 @@
 													</span>
 													<br>
 													<br>
-													{{ form_row(form.documents,{'attr': {'class': 'form-control'}}) }}
-													{{ form_errors(form.documents) }}
+													{{ form_row(form.files,{'attr': {'class': 'form-control'}}) }}
+													{{ form_errors(form.files) }}
 												</div>
 											</div>
 											{{ form_row(form.brouillon,{'attr': {'class': 'form-control '}}) }}
 											{{ form_errors(form.brouillon) }}
 											<br>
 											<div style="float:left">
-												<button class="mt-1 btn btn-info">{{ button_label|default('Envoyer le message') }}</button>
+												<button type="submit" class="mt-1 btn btn-info">{{ button_label|default('Envoyer le message') }}</button>
 
 												ou
 												<a href="{{ path('app_messages') }}">Retour à la liste</a>
@@ -239,10 +239,10 @@ $('.joindre').click(function () {
 var clicks = $(this).data('clicks');
 if (clicks) {
 
-$("#messages_documents").show();
+$("#messages_files").show();
 
 } else {
-$("#messages_documents").hide();
+$("#messages_files").hide();
 }
 $(this).data("clicks", ! clicks);
 });

@@ -4,7 +4,13 @@
 {% endblock %}
 
 {% block body %}
-
+<style>
+											.page,.current,.previous,.first,.next,.last{
+    border: solid 1px;
+    padding: 5px;
+    margin: 2px;
+}
+</style>
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
@@ -104,7 +110,7 @@
 															{% endfor %}
 														</td>
 														
-														<td>{{note.notes[0].type}}</td>
+														<td></td>
 																<td>
 														{% for classe in note.notes %}
 														{{classe.module.nom}} 
@@ -132,6 +138,9 @@
 											</tbody>
 
 										</table>
+																					<nav class="" aria-label="Page navigation example" style="float:right;">
+											{{ knp_pagination_render(tableNotes) }}
+										</nav>
 									</div>
 								</div>
 

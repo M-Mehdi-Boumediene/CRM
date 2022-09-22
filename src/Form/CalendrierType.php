@@ -43,7 +43,7 @@ class CalendrierType extends AbstractType
             'expanded' => false,
             'multiple' => false,
             'required' => false,
-            'label' => 'Type' 
+            'label' => 'Evenement' 
         ])
 
             ->add('start',DateTimeType::class,[
@@ -87,8 +87,10 @@ class CalendrierType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
+                'placeholder' => '',
                 'multiple'=>false,
                 'required' => true,
+                'label' => false,
             ])
 
             ->remove('bloc', EntityType::class, [
@@ -117,6 +119,7 @@ class CalendrierType extends AbstractType
                 },
                 'multiple'=>false,
                 'required' => true,
+                'label' => false
 
             ])
 
@@ -147,11 +150,22 @@ class CalendrierType extends AbstractType
 
         $formModifier = function (FormInterface $form, Classes $sport = null) {
             $positions = null === $sport ? [] : $sport->getModules();
-
+            $positions2 = null === $sport ? [] : $sport->getIntervenants();
             $form->add('module', EntityType::class, [
                 'class' => Modules::class,
                 'placeholder' => '',
+                'label' => false,
                 'choices' => $positions,
+            ]);
+
+            $form->add('intervenant', EntityType::class, [
+                'class' => Intervenants::class,
+                'placeholder' => '',
+                'choices' => $positions2,
+                'label' => false,
+                'choice_label' => function ($category) {
+                    return $category->getNom() . ' ' . $category->getPrenom();
+                },
             ]);
         };
 
@@ -177,6 +191,46 @@ class CalendrierType extends AbstractType
                 $formModifier($event->getForm()->getParent(), $sport);
             }
         );
+
+
+
+        $formModifier2 = function (FormInterface $form2, Classes $sport2 = null) {
+            $positions2 = null === $sport2 ? [] : $sport2->getIntervenants();
+
+            $form2->add('intervenant', EntityType::class, [
+                'class' => Intervenants::class,
+                'placeholder' => '',
+                'choices' => $positions2,
+                'label' => false,
+                'choice_label' => function ($category) {
+                    return $category->getNom() . ' ' . $category->getPrenom();
+                },
+            ]);
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event2) use ($formModifier2) {
+                // this would be your entity, i.e. SportMeetup
+                $data2 = $event2->getData();
+
+                $formModifier2($event2->getForm(), $data2->getClasse());
+            }
+        );
+
+        $builder->get('classe')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event2) use ($formModifier2) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $sport2 = $event2->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier2($event2->getForm()->getParent(), $sport2);
+            }
+        );
+
 
     }
 

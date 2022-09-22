@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\MessagesType;
 use App\Entity\Messages;
 use App\Entity\Users;
+use App\Entity\Files;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UsersRepository;
 use App\Repository\MessagesRepository;
@@ -164,7 +165,25 @@ class MessagesController extends AbstractController
    
             
             }
-            
+
+            $files = $form->get('files')->getData();
+            foreach($files as $file){
+                // Je génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+
+                // Je copie le fichier dans le dossier uploads
+                $file->move(
+                    $this->getParameter('videos_directory'),
+                    $fichier
+                );
+
+                // Je stocke le document dans la BDD (nom du fichier)
+                $file= new Files();
+                $file->setName($fichier);
+                $file->setNom($fichier);
+                $message->addFile($file);
+
+            }
             $message->setBrouillon($form->get('brouillon')->getData());
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
@@ -201,23 +220,70 @@ class MessagesController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $message->setSender($this->getUser());
          
-                $message->setRecipient($messager->getSender());
-                $message->setObjet($form->get('objet')->getData());
+             
+                $message->addRecipient($messager->getSender());
+                $message->addRecipient($this->getUser());
+                $message->setObjet('RE: '.$form->get('objet')->getData());
                 $message->setMessage($form->get('message')->getData());
                 
                 $MessagesRepository->add($message, true);
-
-            $this->addFlash("message","Le message à été envoyé avec succès.");
+                $files = $form->get('files')->getData();
+                foreach($files as $file){
+                    // Je génère un nouveau nom de fichier
+                    $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+    
+                    // Je copie le fichier dans le dossier uploads
+                    $file->move(
+                        $this->getParameter('videos_directory'),
+                        $fichier
+                    );
+    
+                    // Je stocke le document dans la BDD (nom du fichier)
+                    $file= new Files();
+                    $file->setName($fichier);
+                    $file->setNom($fichier);
+                    $message->addFile($file);
+    
+                }
+                
+       
             $request->getSession()
             ->getFlashBag()
             ->add('message', 'Le message à été envoyé avec succès.');
-            return $this->redirectToRoute('app_messages');
-        }
+            return $this->redirectToRoute('app_messages_envoyés');
 
+        }
+                
+        $user = $this->getUser();
+        $suppressions =  $MessagesRepository->findBysuppisread($user);
+        $messages =  $MessagesRepository->findByuser($user);
+        $elements =  $MessagesRepository->findBysenderisread($user);
+        $brouillons =  $MessagesRepository->findBybrouillonisread($user);
+        $recus =  $MessagesRepository->findByrecusisread($user);
         return $this->render('messages/readMessage.html.twig', [
             'controller_name' => 'MessagesController',
             'form'=> $form->createView(),
            'message'=> $messager,
+           'messages' =>  $messages,
+           'elements' =>  $elements,
+           'brouillons' =>  $brouillons,
+           'suppressions' =>  $suppressions,
+           'recus' =>  $recus,
         ]);     
     }
+
+
+      /**
+     * @Route("/messages/corbeil/{id}", name="app_messages_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Messages $message, MessagesRepository $MessagesRepository): Response
+    {
+      
+        $entityManager = $this->getDoctrine()->getManager();
+        $message = $entityManager->getRepository(Messages::class)->find($message);
+        $message->setSupprimer(1);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_messages', [], Response::HTTP_SEE_OTHER);
+    }
+
 }

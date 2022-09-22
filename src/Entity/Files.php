@@ -49,6 +49,11 @@ class Files
      */
     private $tableauAbsences;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Messages::class, inversedBy="files")
+     */
+    private $messages;
+
   
 
     public function getId(): ?int
@@ -124,6 +129,18 @@ class Files
     public function setTableauAbsences(?TableauAbsences $tableauAbsences): self
     {
         $this->tableauAbsences = $tableauAbsences;
+
+        return $this;
+    }
+
+    public function getMessages(): ?Messages
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?Messages $messages): self
+    {
+        $this->messages = $messages;
 
         return $this;
     }

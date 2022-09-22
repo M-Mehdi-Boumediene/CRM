@@ -157,8 +157,12 @@ class MessagesRepository extends ServiceEntityRepository
             
         ->innerJoin('u.users', 'a')
         ->andWhere('a.id = :user')
-   
+        ->andWhere('u.supprimer = :supp')
+        ->andWhere('u.brouillon = :brouillon')
+
         ->setParameter('user', $user)
+        ->setParameter('supp', 0)
+        ->setParameter('brouillon', 0)
         ->orderBy('u.id', 'DESC')
         ->getQuery()
         ->getResult()

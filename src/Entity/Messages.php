@@ -72,6 +72,11 @@ class Messages
      */
     private $supprimer = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="messages", cascade={"all"})
+     */
+    private $files;
+
 
 
     public function __construct()
@@ -80,6 +85,7 @@ class Messages
         $this->recipient = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->documents = new ArrayCollection();
+        $this->files = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +254,36 @@ class Messages
     public function setSupprimer(?string $supprimer): self
     {
         $this->supprimer = $supprimer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Files>
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(Files $file): self
+    {
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setMessages($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(Files $file): self
+    {
+        if ($this->files->removeElement($file)) {
+            // set the owning side to null (unless already changed)
+            if ($file->getMessages() === $this) {
+                $file->setMessages(null);
+            }
+        }
 
         return $this;
     }

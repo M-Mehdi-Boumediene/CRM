@@ -222,13 +222,73 @@
 												<div class="card-body">
 													<h5 class="card-title">
 														Progression & Resultats</h5>
+
+															{% for note in notes %}
+																{{note.semestre}}
+
+
+<table>
+
+																<tbody>
+
+																	<td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
+
+																	<td style="    border-top: solid 1px white;"></td>
+
+																	<th scope="col">Coef</th>
+																	<th scope="col">Note 1</th>
+																	<th scope="col">Note 2</th>
+																	<th scope="col">Note 3</th>
+																	<th scope="col">Moyenne</th>
+
+																	{% for bloc in note.classes.blocs %}
+
+																		<tr>
+
+																			<th rowspan="3" scope="rowgroup">{{bloc.nom}}
+																				<br><br>
+																				Coef:
+																				{{bloc.coefficient}}</th>
+
+																			{% for module in bloc.modules %}
+
+																				<tr>
+																					{% for tableau in etudiant.tableauNotes %}
+
+																						<th scope="row">{{module.nom}}</th>
+
+																						<td>{{module.coefficient}}</td>
+
+
+																						<td>{{tableau.note1}}</td>
+																						<td>{{tableau.note2}}</td>
+																						<td>{{tableau.note3}}</td>
+																						<td></td>
+
+																					{% endfor %}
+																				</tr>
+
+																		</tr>
+																		{% endfor %}
+
+
+																	{% endfor %}
+																</tbody>
+
+															</table>
+
+
+
+
+
+															{% endfor %}
 													<div class="card-body">
 														<div class="table-scroll">
 															<table>
 
 																<tbody>
 
-																	<td style="    border-top: solid 1px white;"></td>
+																	<td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
 
 																	<td style="    border-top: solid 1px white;"></td>
 
