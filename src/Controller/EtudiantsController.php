@@ -8,6 +8,7 @@ use App\Form\EtudiantsType;
 use App\Form\FiltreType;
 use App\Form\FiltreApprenantType;
 use App\Repository\EtudiantsRepository;
+use App\Repository\NotesRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -143,10 +144,13 @@ class EtudiantsController extends AbstractController
     /**
      * @Route("/{id}", name="app_etudiants_show", methods={"GET"})
      */
-    public function show(Etudiants $etudiant): Response
+    public function show(Etudiants $etudiant, NotesRepository $notesRepository): Response
     {
+
+     $notes = $notesRepository->findByetudiant($etudiant);
         return $this->render('etudiants/show.html.twig', [
             'etudiant' => $etudiant,
+            'notes' => $notes,
         ]);
     }
 

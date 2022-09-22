@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/notes")
  */
@@ -31,7 +31,7 @@ class NotesController extends AbstractController
     /**
      * @Route("/", name="app_notes_index", methods={"GET","POST"})
      */
-    public function index(Request $request,NotesRepository $notesRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function index(Request $request,NotesRepository $notesRepository,TableauNotesRepository $TableauNotesRepository, PaginatorInterface $paginator): Response
     {
         $form2 = $this->createForm(FiltreNotesType::class);
         $form2->handleRequest($request);
@@ -53,15 +53,26 @@ class NotesController extends AbstractController
             }
        
         $tableNotes =  $TableauNotesRepository->searchMot($value,$apprenant,$classe);
+
+        $tableNotes = $paginator->paginate(
+            $tableNotes, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3 // Nombre de résultats par page
+        );
             return $this->renderForm('notes/index.html.twig', [
                 'tableNotes' => $tableNotes,
                 'form2' => $form2,
             ]);
         }
-
+        $tableNotes =  $TableauNotesRepository->findAll();
+        $tableNotes = $paginator->paginate(
+            $tableNotes, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
         return $this->renderForm('notes/index.html.twig', [
             'notes' => $notesRepository->findAll(),
-            'tableNotes' => $TableauNotesRepository->findAll(),
+            'tableNotes' => $tableNotes,
             'form2' => $form2,
         ]);
     }
@@ -144,21 +155,25 @@ class NotesController extends AbstractController
  
             }
             $TableauNotesRepository->add($tableaunotes);
-
+            $note = new Notes();
             $tableaunotes->addNote($note);
+      
             $note->addTableau($tableaunotes);
-            
+
             $note->setType($form->get('type')->getData());
             $note->setClasses($form->get('classes')->getData());
             $note->setModule($form->get('moduleid')->getData());
             $note->setBloc($form->get('blocid')->getData());
+            $note->setEtudiantid($tableau->get('etudiant')->getData());
 
            $etudiants = $tableau->get('etudiant')->getData();
           
                 
             $tableaunotes->addEtudiant($etudiants[0]);
  
-      
+          
+
+            
             $tableaunotes->setNote1($tableau->get('note1')->getData());
             $tableaunotes->setObservation1($tableau->get('observation1')->getData());
          

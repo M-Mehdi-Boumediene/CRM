@@ -63,4 +63,16 @@ class NotesRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+   public function findByetudiant($etudiant)
+ {
+      return $this->createQueryBuilder('n')
+          ->andWhere('n.etudiantid = :val')
+        ->setParameter('val', $etudiant)
+        ->getQuery()
+        ->getResult()
+      ;
+   }
 }

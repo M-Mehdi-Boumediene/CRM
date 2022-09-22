@@ -32,14 +32,23 @@ class NotesType extends AbstractType
         $builder
         ->add('type', ChoiceType::class, [
             'choices' => [
-                'COURS' => 'COURS',
+      
                 'DEVOIR' => 'DEVOIR',
                 'EXAMEN' => 'EXAMEN',
-                'ATELIER' => 'ATELIER',
-                'CONFÉRENCE' => 'CONFÉRENCE',
-                'DIVERS' => 'DIVERS',
-         
+
                 
+            ],
+ 
+            'required' => true,
+           
+            'label' => false 
+        ])
+        ->add('semestre', ChoiceType::class, [
+            'choices' => [
+                '1er semestre' => '1er semestre',
+                '2ème semestre' => '2ème semestre',
+                '3ème semestre' => '3ème semestre',
+
             ],
  
             'required' => true,
@@ -64,6 +73,7 @@ class NotesType extends AbstractType
                 'empty_data'=>'',
                 'required' => true,
                 'label'=>false,
+                'placeholder'=>'',
          
             ])
             ->add('blocid', EntityType::class, [

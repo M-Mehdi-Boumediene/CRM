@@ -64,7 +64,7 @@ class MessagesType extends AbstractType
                 'required' => false
             ])
 
-            ->add('documents',FileType::class,[
+            ->add('files',FileType::class,[
                 'label'=> false,
                 'multiple' => true,
                 'mapped'=> false,

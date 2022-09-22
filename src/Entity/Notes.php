@@ -77,6 +77,11 @@ class Notes
      */
     private $tableau;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $semestre;
+
     public function __construct()
     {
         $this->tableau = new ArrayCollection();
@@ -233,6 +238,18 @@ class Notes
     public function removeTableau(TableauNotes $tableau): self
     {
         $this->tableau->removeElement($tableau);
+
+        return $this;
+    }
+
+    public function getSemestre(): ?string
+    {
+        return $this->semestre;
+    }
+
+    public function setSemestre(?string $semestre): self
+    {
+        $this->semestre = $semestre;
 
         return $this;
     }
