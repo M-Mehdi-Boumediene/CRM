@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\DataTransformer\ClassesToNumbersTransformer;
+
 class NotesType extends AbstractType
 {
     private $em;
@@ -45,9 +46,9 @@ class NotesType extends AbstractType
         ])
         ->add('semestre', ChoiceType::class, [
             'choices' => [
-                '1er semestre' => '1er semestre',
-                '2ème semestre' => '2ème semestre',
-                '3ème semestre' => '3ème semestre',
+                '1er semestre' => '1',
+                '2ème semestre' => '2',
+                '3ème semestre' => '3',
 
             ],
  
@@ -101,9 +102,42 @@ class NotesType extends AbstractType
             ])
 
         ;
+        $formModifier = function (FormInterface $form, Classes $sport = null) {
+            $positions = null === $sport ? [] : $sport->getBlocs();
+          
+            $form->add('blocid', EntityType::class, [
+                'class' => Modules::class,
+                'placeholder' => '',
+                'label' => false,
+                'choices' => $positions,
+            ]);
 
-   
+    
+        };
 
+        $builder->addEventListener(
+            FormEvents::POST_SET_DATA,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+               
+
+        
+
+            }
+        );
+        $builder->get('classes')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $sport = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier2($event2->getForm()->getParent(), $sport);
+            }
+        );
    
         
     }

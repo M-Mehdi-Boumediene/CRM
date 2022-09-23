@@ -73,6 +73,6 @@ class TableauNotesController extends AbstractController
             $tableauNotesRepository->remove($tableauNote, true);
         }
 
-        return $this->redirectToRoute('app_tableau_notes_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
     }
 }

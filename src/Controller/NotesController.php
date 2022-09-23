@@ -115,9 +115,9 @@ class NotesController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="app_notes_newbyclass", methods={"GET", "POST"})
+     * @Route("/new/{id}/{semestre}", name="app_notes_newbyclass", methods={"GET", "POST"})
      */
-    public function newbyclasse(Request $request, $id,NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function newbyclasse(Request $request, $id,$semestre,NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
       
         $note = new Notes();
@@ -164,8 +164,11 @@ class NotesController extends AbstractController
             $note->setClasses($form->get('classes')->getData());
             $note->setModule($form->get('moduleid')->getData());
             $note->setBloc($form->get('blocid')->getData());
-            $note->setEtudiantid($tableau->get('etudiant')->getData());
-
+            $note->setSemestre($form->get('semestre')->getData());
+            $etudiants = $tableau->get('etudiant')->getData();
+            foreach($etudiants as $etudiants){
+            $note->setEtudiantid($etudiants->getId());
+            }
            $etudiants = $tableau->get('etudiant')->getData();
           
                 
@@ -198,11 +201,12 @@ class NotesController extends AbstractController
 
             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
         }
-        $etudiant = $etudiantsRepository->findByclasse($id);
+        $etudiant = $etudiantsRepository->findByclassesem($id,$semestre);
 
         return $this->renderForm('notes/newByclasse.html.twig', [
             'note' => $note,
             'id'=>$id,
+            'semestre'=>$semestre,
             'form' => $form,
             'etudiants' => $etudiant,
           

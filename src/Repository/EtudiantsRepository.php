@@ -59,6 +59,23 @@ class EtudiantsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findByclassesem($classe,$semestre)
+    {
+        return $this->createQueryBuilder('e')
+            ->innerJoin('e.classes', 'a')
+            ->innerJoin('a.notes', 'n')
+    
+            ->where('a.id = :classe')
+            ->andwhere('n.semestre = :semestre')
+            ->setParameter('classe', $classe)
+            ->setParameter('semestre', $semestre)
+    
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     public function findByclasseName($classe)
     {
         return $this->createQueryBuilder('e')

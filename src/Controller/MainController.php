@@ -64,6 +64,7 @@ class MainController extends AbstractController
 
        
          $classe = $form2->get('classe')->getData();
+
          $intervenant = $form2->get('intervenant')->getData();
          $apprenant = $form2->get('apprenant')->getData();
 
@@ -299,7 +300,7 @@ class MainController extends AbstractController
         }
 
 
-
+  
         $etudiants = $apprenants->findByClasse($classe);
 
          $events= null;
