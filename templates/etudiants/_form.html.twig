@@ -68,6 +68,19 @@
 		{{ form_errors(form.classes) }}
 	</div>
 
+	<div class="col-md-3">
+		{{ form_label(form.cursus,'Cursus ') }}
+		<span class="required">*</span>
+		{{ form_row(form.cursus,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.cursus) }}
+	</div>
+
+	<div class="col-md-3">
+		{{ form_label(form.entreprise,'Entreprise ') }}
+		{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.cursus) }}
+	</div>
+
 </div>
 <br>
 <div class="form-row">

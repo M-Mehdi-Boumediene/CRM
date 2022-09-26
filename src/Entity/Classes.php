@@ -90,6 +90,23 @@ class Classes
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cursus;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $anneeScolaire;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nombresemestre;
+
+  
+
 
     public function __toString() {
         return $this->nom;
@@ -425,6 +442,42 @@ class Classes
                 $user->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCursus(): ?string
+    {
+        return $this->cursus;
+    }
+
+    public function setCursus(?string $cursus): self
+    {
+        $this->cursus = $cursus;
+
+        return $this;
+    }
+
+    public function getAnneeScolaire(): ?string
+    {
+        return $this->anneeScolaire;
+    }
+
+    public function setAnneeScolaire(string $anneeScolaire): self
+    {
+        $this->anneeScolaire = $anneeScolaire;
+
+        return $this;
+    }
+
+    public function getNombresemestre(): ?string
+    {
+        return $this->nombresemestre;
+    }
+
+    public function setNombresemestre(string $nombresemestre): self
+    {
+        $this->nombresemestre = $nombresemestre;
 
         return $this;
     }

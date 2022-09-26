@@ -77,6 +77,9 @@
 												<tr role="row">
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Cursus</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Année Scolaire</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Semestre </th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Date de création</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Créé par</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
@@ -93,6 +96,16 @@
 															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.nom }}</a>
 														</td>
 
+														<td class="sorting_1 dtr-control">
+															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.cursus }}</a>
+														</td>
+														<td class="sorting_1 dtr-control">
+															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.anneeScolaire }}</a>
+														
+														</td>		
+														<td class="sorting_1 dtr-control">
+															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.nombresemestre }}</a>
+														</td>				
 														<td class="sorting_1 dtr-control">
 
 															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.createdAt|date('d-m-Y H:i') }}</a>
