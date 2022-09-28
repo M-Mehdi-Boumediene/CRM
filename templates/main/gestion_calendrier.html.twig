@@ -75,7 +75,7 @@
 							</div>
 
 							<div class="row" style="padding-right:12px;padding-left: 12px;
-																		}">
+																											}">
 
 								{{ form_start(form2) }}
 								<div class="row">
@@ -252,7 +252,8 @@ $('.modal-body').append('<span class="module"><b>Module : </b> ' + info.event.ex
 $('.modal-body').append('<span class="intervenant"><b>Intervenant : </b> ' + info.event.extendedProps.intervenant + '<br><br></span>');
 $('.modal-body').append('<span class="detail"><b>Commentaire:</b><br> ' + info.event.extendedProps.description + '<br></span>');
 
-$("#notes_classes option:selected").text(info.event.extendedProps.classe);
+
+$('#notes_classes option:contains("'+info.event.extendedProps.classe+'")').prop('selected', true);
 $("#absences_classe option:selected").text(info.event.extendedProps.classe);
 $("#notes_moduleid option:selected").text(info.event.extendedProps.module);
 $("#notes_type option:selected").text(type);
@@ -267,8 +268,6 @@ calendar.render()
 
 
 }
-
-
 </script>{% endblock %}{% block modal %}
 
 {{ block("modal", "Menus/modal.html.twig") }}

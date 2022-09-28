@@ -209,23 +209,26 @@ class MainController extends AbstractController
   
              }
              $TableauNotesRepository->add($tableaunotes);
- 
+             $note = new Notes();
              $tableaunotes->addNote($note);
+       
              $note->addTableau($tableaunotes);
-             
+ 
              $note->setType($form3->get('type')->getData());
              $note->setClasses($form3->get('classes')->getData());
              $note->setModule($form3->get('moduleid')->getData());
              $note->setBloc($form3->get('blocid')->getData());
+             $note->setSemestre($form3->get('semestre')->getData());
+             $note->setEtudiantid($form3->get('etudiant')->getData());
  
-
-             
             $etudiants = $tableau->get('etudiant')->getData();
            
                  
              $tableaunotes->addEtudiant($etudiants[0]);
   
-       
+           
+ 
+             
              $tableaunotes->setNote1($tableau->get('note1')->getData());
              $tableaunotes->setObservation1($tableau->get('observation1')->getData());
           
@@ -248,10 +251,9 @@ class MainController extends AbstractController
             
      
  
-             return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
          }
          
-
             return $this->renderForm('main/gestion_calendrier.html.twig', [
       
                 'etudiants_calendar' => $etudiants,
@@ -307,9 +309,7 @@ class MainController extends AbstractController
 
 
 
-
          $note = new Notes();
-     
          $form3 = $this->createForm(NotesType::class);
          $form3->handleRequest($request);
  
@@ -343,23 +343,28 @@ class MainController extends AbstractController
   
              }
              $TableauNotesRepository->add($tableaunotes);
- 
+             $note = new Notes();
              $tableaunotes->addNote($note);
+       
              $note->addTableau($tableaunotes);
-             
+ 
              $note->setType($form3->get('type')->getData());
              $note->setClasses($form3->get('classes')->getData());
              $note->setModule($form3->get('moduleid')->getData());
              $note->setBloc($form3->get('blocid')->getData());
- 
-
-             
-            $etudiants = $tableau->get('etudiant')->getData();
+             $note->setSemestre($form3->get('semestre')->getData());
+             $etudiants = $tableau->get('etudiant')->getData();
+             foreach($etudiants as $etudiants){
+             $note->setEtudiantid($etudiants->getId());
+             }
+        
            
                  
-             $tableaunotes->addEtudiant($etudiants[0]);
+         
   
-       
+           
+ 
+             
              $tableaunotes->setNote1($tableau->get('note1')->getData());
              $tableaunotes->setObservation1($tableau->get('observation1')->getData());
           
@@ -382,7 +387,7 @@ class MainController extends AbstractController
             
      
  
-             return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
          }
          
 

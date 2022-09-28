@@ -60,16 +60,16 @@ class EtudiantsRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByclassesem($classe,$semestre)
+    public function findByclassesem($classe)
     {
         return $this->createQueryBuilder('e')
             ->innerJoin('e.classes', 'a')
-            ->innerJoin('a.notes', 'n')
+ 
     
             ->where('a.id = :classe')
-            ->andwhere('n.semestre = :semestre')
+    
             ->setParameter('classe', $classe)
-            ->setParameter('semestre', $semestre)
+    
     
             ->getQuery()
             ->getResult()

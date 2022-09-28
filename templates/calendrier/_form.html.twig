@@ -1,8 +1,8 @@
 {{ form_start(form) }}
 <style>
-.select2{
-	    width: 100% !important;
-}
+	.select2 {
+		width: 100% !important;
+	}
 </style>
 <div class="form-row">
 	<div class="col-md-2">
@@ -36,7 +36,7 @@
 	</div>
 
 	<div class="col-md-3">
-	{{ form_label(form.module,'Module ') }}
+		{{ form_label(form.module,'Module ') }}
 		{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.module) }}
 	</div>
@@ -139,8 +139,6 @@ $('#calendrier_module').select2();
 }
 });
 </script>
-
-
 
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>

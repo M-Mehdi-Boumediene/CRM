@@ -236,20 +236,7 @@ addTagLink.addEventListener("click", addFormToCollection)
 
 {% set aa = loop.index %}
 <input class="etudiantsListe {{aa}}" type="text" value="{{etudiant.id}}" style="display:none;" >
-{% for tableau in etudiant.tableauNotes %}
 
-<input id="note{{aa}}" class="note1 {{aa}} lanote" type="text" value="{{tableau.note1}}" style="" >
-<input id="observation{{aa}}" class="observation1 {{aa}} lobservation" type="text" value="{{tableau.observation1}}" style="" >
-
-
-<input id="note{{aa}}" class="note1 {{aa}} lanote2" type="text" value="{{tableau.note2}}" style="" >
-<input id="observation{{aa}}" class="observation2 {{aa}} lobservation2" type="text" value="{{tableau.observation2}}" style="" >
-
-<input id="note{{aa}}" class="note1 {{aa}} lanote3" type="text" value="{{tableau.note3}}" style="" >
-<input id="observation{{aa}}" class="observation3 {{aa}} lobservation3" type="text" value="{{tableau.observation3}}" style="" >
-
-
-{% endfor %}
 {% endfor %}
 
 <script>
@@ -272,81 +259,20 @@ $('.etudiant').each(function () {
 
 });
 	
-$(".lanote").each(function(index) {
 
-$(this).addClass( "tt"+index );
-
-$("#notes_tableau_"+index+"_note1").val($(this).val());
-
-});
-
-$(".lanote").each(function(index) {
-
-$(this).addClass( "tt"+index );
-
-$("#notes_tableau_"+index+"_note1").val($(this).val());
-
-});
-$(".lanote2").each(function(index) {
-
-$(this).addClass( "tt2"+index );
-
-$("#notes_tableau_"+index+"_note2").val($(this).val());
-
-});
-$(".lanote3").each(function(index) {
-
-$(this).addClass( "tt3"+index );
-
-$("#notes_tableau_"+index+"_note3").val($(this).val());
-
-});
-$(".lobservation").each(function(index) {
-
-$(this).addClass( "bb"+index );
-
-$("#notes_tableau_"+index+"_observation1").val($(this).val());
-
-});
-$(".lobservation2").each(function(index) {
-
-$(this).addClass( "bb2"+index );
-
-$("#notes_tableau_"+index+"_observation2").val($(this).val());
-
-});
-
-$(".lobservation3").each(function(index) {
-
-$(this).addClass( "bb3"+index );
-
-$("#notes_tableau_"+index+"_observation3").val($(this).val());
-
-});
-
-
-var semestre = $( "#notes_semestre" ).val();
 
 $( "#notes_classes" ).change(function() {
 	
-window.location = '/notes/new/'+$(this).val()+'/'+semestre;
+window.location = '/notes/new/'+$(this).val();
 
 
-
-});
-
-$( "#notes_semestre" ).change(function() {
-	var classe = $( "#notes_classes" ).val();
-window.location = '/notes/new/'+classe+'/'+$(this).val();
-
-$('#notes_semestre').val($(this).val());
 
 });
 
 
 var valll = window.location.pathname;
 
-$('#notes_semestre option:contains("'+valll.substring(valll.lastIndexOf('/') + 1)+'")').prop('selected', true);
+$('#notes_semestre option:contains("'+window.location.pathname+'")').prop('selected', true);
 $('.note2').hide()
 $('.observation2').hide()
 $('.note3').hide()
@@ -412,61 +338,3 @@ $(".index"+index).append($( "#notes_tableau_"+index+"_etudiant option:selected" 
 
 </script>
 
-<script>
-	var $sport = $('#notes_classes');
-// When sport gets selected ...
-$sport.change(function () { // ... retrieve the corresponding form.
-var valll = window.location.pathname;
-if (valll == "/notes/new/"+$(this).val()+"/"+valll.substring(valll.lastIndexOf('/') + 1)) {
-var $form = $(this).closest('form');
-// Simulate form data, but only include the selected sport value.
-
-var data = {}
-data[$sport.attr('name')] = $sport.val();
-
-// Submit data via AJAX to the form's action path.
-$.ajax({
-url: $form.attr('action'),
-type: $form.attr('method'),
-data: data,
-complete: function (html) { // Replace current position field ...
-
-$('#notes_bloc').replaceWith(
-// ... with the returned one from the AJAX response.
-$(html.responseText).find('#notes_bloc')
-
-);
-// Position field now displays the appropriate positions.
-$('#notes_bloc').select2();
-}
-});
-} else {
-var $form = $(this).closest('form');
-// Simulate form data, but only include the selected sport value.
-
-var data = $form.serializeArray()
-
-
-// Submit data via AJAX to the form's action path.
-$.ajax({
-url: $form.attr('action'),
-type: $form.attr('method'),
-data: data,
-complete: function (html) { // Replace current position field ...
-
-$('#notes_bloc').replaceWith(
-// ... with the returned one from the AJAX response.
-$(html.responseText).find('#notes_bloc')
-
-);
-
-$('#notes_bloc').select2();
-// Position field now displays the appropriate positions.
-
-}
-});
-
-}
-
-});
-</script>

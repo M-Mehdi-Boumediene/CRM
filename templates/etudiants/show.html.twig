@@ -220,68 +220,73 @@
 										<div class="col-md-12">
 											<div class="main-card mb-3 card">
 												<div class="card-body">
-													<h5 class="card-title">
-														Progression & Resultats</h5>
+												
 
-															{% for note in notes %}
-																{{note.semestre}}
+													{% for note in notes %}
+														{% if  note.semestre == 1%}
+															{% set semestre = "1er semestre" %}
+														{% elseif  note.semestre == 2 %}
+															{% set semestre = "2ème semestre" %}
+														{% elseif  note.semestre == 3 %}
+															{% set semestre = "3ème semestre" %}
+														{% endif %}
+														<b>RESULTATS ({{semestre}})</b>
 
 
-<table>
+														<table>
 
-																<tbody>
+															<tbody>
 
-																	<td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
+																<td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
 
-																	<td style="    border-top: solid 1px white;"></td>
+																<td style="    border-top: solid 1px white;"></td>
 
-																	<th scope="col">Coef</th>
-																	<th scope="col">Note 1</th>
-																	<th scope="col">Note 2</th>
-																	<th scope="col">Note 3</th>
-																	<th scope="col">Moyenne</th>
+																<th scope="col">Coef</th>
+																<th scope="col">Note 1</th>
+																<th scope="col">Note 2</th>
+																<th scope="col">Note 3</th>
+																<th scope="col">Moyenne</th>
 
-																	{% for bloc in note.classes.blocs %}
+																{% for bloc in note.classes.blocs %}
 
-																		<tr>
+																	<tr>
 
-																			<th rowspan="3" scope="rowgroup">{{bloc.nom}}
-																				<br><br>
-																				Coef:
-																				{{bloc.coefficient}}</th>
+																		<th rowspan="3" scope="rowgroup">{{bloc.nom}}
+																			<br><br>
+																			Coef:
+																			{{bloc.coefficient}}</th>
 
-																			{% for module in bloc.modules %}
+																		{% for module in etudiant.tableauNotes %}
 
-																				<tr>
-																					{% for tableau in etudiant.tableauNotes %}
+																			<tr>
+																				{% for lemodule in module.notes %}
+																				<th scope="row">{{lemodule.module.nom}}</th>
 
-																						<th scope="row">{{module.nom}}</th>
+																				<td>{{lemodule.module.coefficient}}</td>
+																				{% endfor %}
+																				{% for tableau in module.notes %}
 
-																						<td>{{module.coefficient}}</td>
-
+																					{% for tableau in tableau.tableau %}
 
 																						<td>{{tableau.note1}}</td>
 																						<td>{{tableau.note2}}</td>
 																						<td>{{tableau.note3}}</td>
 																						<td></td>
-
 																					{% endfor %}
-																				</tr>
+																				{% endfor %}
+																			</tr>
 
 																		</tr>
-																		{% endfor %}
-
-
 																	{% endfor %}
-																</tbody>
-
-															</table>
 
 
+																{% endfor %}
+															</tbody>
+
+														</table>
 
 
-
-															{% endfor %}
+													{% endfor %}
 													<div class="card-body">
 														<div class="table-scroll">
 															<table>
@@ -307,26 +312,28 @@
 																				Coef:
 																				{{bloc.coefficient}}</th>
 
-																			{% for module in bloc.modules %}
+																	{% for module in etudiant.tableauNotes %}
 
-																				<tr>
-																					{% for tableau in etudiant.tableauNotes %}
+																			<tr>
+																				{% for lemodule in module.notes %}
+																				<th scope="row">{{lemodule.module.nom}}</th>
 
-																						<th scope="row">{{module.nom}}</th>
+																				<td>{{lemodule.module.coefficient}}</td>
+																				{% endfor %}
+																				{% for tableau in module.notes %}
 
-																						<td>{{module.coefficient}}</td>
-
+																					{% for tableau in tableau.tableau %}
 
 																						<td>{{tableau.note1}}</td>
 																						<td>{{tableau.note2}}</td>
 																						<td>{{tableau.note3}}</td>
 																						<td></td>
-
 																					{% endfor %}
-																				</tr>
+																				{% endfor %}
+																			</tr>
 
 																		</tr>
-																		{% endfor %}
+																	{% endfor %}
 
 
 																	{% endfor %}
