@@ -1,0 +1,44 @@
+{{ form_start(form) }}
+<style>
+	.select2 {
+		width: 100% !important;
+	}
+</style>
+<div class="form-row">
+	<div class="col-md-3">
+		{{ form_row(form.nom,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.nom) }}
+	</div>
+	<div class="col-md-3">
+	
+		{{ form_row(form.module,{'attr': {'class': 'form-control select'}}) }}
+		{{ form_errors(form.module) }} 	<br></div>
+	
+			{{ form_row(form.description,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.description) }}
+</div>
+<br>
+
+
+<br><br><hr>
+<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+ou
+<a href="{{ path('app_modules_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+	$(document).ready(function () {
+$('#cours_module').select2();
+});
+</script>
