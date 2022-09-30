@@ -82,6 +82,7 @@
 									{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form2.classe) }}
 								</div>
+
 								<div class="col-md-3">
 									{{ form_row(form2.module,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form2.module) }}
@@ -107,6 +108,7 @@
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Téléphone</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Email</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Entreprise</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Actions</th>
 
 												</tr>
@@ -143,6 +145,19 @@
 
 															{% else %}
 																Sans classe
+
+															{% endif  %}
+														</td>
+
+
+														<td class="sorting_1 dtr-control">
+															{% if etudiant.entreprise %}
+
+																<a href="{{ path('app_etudiants_show', {'id': etudiant.entreprise.id}) }}">{{ etudiant.entreprise.nom }}</a>
+
+
+															{% else %}
+																Cursus Initiale
 
 															{% endif  %}
 														</td>

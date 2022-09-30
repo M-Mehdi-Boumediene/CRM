@@ -101,6 +101,16 @@ class Etudiants
      */
     private $tableauAbsences;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cursus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Entreprises::class, inversedBy="etudiants")
+     */
+    private $entreprise;
+
 
 
 
@@ -383,6 +393,30 @@ class Etudiants
         if ($this->tableauAbsences->removeElement($tableauAbsence)) {
             $tableauAbsence->removeEtudiant($this);
         }
+
+        return $this;
+    }
+
+    public function getCursus(): ?string
+    {
+        return $this->cursus;
+    }
+
+    public function setCursus(?string $cursus): self
+    {
+        $this->cursus = $cursus;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprises
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprises $entreprise): self
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }

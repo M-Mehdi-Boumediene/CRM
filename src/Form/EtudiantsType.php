@@ -2,27 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Etudiants;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Doctrine\ORM\EntityRepository;
-use App\Entity\Modules;
+use App\Entity\Villes;
 use App\Entity\Classes;
+use App\Entity\Modules;
 use App\Entity\Tuteurs;
+use App\Form\UsersType;
+use App\Entity\Etudiants;
+use App\Entity\Codepostal;
+use App\Entity\Entreprises;
+use App\Entity\Intervenants;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use App\Entity\Intervenants;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use App\Entity\Codepostal;
-use App\Entity\Villes;
-use App\Form\UsersType;
+
 class EtudiantsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -59,7 +61,25 @@ class EtudiantsType extends AbstractType
             'placeholder'=>'',
             'autocomplete' => true,
         ])
-
+        ->add('cursus',ChoiceType::class, [
+            'choices' => [
+                'Initiale' => 'Initiale',
+                'Alternance' => 'Alternance',      
+            ],
+            'expanded' => false,
+            'multiple' => false,
+            'required' => false,  
+            'label'=>false,  
+        ])
+        ->add('entreprise', EntityType::class, [
+            'mapped' => false,
+            'class' => Entreprises::class,
+            'choice_label' => 'nom',
+            'placeholder' => '',
+            'label' => false,
+            'required' => false,
+          
+        ])
         ->add('ville', EntityType::class, [
             'mapped' => false,
             'class' => Villes::class,
@@ -69,8 +89,7 @@ class EtudiantsType extends AbstractType
             'required' => false,
           
         ])
- 
-
+        
         ->remove('created_at')
         ->remove('created_by')
 
