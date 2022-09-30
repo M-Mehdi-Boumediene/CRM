@@ -110,11 +110,22 @@
 				{{ form_row(tableau.etudiant,{'attr': {'class': 'form-control etudiant'}}) }}
 				{{ form_errors(tableau.etudiant) }}
 						</div>
+												<div class="col-md-3">
+						
+				{{ form_row(tableau.presence,{'attr': {'class': ' '}}) }}
+				{{ form_errors(tableau.presence) }}
 
+						</div>
 					<div class="col-md-3">
 						
-				{{ form_row(tableau.dateabsence,{'attr': {'class': 'form-control absence '}}) }}
-				{{ form_errors(tableau.dateabsence) }}
+				{{ form_row(tableau.absence,{'attr': {'class': ' '}}) }}
+				{{ form_errors(tableau.absence) }}
+
+						</div>
+				
+					<div class="col-md-3">
+						
+	
 
 				{{ form_row(tableau.retard,{'attr': {'class': 'form-control retard '}}) }}
 				{{ form_errors(tableau.retard) }}

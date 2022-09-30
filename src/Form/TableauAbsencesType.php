@@ -7,6 +7,8 @@ use App\Entity\Etudiants;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,14 +18,34 @@ class TableauAbsencesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateabsence',DateType::class,[
-                'label' => false,
-                'widget' => "single_text",
-        
-                'empty_data' => false,
-                 'required'=>false,
+
+            ->add('absence', CheckboxType::class, [
+                'label'    => 'Absent ',
+                'required' => false,
+            ])
+            ->add('presence', CheckboxType::class, [
+                'label'    => 'Présent ',
+                'required' => false,
+            ])
+            ->add('enretard', CheckboxType::class, [
+                'label'    => 'En retard ',
+                'required' => false,
             ])
             ->add('retard',TimeType::class,[
+                'label' => false,
+                'widget' => "single_text",
+                'empty_data' => false,
+           
+                'required'=>false,
+            ])
+            ->add('du',DateTimeType::class,[
+                'label' => false,
+                'widget' => "single_text",
+                'empty_data' => false,
+           
+                'required'=>false,
+            ])
+            ->add('au',DateTimeType::class,[
                 'label' => false,
                 'widget' => "single_text",
                 'empty_data' => false,

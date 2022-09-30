@@ -46,6 +46,31 @@ class TableauAbsences
      */
     private $absences;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $presence;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $absence;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $du;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $au;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $enretard;
+
 
 
     public function __construct()
@@ -162,6 +187,66 @@ class TableauAbsences
         if ($this->absences->removeElement($absence)) {
             $absence->removeTableau($this);
         }
+
+        return $this;
+    }
+
+    public function isPresence(): ?bool
+    {
+        return $this->presence;
+    }
+
+    public function setPresence(?bool $presence): self
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+    public function isAbsence(): ?bool
+    {
+        return $this->absence;
+    }
+
+    public function setAbsence(?bool $absence): self
+    {
+        $this->absence = $absence;
+
+        return $this;
+    }
+
+    public function getDu(): ?\DateTimeInterface
+    {
+        return $this->du;
+    }
+
+    public function setDu(?\DateTimeInterface $du): self
+    {
+        $this->du = $du;
+
+        return $this;
+    }
+
+    public function getAu(): ?\DateTimeInterface
+    {
+        return $this->au;
+    }
+
+    public function setAu(?\DateTimeInterface $au): self
+    {
+        $this->au = $au;
+
+        return $this;
+    }
+
+    public function isEnretard(): ?bool
+    {
+        return $this->enretard;
+    }
+
+    public function setEnretard(?bool $enretard): self
+    {
+        $this->enretard = $enretard;
 
         return $this;
     }
