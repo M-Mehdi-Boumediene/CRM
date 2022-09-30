@@ -565,6 +565,7 @@
 
 
 							<br>
+							{% if etudiants %}
 {% for etudiant in etudiants %}
 
 
@@ -573,6 +574,9 @@
 
 {% endfor %}
 
+{% else %}
+
+{% endif %}
 							<button type="submit" class="mt-1 btn btn-success">Sauvegarder</button>
 							{{ form_end(form4) }}
 </div>

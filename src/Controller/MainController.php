@@ -266,46 +266,9 @@ class MainController extends AbstractController
             ]);
         }
 
-        $events = $calendrier->findAll();
-        $rdvs = [];
-        $rdvs2 = [];
-        foreach ($events as $event){
-            
-            $rdvs[] = [
-                'id' => $event->getId(),
-                'start' => $event->getStart()->format('Y-m-d H:i'),
-                'end' => $event->getEnd()->format('Y-m-d H:i'),
-                'backgroundColor' => $event->getBackgroundColor(),
-                'borderColor' => $event->getBackgroundColor(),
-                'textColor' => $event->getTextColor(),
-                'title' => $event->getTitre(),
-                'description' => $event->getDescription(),
-                'classe' => $event->getClasse()->getNom(),
-             
-                'module' => $event->getModule()->getNom(),
-                'intervenant' => $event->getIntervenant()->getNom(),
-                'textColor' => $event->getTextColor(),
-                'allDay' => $event->getAllDay(),
-                'type' => $event->getType(),
-
-
-            ];
-
-
-            
-            $classe= $event->getClasse()->getId();
-
-
-            $data = json_encode($rdvs);
-     
-            
-        }
-
+        
 
   
-        $etudiants = $apprenants->findByClasse($classe);
-
-         $events= null;
 
 
 
@@ -445,19 +408,20 @@ class MainController extends AbstractController
  
              return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
          }
-         $id = $classe;
-         $etudiant = $etudiantsRepository->findByclasse($id);
 
+         $events = null;
+         $etudiants = null;
+      
         return $this->renderForm('main/gestion_calendrier.html.twig', [
-            'etudiants_calendar' => $etudiants,
-            'data' => compact('data'),
+  
+            
             'note' => $note,
-            'id'=>$id,
+            'etudiants'=>$etudiants,
             'form2' => $form2,
             'form3' => $form3,
             'form4' => $form4,
             'events'=>$events,
-            'etudiants' => $etudiants,
+         
         ]
     
     );

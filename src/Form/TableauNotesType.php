@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TableauNotesType extends AbstractType
@@ -21,20 +23,24 @@ class TableauNotesType extends AbstractType
     {
         
         $builder
-            ->add('note1', TextType::class,[
+            ->add('note1', IntegerType::class,[
                 'label'=>false,
+                'required'=>true,
+     
+            ])
+            ->add('note2', IntegerType::class,[
+                'label'=>false,
+   
                 'required'=>true
             ])
-            ->add('note2', TextType::class,[
+            ->add('note3', IntegerType::class,[
                 'label'=>false,
-                'required'=>true
-            ])
-            ->add('note3', TextType::class,[
-                'label'=>false,
+   
                 'required'=>true
             ])
             ->add('observation1', TextType::class,[
                 'label'=>false,
+                
                 'required'=>true
             ])
             ->add('observation2', TextType::class,[

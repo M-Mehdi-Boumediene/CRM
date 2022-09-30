@@ -109,7 +109,17 @@
 								<br>
 								{{ form_end(form2) }}
 
-								<div id='calendrier'></div>
+{% if events %}
+
+	{% set start = events[0].start|date("Y-m-d")  %}
+	{% set end = events[0].end|date("Y-m-d")  %}
+	<div id='calendrier'></div>
+{% else %}
+	{% set start = null %}
+	{% set end = null %}
+
+{% endif %}
+						
 
 
 								<button type="button" class="btn mr-2 mb-2 btn-primary lancer" data-toggle="modal" data-target=".bd-example-modal-lg" style="display:none;">Large modal</button>
@@ -127,19 +137,11 @@
 	</div>
 
 </div>
-{% if events %}
 
-	{% set start = events[0].start|date("Y-m-d")  %}
-	{% set end = events[0].end|date("Y-m-d")  %}
-
-{% else %}
-	{% set start = null %}
-	{% set end = null %}
-
-{% endif %}
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
+{% if events %}
 <script>
 
 
@@ -268,7 +270,13 @@ calendar.render()
 
 
 }
-</script>{% endblock %}{% block modal %}
+</script>
+{% else %}
+
+
+{% endif %}
+					
+{% endblock %}{% block modal %}
 
 {{ block("modal", "Menus/modal.html.twig") }}
 
