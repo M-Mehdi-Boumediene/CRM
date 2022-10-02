@@ -143,19 +143,24 @@ class MainController extends AbstractController
                  
                  
                  $tableauabsences->addEtudiant($etudiants[0]);
-                 $dateabsence =$tableau->get('dateabsence')->getData();
+                 
                  $retard = $tableau->get('retard')->getData();
+                 $presence = $tableau->get('presence')->getData();
+                 $enretard = $tableau->get('enretard')->getData();
+                 $retard = $tableau->get('retard')->getData();
+                 $absencedate = $tableau->get('absence')->getData();
+
+                 $du = $tableau->get('du')->getData();
+                 $au = $tableau->get('au')->getData();
+                 $tableauabsences->setPresence($presence);
+                 $tableauabsences->setEnretard($enretard);
+                 $tableauabsences->setRetard($retard);
+                 $tableauabsences->setAbsence($absencedate);
+                 $tableauabsences->setDu($du);
+                 $tableauabsences->setAu($au);
+            
              
-                 if( $dateabsence == null){
-                     $tableauabsences->setDateabsence(null);
-                 }else{
-                     $tableauabsences->setDateabsence($dateabsence);
-                 }
-                 if( $retard == null){
-                     $tableauabsences->setRetard(null);
-                 }else{
-                     $tableauabsences->setRetard($retard);
-                 }
+                
  
     
  
@@ -174,8 +179,7 @@ class MainController extends AbstractController
              return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
          }
  
-         $note = new Notes();
-     
+        
          $form3 = $this->createForm(NotesType::class);
          $form3->handleRequest($request);
  
@@ -209,22 +213,33 @@ class MainController extends AbstractController
   
              }
              $TableauNotesRepository->add($tableaunotes);
+
              $note = new Notes();
              $tableaunotes->addNote($note);
        
              $note->addTableau($tableaunotes);
- 
+             
              $note->setType($form3->get('type')->getData());
              $note->setClasses($form3->get('classes')->getData());
              $note->setModule($form3->get('moduleid')->getData());
              $note->setBloc($form3->get('blocid')->getData());
              $note->setSemestre($form3->get('semestre')->getData());
              $note->setEtudiantid($form3->get('etudiant')->getData());
+            
+             $etudiants = $tableau->get('etudiant')->getData();
+             foreach($etudiants as $etudiants){
+             $note->setEtudiantid($etudiants->getId());
+             }
+             
  
             $etudiants = $tableau->get('etudiant')->getData();
            
+                  $tableaunotes->addEtudiant($etudiants[0]);
+ 
+        
+  
                  
-             $tableaunotes->addEtudiant($etudiants[0]);
+             $tableaunotes->addEtudiant($form3->get('etudiant')->getData());
   
            
  
@@ -319,6 +334,7 @@ class MainController extends AbstractController
              $etudiants = $tableau->get('etudiant')->getData();
              foreach($etudiants as $etudiants){
              $note->setEtudiantid($etudiants->getId());
+             $notesRepository->add($note, true);
              }
         
            
@@ -344,7 +360,7 @@ class MainController extends AbstractController
            
        
     
-             $notesRepository->add($note, true);
+             
    
              // Je boucle sur les documents
             
@@ -378,19 +394,20 @@ class MainController extends AbstractController
                  
                  
                  $tableauabsences->addEtudiant($etudiants[0]);
-                 $dateabsence =$tableau->get('dateabsence')->getData();
                  $retard = $tableau->get('retard')->getData();
-             
-                 if( $dateabsence == null){
-                     $tableauabsences->setDateabsence(null);
-                 }else{
-                     $tableauabsences->setDateabsence($dateabsence);
-                 }
-                 if( $retard == null){
-                     $tableauabsences->setRetard(null);
-                 }else{
-                     $tableauabsences->setRetard($retard);
-                 }
+                 $presence = $tableau->get('presence')->getData();
+                 $enretard = $tableau->get('enretard')->getData();
+                 $retard = $tableau->get('retard')->getData();
+                 $absencedate = $tableau->get('absence')->getData();
+
+                 $du = $tableau->get('du')->getData();
+                 $au = $tableau->get('au')->getData();
+                 $tableauabsences->setPresence($presence);
+                 $tableauabsences->setEnretard($enretard);
+                 $tableauabsences->setRetard($retard);
+                 $tableauabsences->setAbsence($absencedate);
+                 $tableauabsences->setDu($du);
+                 $tableauabsences->setAu($au);
  
     
  

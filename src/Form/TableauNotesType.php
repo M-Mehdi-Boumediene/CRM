@@ -25,31 +25,31 @@ class TableauNotesType extends AbstractType
         $builder
             ->add('note1', IntegerType::class,[
                 'label'=>false,
-                'required'=>true,
+                'required'=>false,
      
             ])
             ->add('note2', IntegerType::class,[
                 'label'=>false,
    
-                'required'=>true
+                'required'=>false
             ])
             ->add('note3', IntegerType::class,[
                 'label'=>false,
    
-                'required'=>true
+                'required'=>false
             ])
             ->add('observation1', TextType::class,[
                 'label'=>false,
                 
-                'required'=>true
+                'required'=>false
             ])
             ->add('observation2', TextType::class,[
                 'label'=>false,
-                'required'=>true
+                'required'=>false
             ])
             ->add('observation3', TextType::class,[
                 'label'=>false,
-                'required'=>true
+                'required'=>false
             ])
           
             ->add('etudiant', EntityType::class, [

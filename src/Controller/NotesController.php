@@ -23,6 +23,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+
+use Doctrine\ORM\Query\Expr\Join;
 /**
  * @Route("/notes")
  */
@@ -117,7 +119,7 @@ class NotesController extends AbstractController
     /**
      * @Route("/new/{id}", name="app_notes_newbyclass", methods={"GET", "POST"})
      */
-    public function newbyclasse(Request $request, $id,NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function newbyclasse(Request $request,EntityManagerInterface $em, $id,NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
       
         $note = new Notes();
@@ -154,42 +156,68 @@ class NotesController extends AbstractController
                
  
             }
+          
             $TableauNotesRepository->add($tableaunotes);
+
+          
+
             $note = new Notes();
-            $tableaunotes->addNote($note);
+        
       
             $note->addTableau($tableaunotes);
 
             $note->setType($form->get('type')->getData());
             $note->setClasses($form->get('classes')->getData());
             $note->setModule($form->get('moduleid')->getData());
+    
             $note->setBloc($form->get('blocid')->getData());
             $note->setSemestre($form->get('semestre')->getData());
             $etudiants = $tableau->get('etudiant')->getData();
             foreach($etudiants as $etudiants){
             $note->setEtudiantid($etudiants->getId());
+            $ee = $etudiants->getId();
+
+
+            $lemodule = $form->get('moduleid')->getData();
+            $lesemestre = $form->get('semestre')->getData();
+            $letype= $form->get('type')->getData();
+            $latable = $TableauNotesRepository->findByetudiant($ee,$lemodule,$lesemestre,$letype);
+        }
+       
+            
+          
+
+            if($latable){
+
+                return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
             }
-            
-
-           $etudiants = $tableau->get('etudiant')->getData();
-          
+            else{
                 
-            $tableaunotes->addEtudiant($etudiants[0]);
- 
-          
+                $tableaunotes->addNote($note);
+                $tableaunotes->addEtudiant($etudiants);
+     
+              
+    
+                
+                $tableaunotes->setNote1($tableau->get('note1')->getData());
+                $tableaunotes->setObservation1($tableau->get('observation1')->getData());
+             
+                $tableaunotes->setNote2($tableau->get('note2')->getData());
+                $tableaunotes->setObservation2($tableau->get('observation2')->getData());
+    
+                $tableaunotes->setNote3($tableau->get('note3')->getData());
+                $tableaunotes->setObservation3($tableau->get('observation3')->getData());
+    
+                $tableaunotes->addCopie($newfile);
+    
+    
+                $FilesRepository->add($newfile);
+            }
+    
+
+
 
             
-            $tableaunotes->setNote1($tableau->get('note1')->getData());
-            $tableaunotes->setObservation1($tableau->get('observation1')->getData());
-         
-            $tableaunotes->setNote2($tableau->get('note2')->getData());
-            $tableaunotes->setObservation2($tableau->get('observation2')->getData());
-
-            $tableaunotes->setNote3($tableau->get('note3')->getData());
-            $tableaunotes->setObservation3($tableau->get('observation3')->getData());
-
-            $tableaunotes->addCopie($newfile);
-            $FilesRepository->add($newfile);
             }
             
           

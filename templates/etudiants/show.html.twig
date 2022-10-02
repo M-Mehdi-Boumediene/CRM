@@ -183,7 +183,35 @@
 
 								<div class="tab-pane tabs-animation fade" id="tab-content-3" role="tabpanel">
 									<div class="row">
-										<div class="col-md-12">
+									
+										<div class="col-md-6">
+
+											<div class="main-card mb-3 card">
+												<div class="card-body">
+													<h5 class="card-title">Retard</h5>
+
+													<div class="card-body">
+
+														{% for etudiant in etudiant.tableauAbsences %}
+
+															{% if etudiant.enretard %}
+																Retard de
+																{{etudiant.retard|date("i")}} minutes
+																le {{etudiant.du|date("d/m/y h:i")}} 
+																{% else %}
+
+															{% endif %}
+													
+														{% endfor %}
+
+													</div>
+
+												</div>
+
+											</div>
+										</div>
+												<div class="col-md-6">
+
 											<div class="main-card mb-3 card">
 												<div class="card-body">
 													<h5 class="card-title">Absences</h5>
@@ -192,19 +220,17 @@
 
 														{% for etudiant in etudiant.tableauAbsences %}
 
-															{% if etudiant.retard %}
-																Retard de
-																{{etudiant.dateabsence|date("H:i")}}
-																le
+															{% if etudiant.absence %}
+																Absent du 
+																{{etudiant.du|date("d/m/y h:i")}}  
+																au {{etudiant.au|date("d/m/y h:i")}} 
+
+															
+					
 																{% else %}
 
 															{% endif %}
-															{% if etudiant.dateabsence %}
-																Absence le
-																{{etudiant.dateabsence|date("m/d/Y")}}
-																{% else %}
-
-															{% endif %}
+													
 														{% endfor %}
 
 													</div>
@@ -219,6 +245,71 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="main-card mb-3 card">
+												<div class="card-body">
+												
+
+													
+											
+														<table>
+
+															<tbody>
+
+																<td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
+
+																<td style="    border-top: solid 1px white;"></td>
+
+																<th scope="col">Coef</th>
+																<th scope="col">Note 1</th>
+																<th scope="col">Note 2</th>
+																<th scope="col">Note 3</th>
+																<th scope="col">Moyenne</th>
+
+
+								
+
+																		{% for note in tableaunotes %}
+
+																
+								<tr>	
+																	
+
+																			
+																						{% for module in note.notes %}
+
+																							<tr>		
+
+																				<th rowspan="3" scope="rowgroup">{{module.bloc.nom}}
+																			<br><br>
+																			Coef:
+																			{{module.bloc.coefficient}}</th>
+
+																							<tr>
+																				<th scope="row">{{module.module.nom}}</th>
+
+																				<td>{{module.module.coefficient}}</td>
+																				
+																			{% endfor %}		
+
+																						<td>{{note.note1}}</td>
+																						<td>{{note.note2}}</td>
+																						<td>{{note.note3}}</td>
+																						<td></td>
+																			
+																						</tr>
+																			
+																		
+
+																		</tr>
+																	{% endfor %}
+
+
+															</tbody>
+
+														</table>
+
+
+											
+												</div>
 												<div class="card-body">
 												
 
@@ -258,8 +349,9 @@
 
 																		{% for module in etudiant.tableauNotes %}
 
-																			<tr>
+																			
 																				{% for lemodule in module.notes %}
+																				<tr>
 																				<th scope="row">{{lemodule.module.nom}}</th>
 
 																				<td>{{lemodule.module.coefficient}}</td>
@@ -273,8 +365,9 @@
 																						<td>{{tableau.note3}}</td>
 																						<td></td>
 																					{% endfor %}
+																						</tr>
 																				{% endfor %}
-																			</tr>
+																		
 
 																		</tr>
 																	{% endfor %}
@@ -287,64 +380,7 @@
 
 
 													{% endfor %}
-													<div class="card-body">
-														<div class="table-scroll">
-															<table>
-
-																<tbody>
-
-																	<td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
-
-																	<td style="    border-top: solid 1px white;"></td>
-
-																	<th scope="col">Coef</th>
-																	<th scope="col">Note 1</th>
-																	<th scope="col">Note 2</th>
-																	<th scope="col">Note 3</th>
-																	<th scope="col">Moyenne</th>
-
-																	{% for bloc in etudiant.classes.blocs %}
-
-																		<tr>
-
-																			<th rowspan="3" scope="rowgroup">{{bloc.nom}}
-																				<br><br>
-																				Coef:
-																				{{bloc.coefficient}}</th>
-
-																	{% for module in etudiant.tableauNotes %}
-
-																			<tr>
-																				{% for lemodule in module.notes %}
-																				<th scope="row">{{lemodule.module.nom}}</th>
-
-																				<td>{{lemodule.module.coefficient}}</td>
-																				{% endfor %}
-																				{% for tableau in module.notes %}
-
-																					{% for tableau in tableau.tableau %}
-
-																						<td>{{tableau.note1}}</td>
-																						<td>{{tableau.note2}}</td>
-																						<td>{{tableau.note3}}</td>
-																						<td></td>
-																					{% endfor %}
-																				{% endfor %}
-																			</tr>
-
-																		</tr>
-																	{% endfor %}
-
-
-																	{% endfor %}
-																</tbody>
-
-															</table>
-
-
-														</div>
-
-													</div>
+											
 												</div>
 											</div>
 										</div>

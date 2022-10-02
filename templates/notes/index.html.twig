@@ -110,7 +110,9 @@
 															{% endfor %}
 														</td>
 														
-														<td></td>
+														<td>		{% for note in note.notes %}
+														{{note.type}} 
+															{% endfor %}</td>
 																<td>
 														{% for classe in note.notes %}
 														{{classe.module.nom}} 

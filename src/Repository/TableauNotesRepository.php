@@ -81,6 +81,25 @@ class TableauNotesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function findByetudiant($ee,$lemodule,$lesemestre,$letype)
+    {
+        return $this->createQueryBuilder('t')
+        ->innerJoin('t.etudiant', 'c')
+        ->innerJoin('t.notes', 'n')
+           ->andWhere('c.id = :etudiant')
+           ->andWhere('n.module = :module')
+           ->andWhere('n.semestre = :semestre')
+           ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $ee)
+        
+            ->setParameter('module', $lemodule)
+            ->setParameter('semestre', $lesemestre)
+            ->setParameter('type', $letype)
+            ->getQuery()
+            ->getOneOrNullResult()
+      ;
+    }
+
 //    /**
 //     * @return TableauNotes[] Returns an array of TableauNotes objects
 //     */
