@@ -33,19 +33,17 @@ class AbsencesController extends AbstractController
 
         if ($form2->isSubmitted() && $form2->isValid()) {
             $value = $form2->get('search')->getData();
-            $apprenant = $form2->get('apprenant')->getData();
+   
         $classe = $form2->get('classe')->getData();
         
-            if($apprenant == null){
-                $apprenant = empty($apprenant);
-            }
+    
             if($value == null){
                 $value = empty($value);
             }
             if($classe == null){
                 $classe = empty($classe);
             }
-            $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$apprenant,$classe);
+            $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$classe);
             $tableAbsences = $paginator->paginate(
                 $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -58,7 +56,9 @@ class AbsencesController extends AbstractController
             ]);
         }
 
+        
         $tableAbsences =  $TableauAbsencesRepository->findAll();
+
         $tableAbsences = $paginator->paginate(
             $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -66,7 +66,7 @@ class AbsencesController extends AbstractController
         );
         return $this->renderForm('absences/index.html.twig', [
             'absences' => $absencesRepository->findAll(),
-            'tableAbsences' => $tableAbsences,
+            'tableAbsences' => null,
             'form2' => $form2,
         ]);
     }

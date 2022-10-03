@@ -42,7 +42,7 @@ class TableauAbsencesRepository extends ServiceEntityRepository
 
 
 
-    public function searchMot($value,$intervenant,$classe)
+    public function searchMot($value,$classe)
     {
         return $this->createQueryBuilder('u')
 
@@ -51,14 +51,14 @@ class TableauAbsencesRepository extends ServiceEntityRepository
    
       
             ->Where('c.id = :classe')
-            ->andWhere('m.id = :etudiant')
+      
             ->orWhere('c.nom LIKE :value')
             ->orWhere('c.prenom LIKE :value')
             ->orWhere('c.email LIKE :value')
             ->orWhere('c.telephone LIKE :value')
             ->setParameter('value', '%'.$value.'%')
             ->setParameter('classe', $classe)
-            ->setParameter('etudiant', $intervenant)
+      
 
 
             ->orderBy('u.id', 'ASC')

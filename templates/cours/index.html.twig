@@ -26,11 +26,16 @@
 
 				border-radius: 0.25rem;
 			}
-					.page,.current,.previous,.first,.next,.last{
-    border: solid 1px;
-    padding: 5px;
-    margin: 2px;
-}
+			.page,
+			.current,
+			.previous,
+			.first,
+			.next,
+			.last {
+				border: solid 1px;
+				padding: 5px;
+				margin: 2px;
+			}
 		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
@@ -80,8 +85,8 @@
 									{{ form_row(form2.module,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form2.module) }}
 								</div>
-				
-									<button type="submit" class="btn-shadow btn btn-primary" style="    width: 116px;">
+
+								<button type="submit" class="btn-shadow btn btn-primary" style="    width: 116px;">
 									<span class="btn-icon-wrapper pr-2 opacity-7">
 										<i class="fa fa-search fa-w-20"></i>
 									</span>
@@ -101,7 +106,7 @@
 												<tr role="row">
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Bloc</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Module</th>
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
 
@@ -124,7 +129,6 @@
 														</td>
 
 
-
 														<td class="sorting_1 dtr-control">
 															<a href="{{ path('app_cours_edit', {'id': cour.id}) }}">
 																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
@@ -141,10 +145,10 @@
 											</tbody>
 
 										</table>
-													<nav class="" aria-label="Page navigation example" style="float:right;">
+										<nav class="" aria-label="Page navigation example" style="float:right;">
 											{{ knp_pagination_render(cours) }}
 										</nav>
-									
+
 									</div>
 								</div>
 
