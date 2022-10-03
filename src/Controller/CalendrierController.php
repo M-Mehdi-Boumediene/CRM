@@ -33,10 +33,23 @@ class CalendrierController extends AbstractController
         $calendrier = new Calendrier();
         $form = $this->createForm(CalendrierType::class, $calendrier);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $calendrierRepository->add($calendrier);
-            return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+            $calend = $calendrierRepository->findOneBy(array('start'=>$form->get('start')->getData(),'end'=>$form->get('end')->getData()));
+            
+            if($calend){
+
+                $this->addFlash('success', "un évenement existe deja avec cette date et heur Veuillez changer d'horaire");
+                return $this->redirectToRoute('app_calendrier_new', [], Response::HTTP_SEE_OTHER);
+
+            }else{
+
+                $calendrierRepository->add($calendrier);
+                return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+            }
+
+           
         }
 
         return $this->renderForm('calendrier/new.html.twig', [

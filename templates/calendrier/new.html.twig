@@ -18,7 +18,7 @@
 								<i class="pe-7s-date icon-gradient bg-strong-bliss"></i>
 							</div>
 							<div>Ajouter un événement
-						
+
 							</div>
 						</div>
 						<div class="page-title-actions">
@@ -36,7 +36,11 @@
 						</div>
 					</div>
 				</div>
-
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-danger">
+						{{ message }}
+					</div>
+				{% endfor %}
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">

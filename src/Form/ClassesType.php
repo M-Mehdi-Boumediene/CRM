@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Classes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClassesType extends AbstractType
@@ -13,6 +14,32 @@ class ClassesType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('curus',ChoiceType::class, [
+                'choices' => [
+                    'Initiale ' => 'Initiale ',
+                    'Alternance ' => 'Alternance ',
+                    
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+                'label' => 'Cursus' 
+            ])
+            ->add('anneescolaire')
+
+            ->add('nbsemestre',ChoiceType::class, [
+                'choices' => [
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                    '4' => '4',
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+                'label' => 'Nombre de semestres' 
+            ])
+
             ->remove('created_at')
             ->remove('created_by')
         ;

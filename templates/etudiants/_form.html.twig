@@ -7,6 +7,9 @@
 		font-size: 20px;
 		font-weight: bold;
 	}
+	.entreprise {
+		display: none;
+	}
 </style>
 <br><br>
 <h4>Compte:
@@ -95,6 +98,19 @@
 		{{ form_row(form.telephone,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.telephone) }}
 	</div>
+
+	<div class="col-md-3">
+		<br>
+		{{ form_row(form.cursus,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.cursus) }}
+	</div>
+
+	<div class="col-md-3 entreprise">
+		<br>
+		{{ form_label(form.entreprise,'Entreprise ') }}
+		{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.entreprise) }}
+	</div>
 </div>
 <br>
 
@@ -179,5 +195,16 @@ $('#etudiants_codepostale').select2();
 $('#etudiants_ville').select2();
 $('#etudiants_codepostale').select2();
 $('#etudiants_classes').select2();
+});
+
+
+$("#etudiants_cursus").change(function () {
+if ($(this).val() == 'Initiale ') {
+$('.entreprise').hide();
+} else if ($(this).val() == 'Alternance ') {
+$('.entreprise').show();
+} else {
+$('.entreprise').hide();
+}
 });
 </script>

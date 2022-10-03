@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use App\Entity\Codepostal;
+use App\Entity\Entreprises;
 use App\Entity\Villes;
 use App\Form\UsersType;
 class EtudiantsType extends AbstractType
@@ -59,7 +60,28 @@ class EtudiantsType extends AbstractType
             'placeholder'=>'',
             'autocomplete' => true,
         ])
-
+        ->add('entreprise',EntityType::class, [
+            'class' => Entreprises::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.nom', 'ASC');
+            },
+            'choice_label' => 'nom',
+            'label'=>false,
+            'placeholder'=>'',
+            'autocomplete' => true,
+        ])
+        ->add('cursus',ChoiceType::class, [
+            'choices' => [
+                'Initiale ' => 'Initiale ',
+                'Alternance ' => 'Alternance ',
+                
+            ],
+            'expanded' => false,
+            'multiple' => false,
+            'required' => false,
+            'label' => 'Cursus' 
+        ])
         ->add('ville', EntityType::class, [
             'mapped' => false,
             'class' => Villes::class,

@@ -26,11 +26,16 @@
 
 				border-radius: 0.25rem;
 			}
-											.page,.current,.previous,.first,.next,.last{
-    border: solid 1px;
-    padding: 5px;
-    margin: 2px;
-}
+			.page,
+			.current,
+			.previous,
+			.first,
+			.next,
+			.last {
+				border: solid 1px;
+				padding: 5px;
+				margin: 2px;
+			}
 		</style>
 		<div class="app-main__outer">
 
@@ -106,6 +111,7 @@
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Téléphone</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Email</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Entreprise</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Actions</th>
 
@@ -131,6 +137,16 @@
 														<td class="sorting_1 dtr-control">
 															<a href="{{ path('app_etudiants_show', {'id': etudiant.id}) }}">
 																{{ etudiant.email }}
+															</a>
+														</td>
+
+														<td class="sorting_1 dtr-control">
+															<a href="{{ path('app_etudiants_show', {'id': etudiant.id}) }}">
+																{% if etudiant.cursus =='Initiale ' %}
+																	{{ etudiant.cursus }}
+																{% elseif etudiant.cursus =='Alternance ' %}
+																	{{ etudiant.entreprise.nom }}
+																{% endif %}
 															</a>
 														</td>
 
@@ -165,10 +181,10 @@
 											</tbody>
 
 										</table>
-																				<nav class="" aria-label="Page navigation example" style="float:right;">
+										<nav class="" aria-label="Page navigation example" style="float:right;">
 											{{ knp_pagination_render(etudiants) }}
 										</nav>
-									
+
 									</div>
 								</div>
 

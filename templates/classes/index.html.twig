@@ -9,14 +9,18 @@
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
-<style>
-.page,.current,.previous,.first,.next,.last{
-    border: solid 1px;
-    padding: 5px;
-    margin: 2px;
-}
-
-</style>
+		<style>
+			.page,
+			.current,
+			.previous,
+			.first,
+			.next,
+			.last {
+				border: solid 1px;
+				padding: 5px;
+				margin: 2px;
+			}
+		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -77,9 +81,11 @@
 												<tr role="row">
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Nom</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Date de création</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Créé par</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Année scolaire</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Cursus</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Nombre de semestres</th>
+
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Action</th>
 
 
 												</tr>
@@ -95,7 +101,7 @@
 
 														<td class="sorting_1 dtr-control">
 
-															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.createdAt|date('d-m-Y H:i') }}</a>
+															<a href="{{ path('app_classes_show', {'id': class.id}) }}">{{ class.anneescolaire}}</a>
 
 														</td>
 
@@ -104,7 +110,18 @@
 
 															<a href="{{ path('app_users_show', {'id': class.id}) }}">
 
-																{{class.createdBy}}
+																{{class.curus}}
+
+
+															</a>
+
+														</td>
+														<td class="sorting_1 dtr-control">
+
+
+															<a href="{{ path('app_users_show', {'id': class.id}) }}">
+
+																{{class.nbsemestre}}
 
 
 															</a>
@@ -128,7 +145,7 @@
 											</tbody>
 
 										</table>
-									
+
 										<nav class="" aria-label="Page navigation example" style="float:right;">
 											{{ knp_pagination_render(classes) }}
 										</nav>

@@ -66,11 +66,17 @@ class Entreprises
      */
     private $tuteurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Etudiants::class, mappedBy="entreprise")
+     */
+    private $etudiants;
+
 
 
     public function __construct()
     {
         $this->tuteurs = new ArrayCollection();
+        $this->etudiants = new ArrayCollection();
      
     }
 
@@ -199,6 +205,36 @@ class Entreprises
             // set the owning side to null (unless already changed)
             if ($tuteur->getEntreprise() === $this) {
                 $tuteur->setEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Etudiants>
+     */
+    public function getEtudiants(): Collection
+    {
+        return $this->etudiants;
+    }
+
+    public function addEtudiant(Etudiants $etudiant): self
+    {
+        if (!$this->etudiants->contains($etudiant)) {
+            $this->etudiants[] = $etudiant;
+            $etudiant->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiants $etudiant): self
+    {
+        if ($this->etudiants->removeElement($etudiant)) {
+            // set the owning side to null (unless already changed)
+            if ($etudiant->getEntreprise() === $this) {
+                $etudiant->setEntreprise(null);
             }
         }
 
