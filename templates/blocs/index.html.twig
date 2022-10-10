@@ -106,6 +106,7 @@
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
 
 
 												</tr>
@@ -133,6 +134,11 @@
 																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
 																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
 															</a>
+														</td>
+														<td class="sorting_1 dtr-control" align="center">
+															<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Crée Le {{ bloc.createdAt ? bloc.createdAt|date('Y-m-d H:i') : '' }} Par {{ bloc.createdBy }}">
+																<i class="fa fa-info"></i>
+															</button>
 														</td>
 													</tr>
 												{% else %}
