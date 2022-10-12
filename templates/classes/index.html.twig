@@ -86,7 +86,7 @@
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Nombre de semestres</th>
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Action</th>
-
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
 
 												</tr>
 											</thead>
@@ -135,6 +135,12 @@
 																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
 															</a>
 														</td>
+														<td class="sorting_1 dtr-control" align="center">
+															<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Crée Le {{ class.createdAt ? class.createdAt|date('Y-m-d H:i') : '' }} Par {{ class.createdBy }}">
+																<i class="fa fa-info"></i>
+															</button>
+														</td>
+
 													</tr>
 												{% else %}
 													<tr role="row" class="odd">

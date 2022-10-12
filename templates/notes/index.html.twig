@@ -92,6 +92,7 @@
 													<th>Note3</th>
 													<th>Copies</th>
 													<th>actions</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
 
 												</tr>
 											</thead>
@@ -129,6 +130,11 @@
 														</td>
 														<td>
 															<a href="{{ path('app_tableau_notes_edit', {'id': note.id}) }}">Modifier</a>
+														</td>
+														<td class="sorting_1 dtr-control" align="center">
+															<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Crée Le {{ note.createdAt ? note.createdAt|date('Y-m-d H:i') : '' }} Par {{ note.createdBy }}">
+																<i class="fa fa-info"></i>
+															</button>
 														</td>
 													</tr>
 												{% else %}

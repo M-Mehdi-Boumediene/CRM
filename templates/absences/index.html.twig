@@ -83,6 +83,8 @@
 														<th>Date d'absence</th>
 														<th>Durée de retard</th>
 														<th>actions</th>
+														<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
+
 
 													</tr>
 												</thead>
@@ -115,6 +117,11 @@
 																<td>
 																	<a href="{{ path('app_absences_show', {'id': absence.id}) }}">show</a>
 																	<a href="{{ path('app_absences_edit', {'id': absence.id}) }}">edit</a>
+																</td>
+																<td class="sorting_1 dtr-control" align="center">
+																	<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Crée Le {{ absence.createdAt ? absence.createdAt|date('Y-m-d H:i') : '' }} Par {{ absence.createdBy }}">
+																	<i class="fa fa-info"></i>
+																	</button>
 																</td>
 															</tr>
 														{% else %}

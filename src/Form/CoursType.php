@@ -19,6 +19,8 @@ class CoursType extends AbstractType
 
                
                 ])
+            
+       
     
         ;
     }

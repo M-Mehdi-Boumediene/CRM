@@ -34,6 +34,16 @@ class Cours
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +81,31 @@ class Cours
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+ 
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
