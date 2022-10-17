@@ -82,6 +82,11 @@ class Notes
      */
     private $semestre;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coefficient;
+
     public function __construct()
     {
         $this->tableau = new ArrayCollection();
@@ -250,6 +255,18 @@ class Notes
     public function setSemestre(?string $semestre): self
     {
         $this->semestre = $semestre;
+
+        return $this;
+    }
+
+    public function getCoefficient(): ?string
+    {
+        return $this->coefficient;
+    }
+
+    public function setCoefficient(?string $coefficient): self
+    {
+        $this->coefficient = $coefficient;
 
         return $this;
     }

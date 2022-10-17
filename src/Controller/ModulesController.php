@@ -4,11 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Documents;
 use App\Entity\Modules;
+use App\Entity\Classes;
+use App\Entity\Blocs;
 use App\Form\ModulesType;
+use App\Form\ClassesType;
+use App\Form\BlocsType;
 use App\Form\FiltreType;
 use App\Form\FiltreModuleType;
 use App\Repository\UsersRepository;
 use App\Repository\ModulesRepository;
+use App\Repository\ClassesRepository;
+use App\Repository\BlocsRepository;
 use App\Repository\IntervenantsRepository;
 use App\Entity\Files;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,7 +84,7 @@ class ModulesController extends AbstractController
     /**
      * @Route("/new", name="app_modules_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, ModulesRepository $modulesRepository): Response
+    public function new(Request $request, ModulesRepository $modulesRepository, ClassesRepository $classesRepository, BlocsRepository $blocsRepository): Response
     {
         $module = new Modules();
         $form = $this->createForm(ModulesType::class, $module);
@@ -133,11 +139,28 @@ class ModulesController extends AbstractController
 
             return $this->redirectToRoute('app_modules_index', [], Response::HTTP_SEE_OTHER);
         }
+        $classe = new Classes();
+        $form2 = $this->createForm(ClassesType::class, $classe);
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $date = new \DateTimeImmutable('now');
+         
+            $classe->setCreatedBy($this->getUser()->getEmail());
+        
+            $classe->setCreatedAt($date);
+            $classesRepository->add($classe);
+            return $this->redirectToRoute('app_modules_new', [], Response::HTTP_SEE_OTHER);
+        }
+        
+  
         
 
         return $this->renderForm('modules/new.html.twig', [
             'module' => $module,
             'form' => $form,
+            'form2' => $form2,
+      
         ]);
     }
 

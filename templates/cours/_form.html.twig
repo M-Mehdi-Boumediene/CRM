@@ -10,12 +10,22 @@
 		{{ form_errors(form.nom) }}
 	</div>
 	<div class="col-md-3">
-	
+		{{ form_label(form.module, 'Module') }}
+		<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="    position: absolute;
+								    padding: 5px;
+								    margin-top: -5px;
+								    margin-left: 5px;
+								    background: none;
+								    border: none;">
+			<i class="fa fa-fw" aria-hidden="true" title="Copy to use plus" style="color:black;"></i>
+		</button>
 		{{ form_row(form.module,{'attr': {'class': 'form-control select'}}) }}
-		{{ form_errors(form.module) }} 	<br></div>
-	
-			{{ form_row(form.description,{'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.description) }}
+
+		{{ form_errors(form.module) }}
+		<br></div>
+
+	{{ form_row(form.description,{'attr': {'class': 'form-control'}}) }}
+	{{ form_errors(form.description) }}
 </div>
 <br>
 
@@ -29,7 +39,6 @@ ou
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-
 
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>

@@ -22,7 +22,9 @@ class EntreprisesType extends AbstractType
             ->add('adresse')
             ->add('telephone')
             ->add('email')
-            ->add('responsable')
+            ->add('responsable', TextType::class,[
+                'label'=>false
+            ])
             ->remove('created_at')
             ->remove('created_by')
         ;

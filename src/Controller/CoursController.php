@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Cours;
+use App\Entity\Modules;
 use App\Form\CoursType;
+use App\Form\ModulesType;
 use App\Form\FiltreCoursType;
 use App\Repository\CoursRepository;
+use App\Repository\ModulesRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,7 +70,7 @@ class CoursController extends AbstractController
     }
 
     #[Route('/new', name: 'app_cours_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CoursRepository $coursRepository): Response
+    public function new(Request $request, CoursRepository $coursRepository, ModulesRepository $modulesRepository): Response
     {
         $cour = new Cours();
         $form = $this->createForm(CoursType::class, $cour);
@@ -78,9 +82,24 @@ class CoursController extends AbstractController
             return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $module = new Modules();
+        $form2 = $this->createForm(ModulesType::class, $module);
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $date = new \DateTimeImmutable('now');
+         
+            $module->setCreatedBy($this->getUser()->getEmail());
+        
+            $module->setCreatedAt($date);
+            $modulesRepository->add($module);
+            return $this->redirectToRoute('app_modules_new', [], Response::HTTP_SEE_OTHER);
+        }
+        
         return $this->renderForm('cours/new.html.twig', [
             'cour' => $cour,
             'form' => $form,
+            'form2' => $form2,
         ]);
     }
 

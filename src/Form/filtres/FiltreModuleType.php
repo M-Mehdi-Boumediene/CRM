@@ -32,7 +32,7 @@ class FiltreModuleType extends AbstractType
         $builder
         ->add('search', TextType::class, [
             'attr' => array(
-                'placeholder' => 'Ecrire un mot ou n°'
+                'placeholder' => 'Mot clé ou n° de…'
             ),
             'label' => false ,
             'required' => false

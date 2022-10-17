@@ -34,7 +34,7 @@ class FiltreBlocType extends AbstractType
             
             'label' => false ,
             'attr' => array(
-                'placeholder' => 'Ecrire un mot ou n°'
+                'placeholder' => 'Mot clé ou n° de…'
             ),
             'required' => false
         ])

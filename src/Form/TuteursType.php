@@ -32,7 +32,7 @@ class TuteursType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'required' => false,
-                'label' => 'Type' 
+                'label' => 'Catégorie du tuteur' 
             ])
             ->add('entreprise', EntityType::class, [
                 'class' => Entreprises::class,
@@ -42,7 +42,8 @@ class TuteursType extends AbstractType
                 },
                 'choice_label' => 'nom',
                 'multiple' => false,
-                'required' => false
+                'required' => false,
+                'label'=> "Entreprise de rattachement"
             ])
             ->remove('created_at')
             ->remove('created_by');

@@ -31,6 +31,7 @@ class NotesType extends AbstractType
     {
         
         $builder
+        ->add('coefficient')
         ->add('type', ChoiceType::class, [
             'choices' => [
       

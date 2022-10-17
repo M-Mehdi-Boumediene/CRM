@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Blocs;
 use App\Entity\Classes;
 use App\Form\BlocsType;
+use App\Form\ClassesType;
 use App\Form\SearchType;
 use App\Form\FiltreBlocType;
 use App\Repository\BlocsRepository;
@@ -77,7 +78,7 @@ class BlocsController extends AbstractController
     /**
      * @Route("/new", name="app_blocs_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, BlocsRepository $blocsRepository): Response
+    public function new(Request $request, BlocsRepository $blocsRepository, ClassesRepository $classesRepository): Response
     {
         $bloc = new Blocs();
         $form = $this->createForm(BlocsType::class, $bloc);
@@ -93,9 +94,26 @@ class BlocsController extends AbstractController
             return $this->redirectToRoute('app_blocs_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
+
+        $classe = new Classes();
+        $form2 = $this->createForm(ClassesType::class, $classe);
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $date = new \DateTimeImmutable('now');
+         
+            $classe->setCreatedBy($this->getUser()->getEmail());
+        
+            $classe->setCreatedAt($date);
+            $classesRepository->add($classe);
+            return $this->redirectToRoute('app_blocs_new', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->renderForm('blocs/new.html.twig', [
             'bloc' => $bloc,
             'form' => $form,
+            'form2' => $form2,
         ]);
     }
 
