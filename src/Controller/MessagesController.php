@@ -6,12 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\MessagesType;
+use App\Form\SignaturesType;
 use App\Entity\Messages;
 use App\Entity\Users;
 use App\Entity\Files;
+use App\Entity\Signatures;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UsersRepository;
 use App\Repository\MessagesRepository;
+use App\Repository\SignaturesRepository;
+use App\Repository\SignatureRepository;
 use Knp\Component\Pager\PaginatorInterface;
 
 class MessagesController extends AbstractController
@@ -124,6 +128,48 @@ class MessagesController extends AbstractController
             'brouillons' =>  $brouillons,
             'suppressions' =>  $suppressions,
             'recus' =>  $recus,
+        ]);
+    }
+      /**
+     * @Route("/messages/signature", name="app_messages_signature", methods={"GET", "POST"})
+     */
+    public function signature(Request $request,SignaturesRepository $signaturesRepository,MessagesRepository $messagesRepository): Response
+    {
+        $user = $this->getUser();
+
+        $messages =  $messagesRepository->findBysupp($user);
+        $elements =  $messagesRepository->findBysenderisread($user);
+        $brouillons =  $messagesRepository->findBybrouillonisread($user);
+        $recus =  $messagesRepository->findByrecusisread($user);
+        $suppressions =  $messagesRepository->findBysuppisread($user);
+        $signatures =  $signaturesRepository->findOneBy(array('user'=>$user));
+
+
+        $signature = new Signatures();
+        $form = $this->createForm(SignaturesType::class);
+        $form->handleRequest($request);
+        if($signature){
+            if ($form->isSubmitted() && $form->isValid()) {
+                $date = new \DateTimeImmutable('now');
+            
+                $signaturesRepository->add($signature);
+                return $this->redirectToRoute('app_messages_signature', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+ 
+        
+
+
+        return $this->renderForm('messages/signature.html.twig', [
+            'messages' =>  $messages,
+            'elements' =>  $elements,
+            'brouillons' =>  $brouillons,
+            'suppressions' =>  $suppressions,
+            'recus' =>  $recus,
+            'signature' =>  $signature,
+            'signatures' =>  $signatures,
+            'form' =>  $form,
+  
         ]);
     }
 
@@ -285,5 +331,9 @@ class MessagesController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('app_messages', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+   
 
 }

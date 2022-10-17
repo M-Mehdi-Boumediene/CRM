@@ -167,6 +167,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $received;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Signatures::class, mappedBy="user")
+     */
+    private $signatures;
+
  
 
    
@@ -191,6 +196,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->telechargements = new ArrayCollection();
 
         $this->received = new ArrayCollection();
+        $this->signatures = new ArrayCollection();
       
  
      
@@ -774,6 +780,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeReceived(Messages $received): self
     {
         $this->received->removeElement($received);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Signatures>
+     */
+    public function getSignatures(): Collection
+    {
+        return $this->signatures;
+    }
+
+    public function addSignature(Signatures $signature): self
+    {
+        if (!$this->signatures->contains($signature)) {
+            $this->signatures[] = $signature;
+            $signature->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignature(Signatures $signature): self
+    {
+        if ($this->signatures->removeElement($signature)) {
+            // set the owning side to null (unless already changed)
+            if ($signature->getUser() === $this) {
+                $signature->setUser(null);
+            }
+        }
 
         return $this;
     }

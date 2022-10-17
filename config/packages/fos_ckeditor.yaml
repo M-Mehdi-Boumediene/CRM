@@ -10,6 +10,7 @@ fos_ck_editor:
             toolbar: full
             filebrowserBrowseRoute: elfinder
             filebrowserBrowseRouteParameters: []  
+            allowedContent : true
 
 
      
