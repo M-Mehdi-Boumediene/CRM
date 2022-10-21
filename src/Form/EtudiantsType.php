@@ -68,6 +68,7 @@ class EtudiantsType extends AbstractType
             },
             'choice_label' => 'nom',
             'label'=>false,
+            'required'=>false,
             'placeholder'=>'',
             'autocomplete' => true,
         ])
