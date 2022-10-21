@@ -25,6 +25,18 @@ class EntreprisesType extends AbstractType
             ->add('responsable', TextType::class,[
                 'label'=>false
             ])
+            ->add('emailrepresentant1', TextType::class,[
+                'label'=>'Email Représentant 1'
+            ])
+            ->add('numerotelephone1', TextType::class,[
+                'label'=>'Numéro de Téléphone 1'
+            ])
+            ->add('emailrepresentant2', TextType::class,[
+                'label'=>'Email Représentant 2'
+            ])
+            ->add('numeortelephone2', TextType::class,[
+                'label'=>'Numéro de Téléphone 2'
+            ])
             ->remove('created_at')
             ->remove('created_by')
         ;

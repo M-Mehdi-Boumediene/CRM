@@ -37,8 +37,8 @@ class NotesType extends AbstractType
       
                 'DEVOIR' => 'DEVOIR',
                 'EXAMEN' => 'EXAMEN',
-
                 
+
             ],
  
             'required' => true,

@@ -71,6 +71,26 @@ class Entreprises
      */
     private $etudiants;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $emailrepresentant1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $emailrepresentant2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numerotelephone1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numeortelephone2;
+
 
 
     public function __construct()
@@ -237,6 +257,54 @@ class Entreprises
                 $etudiant->setEntreprise(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmailrepresentant1(): ?string
+    {
+        return $this->emailrepresentant1;
+    }
+
+    public function setEmailrepresentant1(?string $emailrepresentant1): self
+    {
+        $this->emailrepresentant1 = $emailrepresentant1;
+
+        return $this;
+    }
+
+    public function getEmailrepresentant2(): ?string
+    {
+        return $this->emailrepresentant2;
+    }
+
+    public function setEmailrepresentant2(?string $emailrepresentant2): self
+    {
+        $this->emailrepresentant2 = $emailrepresentant2;
+
+        return $this;
+    }
+
+    public function getNumerotelephone1(): ?string
+    {
+        return $this->numerotelephone1;
+    }
+
+    public function setNumerotelephone1(?string $numerotelephone1): self
+    {
+        $this->numerotelephone1 = $numerotelephone1;
+
+        return $this;
+    }
+
+    public function getNumeortelephone2(): ?string
+    {
+        return $this->numeortelephone2;
+    }
+
+    public function setNumeortelephone2(?string $numeortelephone2): self
+    {
+        $this->numeortelephone2 = $numeortelephone2;
 
         return $this;
     }

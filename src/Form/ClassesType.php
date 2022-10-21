@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Classes;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClassesType extends AbstractType
@@ -13,7 +15,10 @@ class ClassesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom',TextType::class,[
+                'label' =>  false
+
+            ])
             ->add('curus',ChoiceType::class, [
                 'choices' => [
                     'Initiale ' => 'Initiale ',
@@ -25,7 +30,7 @@ class ClassesType extends AbstractType
                 'required' => false,
                 'label' => 'Cursus' 
             ])
-            ->add('anneescolaire')
+            ->add('Annee_Scolaire')
 
             ->add('nbsemestre',ChoiceType::class, [
                 'choices' => [

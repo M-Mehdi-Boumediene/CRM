@@ -27,17 +27,45 @@
 
 <br>
 <div class="form-row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		{{ form_row(form.email,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.email) }}
 	</div>
-	<div class="col-md-6">
-
+	
+	<br>
+<div class="form-row">
+<br>
+<div class="col-md-12">
+<br>
 		{{ form_label(form.responsable,'Représentant Entreprise ') }}
 
 		{{ form_row(form.responsable,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.responsable) }}
 	</div>
+
+		<div class="col-md-6">
+		<br>
+			{{ form_row(form.emailrepresentant1,{'attr': {'class': 'form-control'}}) }}
+			{{ form_errors(form.emailrepresentant1) }}
+		</div>
+		<div class="col-md-6">
+		<br>
+			{{ form_row(form.numerotelephone1,{'attr': {'class': 'form-control'}}) }}
+			{{ form_errors(form.numerotelephone1) }}
+		</div>
+		<div class="col-md-6">
+		<br>
+			{{ form_row(form.emailrepresentant2,{'attr': {'class': 'form-control'}}) }}
+			{{ form_errors(form.emailrepresentant2) }}
+		</div>
+		<div class="col-md-6">
+		<br>
+			{{ form_row(form.numeortelephone2,{'attr': {'class': 'form-control'}}) }}
+			{{ form_errors(form.numeortelephone2) }}
+		</div>
+</div>
+
+
 
 </div>
 
