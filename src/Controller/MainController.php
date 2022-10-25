@@ -28,6 +28,9 @@ use App\Repository\IntervenantsRepository;
 use App\Repository\TableauNotesRepository;
 use App\Repository\FilesRepository;
 use App\Repository\ModulesRepository;
+use App\Repository\ClassesRepository;
+use App\Repository\MessagesRepository;
+use App\Repository\EntreprisesRepository;
 use App\Repository\BlocsRepository;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,10 +43,31 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_main")
      */
-    public function index(): Response
+    public function index(IntervenantsRepository $intervenantRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository): Response
     {
+
+        $classesAdmin = $classesRepository->findAll();
+        $apprenantsAdmin = $apprenantsRepository->findAll();
+        $intervenantsAdmin = $intervenantRepository->findAll();
+        $entreprisesAdmin = $entrprisesRepository->findAll();
+
+
+
+        $user = $this->getUser();
+        $messages =  $messagesRepository->findByuser($user);
+
+
+ 
+
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
+            'apprenantsAdmin' => $apprenantsAdmin,
+            'classesAdmin' => $classesAdmin,
+            'intervenantsAdmin' => $intervenantsAdmin,
+            'entreprisesAdmin' => $entreprisesAdmin,
+            'messages' =>  $messages,
+            'classes' =>  $classes,
+      
         ]);
     }
 
