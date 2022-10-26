@@ -6,6 +6,7 @@ use App\Entity\Users;
 use App\Entity\Profil;
 use App\Form\ProfilType;
 use App\Repository\UsersRepository;
+use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ class ProfilController extends AbstractController
    /**
      * @Route("/profil", name="app_profil", methods={"GET", "POST"})
      */
-    public function index(Request $request ,UsersRepository $usersRepository,EntityManagerInterface $entityManager): Response
+    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EntityManagerInterface $entityManager): Response
     {
 
         $profil = new Profil();
@@ -29,7 +30,7 @@ class ProfilController extends AbstractController
          $user = $usersRepository->findOneBy(['id'=>$idUser]);
          $nom = $user->getNom();
          $prenom = $user->getPrenom();
-         $photo = $profil ->getImage();
+     
 
 
          $form = $this->createForm(ProfilType::class, $profil);
@@ -41,7 +42,7 @@ class ProfilController extends AbstractController
             $profil->setNom($form->get('nom')->getData());
             $profil->setPrenom($form->get('prenom')->getData());
             $profil ->setImage($form->get('image')->getData());
-
+            //  $profil ->setUser($idUser);
 
             $user->setNom($form->get('nom')->getData());
             $user->setPrenom($form->get('prenom')->getData());
@@ -49,8 +50,8 @@ class ProfilController extends AbstractController
             $images=$profil ->setImage($form->get('image')->getData());
 
               $img=  $form->get('image')->getData();
-
-           
+              
+              
                 // On génère un nouveau nom de fichier
                 $fichier = md5(uniqid()).'.'.$img->guessExtension();
                 
@@ -70,12 +71,14 @@ class ProfilController extends AbstractController
         
         }
 
-
+       
+        
         return $this->renderForm('profil/index.html.twig', [
             'nom' => $nom,
             'prenom' => $prenom,
             'form' => $form,
-            'photo' => $photo,
+            'profil' => $profil,
+     
         ]);
     }
 }

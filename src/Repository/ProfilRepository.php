@@ -42,6 +42,18 @@ class ProfilRepository extends ServiceEntityRepository
 //    /**
 //     * @return Profil[] Returns an array of Profil objects
 //     */
+
+
+//public function findimg($id)
+////{
+  //  return $this->createQueryBuilder('u')
+  //  ->where('u.id = :id')
+//    ->setParameter('id',$id)
+ ///   ->getQuery()
+ //   ->getResult()
+ //   ;
+
+//}
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('p')
