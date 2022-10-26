@@ -2,3 +2,42 @@
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+
+{{ form_start(form) }}
+
+<div class="form-row">
+	<div class="col-md-3">
+
+		{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.entreprise) }}
+	</div>
+
+	<div class="col-md-3">
+		{{ form_row(form.ecole,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.ecole) }}
+	</div>
+		
+	<div class="form-row">
+		<div class="col-md-12">
+		{{ form_row(form.formation,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.formation) }}
+		</div>
+	</div>
+</div>
+
+
+<br>
+<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+ou
+<a href="{{ path('app_cv_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
