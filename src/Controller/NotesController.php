@@ -128,10 +128,15 @@ class NotesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
+           
             $tableau = $form->get('tableau');
+          
+           
             foreach($tableau as $tableau){
                 $tableaunotes = new TableauNotes();
+                $tableaunotes->setCreatedBy($this->getUser()->getEmail());
+                $date = new \DateTimeImmutable('now');
+                $tableaunotes->setCreatedAt($date);
                 $newfile= new Files();
             $files = $tableau->get('copie')->getData();
 
@@ -148,7 +153,7 @@ class NotesController extends AbstractController
 
                 // Je stocke le document dans la BDD (nom du fichier)
               
-                $date = new \DateTimeImmutable('now');
+            
                 $newfile->setName($fichier);
                 $newfile->setTableauNotes($tableaunotes);
                 $newfile->setNom('Copie');
@@ -159,13 +164,14 @@ class NotesController extends AbstractController
           
             $TableauNotesRepository->add($tableaunotes);
 
-          
-
             $note = new Notes();
         
       
             $note->addTableau($tableaunotes);
-
+            $date = new \DateTimeImmutable('now');
+            $note->setCreatedBy($this->getUser()->getEmail());
+    
+            $note->getCreatedAt($date);
             $note->setType($form->get('type')->getData());
             $note->setClasses($form->get('classes')->getData());
             $note->setModule($form->get('moduleid')->getData());
