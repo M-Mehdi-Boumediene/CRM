@@ -87,6 +87,16 @@ class Notes
      */
     private $coefficient;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $created_by;
+
     public function __construct()
     {
         $this->tableau = new ArrayCollection();
@@ -267,6 +277,30 @@ class Notes
     public function setCoefficient(?string $coefficient): self
     {
         $this->coefficient = $coefficient;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?string $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }

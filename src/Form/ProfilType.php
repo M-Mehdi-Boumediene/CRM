@@ -19,9 +19,10 @@ class ProfilType extends AbstractType
                 'label'=> 'photo de profil',
                 'multiple' => false,
                 'mapped'=> false,
-                'required'=> false,
-                
+                'required'=> false,   
                 ])
+            ->add('adresse')
+            ->add('telephone')        
         ;
     }
 

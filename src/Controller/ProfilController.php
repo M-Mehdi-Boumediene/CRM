@@ -30,7 +30,10 @@ class ProfilController extends AbstractController
          $user = $usersRepository->findOneBy(['id'=>$idUser]);
          $nom = $user->getNom();
          $prenom = $user->getPrenom();
-     
+         $adresse = $user->getAdresse();
+         $telephone = $user->getTelephone();
+
+
 
 
          $form = $this->createForm(ProfilType::class, $profil);
@@ -42,6 +45,8 @@ class ProfilController extends AbstractController
             $profil->setNom($form->get('nom')->getData());
             $profil->setPrenom($form->get('prenom')->getData());
             $profil ->setImage($form->get('image')->getData());
+            $profil ->setAdresse($form->get('adresse')->getData());
+            $profil ->setTelephone($form->get('telephone')->getData());
             //  $profil ->setUser($idUser);
 
             $user->setNom($form->get('nom')->getData());

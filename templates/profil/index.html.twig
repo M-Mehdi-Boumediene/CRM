@@ -106,6 +106,18 @@
                     
                     </div>
                 </div>
+				  <div class="row mt-2">
+                    <div class="col-md-6">
+                        {{ form_row(form.adresse,{'attr': {'class': 'form-control','value': nom }}) }}
+                        {{ form_errors(form.adresse) }}
+
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.telephone,{'attr': {'class': 'form-control','value': prenom }}) }}
+                        {{ form_errors(form.telephone) }}
+                    
+                    </div>
+                </div>
                   
                 <div class="mt-5 text-center">     
               	 <button type="submit" class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
