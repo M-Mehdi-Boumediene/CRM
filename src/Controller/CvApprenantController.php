@@ -13,7 +13,7 @@ use App\Repository\CvRepository;
 
 class CvApprenantController extends AbstractController
 {
-    #[Route('/cv/apprenant', name: 'app_cv_apprenant', methods: ['GET', 'POST'])]
+    #[Route('/apprenant/cv', name: 'app_cv_app', methods: ['GET', 'POST'])]
     public function index(Request $request, IntervenantsRepository $intervenantsRepository, CvRepository $cvRepository): Response
     {
 
@@ -21,8 +21,7 @@ class CvApprenantController extends AbstractController
         $role = $this->getUser()->getRoles();
 
         $intervenant = $intervenantsRepository->findOneBy(array('email'=>$user->getEmail()));
-        $experience = $cvRepository->findBy(array('intervenant'=>$intervenant,'type'=>'Expérience'));
-        $formation = $cvRepository->findBy(array('intervenant'=>$intervenant,'type'=>'Formation'));
+
 
         $cv = new Cv();
         $form = $this->createForm(CvType::class, $cv);
@@ -37,10 +36,9 @@ class CvApprenantController extends AbstractController
 
         return $this->render('cv_apprenant/index.html.twig', [
             'controller_name' => 'CvApprenantController',
-            'intervenant'=>$intervenant,
+            
             'form' => $form->createView(),
-            'experiences'=>$experience,
-            'formations'=>$formation,
+        
         ]);
     }
 }

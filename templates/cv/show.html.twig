@@ -1,43 +1,143 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cv
-{% endblock %}
+{% block title %}Mon CV{% endblock %}
 
 {% block body %}
-	<h1>Cv</h1>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ cv.id }}</td>
-			</tr>
-			<tr>
-				<th>Type</th>
-				<td>{{ cv.type }}</td>
-			</tr>
-			<tr>
-				<th>Debut</th>
-				<td>{{ cv.debut ? cv.debut|date('Y-m-d') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Fin</th>
-				<td>{{ cv.fin ? cv.fin|date('Y-m-d') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Titre</th>
-				<td>{{ cv.titre }}</td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td>{{ cv.description }}</td>
-			</tr>
-		</tbody>
-	</table>
+   {{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+   <div class="app-main">
+    {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
-	<a href="{{ path('app_cv_index') }}">back to list</a>
 
-	<a href="{{ path('app_cv_edit', {'id': cv.id}) }}">edit</a>
+     <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+							
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-id icon-gradient bg-strong-bliss"></i>
+									
+                                </div>
+								Mon parcours pro
+                                <div> 
+                                 
+                                    <div class="page-title-subheading" style="opacity: 1;">
+                         
+                                    </div>
+                                </div>
+								
+                            </div>
+                           <div class="page-title-actions">
+                            
+                            <div class="d-inline-block dropdown">
+                            <a href="{{path('app_cv_index')}}">
+                               <button  class="mb-2 mr-2 btn btn-shadow btn-outline-2x btn-outline-secondary">
+                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fa fa-fw" aria-hidden="true" title="Copy to use arrow-circle-left"></i>
+                                    </span>
+                                    Retour à la liste
+                                </button>
+                                </a>
+                                <a href="#">
+                                <button  class="mb-2 mr-2 btn-outline-2x btn btn-shadow-warning btn-outline-warning">
+                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                        <i class="fa fa-fw" aria-hidden="true" title="Copy to use edit"></i>
+                                    </span>
+                                    Modifier
+                                </button>
+                                </a>
+                                
+                           
 
-	{{ include('cv/_delete_form.html.twig') }}
+                               
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+               
+           <div class="tabs-animation"> 
+       
+
+ <div class="row">
+                 <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Titre de Poste</h5>
+                            <ul class="list-group list-group-flush">
+                              
+						<table class="table">
+							<tbody>
+							
+								<tr>
+									
+									<td>{{ cv.titre }}</td>
+								</tr>
+							</tbody>
+						</table>
+
+                     
+	
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Résumé</h5>
+                            <ul class="list-group list-group-flush">
+             
+               					 {{ cv.description }}
+                           
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+   <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Formation</h5>
+                            <ul class="list-group list-group-flush">
+             
+               					 {{ cv.formation }}
+                           
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+             <div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Entreprise</h5>
+                            <ul class="list-group list-group-flush">
+             
+               					 {{ cv.entreprise }}
+
+					
+
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Date</h5>
+                            <ul class="list-group list-group-flush">
+			 
+                           <th>Debut</th>
+							<td>{{ cv.debut ? cv.debut|date('Y-m-d') : '' }}</td>
+					<br>		
+							<th>Fin</th>
+							<td>{{ cv.fin ? cv.fin|date('Y-m-d') : '' }}</td>
+                            </ul>
+   </div>
+</div>   
+</div>
+
+          
+        </div>
+</div>
+     {{ block("Footer", "Menus/Footer.html.twig") }}
 {% endblock %}

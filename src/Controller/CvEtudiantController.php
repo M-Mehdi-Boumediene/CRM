@@ -2,22 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Repository\IntervenantsRepository;
-use App\Repository\EtudiantsRepository;
 use App\Entity\Cv;
 use App\Form\CvType;
+use App\Entity\Etudiants;
 use App\Repository\CvRepository;
+use App\Repository\EtudiantsRepository;
+use App\Repository\IntervenantsRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CvEtudiantController extends AbstractController
 {
-    #[Route('/cv/etudiant/etudiant', name: 'app_cv_etudiant', methods: ['GET', 'POST'])]
+    #[Route('/cv/apprenant', name: 'app_cv_etudiant', methods: ['GET', 'POST'])]
     public function index(Request $request, EtudiantsRepository $etudiantsRepository, CvRepository $cvRepository): Response
     {
-
+        
         $user = $this->getUser();
         $role = $this->getUser()->getRoles();
 
