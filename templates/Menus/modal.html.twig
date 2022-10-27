@@ -192,9 +192,7 @@
 							<li class="nav-item etudiants">
 								<a class="nav-link" href="#">Gérer Les Absences</a>
 							</li>
-							<li class="nav-item notes">
-								<a class="nav-link" href="#">Gérer Les Notes</a>
-							</li>
+					
 
 						</ul>
 
@@ -508,6 +506,7 @@
 								<h3 class="panel-title">
 									<strong>Apprenants</strong>
 								</h3>
+
 								<div class="pull-right">
 									<a id="show_discount_button" class="btn-glow btn-xs discount1absence bolder">Absences</a>
 									<a id="show_discount_button" class="btn-glow btn-xs discount2retard">Retards</a>
@@ -517,7 +516,8 @@
 
 
 						</div>
-
+								 <input type="checkbox" id="tousprésent" name="présent">
+      <label for="tousprésent">Tout le monde présent</label>
 						{% macro tag2CollectionItem(tableau2) %}
 
 
@@ -902,6 +902,21 @@ $('.retard').show()
 });
 
 
+  $('#tousprésent').click(function(){
+            if($(this).prop("checked") == true){
+               $( ".present" ).each(function(index) {
+
+			
+					$("#absences_tableau_"+index+"_presence").prop('checked', true);
+
+					});
+            }
+            else if($(this).prop("checked") == false){
+				    $( ".present" ).each(function(index) {
+            $("#absences_tableau_"+index+"_presence").prop('checked', false);
+				});
+            }
+        });
 
 </script>
 
