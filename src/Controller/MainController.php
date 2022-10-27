@@ -66,7 +66,7 @@ class MainController extends AbstractController
             'intervenantsAdmin' => $intervenantsAdmin,
             'entreprisesAdmin' => $entreprisesAdmin,
             'messages' =>  $messages,
-            'classes' =>  $classes,
+          
       
         ]);
     }
