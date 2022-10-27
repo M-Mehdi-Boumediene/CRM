@@ -91,6 +91,11 @@ class Entreprises
      */
     private $numeortelephone2;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="entreprises",cascade={"persist"})
+     */
+    private $users;
+
 
 
     public function __construct()
@@ -305,6 +310,18 @@ class Entreprises
     public function setNumeortelephone2(?string $numeortelephone2): self
     {
         $this->numeortelephone2 = $numeortelephone2;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }

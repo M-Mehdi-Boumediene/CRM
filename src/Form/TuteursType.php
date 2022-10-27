@@ -45,8 +45,11 @@ class TuteursType extends AbstractType
                 'required' => false,
                 'label'=> "Entreprise de rattachement"
             ])
+            ->add('users', UsersType::class)
             ->remove('created_at')
-            ->remove('created_by');
+            ->remove('created_by')
+            
+            ;
 
     }
 

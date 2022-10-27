@@ -1,5 +1,20 @@
 {{ form_start(form) }}
+<div class="form-row"> 
 
+	<div class="col-md-3">
+		{{ form_label(form.users.email,'Email ') }}
+		<span class="required">*</span>
+		{{ form_row(form.users.email,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.users.email) }}
+	</div>
+	<div class="col-md-3 password">
+		{{ form_label(form.users.password,'Mot de passe ') }}
+		<span class="required">*</span>
+		{{ form_row(form.users.password,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.users.password,) }}
+	</div>
+</div>
+<br><br>
 <div class="form-row">
 	<div class="col-md-3">
 		{{ form_row(form.nom,{'attr': {'class': 'form-control'}}) }}
@@ -27,12 +42,7 @@
 
 <br>
 <div class="form-row">
-	<div class="col-md-12">
-		{{ form_row(form.email,{'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.email) }}
-	</div>
-	
-	<br>
+
 <div class="form-row">
 <br>
 <div class="col-md-12">

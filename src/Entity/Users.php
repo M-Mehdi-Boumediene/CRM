@@ -172,6 +172,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $signatures;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Entreprises::class, mappedBy="users")
+     */
+    private $entreprises;
+
  
 
    
@@ -197,6 +202,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         $this->received = new ArrayCollection();
         $this->signatures = new ArrayCollection();
+        $this->entreprises = new ArrayCollection();
       
  
      
@@ -808,6 +814,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($signature->getUser() === $this) {
                 $signature->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Entreprises>
+     */
+    public function getEntreprises(): Collection
+    {
+        return $this->entreprises;
+    }
+
+    public function addEntreprise(Entreprises $entreprise): self
+    {
+        if (!$this->entreprises->contains($entreprise)) {
+            $this->entreprises[] = $entreprise;
+            $entreprise->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntreprise(Entreprises $entreprise): self
+    {
+        if ($this->entreprises->removeElement($entreprise)) {
+            // set the owning side to null (unless already changed)
+            if ($entreprise->getUsers() === $this) {
+                $entreprise->setUsers(null);
             }
         }
 
