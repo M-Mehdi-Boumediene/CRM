@@ -9,13 +9,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use PhpParser\Node\Stmt\Label;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class CoursType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',EntityType::class, [
+            ->add('nom',TextType::class, [
                 'label' => 'Intitulé de diplome'
             ])
             ->add('module',EntityType::class, [

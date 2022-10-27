@@ -77,6 +77,9 @@ class CoursController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $date = new \DateTimeImmutable('now');
+            $cour->setCreatedAt($date);
+            $cour->setCreatedBy($this->getUser()->getEmail());
             $coursRepository->add($cour, true);
 
             return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);

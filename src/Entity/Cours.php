@@ -40,7 +40,7 @@ class Cours
     private $createdBy;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $createdAt;
 
