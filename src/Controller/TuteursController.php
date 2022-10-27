@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Users;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/tuteurs")
@@ -62,9 +65,10 @@ class TuteursController extends AbstractController
     /**
      * @Route("/new", name="app_tuteurs_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, TuteursRepository $tuteursRepository): Response
+    public function new(Request $request, TuteursRepository $tuteursRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $tuteur = new Tuteurs();
+        $user = new Users();
         $form = $this->createForm(TuteursType::class, $tuteur);
         $form->handleRequest($request);
 
@@ -72,9 +76,28 @@ class TuteursController extends AbstractController
             $date = new \DateTimeImmutable('now');
          
             $tuteur->setCreatedBy($this->getUser()->getEmail());
-            $tuteur->setUsers($this->getUser());
+            $tuteur->setUsers($user);
             $tuteur->setCreatedAt($date);
             $tuteursRepository->add($tuteur);
+            
+            $password = $passwordEncoder->encodePassword($user, $form->get('users')->get('password')->getData());
+            $user->setPassword($password);
+
+
+            $user->setCreatedBy($this->getUser()->getEmail());
+            $user->setUser($user);
+            $user->setEmail($form->get('users')->get('email')->getData());
+            $user->setNom($form->get('nom')->getData());
+            $user->setPrenom($form->get('prenom')->getData());
+            $user->setAdresse($form->get('adresse')->getData());
+            
+            $user->setRoles(['ROLE_TUTEUR']);
+            $user->setCreatedAt($date);
+            $user->setPassword($password);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+     
             return $this->redirectToRoute('app_tuteurs_index', [], Response::HTTP_SEE_OTHER);
         }
 

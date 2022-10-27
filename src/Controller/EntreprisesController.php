@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Users;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/entreprises")
@@ -62,9 +65,10 @@ class EntreprisesController extends AbstractController
     /**
      * @Route("/new", name="app_entreprises_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntreprisesRepository $entreprisesRepository): Response
+    public function new(Request $request, EntreprisesRepository $entreprisesRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $entreprise = new Entreprises();
+        $user = new Users();
         $form = $this->createForm(EntreprisesType::class, $entreprise);
         $form->handleRequest($request);
 
@@ -72,9 +76,29 @@ class EntreprisesController extends AbstractController
             $date = new \DateTimeImmutable('now');
          
             $entreprise->setCreatedBy($this->getUser()->getEmail());
-         
+            $entreprise->setUsers($user);
             $entreprise->setCreatedAt($date);
             $entreprisesRepository->add($entreprise);
+            
+            $password = $passwordEncoder->encodePassword($user, $form->get('users')->get('password')->getData());
+            $user->setPassword($password);
+
+
+            $user->setCreatedBy($this->getUser()->getEmail());
+            $user->setUser($user);
+            $user->setEmail($form->get('users')->get('email')->getData());
+            $user->setNom($form->get('nom')->getData());
+ 
+            $user->setAdresse($form->get('adresse')->getData());
+            
+            $user->setRoles(['ROLE_ENTREPRISE']);
+            $user->setCreatedAt($date);
+            $user->setPassword($password);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+     
+
             return $this->redirectToRoute('app_entreprises_index', [], Response::HTTP_SEE_OTHER);
         }
 
