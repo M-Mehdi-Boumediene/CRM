@@ -66,22 +66,21 @@ class CalendrierRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    // /**
-    //  * @return Calendrier[] Returns an array of Calendrier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+ 
+    public function horaires($start,$end)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('c.start < :end')
+            ->andWhere('c.end > :start')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->orderBy('c.id', 'DESC')
+           
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Calendrier

@@ -36,7 +36,12 @@ class CalendrierController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $calend = $calendrierRepository->findOneBy(array('start'=>$form->get('start')->getData(),'end'=>$form->get('end')->getData()));
+            $start = $form->get('start')->getData();
+            $end = $form->get('end')->getData();
+            
+            $calend = $calendrierRepository->horaires($start,$end);
+            
+
             
             if($calend){
 
