@@ -22,9 +22,7 @@ class CvEtudiantController extends AbstractController
         $user = $this->getUser();
         $role = $this->getUser()->getRoles();
 
-        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$user));
-        $experience = $cvRepository->findBy(array('etudiant'=>$etudiant,'type'=>'Expérience'));
-        $formation = $cvRepository->findBy(array('etudiant'=>$etudiant,'type'=>'Formation'));
+    
 
         $cv = new Cv();
         $form = $this->createForm(CvType::class, $cv);
@@ -39,10 +37,9 @@ class CvEtudiantController extends AbstractController
 
         return $this->render('cv_etudiant/index.html.twig', [
             'controller_name' => 'CvEtudiantController',
-            'etudiant'=>$etudiant,
+     
             'form' => $form->createView(),
-            'experiences'=>$experience,
-            'formations'=>$formation,
+        
         ]);
     }
 }
