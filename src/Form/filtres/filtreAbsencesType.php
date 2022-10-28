@@ -2,12 +2,10 @@
 
 namespace App\Form\filtres;
 
-
 use App\Entity\Classes;
 use App\Entity\Etudiants;
 use App\Entity\Intervenants;
 use App\Entity\Modules;
-
 use App\Entity\Blocs;
 use App\Entity\Notes;
 use Doctrine\ORM\EntityRepository;
