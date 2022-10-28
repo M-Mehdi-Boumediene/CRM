@@ -83,7 +83,20 @@ class IntervenantsType extends AbstractType
                 'autocomplete' => true,
                 'required' => false
             ])
-            ->add('user', UsersType::class);
+            ->add('user', UsersType::class)
+            ->add('cat',ChoiceType::class, [
+                'choices' => [
+                    'Intervenant permanent' => 'Intervenant permanent',
+                    'Intervenant remplaçant' => 'Intervenant remplaçant',
+                    
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+                'label' => false,
+            ])
+            
+            ;
        
         ;
 

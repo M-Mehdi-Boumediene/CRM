@@ -25,7 +25,7 @@ class IntervenantAprenantController extends AbstractController
 
         return $this->renderForm('intervenant_aprenant/index.html.twig', [
       
-            'classes' => $classesRepository->findByIntervenantEtudiant(1),
+            'classes' => $classesRepository->findByIntervenantEtudiant($classe ),
         ]);
     
     }

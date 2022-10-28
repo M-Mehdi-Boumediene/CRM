@@ -77,7 +77,7 @@ class Intervenants
     private $classes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="intervenants")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="intervenants",cascade={"all"})
      */
     private $user;
 
@@ -95,6 +95,11 @@ class Intervenants
      * @ORM\OneToMany(targetEntity=Calendrier::class, mappedBy="intervenant")
      */
     private $calendriers;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cat;
 
    
 
@@ -351,6 +356,18 @@ class Intervenants
                 $calendrier->setIntervenant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCat(): ?string
+    {
+        return $this->cat;
+    }
+
+    public function setCat(?string $cat): self
+    {
+        $this->cat = $cat;
 
         return $this;
     }

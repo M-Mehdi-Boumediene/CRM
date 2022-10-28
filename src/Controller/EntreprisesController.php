@@ -77,6 +77,7 @@ class EntreprisesController extends AbstractController
          
             $entreprise->setCreatedBy($this->getUser()->getEmail());
             $entreprise->setUsers($user);
+            $entreprise->setEmail($form->get('users')->get('email')->getData());
             $entreprise->setCreatedAt($date);
             $entreprisesRepository->add($entreprise);
             

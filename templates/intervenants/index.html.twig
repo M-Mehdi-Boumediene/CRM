@@ -108,6 +108,7 @@
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Téléphone</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Email</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
+																				<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Type</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Actions</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
 
@@ -144,8 +145,10 @@
 																</span>
 															{% endif %}
 														</td>
+															<td class="sorting_1 dtr-control">
+															{{intervenant.cat}}
 
-
+</td>
 														<td class="sorting_1 dtr-control">
 															<a href="{{ path('app_intervenants_edit', {'id': intervenant.id}) }}">
 																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">

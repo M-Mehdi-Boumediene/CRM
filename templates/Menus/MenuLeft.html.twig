@@ -214,7 +214,7 @@
 						</li>
 
 						<li>
-							<a href="{{path('app_cv_apprenant')}}">
+							<a href="">
 								<i class="metismenu-icon pe-7s-display2"></i>Mon parcours pro<i class="metismenu-state-icon "></i>
 							</a>
 						</li>
@@ -272,6 +272,54 @@
 
 					{% endif %}
 
+
+{% if is_granted('ROLE_ENTREPRISE', 'ROLE_ADMIN')  %}
+
+
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Nos apprenants<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Absences & assiduité<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="metismenu-icon pe-7s-display2"></i>Progressions & resultats<i class="metismenu-state-icon "></i>
+							</a>
+						</li>
+						<li>
+								<a href="#">
+									<i class="metismenu-icon pe-7s-file"></i>
+									Documents 
+									<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+								</a>
+								<ul>
+									<li><a href="{{path('app_administratifs_index')}}"><i class="metismenu-icon pe-7s-display2"></i>Administratifs<i class="metismenu-state-icon "></i></a></li>
+									<li><a href="{{path('app_indispensables_index')}}"><i class="metismenu-icon pe-7s-display2"></i>Indispensables<i class="metismenu-state-icon "></i></a></li>
+
+								</ul>
+							</li>
+
+							<li>
+								<a href="#">
+									<i class="metismenu-icon pe-7s-culture"></i>
+									Entreprise et emploi
+									<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+								</a>
+								<ul>
+									<li><a href="#"><i class="metismenu-icon pe-7s-display2"></i>Offres de stage<i class="metismenu-state-icon "></i></a></li>
+									<li><a href="#"><i class="metismenu-icon pe-7s-display2"></i>Offres d'emploi<i class="metismenu-state-icon "></i></a></li>
+
+								</ul>
+							</li>
+
+						{% else %}
+
+					{% endif %}
 
 				</div>
 			</div>

@@ -96,7 +96,7 @@ class IntervenantsController extends AbstractController
             $date = new \DateTimeImmutable('now');
          
             $intervenant->setCreatedBy($this->getUser()->getEmail());
-            $intervenant->setUser($this->getUser());
+            $intervenant->setUser($user);
             $intervenant->setCreatedAt($date);
             $intervenant->setEmail($form->get('user')->get('email')->getData());
             $intervenant->setVille($form->get('ville')->getData());

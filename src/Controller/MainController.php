@@ -56,19 +56,48 @@ class MainController extends AbstractController
         $user = $this->getUser();
         $messages =  $messagesRepository->findByuser($user);
 
+     
 
- 
+        $apprenant = $apprenantsRepository->findOneBy(array('user'=>$user));
+        $lintervenant = $intervenantRepository->findOneBy(array('user'=>$user));
 
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-            'apprenantsAdmin' => $apprenantsAdmin,
-            'classesAdmin' => $classesAdmin,
-            'intervenantsAdmin' => $intervenantsAdmin,
-            'entreprisesAdmin' => $entreprisesAdmin,
-            'messages' =>  $messages,
+        $intervenant = $user->getIntervenants();
+
+        foreach ($intervenant as $inter){
+          $classe =  $inter->getClasses()->getId();
+        }
+        if( $user->getRoles() == ["ROLE_ENTREPRISE"])
+        { 
+            return $this->render('main/index.html.twig', [
+                'controller_name' => 'MainController',
+                'apprenantsAdmin' => $apprenantsAdmin,
+                'classesAdmin' => $classesAdmin,
+                'intervenantsAdmin' => $intervenantsAdmin,
+                'entreprisesAdmin' => $entreprisesAdmin,
+                'messages' =>  $messages,
+                'apprenant' =>  $apprenant,
+                'lintervenant'=>$lintervenant, 
+                'classes' => $classesRepository->findByIntervenantEtudiant($classe),
           
-      
-        ]);
+              
+          
+            ]);         }else{
+                return $this->render('main/index.html.twig', [
+                    'controller_name' => 'MainController',
+                    'apprenantsAdmin' => $apprenantsAdmin,
+                    'classesAdmin' => $classesAdmin,
+                    'intervenantsAdmin' => $intervenantsAdmin,
+                    'entreprisesAdmin' => $entreprisesAdmin,
+                    'messages' =>  $messages,
+                    'apprenant' =>  $apprenant,
+                    'lintervenant'=>$lintervenant, 
+                    'classes' => $classesRepository->findByIntervenantEtudiant(1),
+              
+                  
+              
+                ]);
+         }
+       
     }
 
 
