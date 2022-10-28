@@ -83,18 +83,8 @@
 		{{ form_row(form.adresse,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.adresse) }}
 	</div>
-	<div class="col-md-3">
-		{{ form_label(form.ville,'Code postal ') }}
-		<span class="required">*</span>
-		{{ form_row(form.ville,{'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.ville) }}
-	</div>
-	<div class="col-md-3">
-		{{ form_label(form.codepostale,'Département ') }}
-		<span class="required">*</span>
-		{{ form_row(form.codepostale,{'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.codepostale) }}
-	</div>
+
+
 	<div class="col-md-3">
 		{{ form_label(form.telephone,'Téléphone ') }}
 		<span class="required">*</span>
@@ -116,6 +106,7 @@ ou
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 <script>
+/*
 	var $sport = $('#intervenants_ville');
 // When sport gets selected ...
 $sport.change(function () { // ... retrieve the corresponding form.
@@ -172,6 +163,7 @@ $('#intervenants_codepostale').select2();
 }
 
 });
+*/
 </script>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>

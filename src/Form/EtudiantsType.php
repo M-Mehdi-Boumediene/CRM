@@ -83,7 +83,7 @@ class EtudiantsType extends AbstractType
             'required' => false,
             'label' => 'Cursus' 
         ])
-        ->add('ville', EntityType::class, [
+        ->remove('ville', EntityType::class, [
             'mapped' => false,
             'class' => Villes::class,
             'choice_label' => 'nom',
@@ -109,7 +109,7 @@ class EtudiantsType extends AbstractType
         ->add('user', UsersType::class);
    
     ;
-
+/*
     $builder->get('ville')->addEventListener(
         FormEvents::POST_SUBMIT,
         function (FormEvent $event) {
@@ -164,6 +164,8 @@ class EtudiantsType extends AbstractType
 
         }
     );
+
+    */
     }
 
     public function configureOptions(OptionsResolver $resolver): void

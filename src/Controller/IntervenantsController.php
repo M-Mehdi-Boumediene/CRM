@@ -99,7 +99,9 @@ class IntervenantsController extends AbstractController
             $intervenant->setUser($user);
             $intervenant->setCreatedAt($date);
             $intervenant->setEmail($form->get('user')->get('email')->getData());
+            /*
             $intervenant->setVille($form->get('ville')->getData());
+            */
             $intervenantsRepository->add($intervenant);
 
       

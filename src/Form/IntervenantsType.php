@@ -60,7 +60,7 @@ class IntervenantsType extends AbstractType
                 'autocomplete' => true,
             ])
 
-            ->add('ville', EntityType::class, [
+            ->remove('ville', EntityType::class, [
                 'mapped' => false,
                 'class' => Villes::class,
                 'choice_label' => 'nom',
@@ -99,13 +99,13 @@ class IntervenantsType extends AbstractType
             ;
        
         ;
-
+/*
         $builder->get('ville')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
                 $form = $event->getForm();
 
-                $form ->getParent()->add('codepostale', EntityType::class, [
+                $form ->getParent()->remove('codepostale', EntityType::class, [
                     'class' => Codepostal::class,
                     'choice_label' => 'nom',
                     'choices' => $form->getData()->getCodepostale(),
@@ -154,8 +154,9 @@ class IntervenantsType extends AbstractType
 
             }
         );
-
+ */
     }
+   
 
     public function configureOptions(OptionsResolver $resolver): void
     {
