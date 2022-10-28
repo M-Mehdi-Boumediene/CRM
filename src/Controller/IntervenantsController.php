@@ -7,7 +7,7 @@ use App\Entity\Users;
 use App\Form\UsersType;
 use App\Form\IntervenantsType;
 use App\Form\FiltreType;
-use App\Form\FiltreIntervenantType;
+use App\Form\filtres\FiltreIntervenantType;
 use App\Repository\IntervenantsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\UsersRepository;

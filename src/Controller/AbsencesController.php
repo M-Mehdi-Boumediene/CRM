@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Absences;
 use App\Entity\TableauAbsences;
 use App\Form\AbsencesType;
-use App\Form\FiltreAbsencesType;
+use App\Form\filtres\FiltreAbsencesType;
 use App\Repository\AbsencesRepository;
 use App\Repository\IntervenantsRepository;
 use App\Repository\TableauAbsencesRepository;

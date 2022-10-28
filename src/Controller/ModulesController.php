@@ -10,7 +10,7 @@ use App\Form\ModulesType;
 use App\Form\ClassesType;
 use App\Form\BlocsType;
 use App\Form\FiltreType;
-use App\Form\FiltreModuleType;
+use App\Form\filtres\FiltreModuleType;
 use App\Repository\UsersRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\ClassesRepository;

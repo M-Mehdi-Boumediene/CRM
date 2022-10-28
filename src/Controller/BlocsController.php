@@ -7,7 +7,7 @@ use App\Entity\Classes;
 use App\Form\BlocsType;
 use App\Form\ClassesType;
 use App\Form\SearchType;
-use App\Form\FiltreBlocType;
+use App\Form\filtres\FiltreBlocType;
 use App\Repository\BlocsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\ClassesRepository;

@@ -6,7 +6,7 @@ use App\Entity\Cours;
 use App\Entity\Modules;
 use App\Form\CoursType;
 use App\Form\ModulesType;
-use App\Form\FiltreCoursType;
+use App\Form\filtres\FiltreCoursType;
 use App\Repository\CoursRepository;
 use App\Repository\ModulesRepository;
 

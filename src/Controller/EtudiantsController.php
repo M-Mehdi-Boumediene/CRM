@@ -6,7 +6,7 @@ use App\Entity\Etudiants;
 use App\Entity\Tuteurs;
 use App\Form\EtudiantsType;
 use App\Form\FiltreType;
-use App\Form\FiltreApprenantType;
+use App\Form\filtres\FiltreApprenantType;
 use App\Repository\EtudiantsRepository;
 use App\Repository\NotesRepository;
 use App\Repository\TableauNotesRepository;

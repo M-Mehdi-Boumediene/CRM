@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Entreprises;
 use App\Form\EntreprisesType;
 use App\Form\FiltreType;
-use App\Form\FiltreEntrepriseType;
+use App\Form\filtres\FiltreEntrepriseType;
 use App\Repository\EntreprisesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -6,7 +6,7 @@ use App\Entity\Etudiants;
 use App\Entity\Notes;
 use App\Entity\TableauNotes;
 use App\Form\NotesType;
-use App\Form\FiltreNotesType;
+use App\Form\filtres\FiltreNotesType;
 use App\Repository\NotesRepository;
 use App\Repository\IntervenantsRepository;
 use App\Repository\TableauNotesRepository;
