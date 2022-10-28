@@ -96,6 +96,11 @@ class Intervenants
      */
     private $calendriers;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $categorie;
+
    
 
     public function __construct()
@@ -351,6 +356,18 @@ class Intervenants
                 $calendrier->setIntervenant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

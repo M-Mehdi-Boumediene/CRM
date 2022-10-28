@@ -69,8 +69,14 @@ class IntervenantsType extends AbstractType
                 'required' => false,
               
             ])
-     
-
+            ->add('categorie',ChoiceType::class, [
+                'choices' => [
+                    'Intervenant Remplaçant' => 'Intervenant_Remplaçant',
+                    'Intervenant Permanent' => 'Intervenant_Permanent',
+                    
+                ],
+                'label'=>false,
+                ])
             ->remove('created_at')
             ->remove('created_by')
 

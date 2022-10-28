@@ -57,6 +57,7 @@ class IntervenantsController extends AbstractController
                 $classe = empty($classe);
             }
        
+            
         $intervenants =  $intervenantRepository->searchMot($value,$module,$classe);
         $intervenants = $paginator->paginate(
             $intervenants, // Requête contenant les données à paginer (ici nos articles)
@@ -68,14 +69,30 @@ class IntervenantsController extends AbstractController
                 'form2' => $form2,
             ]);
         }
-        $intervenants =  $intervenantRepository->findAll();
-        $intervenants = $paginator->paginate(
-            $intervenants, // Requête contenant les données à paginer (ici nos articles)
+
+
+        $intervenantspermanent =  $intervenantRepository->findBy(array('categorie'=>"Intervenant_Permanent"));
+        $intervenantsremplaçant =  $intervenantRepository->findBy(array('categorie'=>"Intervenant_Remplaçant"));
+    
+    
+        $intervenantspermanent = $paginator->paginate(
+            $intervenantspermanent, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             10 // Nombre de résultats par page
         );
+        
+
+
+
+        $intervenantsremplaçant = $paginator->paginate(
+            $intervenantsremplaçant, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+
         return $this->renderForm('intervenants/index.html.twig', [
-            'intervenants' => $intervenants,
+            'intervenantsremplaçants' => $intervenantsremplaçant,
+            'intervenantspermanents' => $intervenantspermanent,
             'form' => $form,
             'form2' => $form2,
         ]);

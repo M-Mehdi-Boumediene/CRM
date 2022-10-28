@@ -32,6 +32,13 @@
 		{{ form_errors(form.user.password,) }}
 	</div>
 
+	<div class="col-md-3">
+		{{ form_label(form.categorie,'Catégorie ') }}
+		<span class="required">*</span>
+		{{ form_row(form.categorie,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.categorie,) }}
+	</div>
+
 	<div class="col-md-3" style="display:none;">
 		{{ form_label(form.user.isVerified,'Activation ') }}
 		<span class="required">*</span>
