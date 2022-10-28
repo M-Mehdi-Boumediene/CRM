@@ -24,7 +24,6 @@ use App\Form\DataTransformer\ClassesToNumbersTransformer;
 class FiltreAbsencesType extends AbstractType
 {
     private $em;
-
     
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
