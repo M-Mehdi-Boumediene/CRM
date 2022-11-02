@@ -172,12 +172,12 @@ class EtudiantsController extends AbstractController
 
         $tableaunotes = $TableauNotesRepository->paretudiant($etudiant);
 
-     $notes = $notesRepository->findByetudiant($etudiant);
+        $notes = $notesRepository->findByetudiant($etudiant);
 
 
-     $classes = $classesRepository->findOneBy(['id'=>$etudiant->getClasses()]);
+        $classes = $classesRepository->findOneBy(['id'=>$etudiant->getClasses()]);
 
-     $blocs = $blocsRepository->findBy(['Classe'=>$classes]);
+        $blocs = $blocsRepository->findBy(['Classe'=>$classes]);
 
 
         return $this->render('etudiants/show.html.twig', [
