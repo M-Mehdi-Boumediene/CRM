@@ -453,32 +453,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="card mb-3 widget-content bg-happy-green">
-										<div class="widget-content-wrapper text-white">
-											<div class="widget-content-left">
-												<div class="widget-heading">Nombre d'intervenants</div>
-												<div class="widget-subheading">Année 2022</div>
-											</div>
-											<div class="widget-content-right">
-												<div class="widget-numbers text-white">
-
-		{% set nbintervenants = 0 %}
-												{% for classe in classes %}
-
-													{% for intervenant in  classe.intervenants %}
-														{% set nbintervenants = nbintervenants + 1 %}
-														
-
-													{% endfor %}
-
-												{% endfor %}
-
-													<span>{{nbintervenants}}</span>
-
-												</div>
-											</div>
-										</div>
-									</div>
+									
 
 									<div class="mb-3 card">
 
