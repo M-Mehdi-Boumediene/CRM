@@ -97,6 +97,12 @@
 	<div class="col-md-3 entreprise">
 		<br>
 		{{ form_label(form.entreprise,'Entreprise ') }}
+					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="    position: absolute;
+    padding: 5px;
+    margin-top: -5px;
+    margin-left: 5px;
+    background: none;
+    border: none;"> <i class="fa fa-fw" aria-hidden="true" title="Copy to use plus" style="color:black;"></i></button>
 		{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.entreprise) }}
 	</div>

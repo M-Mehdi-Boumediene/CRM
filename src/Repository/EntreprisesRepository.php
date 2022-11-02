@@ -44,7 +44,17 @@ class EntreprisesRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
+    
+    public function findEntreprise($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id)
+           
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     public function searchMot($value)
     {
         return $this->createQueryBuilder('u')

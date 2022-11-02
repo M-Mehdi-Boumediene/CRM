@@ -2,19 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Entity\Tuteurs;
-use App\Form\TuteursType;
 use App\Form\FiltreType;
-use App\Form\filtres\FiltreTuteurType;
+use App\Form\TuteursType;
+use App\Entity\Entreprises;
+use App\Form\EntreprisesType;
 use App\Repository\UsersRepository;
 use App\Repository\TuteursRepository;
+use App\Form\filtres\FiltreTuteurType;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\EntreprisesRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Knp\Component\Pager\PaginatorInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Users;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -25,8 +28,9 @@ class TuteursController extends AbstractController
     /**
      * @Route("/", name="app_tuteurs_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, TuteursRepository $tuteursRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request,EntreprisesRepository $entreprisesRepository,TuteursRepository $tuteursRepository, PaginatorInterface $paginator): Response
     {
+
         $form = $this->createForm(FiltreType::class);
         $form->handleRequest($request);
 
@@ -35,6 +39,7 @@ class TuteursController extends AbstractController
         
         $value = $form2->get('search')->getData();
         $tuteurs =  $tuteursRepository->searchMot($value);
+       
         if ($form2->isSubmitted() && $form2->isValid()) {
 
             $tuteurs = $paginator->paginate(
@@ -42,6 +47,7 @@ class TuteursController extends AbstractController
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
                 10 // Nombre de résultats par page
             );
+          
             return $this->renderForm('tuteurs/index.html.twig', [
                 'tuteurs' => $tuteurs,
                 'form' => $form,
@@ -49,6 +55,9 @@ class TuteursController extends AbstractController
             ]);
 
         }
+    
+      
+ 
         $tuteurs =  $tuteursRepository->findAll();
         $tuteurs = $paginator->paginate(
             $tuteurs, // Requête contenant les données à paginer (ici nos articles)
@@ -65,7 +74,7 @@ class TuteursController extends AbstractController
     /**
      * @Route("/new", name="app_tuteurs_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, TuteursRepository $tuteursRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request,EntreprisesRepository $entrepriseRepository,TuteursRepository $tuteursRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $tuteur = new Tuteurs();
         $user = new Users();
@@ -101,9 +110,24 @@ class TuteursController extends AbstractController
             return $this->redirectToRoute('app_tuteurs_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
+        $entreprise = new Entreprises();
+        $form2 = $this->createForm(EntreprisesType::class, $entreprise);
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $date = new \DateTimeImmutable('now');
+         
+            $entreprise->setCreatedBy($this->getUser()->getEmail());
+        
+            $entreprise->setCreatedAt($date);
+            $entrepriseRepository->add($entreprise);
+            return $this->redirectToRoute('app_etudiants_new', [], Response::HTTP_SEE_OTHER);
+        }
         return $this->renderForm('tuteurs/new.html.twig', [
             'tuteur' => $tuteur,
             'form' => $form,
+            'form2' => $form2,
         ]);
     }
 

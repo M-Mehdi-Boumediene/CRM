@@ -43,7 +43,7 @@ class TuteursType extends AbstractType
                 'choice_label' => 'nom',
                 'multiple' => false,
                 'required' => false,
-                'label'=> "Entreprise de rattachement"
+                'label'=> false
             ])
             ->add('users', UsersType::class)
             ->remove('created_at')

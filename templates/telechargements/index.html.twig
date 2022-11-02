@@ -51,10 +51,11 @@
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Fichier</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Type</th>
-
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Date de création</th>
-													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Créé par</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Module</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
+													
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">actions</th>
+													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
 
 
 												</tr>
@@ -79,14 +80,12 @@
 
 														<td class="sorting_1 dtr-control">
 
-															<a href="{{ path('app_telechargements_show', {'id': telechargement.id}) }}">{{ telechargement.createdAt|date('d-m-Y H:i') }}</a>
 
 														</td>
 
 														<td class="sorting_1 dtr-control">
 
-															<a href="{{ path('app_telechargements_show', {'id': telechargement.user.id}) }}">{{ telechargement.user.nom }}
-																{{ telechargement.user.prenom }}</a>
+															
 
 														</td>
 
@@ -97,6 +96,11 @@
 																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
 																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
 															</a>
+														</td>																																									
+														<td class="sorting_1 dtr-control" align="center">																														
+															<button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Crée Le {{ telechargement.createdAt ? telechargement.createdAt|date('Y-m-d H:i') : '' }} Par  {{ telechargement.user.nom }}">
+																<i class="fa fa-info"></i>
+															</button>
 														</td>
 													</tr>
 												{% else %}

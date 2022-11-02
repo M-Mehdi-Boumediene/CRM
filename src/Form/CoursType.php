@@ -17,7 +17,7 @@ class CoursType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class, [
-                'label' => 'Intitulé de diplome'
+                'label' => 'Intitulé de cours'
             ])
             ->add('module',EntityType::class, [
                 'class' => Modules::class,

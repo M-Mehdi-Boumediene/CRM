@@ -17,12 +17,4 @@ class OffresController extends AbstractController
         ]);
     }
 
-    #[Route('/offres_stage', name: 'app_offres_stage')]
-    public function indexstage(): Response
-    {
-        return $this->render('offres/indexstage.html.twig', [
-            'controller_name' => 'OffresController',
-        ]);
-    }
-
 }

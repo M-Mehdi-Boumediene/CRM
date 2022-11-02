@@ -74,7 +74,7 @@ class EtudiantsType extends AbstractType
         ])
         ->add('cursus',ChoiceType::class, [
             'choices' => [
-                'Initiale ' => 'Initiale ',
+                'Initial ' => 'Initiale ',
                 'Alternance ' => 'Alternance ',
                 
             ],

@@ -2,30 +2,33 @@
 
 namespace App\Controller;
 
-use App\Entity\Etudiants;
+use App\Entity\Users;
 use App\Entity\Tuteurs;
-use App\Form\EtudiantsType;
+use App\Form\UsersType;
 use App\Form\FiltreType;
-use App\Form\filtres\FiltreApprenantType;
-use App\Repository\EtudiantsRepository;
+use App\Entity\Etudiants;
+use App\Entity\Entreprises;
+use App\Form\EtudiantsType;
+use App\Entity\Intervenants;
+use App\Form\EntreprisesType;
+use App\Form\IntervenantsType;
+use App\Repository\BlocsRepository;
 use App\Repository\NotesRepository;
-use App\Repository\TableauNotesRepository;
 use App\Repository\UsersRepository;
 use App\Repository\ClassesRepository;
-use App\Repository\BlocsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ModulesRepository;
+use App\Repository\EtudiantsRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Form\filtres\FiltreApprenantType;
+use App\Repository\EntreprisesRepository;
+use App\Repository\IntervenantsRepository;
+use App\Repository\TableauNotesRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Intervenants;
-use App\Entity\Users;
-use App\Form\UsersType;
-use App\Form\IntervenantsType;
-use App\Repository\IntervenantsRepository;
-use App\Repository\ModulesRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/etudiants")
  */
@@ -98,7 +101,7 @@ class EtudiantsController extends AbstractController
     /**
      * @Route("/new", name="app_etudiants_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EtudiantsRepository $etudiantsRepository,  UsersRepository $usersRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, EntreprisesRepository $entrepriseRepository ,EtudiantsRepository $etudiantsRepository,  UsersRepository $usersRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $etudiant = new Etudiants();
         $user = new Users();
@@ -138,9 +141,26 @@ class EtudiantsController extends AbstractController
             return $this->redirectToRoute('app_etudiants_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $entreprise = new Entreprises();
+        $form2 = $this->createForm(EntreprisesType::class, $entreprise);
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $date = new \DateTimeImmutable('now');
+         
+            $entreprise->setCreatedBy($this->getUser()->getEmail());
+        
+            $entreprise->setCreatedAt($date);
+            $entrepriseRepository->add($entreprise);
+            return $this->redirectToRoute('app_etudiants_new', [], Response::HTTP_SEE_OTHER);
+        }
+
+
         return $this->renderForm('etudiants/new.html.twig', [
             'etudiant' => $etudiant,
+            'form2' => $form2,
             'form' => $form,
+            
         ]);
     }
 

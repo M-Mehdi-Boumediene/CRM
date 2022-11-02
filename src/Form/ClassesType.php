@@ -21,7 +21,7 @@ class ClassesType extends AbstractType
             ])
             ->add('curus',ChoiceType::class, [
                 'choices' => [
-                    'Initiale ' => 'Initiale ',
+                    'Initial ' => 'Initiale ',
                     'Alternance ' => 'Alternance ',
                     
                 ],
@@ -31,20 +31,18 @@ class ClassesType extends AbstractType
                 'label' => 'Cursus' 
             ])
             ->add('Annee_Scolaire')
-
             ->add('nbsemestre',ChoiceType::class, [
                 'choices' => [
-                    '1' => '1',
                     '2' => '2',
-                    '3' => '3',
                     '4' => '4',
+                    '6' => '6',
+                    '8' => '8',
                 ],
                 'expanded' => false,
                 'multiple' => false,
                 'required' => false,
                 'label' => 'Nombre de semestres' 
             ])
-
             ->remove('created_at')
             ->remove('created_by')
         ;

@@ -16,7 +16,7 @@
 		<div class="modal-dialog" role="document" style="margin-top:100px;">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ajouter une classe</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Ajouter un module</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -67,10 +67,10 @@
 </div>
 <br>
 <div class="form-row">
-	<div class="col-md-3">
+	<div class="col-md-3" style="display:none;">
 		{{ form_row(form2.files,{'attr': {'class': ''}}) }}
 		{{ form_errors(form2.files) }}</div>
-	<div class="col-md-3">
+	<div class="col-md-3" style="display:none;">
 		{{ form_row(form2.documents,{'attr': {'class': ''}}) }}
 		{{ form_errors(form2.documents) }}</div>
 </div>

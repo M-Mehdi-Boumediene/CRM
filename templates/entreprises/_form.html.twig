@@ -24,7 +24,10 @@
 		{{ form_row(form.siret,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.siret) }}
 	</div>
-
+	<div style="display:none;">
+		{{ form_row(form.users.isVerified,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.users.isVerified,) }}
+	</div>
 
 </div>
 <br>
@@ -47,6 +50,9 @@
 <br>
 <div class="col-md-12">
 <br>
+	
+	<h4> Informations de Contact</h4>
+	<br>			
 		{{ form_label(form.responsable,'Représentant Entreprise ') }}
 
 		{{ form_row(form.responsable,{'attr': {'class': 'form-control'}}) }}

@@ -190,9 +190,6 @@ class Tuteurs
         return $this;
     }
 
-
-
-
     public function getUsers(): ?Users
     {
         return $this->users;
