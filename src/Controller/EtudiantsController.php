@@ -24,6 +24,7 @@ use App\Form\IntervenantsType;
 use App\Repository\IntervenantsRepository;
 use App\Repository\ModulesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
 /**
@@ -197,5 +198,22 @@ class EtudiantsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_etudiants_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+     /**
+     * @Route("/classe/{id}", name="app_etudiants_getclass", methods={"GET","POST"})
+     */
+    public function theclasse(Request $request, $id, Etudiants $etudiant, EtudiantsRepository $etudiantsRepository, ClassesRepository $classesRepository): Response
+    {
+     
+        $classe = $classesRepository->findBy(array('id'=>$id));
+
+        foreach ($classe as $classe){
+
+            $output[]=array($classe->getCurus());
+        }
+        return new JsonResponse($output);
+
+
     }
 }

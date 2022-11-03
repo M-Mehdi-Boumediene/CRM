@@ -131,7 +131,7 @@ class MainController extends AbstractController
             $apprenant = empty($apprenant);
         }
 
-         $events = $calendrier->searchMot($classe,$intervenant,$apprenant);
+         $events = $calendrier->findAll();
          $rdvs = [];
          $rdvs2 = [];
          foreach ($events as $event){

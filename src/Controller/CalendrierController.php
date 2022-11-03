@@ -38,8 +38,10 @@ class CalendrierController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $start = $form->get('start')->getData();
             $end = $form->get('end')->getData();
+            $classe = $form->get('classe')->getData();
+            $intervenant = $form->get('intervenant')->getData();
             
-            $calend = $calendrierRepository->horaires($start,$end);
+            $calend = $calendrierRepository->horaires($start,$end,$classe,$intervenant);
             
 
             

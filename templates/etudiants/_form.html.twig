@@ -10,6 +10,10 @@
 	.entreprise {
 		display: none;
 	}
+	.select2{
+		    width: 100% !important;
+}
+
 </style>
 <br><br>
 <h4>Compte:
@@ -71,6 +75,12 @@
 		{{ form_errors(form.classes) }}
 	</div>
 
+	<div class="col-md-3">
+	
+		{{ form_row(form.cursus,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.cursus) }}
+	</div>
+
 </div>
 <br>
 <div class="form-row">
@@ -88,14 +98,10 @@
 		{{ form_errors(form.telephone) }}
 	</div>
 
-	<div class="col-md-3">
-		<br>
-		{{ form_row(form.cursus,{'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.cursus) }}
-	</div>
+
 
 	<div class="col-md-3 entreprise">
-		<br>
+
 		{{ form_label(form.entreprise,'Entreprise ') }}
 		{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.entreprise) }}
@@ -187,14 +193,49 @@ $('#etudiants_classes').select2();
 });
 
 
-$("#etudiants_cursus").change(function () {
-if ($(this).val() == 'Initiale ') {
-$('.entreprise').hide();
-} else if ($(this).val() == 'Alternance ') {
-$('.entreprise').show();
-} else {
-$('.entreprise').hide();
-}
-});
+$('#etudiants_classes').change(function (){
+
+let classe = $(this).val();
+/*
+ * this will generate a path with ReplaceMeWithCorrectValue instead of the correct value.
+ * You have to use a placeholder that correspond to the restrictions defined in your route.
+ */
+let url = "{{ (path('app_etudiants_getclass', {'id': 'ReplaceMeWithCorrectValue'})) }}";
+
+url = url.replace("ReplaceMeWithCorrectValue", classe);
+
+
+         $.ajax({
+			
+                                type:'GET',
+                                url: url,
+                                success: function (data) {
+								  if(data){
+
+									$('#etudiants_cursus').val(data);
+								  }
+
+								  if(data == 'Alternance'){
+										$('.entreprise').show();
+								  }else{
+									$('.entreprise').hide();
+								  }
+
+
+
+                                }
+                            });
+
+})
+
+
+
+
 $('#etudiants_entreprise').select2();
+$('#etudiants_classes').select2();
+
+
+
+
+
 </script>

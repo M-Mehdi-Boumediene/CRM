@@ -53,27 +53,31 @@ class CalendrierRepository extends ServiceEntityRepository
             ->innerJoin('c.intervenants', 'i')
             ->innerJoin('c.etudiants', 'e')
         
-            ->orWhere('c.id = :classe')
+            ->andWhere('c.id = :classe')
             
-            ->orWhere('i.id = :intervenant')
-            ->orWhere('e.id = :etudiant')
+            ->andWhere('i.id = :intervenant')
+            ->andWhere('e.id = :etudiant')
             
             ->setParameter('classe', $classe)
             ->setParameter('intervenant', $intervenant)
             ->setParameter('etudiant', $apprenant)
-            ->orderBy('u.id', 'ASC')
+           
             ->getQuery()
             ->getResult()
         ;
     }
  
-    public function horaires($start,$end)
+    public function horaires($start,$end,$classe,$intervenant)
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.start < :end')
             ->andWhere('c.end > :start')
+            ->andWhere('c.classe = :classe')
+            ->andWhere('c.intervenant = :intervenant')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
+            ->setParameter('classe', $classe)
+            ->setParameter('intervenant', $intervenant)
             ->orderBy('c.id', 'DESC')
            
             ->getQuery()

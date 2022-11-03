@@ -74,7 +74,7 @@ class IntervenantsType extends AbstractType
             ->remove('created_at')
             ->remove('created_by')
 
-            ->remove('modules', EntityType::class, [
+            ->add('modules', EntityType::class, [
                 'mapped' => false,
                 'class' => Modules::class,
                 'choice_label' => 'nom',

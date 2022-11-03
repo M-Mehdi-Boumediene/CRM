@@ -7,6 +7,9 @@
 		font-size: 20px;
 		font-weight: bold;
 	}
+	.select2{
+		width: 100% !important;
+	}
 </style>
 <br><br>
 <h4>Compte:
@@ -72,6 +75,13 @@
 		<span class="required">*</span>
 		{{ form_row(form.classes,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.classes) }}
+	</div>
+
+		<div class="col-md-3">
+		{{ form_label(form.modules,'Module ') }}
+		<span class="required">*</span>
+		{{ form_row(form.modules,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.modules) }}
 	</div>
 
 </div>

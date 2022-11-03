@@ -21,8 +21,8 @@ class ClassesType extends AbstractType
             ])
             ->add('curus',ChoiceType::class, [
                 'choices' => [
-                    'Initiale ' => 'Initiale ',
-                    'Alternance ' => 'Alternance ',
+                    'Initiale' => 'Initiale',
+                    'Alternance' => 'Alternance',
                     
                 ],
                 'expanded' => false,

@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Blocs;
 use App\Entity\Classes;
@@ -45,12 +46,24 @@ public function __construct(EntityManagerInterface $entityManager)
                 'required'=>false,
          
             ])
+
+            ->add('intervenants', EntityType::class, [
+                'class' => Intervenants::class,
+                'label' => false,
+                'choice_label' => 'nom',
+                'empty_data'=>'',
+                'required'=>false,
+                'multiple'=>true
+         
+            ])
+           
            
             ->add('files',FileType::class,[
                 'label'=> 'Documents',
                 'multiple' => true,
                 'mapped'=> false,
                 'required'=> false,
+                
         
             
             ])
