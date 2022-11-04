@@ -41,7 +41,7 @@ class ProfilController extends AbstractController
  
          if ($form->isSubmitted() && $form->isValid()) {
            
-           
+           $profil->setUser($this->getUser());
             $profil->setNom($form->get('nom')->getData());
             $profil->setPrenom($form->get('prenom')->getData());
             $profil ->setImage($form->get('image')->getData());
@@ -74,7 +74,11 @@ class ProfilController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_profil', ['profil' => $profil,], Response::HTTP_SEE_OTHER);  
         
+
+
         }
+
+        $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
 
        
         
@@ -83,6 +87,7 @@ class ProfilController extends AbstractController
             'prenom' => $prenom,
             'form' => $form,
             'profil' => $profil,
+            'photoprofil'=>$photoprofil,
      
         ]);
     }

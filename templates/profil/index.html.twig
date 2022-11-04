@@ -71,27 +71,38 @@
 						
 					
 		<div class="row">
-		<div class="col-sm-12">
+		<div class="col-sm-12" style="margin-top: 23px !important;">
 										
 
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="container rounded bg-white mt-5 mb-5" style="margin-top: 23px !important;">
     <div class="row">
-        <div class="col-md-12 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+        <div class="col-md-4">
+          
         <div class="user-avatar user-avatar-xl fileinput-button">
-        {{ form_start(form) }}
-              <img class="rounded-circle mt-5" width="150px" src="{{ asset('uploads/'  ~ app.user.profil.image)}} ">
+					{{ form_start(form) }}
 
-                {{ form_row(form.image,{'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.image) }}
-        </div>
- 
+					{% if photoprofil %}
+						<img style="margin-top: 0 !important;"class="rounded-circle mt-5" width="150px" src="{{ asset('uploads/' ~ photoprofil.image)}} ">
+				{% else %}
+				
+				{% endif %}
+							{{ form_row(form.image,{'attr': {'class': 'form-control'}}) }}
+
+							{{ form_errors(form.image) }}
+         </div>
   </div>
+  <div class="col-md-4">
+  <b>nom :</b> {{app.user.nom}}<br>
+    <b>prenom :</b> {{app.user.prenom}}<br>
+	    <b>Adrésse :</b> {{app.user.adresse}}<br>
+		   <b>Téléphone :</b> {{app.user.telephone}}<br>
+		     <b>Email :</b> {{app.user.email}}<br>
+		   </div>
  </div>
         <div class="col-md-12 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right"></h4>
+                    <h4 class="text-right">Informations supplémentaire</h4>
                 </div>
                
                 <div class="row mt-2">
