@@ -177,6 +177,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $entreprises;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Docadmins::class, mappedBy="users")
+     */
+    private $docadmins;
+
  
 
    
@@ -203,6 +208,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->received = new ArrayCollection();
         $this->signatures = new ArrayCollection();
         $this->entreprises = new ArrayCollection();
+        $this->docadmins = new ArrayCollection();
       
  
      
@@ -845,6 +851,33 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             if ($entreprise->getUsers() === $this) {
                 $entreprise->setUsers(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Docadmins>
+     */
+    public function getDocadmins(): Collection
+    {
+        return $this->docadmins;
+    }
+
+    public function addDocadmin(Docadmins $docadmin): self
+    {
+        if (!$this->docadmins->contains($docadmin)) {
+            $this->docadmins[] = $docadmin;
+            $docadmin->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocadmin(Docadmins $docadmin): self
+    {
+        if ($this->docadmins->removeElement($docadmin)) {
+            $docadmin->removeUser($this);
         }
 
         return $this;

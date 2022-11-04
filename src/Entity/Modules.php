@@ -96,6 +96,11 @@ class Modules
      */
     private $cours;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Telechargements::class, mappedBy="module", cascade={"persist", "remove"})
+     */
+    private $telechargements;
+
  
 
 
@@ -438,6 +443,28 @@ class Modules
                 $cour->setModule(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTelechargements(): ?Telechargements
+    {
+        return $this->telechargements;
+    }
+
+    public function setTelechargements(?Telechargements $telechargements): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($telechargements === null && $this->telechargements !== null) {
+            $this->telechargements->setModule(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($telechargements !== null && $telechargements->getModule() !== $this) {
+            $telechargements->setModule($this);
+        }
+
+        $this->telechargements = $telechargements;
 
         return $this;
     }

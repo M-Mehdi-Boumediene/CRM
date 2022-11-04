@@ -235,6 +235,11 @@ $('.tableau_notes').hide();
 $('.tableau_absences').show();
 });
 
+$('.editevent').click(function (){
+
+window.location.href = "https://127.0.0.1:8000/calendrier/"+info.event.id+"/edit";
+})
+
 $(".informations").click(function () {
 $('.detail').remove();
 $('.du').remove();
@@ -254,11 +259,6 @@ $('.modal-body').append('<span class="detail"><b>Commentaire:</b><br> ' + info.e
 $('.table_etudiants').hide();
 $('.tableau_notes').hide();
 $('.tableau_absences').hide();
-});
-
-$('.editevent').click(function() {
-
-	window.location.replace("http://127.0.0.1:8000/calendrier/"+ info.event.id+"/edit");
 });
 $('.modal-body').append('<span class="du"><b>Début : </b> ' + jour + '/' + mois + '/' + info.event.start.getFullYear() + ' à ' + info.event.start.getHours() + 'H' + ':' + info.event.start.getMinutes() + '<br></span>');
 $('.modal-body').append('<span class="au"><b>Fin : </b> ' + jour_end + '/' + mois_end + '/' + info.event.end.getFullYear() + ' à ' + info.event.end.getHours() + 'H' + ':' + info.event.end.getMinutes() + '<br><br></span>');
@@ -380,9 +380,7 @@ calendar.render()
 	{% else %}
 
 
-{% endif %}{% endblock %}
-
-{% block modal %}
+{% endif %}{% endblock %}{% block modal %}
 
 {{ block("modal", "Menus/modal.html.twig") }}
 

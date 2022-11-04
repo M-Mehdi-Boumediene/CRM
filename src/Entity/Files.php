@@ -54,6 +54,11 @@ class Files
      */
     private $messages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Docadmins::class, inversedBy="files")
+     */
+    private $docadmins;
+
   
 
     public function getId(): ?int
@@ -141,6 +146,18 @@ class Files
     public function setMessages(?Messages $messages): self
     {
         $this->messages = $messages;
+
+        return $this;
+    }
+
+    public function getDocadmins(): ?Docadmins
+    {
+        return $this->docadmins;
+    }
+
+    public function setDocadmins(?Docadmins $docadmins): self
+    {
+        $this->docadmins = $docadmins;
 
         return $this;
     }

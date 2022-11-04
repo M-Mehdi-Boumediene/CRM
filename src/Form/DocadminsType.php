@@ -1,33 +1,30 @@
 <?php
 
 namespace App\Form;
-
-use App\Entity\Telechargements;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Modules;
 use App\Entity\Formations;
+use App\Entity\Classes;
+use App\Entity\Users;
 use App\Entity\Medias;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Doctrine\ORM\EntityRepository;
-use App\Entity\Blocs;
-
-use App\Entity\Classes;
-use App\Entity\Etudiants;
-use App\Entity\Intervenants;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class TelechargementsType extends AbstractType
+use App\Entity\Docadmins;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class DocadminsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-       
+ 
+
             ->add('nom',TextType::class,[
                 'label'=>'Nom du fichier'
             ])
@@ -44,8 +41,8 @@ class TelechargementsType extends AbstractType
 
             ->add('type',ChoiceType::class, [
                 'choices' => [
-                    'Devoir' => 'Devoir',
-                    ' Projet pro' => ' Projet pro',
+                    'Document administratif' => 'Document administratif',
+                    'Document indispensable' => 'Document indispensable',
                     
                 ],
                 'expanded' => false,
@@ -62,22 +59,22 @@ class TelechargementsType extends AbstractType
          
             ])
             
-            ->add('module', EntityType::class, [
-                'class' => Modules::class,
+            ->add('users', EntityType::class, [
+                'class' => Users::class,
                 'label' => false,
                 'choice_label' => 'nom',
+                'multiple'=>true,
                 'empty_data'=>'',
                 'required'=>false,
          
             ])
-
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Telechargements::class,
+            'data_class' => Docadmins::class,
         ]);
     }
 }

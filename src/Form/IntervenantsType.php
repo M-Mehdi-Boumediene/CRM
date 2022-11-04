@@ -10,10 +10,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Modules;
 use App\Entity\Classes;
+use App\Entity\Etudiants;
 use App\Entity\Codepostal;
 use App\Entity\Villes;
 use App\Form\UsersType;
-
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -83,6 +84,16 @@ class IntervenantsType extends AbstractType
                 'autocomplete' => true,
                 'required' => false
             ])
+            ->add('apprenants', EntityType::class, [
+                'mapped' => false,
+                'class' => Etudiants::class,
+                'choice_label' => 'nom',
+                'placeholder' => ' Apprenants',
+                'label' => false,
+                'multiple' => true,
+                'autocomplete' => true,
+                'required' => false
+            ])
             ->add('user', UsersType::class)
             ->add('cat',ChoiceType::class, [
                 'choices' => [
@@ -95,6 +106,11 @@ class IntervenantsType extends AbstractType
                 'required' => false,
                 'label' => false,
             ])
+
+            ->add('istuteur', CheckboxType::class, [
+                'label'    => 'Tuteur Pédagogique',
+                'required' => false,
+            ]);
             
             ;
        

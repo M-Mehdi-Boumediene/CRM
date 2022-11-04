@@ -25,7 +25,7 @@ class TuteursType extends AbstractType
             ->add('email',EmailType::class)
             ->add('type',ChoiceType::class, [
                 'choices' => [
-                    'Tuteur pédagogique' => 'Tuteur pédagogique',
+                
                     'Tuteur entreprise' => 'Tuteur entreprise',
                     
                 ],

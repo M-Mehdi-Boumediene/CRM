@@ -101,6 +101,16 @@ class Intervenants
      */
     private $cat;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $istuteur;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Etudiants::class, mappedBy="intervenants")
+     */
+    private $apprenants;
+
    
 
     public function __construct()
@@ -109,6 +119,7 @@ class Intervenants
         $this->absences = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->calendriers = new ArrayCollection();
+        $this->apprenants = new ArrayCollection();
 
     }
 
@@ -368,6 +379,48 @@ class Intervenants
     public function setCat(?string $cat): self
     {
         $this->cat = $cat;
+
+        return $this;
+    }
+
+    public function isIstuteur(): ?bool
+    {
+        return $this->istuteur;
+    }
+
+    public function setIstuteur(?bool $istuteur): self
+    {
+        $this->istuteur = $istuteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Etudiants>
+     */
+    public function getApprenants(): Collection
+    {
+        return $this->apprenants;
+    }
+
+    public function addApprenant(Etudiants $apprenant): self
+    {
+        if (!$this->apprenants->contains($apprenant)) {
+            $this->apprenants[] = $apprenant;
+            $apprenant->setIntervenants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApprenant(Etudiants $apprenant): self
+    {
+        if ($this->apprenants->removeElement($apprenant)) {
+            // set the owning side to null (unless already changed)
+            if ($apprenant->getIntervenants() === $this) {
+                $apprenant->setIntervenants(null);
+            }
+        }
 
         return $this;
     }

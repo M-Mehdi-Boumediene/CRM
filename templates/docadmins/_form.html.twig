@@ -2,11 +2,23 @@
 
 <div class="form-row">
 	<div class="col-md-3">
+	{{ form_label(form.classe,'Classe ') }}
 		{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.classe) }}<br>
 
 
 	</div>
+
+	
+	<div class="col-md-3">
+    	{{ form_label(form.users,'Utilisateurs ') }}
+		{{ form_row(form.users,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.users) }}<br>
+
+
+	</div>
+
+
 	<div class="col-md-3">
 		{{ form_row(form.type,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.type) }}<br>
@@ -19,21 +31,24 @@
 
 
 	</div>
-
+</div>
+<div class="form-row">
 	<div class="col-md-3">
 		{{ form_row(form.files,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.files) }}
 
 
 	</div>
+</div>
+<br><br>
+<div class="form-row">
 
-
+<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+ou
+<a href="{{ path('app_docadmins_index') }}">Retour à la liste</a>
 </div>
 
 
-<br>
-<button class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
-ou
-<a href="{{ path('app_telechargements_index') }}">Retour à la liste</a>
+
 
 {{ form_end(form) }}

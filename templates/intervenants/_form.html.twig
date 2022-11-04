@@ -10,6 +10,9 @@
 	.select2{
 		width: 100% !important;
 	}
+	#intervenants_apprenants{
+		display:none;
+	}
 </style>
 <br><br>
 <h4>Compte:
@@ -49,6 +52,15 @@
 		{{ form_row(form.cat,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.cat) }}
 	</div>
+
+		<div class="col-md-3">
+		{{ form_row(form.istuteur,{'attr': {'class': ''}}) }}
+		{{ form_errors(form.istuteur) }}
+<br>
+			{{ form_row(form.apprenants,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.apprenants) }}
+	</div>
+		
 </div>
 <br><br>
 <h4>Informations:
@@ -186,5 +198,28 @@ $('#intervenants_codepostale').select2();
 $('#intervenants_ville').select2();
 $('#intervenants_codepostale').select2();
 $('#intervenants_classes').select2();
+
+
+
+
+
+
+$('#intervenants_istuteur').on('change', function() {
+	if($('#intervenants_istuteur').is(':checked')){
+	
+		$('#intervenants_apprenants').show();
+
+	}else{
+	$('#intervenants_apprenants').hide();
+		
+	}
+
+	
+
 });
+
+});
+
+
+
 </script>

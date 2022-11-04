@@ -111,6 +111,11 @@ class Etudiants
      */
     private $entreprise;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Intervenants::class, inversedBy="apprenants")
+     */
+    private $intervenants;
+
 
 
 
@@ -417,6 +422,18 @@ class Etudiants
     public function setEntreprise(?Entreprises $entreprise): self
     {
         $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function getIntervenants(): ?Intervenants
+    {
+        return $this->intervenants;
+    }
+
+    public function setIntervenants(?Intervenants $intervenants): self
+    {
+        $this->intervenants = $intervenants;
 
         return $this;
     }

@@ -48,6 +48,8 @@
 										<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
 											<thead>
 												<tr role="row">
+<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Classe</th>
+							<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Module</th>
 
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Fichier</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 233.2px;" aria-label="Position: activate to sort column ascending">Type</th>
@@ -63,7 +65,12 @@
 
 												{% for telechargement in telechargements %}
 													<tr role="row" class="odd">
-
+	<td class="sorting_1 dtr-control">
+														{{telechargement.classe}}
+														</td>
+															<td class="sorting_1 dtr-control">
+														{{telechargement.module}}
+														</td>
 														<td class="sorting_1 dtr-control">
 															<a href="{{ path('app_telechargements_show', {'id': telechargement.id}) }}">
 																<a href="{{asset('uploads/')}}{{ telechargement.name }} ">{{ telechargement.nom }}
@@ -92,10 +99,10 @@
 
 														<td class="sorting_1 dtr-control">
 
-															<a href="{{ path('app_telechargements_edit', {'id': telechargement.id}) }}">
+															<a href="{{asset('uploads/')}}{{ telechargement.name }}">
 
 																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
-																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
+																	<i class="pe-7s-tools btn-icon-wrapper"></i>Télécharger le fichier</button>
 															</a>
 														</td>
 													</tr>

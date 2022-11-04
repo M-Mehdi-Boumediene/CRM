@@ -2,17 +2,17 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\TelechargementsRepository;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\DocadminsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
- * @ORM\Entity(repositoryClass=TelechargementsRepository::class)
+ * @ORM\Entity(repositoryClass=DocadminsRepository::class)
  */
-class Telechargements
+#[ApiResource]
+class Docadmins
 {
     /**
      * @ORM\Id
@@ -20,11 +20,6 @@ class Telechargements
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -37,19 +32,17 @@ class Telechargements
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="telechargements")
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="docadmins")
      */
-    private $user;
+    private $users;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Classes::class, inversedBy="telechargements")
+     * @ORM\ManyToOne(targetEntity=Classes::class, inversedBy="docadmins")
      */
     private $classe;
 
-   
-
     /**
-     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="telechargements", cascade={"all"})
+     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="docadmins",cascade={"persist", "remove"})
      */
     private $files;
 
@@ -58,31 +51,15 @@ class Telechargements
      */
     private $type;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Modules::class, inversedBy="telechargements", cascade={"persist", "remove"})
-     */
-    private $module;
-
     public function __construct()
     {
+        $this->users = new ArrayCollection();
         $this->files = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -109,14 +86,26 @@ class Telechargements
         return $this;
     }
 
-    public function getUser(): ?Users
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function setUser(?Users $user): self
+    public function addUser(Users $user): self
     {
-        $this->user = $user;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        $this->users->removeElement($user);
 
         return $this;
     }
@@ -133,7 +122,6 @@ class Telechargements
         return $this;
     }
 
-
     /**
      * @return Collection<int, Files>
      */
@@ -146,7 +134,7 @@ class Telechargements
     {
         if (!$this->files->contains($file)) {
             $this->files[] = $file;
-            $file->setTelechargements($this);
+            $file->setDocadmins($this);
         }
 
         return $this;
@@ -156,8 +144,8 @@ class Telechargements
     {
         if ($this->files->removeElement($file)) {
             // set the owning side to null (unless already changed)
-            if ($file->getTelechargements() === $this) {
-                $file->setTelechargements(null);
+            if ($file->getDocadmins() === $this) {
+                $file->setDocadmins(null);
             }
         }
 
@@ -172,18 +160,6 @@ class Telechargements
     public function setType(?string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getModule(): ?Modules
-    {
-        return $this->module;
-    }
-
-    public function setModule(?Modules $module): self
-    {
-        $this->module = $module;
 
         return $this;
     }

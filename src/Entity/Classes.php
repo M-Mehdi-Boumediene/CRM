@@ -105,6 +105,11 @@ class Classes
      */
     private $nbsemestre;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Docadmins::class, mappedBy="classe")
+     */
+    private $docadmins;
+
 
     public function __toString() {
         return $this->nom;
@@ -123,6 +128,7 @@ class Classes
 
         $this->notes = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->docadmins = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -476,6 +482,36 @@ class Classes
     public function setNbsemestre(?string $nbsemestre): self
     {
         $this->nbsemestre = $nbsemestre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Docadmins>
+     */
+    public function getDocadmins(): Collection
+    {
+        return $this->docadmins;
+    }
+
+    public function addDocadmin(Docadmins $docadmin): self
+    {
+        if (!$this->docadmins->contains($docadmin)) {
+            $this->docadmins[] = $docadmin;
+            $docadmin->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocadmin(Docadmins $docadmin): self
+    {
+        if ($this->docadmins->removeElement($docadmin)) {
+            // set the owning side to null (unless already changed)
+            if ($docadmin->getClasse() === $this) {
+                $docadmin->setClasse(null);
+            }
+        }
 
         return $this;
     }

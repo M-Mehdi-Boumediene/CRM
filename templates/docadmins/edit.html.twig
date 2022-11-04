@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Docadmins{% endblock %}
+
+{% block body %}
+    <h1>Edit Docadmins</h1>
+
+    {{ include('docadmins/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_docadmins_index') }}">back to list</a>
+
+    {{ include('docadmins/_delete_form.html.twig') }}
+{% endblock %}
