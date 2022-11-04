@@ -6,6 +6,7 @@ use App\Repository\CalendrierRepository;
 use App\Repository\UsersRepository;
 use App\Repository\AbsencesRepository;
 use App\Repository\ApprenantsRepository;
+use App\Repository\ProfilRepository;
 use App\Entity\Absences;
 use App\Entity\TableauAbsences;
 use App\Entity\Users;
@@ -43,14 +44,14 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_main")
      */
-    public function index(IntervenantsRepository $intervenantRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository): Response
+    public function index(IntervenantsRepository $intervenantRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository,ProfilRepository $profilRepository): Response
     {
 
         $classesAdmin = $classesRepository->findAll();
         $apprenantsAdmin = $apprenantsRepository->findAll();
         $intervenantsAdmin = $intervenantRepository->findAll();
         $entreprisesAdmin = $entrprisesRepository->findAll();
-
+        $profil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
 
 
         $user = $this->getUser();
@@ -78,6 +79,7 @@ class MainController extends AbstractController
                 'apprenant' =>  $apprenant,
                 'lintervenant'=>$lintervenant, 
                 'classes' => $classesRepository->findByIntervenantEtudiant($classe),
+                'profil' => $profil,
           
               
           
@@ -92,6 +94,7 @@ class MainController extends AbstractController
                     'apprenant' =>  $apprenant,
                     'lintervenant'=>$lintervenant, 
                     'classes' => $classesRepository->findByIntervenantEtudiant(1),
+                    'profil' => $profil,
               
                   
               
