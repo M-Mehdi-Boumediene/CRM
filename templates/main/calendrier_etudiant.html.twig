@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Calendrier Etudiant
+{% block title %}Gestion des Calendrier
 {% endblock %}
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
+
+
 {% endblock %}
 
 {% block body %}
@@ -12,6 +13,7 @@
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
 		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+
 		<style>
 			form {
 				width: 100%;
@@ -23,18 +25,27 @@
 			.select2-container {
 				width: 100% !important;
 			}
+			.datedu {
+				display: none;
+			}
+			.dateau {
+				display: none;
+			}
+			.duréeduretard {
+				display: none;
+			}
 		</style>
-
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
 					<div class="page-title-wrapper">
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="lnr-users icon-gradient bg-strong-bliss"></i>
+								<i class="pe-7s-date icon-gradient bg-strong-bliss"></i>
 							</div>
 							<div>Calendrier
 								<div class="page-title-subheading">Gestion du calendrier</div>
+
 							</div>
 						</div>
 						<div class="page-title-actions">
@@ -42,7 +53,7 @@
 
 								<div class="d-inline-block dropdown">
 									<a href="{{path('app_calendrier_new')}}">
-										<button class="btn-shadow btn btn-success">
+										<button class="btn-shadow btn btn-primary">
 											<span class="btn-icon-wrapper pr-2 opacity-7">
 												<i class="fa fa-plus fa-w-20"></i>
 											</span>
@@ -55,6 +66,7 @@
 
 
 							{% endif %}
+
 						</div>
 					</div>
 				</div>
@@ -63,33 +75,88 @@
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
 						<div class="card-body">
-							<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
-								<div class="row">
-									<div id='calendrier'></div>
+
+							<div class="row">
+								<div class="col-md-12" style="padding-bottom: 5px;">
+									<b>Recherche</b>
 								</div>
+							</div>
+
+							<div class="row" style="padding-right:12px;padding-left: 12px;
+																																																						}">
+
+								{{ form_start(form2) }}
+								<div class="row">
+									<div class="col-md-3">
+										{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
+										{{ form_errors(form2.classe) }}
+
+
+									</div>
+									<div class="col-md-3">
+										{{ form_row(form2.intervenant,{'attr': {'class': 'form-control'}}) }}
+										{{ form_errors(form2.intervenant) }}
+
+
+									</div>
+									<div class="col-md-3">
+										{{ form_row(form2.apprenant,{'attr': {'class': 'form-control'}}) }}
+										{{ form_errors(form2.apprenant) }}
+
+
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn-shadow btn btn-primary">
+											<span class="btn-icon-wrapper pr-2 opacity-7">
+												<i class="fa fa-search fa-w-20"></i>
+											</span>
+											Rechercher
+										</button>
+									</div>
+								</div>
+								<br>
+								{{ form_end(form2) }}
+
+								{% if events %}
+
+									{% set start = events[0].start|date("Y-m-d")  %}
+									{% set end = events[0].end|date("Y-m-d")  %}
+									<div id='calendrier'></div>
+								{% else %}
+									{% set start = null %}
+									{% set end = null %}
+
+								{% endif %}
+
+
+								<button type="button" class="btn mr-2 mb-2 btn-primary lancer" data-toggle="modal" data-target=".bd-example-modal-lg" style="display:none;">Large modal</button>
 
 
 							</div>
+
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 
+
 		</div>
+	</div>
+
+</div>
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js" integrity="sha512-vFABRuf5oGUaztndx4KoAEUVQnOvAIFs59y4tO0DILGWhQiFnFHiR+ZJfxLDyJlXgeut9Z07Svuvm+1Jv89w5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% if events %}
+	<script>
 
-		<script>
 
-			window.onload = () => {
+		window.onload = () => {
 let calendarElt = document.querySelector("#calendrier")
 let calendar = new FullCalendar.Calendar(calendarElt, {
-
 initialView: 'timeGridWeek',
 locale: 'fr',
 buttonText: {
@@ -124,12 +191,208 @@ endTime: '18:00' // 4pm
 slotMinTime: "08:00",
 slotMaxTime: "18:00",
 editable: true,
-events: {{ data.data|raw() }}
+events: {{ data.data|raw() }},
+backgroundColor: "#ffffff",
+eventClick: function (info) {
+let jour = info.event.start.getDay();
+let mois = info.event.start.getMonth();
+let type = info.event.title;
+if (jour < 10) {
+jour = '0' + info.event.start.getDay()
+}
+if (mois < 10) {
+mois = '0' + info.event.start.getMonth()
+}
+let jour_end = info.event.end.getDay();
+let mois_end = info.event.end.getMonth();
+if (jour_end < 10) {
+jour_end = '0' + info.event.end.getDay()
+}
+if (mois_end < 10) {
+mois_end = '0' + info.event.end.getMonth()
+}
+$('.lancer').click();
+$('.detail').remove();
+$('.du').remove();
+$('.au').remove();
+$('.classe').remove();
+$('.bloc').remove();
+$('.module').remove();
+$('.intervenant').remove();
+$('.table_etudiants').hide();
+$('.tableau_absences').hide();
+
+$(".etudiants").click(function () {
+$('.detail').remove();
+$('.du').remove();
+$('.au').remove();
+$('.classe').remove();
+$('.bloc').remove();
+$('.module').remove();
+$('.intervenant').remove();
+$('.table_etudiants').hide();
+$('.tableau_notes').hide();
+$('.tableau_absences').show();
+});
+
+$(".informations").click(function () {
+$('.detail').remove();
+$('.du').remove();
+$('.au').remove();
+$('.classe').remove();
+$('.bloc').remove();
+$('.module').remove();
+$('.intervenant').remove();
+$('.modal-body').append('<span class="du"><b>Début : </b> ' + jour + '/' + mois + '/' + info.event.start.getFullYear() + ' à ' + info.event.start.getHours() + 'H' + ':' + info.event.start.getMinutes() + '<br></span>');
+$('.modal-body').append('<span class="au"><b>Fin : </b> ' + jour_end + '/' + mois_end + '/' + info.event.end.getFullYear() + ' à ' + info.event.end.getHours() + 'H' + ':' + info.event.end.getMinutes() + '<br><br></span>');
+$('.modal-body').append('<span class="classe"><b>Classe : </b> ' + info.event.extendedProps.classe + '<br></span>');
+$('.modal-body').append('<span class="bloc"><b>Bloc : </b> ' + info.event.extendedProps.bloc + '<br></span>');
+$('.modal-body').append('<span class="module"><b>Module : </b> ' + info.event.extendedProps.module + '<br></span>');
+$('.modal-body').append('<span class="intervenant"><b>Intervenant : </b> ' + info.event.extendedProps.intervenant + '<br><br></span>');
+$('.modal-body').append('<span class="intervenant"><b>Etudiants : </b> ' + info.event.extendedProps.etudiants + '<br><br></span>');
+$('.modal-body').append('<span class="detail"><b>Commentaire:</b><br> ' + info.event.extendedProps.description + '<br></span>');
+$('.table_etudiants').hide();
+$('.tableau_notes').hide();
+$('.tableau_absences').hide();
+});
+$('.modal-body').append('<span class="du"><b>Début : </b> ' + jour + '/' + mois + '/' + info.event.start.getFullYear() + ' à ' + info.event.start.getHours() + 'H' + ':' + info.event.start.getMinutes() + '<br></span>');
+$('.modal-body').append('<span class="au"><b>Fin : </b> ' + jour_end + '/' + mois_end + '/' + info.event.end.getFullYear() + ' à ' + info.event.end.getHours() + 'H' + ':' + info.event.end.getMinutes() + '<br><br></span>');
+$('.modal-body').append('<span class="classe"><b>Classe : </b> ' + info.event.extendedProps.classe + '<br></span>');
+$('.modal-body').append('<span class="bloc"><b>Bloc : </b> ' + info.event.extendedProps.bloc + '<br></span>');
+$('.modal-body').append('<span class="module"><b>Module : </b> ' + info.event.extendedProps.module + '<br></span>');
+$('.modal-body').append('<span class="intervenant"><b>Intervenant : </b> ' + info.event.extendedProps.intervenant + '<br><br></span>');
+$('.modal-body').append('<span class="detail"><b>Commentaire:</b><br> ' + info.event.extendedProps.description + '<br></span>');
+
+
+$('#notes_classes option:contains("' + info.event.extendedProps.classe + '")').prop('selected', true);
+$("#absences_classe option:selected").text(info.event.extendedProps.classe);
+$("#notes_moduleid option:selected").text(info.event.extendedProps.module);
+$("#notes_type option:selected").text(type);
+// change the border color just for fun
+info.el.style.borderColor = 'red';
+
+d = info.event.start;
+heurs = d.getHours();
+minutes = d.getMinutes();
+if (heurs < 10) {
+heurs = "0" + d.getHours()
+}
+if (minutes < 10) {
+minutes = "0" + d.getMinutes()
+}
+
+d2 = info.event.end;
+heurs2 = d2.getHours();
+minutes2 = d2.getMinutes();
+if (heurs2 < 10) {
+heurs2 = "0" + d2.getHours()
+}
+if (minutes2 < 10) {
+minutes2 = "0" + d2.getMinutes()
+}
+
+
+valeur = d.getFullYear() + "-" + mois + "-" + jour + " " + heurs + ":" + minutes
+valeur2 = d2.getFullYear() + "-" + mois + "-" + jour + " " + heurs2 + ":" + minutes2
+$(".datedu").each(function (index) {
+document.getElementById('absences_tableau_' + index + '_du').value = valeur;
+
+})
+$(".dateau").each(function (index) {
+document.getElementById('absences_tableau_' + index + '_au').value = valeur2;
 
 })
 
-calendar.render()
-}
-		</script>
+$(".enretard").each(function (index) {
+var checkbox = $(this), // Selected or current checkbox
+value = checkbox.val(0); // Value of checkbox
+$(this).change(function () {
 
-	{% endblock %}
+var checkbox = $(this), // Selected or current checkbox
+value = checkbox.val(0); // Value of checkbox
+
+if (checkbox.is(':checked')) {
+checkbox.val(1)
+$('#absences_tableau_' + index + '_retard').show();
+} else {
+checkbox.val(0)
+$('#absences_tableau_' + index + '_retard').hide();
+}
+});
+
+
+})
+
+
+$(".absent").each(function (index) {
+var checkbox = $(this), // Selected or current checkbox
+value = checkbox.val(0); // Value of checkbox
+$(this).change(function () {
+
+var checkbox = $(this), // Selected or current checkbox
+value = checkbox.val(0); // Value of checkbox
+
+if (checkbox.is(':checked')) {
+checkbox.val(1)
+
+} else {
+checkbox.val(0)
+
+}
+});
+
+
+})
+
+
+$(".present").each(function (index) {
+var checkbox = $(this), // Selected or current checkbox
+value = checkbox.val(0); // Value of checkbox
+$(this).change(function () {
+
+var checkbox = $(this), // Selected or current checkbox
+value = checkbox.val(0); // Value of checkbox
+
+if (checkbox.is(':checked')) {
+checkbox.val(1)
+
+} else {
+checkbox.val(0)
+
+}
+});
+
+
+})
+
+}
+})
+calendar.render()
+
+
+}
+	</script>
+	{% else %}
+
+
+{% endif %}{% endblock %}
+
+{% block modal %}
+
+{{ block("modal", "Menus/modal.html.twig") }}
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+	$(document).ready(function () {
+$("#filtre_calendrier_classe").select2({placeholder: "Filtrer par classes", allowClear: true});
+$("#filtre_calendrier_intervenant").select2({placeholder: "Filtrer par intervenants", allowClear: true});
+$("#filtre_calendrier_apprenant").select2({placeholder: "Filtrer par apprenants", allowClear: true});
+
+});
+</script>{% endblock %}

@@ -80,8 +80,8 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
         <div class="user-avatar user-avatar-xl fileinput-button">
         {{ form_start(form) }}
-              <img class="rounded-circle mt-5" width="150px" src="{{ asset('../../assets/images/3.jpg')}}">
-              <img class="rounded-circle mt-5" width="150px" src="{{ asset('uploads/'  ~ profil.image)}} ">
+              <img class="rounded-circle mt-5" width="150px" src="{{ asset('uploads/'  ~ app.user.profil.image)}} ">
+
                 {{ form_row(form.image,{'attr': {'class': 'form-control'}}) }}
                 {{ form_errors(form.image) }}
         </div>

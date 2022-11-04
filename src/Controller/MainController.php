@@ -528,7 +528,7 @@ class MainController extends AbstractController
     /**
      * @Route("/calendrier_etudiant", name="app_calendrier_etudiant")
      */
-    public function calendrierEtudiant(CalendrierRepository $calendrier,UsersRepository $users, EtudiantsRepository $apprenants ): Response
+    public function calendrierEtudiant(UsersRepository $users, Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository ): Response
     {
 
         $events = $calendrier->findAll();
@@ -560,9 +560,393 @@ class MainController extends AbstractController
         }
         $etudiants = $apprenants->findByClasse($classe);
 
-        return $this->render('main/calendrier_etudiant.html.twig', [
+
+        $form2 = $this->createForm(FiltreCalendrierType::class);
+        $form2->handleRequest($request);
+
+    
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+       
+         $classe = $form2->get('classe')->getData();
+
+         $intervenant = $form2->get('intervenant')->getData();
+         $apprenant = $form2->get('apprenant')->getData();
+
+         if($classe == null){
+            $classe = empty($classe);
+        }
+        if($intervenant == null){
+            $intervenant = empty($intervenant);
+        }
+        if($apprenant == null){
+            $apprenant = empty($apprenant);
+        }
+
+         $events = $calendrier->findAll();
+         $rdvs = [];
+         $rdvs2 = [];
+         foreach ($events as $event){
+             
+             $rdvs[] = [
+                 'id' => $event->getId(),
+                 'start' => $event->getStart()->format('Y-m-d H:i'),
+                 'end' => $event->getEnd()->format('Y-m-d H:i'),
+                 'backgroundColor' => $event->getBackgroundColor(),
+                 'borderColor' => $event->getBackgroundColor(),
+                 'textColor' => $event->getTextColor(),
+                 'title' => $event->getTitre(),
+                 'description' => $event->getDescription(),
+                 'classe' => $event->getClasse()->getNom(),
+              
+                 'module' => $event->getModule()->getNom(),
+                 'intervenant' => $event->getIntervenant()->getNom(),
+                 'textColor' => $event->getTextColor(),
+                 'allDay' => $event->getAllDay(),
+                 'type' => $event->getType(),
+ 
+ 
+             ];
+ 
+ 
+             
+             $classe= $event->getClasse()->getId();
+ 
+ 
+             $data = json_encode($rdvs);
+      
+             
+         }
+         
+         if($events){
+            $etudiants = $apprenants->findByClasse($classe);
+         }else{
+            $etudiants = null;
+            $data = null;
+         }
+       
+         $absence = new Absences();
+     
+         $form4 = $this->createForm(AbsencesType::class);
+         $form4->handleRequest($request);
+ 
+         if ($form4->isSubmitted() && $form4->isValid()) {
+           
+             $tableau = $form4->get('tableau');
+             foreach($tableau as $tableau){
+                 $tableauabsences = new TableauAbsences();
+         
+ 
+                 
+                     $TableauAbsencesRepository->add($tableauabsences);
+ 
+                     $tableauabsences->addAbsence($absence);
+                     $absence->addTableau($tableauabsences);
+                     
+ 
+                 $etudiants = $tableau->get('etudiant')->getData();
+                 
+                 
+                 $tableauabsences->addEtudiant($etudiants[0]);
+                 
+                 $retard = $tableau->get('retard')->getData();
+                 $presence = $tableau->get('presence')->getData();
+                 $enretard = $tableau->get('enretard')->getData();
+                 $retard = $tableau->get('retard')->getData();
+                 $absencedate = $tableau->get('absence')->getData();
+
+                 $du = $tableau->get('du')->getData();
+                 $au = $tableau->get('au')->getData();
+                 $tableauabsences->setPresence($presence);
+                 $tableauabsences->setEnretard($enretard);
+                 $tableauabsences->setRetard($retard);
+                 $tableauabsences->setAbsence($absencedate);
+                 $tableauabsences->setDu($du);
+                 $tableauabsences->setAu($au);
+            
+             
+                
+ 
+    
+ 
+             }
+             $absence->setClasse($form4->get('classe')->getData());
+             $absence->setDate(new \DateTimeImmutable('now'));
+           
+       
+    
+             $absencesRepository->add($absence, true);
+   
+             // Je boucle sur les documents
+            
+     
+ 
+             return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+         }
+ 
+        
+         $form3 = $this->createForm(NotesType::class);
+         $form3->handleRequest($request);
+ 
+         if ($form3->isSubmitted() && $form3->isValid()) {
+           
+             $tableau = $form3->get('tableau');
+             foreach($tableau as $tableau){
+                 $tableaunotes = new TableauNotes();
+                 $newfile= new Files();
+             $files = $tableau->get('copie')->getData();
+ 
+             foreach($files as $file){
+                 $em = $this->getDoctrine()->getManager();
+                 // Je génère un nouveau nom de fichier
+                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+ 
+                 // Je copie le fichier dans le dossier uploads
+                 $file->move(
+                     $this->getParameter('videos_directory'),
+                     $fichier
+                 );
+ 
+                 // Je stocke le document dans la BDD (nom du fichier)
+               
+                 $date = new \DateTimeImmutable('now');
+                 $newfile->setName($fichier);
+                 $newfile->setTableauNotes($tableaunotes);
+                 $newfile->setNom('Copie');
+ 
+                
+  
+             }
+             $TableauNotesRepository->add($tableaunotes);
+
+             $note = new Notes();
+             $tableaunotes->addNote($note);
+       
+             $note->addTableau($tableaunotes);
+             
+             $note->setType($form3->get('type')->getData());
+             $note->setClasses($form3->get('classes')->getData());
+             $note->setModule($form3->get('moduleid')->getData());
+             $note->setBloc($form3->get('blocid')->getData());
+             $note->setSemestre($form3->get('semestre')->getData());
+             $note->setEtudiantid($form3->get('etudiant')->getData());
+            
+             $etudiants = $tableau->get('etudiant')->getData();
+             foreach($etudiants as $etudiants){
+             $note->setEtudiantid($etudiants->getId());
+             }
+             
+ 
+            $etudiants = $tableau->get('etudiant')->getData();
+           
+                  $tableaunotes->addEtudiant($etudiants[0]);
+ 
+        
+  
+                 
+             $tableaunotes->addEtudiant($form3->get('etudiant')->getData());
+  
+           
+ 
+             
+             $tableaunotes->setNote1($tableau->get('note1')->getData());
+             $tableaunotes->setObservation1($tableau->get('observation1')->getData());
+          
+             $tableaunotes->setNote2($tableau->get('note2')->getData());
+             $tableaunotes->setObservation2($tableau->get('observation2')->getData());
+ 
+             $tableaunotes->setNote3($tableau->get('note3')->getData());
+             $tableaunotes->setObservation3($tableau->get('observation3')->getData());
+ 
+             $tableaunotes->addCopie($newfile);
+             $FilesRepository->add($newfile);
+             }
+             
+           
+       
+    
+             $notesRepository->add($note, true);
+   
+             // Je boucle sur les documents
+            
+     
+ 
+             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
+         }
+         
+            return $this->renderForm('main/calendrier_etudiant.html.twig', [
+      
+                'etudiants_calendar' => $etudiants,
+                'etudiants' => $etudiants,
+                'data' => compact('data'),
+                'form2' => $form2,
+                'form3' => $form3,
+                'form4' => $form4,
+                'events'=>$events,
+            ]);
+        }
+
+        
+
+  
+
+
+
+         $note = new Notes();
+         $form3 = $this->createForm(NotesType::class);
+         $form3->handleRequest($request);
+ 
+         if ($form3->isSubmitted() && $form3->isValid()) {
+           
+             $tableau = $form3->get('tableau');
+             foreach($tableau as $tableau){
+                 $tableaunotes = new TableauNotes();
+                 $newfile= new Files();
+             $files = $tableau->get('copie')->getData();
+ 
+             foreach($files as $file){
+                 $em = $this->getDoctrine()->getManager();
+                 // Je génère un nouveau nom de fichier
+                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+ 
+                 // Je copie le fichier dans le dossier uploads
+                 $file->move(
+                     $this->getParameter('videos_directory'),
+                     $fichier
+                 );
+ 
+                 // Je stocke le document dans la BDD (nom du fichier)
+               
+                 $date = new \DateTimeImmutable('now');
+                 $newfile->setName($fichier);
+                 $newfile->setTableauNotes($tableaunotes);
+                 $newfile->setNom('Copie');
+ 
+                
+  
+             }
+             $TableauNotesRepository->add($tableaunotes);
+             $note = new Notes();
+             $tableaunotes->addNote($note);
+       
+             $note->addTableau($tableaunotes);
+ 
+             $note->setType($form3->get('type')->getData());
+             $note->setClasses($form3->get('classes')->getData());
+             $note->setModule($form3->get('moduleid')->getData());
+             $note->setBloc($form3->get('blocid')->getData());
+             $note->setSemestre($form3->get('semestre')->getData());
+             $etudiants = $tableau->get('etudiant')->getData();
+             foreach($etudiants as $etudiants){
+             $note->setEtudiantid($etudiants->getId());
+             $notesRepository->add($note, true);
+             }
+        
+           
+                 
+         
+  
+           
+ 
+             
+             $tableaunotes->setNote1($tableau->get('note1')->getData());
+             $tableaunotes->setObservation1($tableau->get('observation1')->getData());
+          
+             $tableaunotes->setNote2($tableau->get('note2')->getData());
+             $tableaunotes->setObservation2($tableau->get('observation2')->getData());
+ 
+             $tableaunotes->setNote3($tableau->get('note3')->getData());
+             $tableaunotes->setObservation3($tableau->get('observation3')->getData());
+ 
+             $tableaunotes->addCopie($newfile);
+             $FilesRepository->add($newfile);
+             }
+             
+           
+       
+    
+             
+   
+             // Je boucle sur les documents
+            
+     
+ 
+             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
+         }
+         
+
+
+         $absence = new Absences();
+     
+         $form4 = $this->createForm(AbsencesType::class);
+         $form4->handleRequest($request);
+ 
+         if ($form4->isSubmitted() && $form4->isValid()) {
+           
+             $tableau = $form4->get('tableau');
+             foreach($tableau as $tableau){
+                 $tableauabsences = new TableauAbsences();
+         
+ 
+                 
+                     $TableauAbsencesRepository->add($tableauabsences);
+ 
+                     $tableauabsences->addAbsence($absence);
+                     $absence->addTableau($tableauabsences);
+                     
+ 
+                 $etudiants = $tableau->get('etudiant')->getData();
+                 
+                 
+                 $tableauabsences->addEtudiant($etudiants[0]);
+                 $retard = $tableau->get('retard')->getData();
+                 $presence = $tableau->get('presence')->getData();
+                 $enretard = $tableau->get('enretard')->getData();
+                 $retard = $tableau->get('retard')->getData();
+                 $absencedate = $tableau->get('absence')->getData();
+
+                 $du = $tableau->get('du')->getData();
+                 $au = $tableau->get('au')->getData();
+                 $tableauabsences->setPresence($presence);
+                 $tableauabsences->setEnretard($enretard);
+                 $tableauabsences->setRetard($retard);
+                 $tableauabsences->setAbsence($absencedate);
+                 $tableauabsences->setDu($du);
+                 $tableauabsences->setAu($au);
+ 
+    
+ 
+             }
+             $absence->setClasse($form4->get('classe')->getData());
+             $absence->setDate(new \DateTimeImmutable('now'));
+           
+       
+    
+             $absencesRepository->add($absence, true);
+   
+             // Je boucle sur les documents
+            
+     
+ 
+             return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
+         }
+
+         $events = null;
+         $etudiants = null;
+
+        return $this->renderForm('main/calendrier_etudiant.html.twig', [
             'etudiants_calendar' => $etudiants,
             'data' => compact('data'),
+            
+
+            'etudiants_calendar' => $etudiants,
+            'etudiants' => $etudiants,
+            'data' => compact('data'),
+            'form2' => $form2,
+            'form3' => $form3,
+            'form4' => $form4,
+            'events'=>$events,
           
         ]
     
