@@ -47,15 +47,6 @@ public function __construct(EntityManagerInterface $entityManager)
          
             ])
 
-            ->add('intervenants', EntityType::class, [
-                'class' => Intervenants::class,
-                'label' => false,
-                'choice_label' => 'nom',
-                'empty_data'=>'',
-                'required'=>false,
-                'multiple'=>true
-         
-            ])
            
            
             ->add('files',FileType::class,[

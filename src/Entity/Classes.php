@@ -36,10 +36,7 @@ class Classes
      */
     private $created_by;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Blocs::class, mappedBy="Classe")
-     */
-    private $blocs;
+
 
 
     /**
@@ -110,6 +107,11 @@ class Classes
      */
     private $docadmins;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Blocs::class, mappedBy="classe")
+     */
+    private $blocs;
+
 
     public function __toString() {
         return $this->nom;
@@ -117,7 +119,7 @@ class Classes
 
     public function __construct()
     {
-        $this->blocs = new ArrayCollection();
+     
         $this->etudiants = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
         $this->modules = new ArrayCollection();
@@ -129,6 +131,7 @@ class Classes
         $this->notes = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->docadmins = new ArrayCollection();
+        $this->blocs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,36 +175,7 @@ class Classes
         return $this;
     }
 
-    /**
-     * @return Collection<int, Blocs>
-     */
-    public function getBlocs(): Collection
-    {
-        return $this->blocs;
-    }
-
-    public function addBloc(Blocs $bloc): self
-    {
-        if (!$this->blocs->contains($bloc)) {
-            $this->blocs[] = $bloc;
-            $bloc->setClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBloc(Blocs $bloc): self
-    {
-        if ($this->blocs->removeElement($bloc)) {
-            // set the owning side to null (unless already changed)
-            if ($bloc->getClasse() === $this) {
-                $bloc->setClasse(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
   
 
     /**
@@ -510,6 +484,36 @@ class Classes
             // set the owning side to null (unless already changed)
             if ($docadmin->getClasse() === $this) {
                 $docadmin->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Blocs>
+     */
+    public function getBlocs(): Collection
+    {
+        return $this->blocs;
+    }
+
+    public function addBloc(Blocs $bloc): self
+    {
+        if (!$this->blocs->contains($bloc)) {
+            $this->blocs[] = $bloc;
+            $bloc->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBloc(Blocs $bloc): self
+    {
+        if ($this->blocs->removeElement($bloc)) {
+            // set the owning side to null (unless already changed)
+            if ($bloc->getClasse() === $this) {
+                $bloc->setClasse(null);
             }
         }
 

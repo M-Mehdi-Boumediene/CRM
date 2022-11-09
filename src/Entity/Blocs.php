@@ -36,10 +36,7 @@ class Blocs
      */
     private $created_by;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Classes::class, inversedBy="blocs")
-     */
-    private $Classe;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Modules::class, mappedBy="bloc")
@@ -65,6 +62,11 @@ class Blocs
      * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="bloc")
      */
     private $notes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Classes::class, inversedBy="blocs")
+     */
+    private $classe;
 
 
     public function __toString() {
@@ -118,17 +120,7 @@ class Blocs
         return $this;
     }
 
-    public function getClasse(): ?Classes
-    {
-        return $this->Classe;
-    }
-
-    public function setClasse(?Classes $Classe): self
-    {
-        $this->Classe = $Classe;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Modules>
@@ -240,6 +232,18 @@ class Blocs
                 $note->setBloc(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClasse(): ?Classes
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(?Classes $classe): self
+    {
+        $this->classe = $classe;
 
         return $this;
     }

@@ -188,10 +188,62 @@ $('#intervenants_codepostale').select2();
 */
 </script>
 
+
+
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+	var $sport = $('#intervenants_classes');
+// When sport gets selected ...
+$sport.change(function () { // ... retrieve the corresponding form.
+if (window.location.pathname == "/intervenants/new") {
+var $form = $(this).closest('form');
+// Simulate form data, but only include the selected sport value.
+var data = {}
+data[$sport.attr('name')] = $sport.val();
+// Submit data via AJAX to the form's action path.
+$.ajax({
+url: $form.attr('action'),
+type: $form.attr('method'),
+data: data,
+complete: function (html) { // Replace current position field ...
+$('#intervenants_modules').replaceWith(
+// ... with the returned one from the AJAX response.
+$(html.responseText).find('#intervenants_modules')
+);
 
+
+
+// Position field now displays the appropriate positions.
+$('#intervenants_modules').select2();
+
+}
+});
+} else {
+var $form = $(this).closest('form');
+// Simulate form data, but only include the selected sport value.
+var data = $form.serializeArray()
+// Submit data via AJAX to the form's action path.
+$.ajax({
+url: $form.attr('action'),
+type: $form.attr('method'),
+data: data,
+complete: function (html) { // Replace current position field ...
+$('#intervenants_modules').replaceWith(
+// ... with the returned one from the AJAX response.
+$(html.responseText).find('#intervenants_modules')
+);
+
+
+$('#intervenants_modules').select2();
+
+// Position field now displays the appropriate positions.
+}
+});
+}
+});
+</script>
 <script>
 
 	$(document).ready(function () {

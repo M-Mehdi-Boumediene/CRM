@@ -50,7 +50,7 @@ class BlocsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
       
-        ->innerJoin('u.classes', 'a')
+        ->innerJoin('u.classe', 'a')
             ->where('a.id = :classe')         
             ->setParameter('classe', $classe)
             ->orderBy('u.id', 'ASC')
@@ -63,7 +63,7 @@ class BlocsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
       
-        ->innerJoin('u.Classe', 'a')
+        ->innerJoin('u.classe', 'a')
             ->where('a.id = :classe')         
             ->setParameter('classe', $classe)
             ->orderBy('u.id', 'ASC')
@@ -77,7 +77,7 @@ class BlocsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
       
-        ->innerJoin('u.classes', 'a')
+        ->innerJoin('u.classe', 'a')
             ->where('a.id = :classe')
             ->andWhere('u.id = :bloc')
             ->setParameter('bloc', $bloc)
@@ -94,7 +94,7 @@ class BlocsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
 
-            ->innerJoin('u.Classe', 'c')
+            ->innerJoin('u.classe', 'c')
         
             ->andWhere('c.id = :classe')
             ->orWhere('u.nom LIKE :value')

@@ -110,68 +110,75 @@ class IntervenantsType extends AbstractType
             ->add('istuteur', CheckboxType::class, [
                 'label'    => 'Tuteur Pédagogique',
                 'required' => false,
-            ]);
+            ])
             
-            ;
-       
-        ;
-/*
-        $builder->get('ville')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
+          
+       ;
+       $formModifier = function (FormInterface $form, Classes $sport = null) {
+        $positions = null === $sport ? [] : $sport->getModules();
+        $positions2 = null === $sport ? [] : $sport->getIntervenants();
+        $form->add('modules', EntityType::class, [
+            'class' => Modules::class,
+            'mapped' => false,
+            'autocomplete' => true,
+            'choice_label' => function ($category) {
+                return $category->getNom() ;
+            },
+            'placeholder' => '',
+            'label' => false,
+            'choices' => $positions,
+        ]);
 
-                $form ->getParent()->remove('codepostale', EntityType::class, [
-                    'class' => Codepostal::class,
-                    'choice_label' => 'nom',
-                    'choices' => $form->getData()->getCodepostale(),
-                    'label' => false,
-                    'required'=>true
-                    
-                ]);
+  
+    };
 
-            }
-        );
+    $builder->addEventListener(
+        FormEvents::PRE_SET_DATA,
+        function (FormEvent $event) use ($formModifier) {
+            // this would be your entity, i.e. SportMeetup
+            $data = $event->getData();
 
-        $builder->addEventListener(
-            FormEvents::POST_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-                $code = $data->getCodepostale();
-
-                if($code){
-                    $form->get('ville')->setData($code->getVilles());
-
-                    $form->add('codepostale', EntityType::class, [
-                        'class' => Codepostal::class,
-                        'choice_label' => 'nom',
-                        'choices' => $code->getVilles()->getCodepostale(),
-                        'required'=>true,
-                        'label' => false,
-                    
-                        
-                    ]);
-                }else{
-
-                    
-                    $form->add('codepostale', EntityType::class, [
-                        'class' => Codepostal::class,
-                        'choice_label' => 'nom',
-                        'choices' => [],
-                        'required'=>true,
-                        'label' => false,
-                        
-                    ]);
-
-                }
-        
+            $formModifier($event->getForm(), $data->getClasses());
+        }
+    );
 
 
-            }
-        );
- */
-    }
+
+
+
+
+    $builder->addEventListener(
+        FormEvents::PRE_SET_DATA,
+        function (FormEvent $event) use ($formModifier) {
+            // this would be your entity, i.e. SportMeetup
+            $data = $event->getData();
+
+            $formModifier($event->getForm(), $data->getClasses());
+        }
+    );
+
+    $builder->get('classes')->addEventListener(
+        FormEvents::POST_SUBMIT,
+        function (FormEvent $event) use ($formModifier) {
+            // It's important here to fetch $event->getForm()->getData(), as
+            // $event->getData() will get you the client data (that is, the ID)
+            $sport = $event->getForm()->getData();
+
+            // since we've added the listener to the child, we'll have to pass on
+            // the parent to the callback functions!
+            $formModifier($event->getForm()->getParent(), $sport);
+        }
+    );
+
+
+
+    
+
+    
+    
+        }
+
+    
    
 
     public function configureOptions(OptionsResolver $resolver): void

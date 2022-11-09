@@ -182,6 +182,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $docadmins;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
+     */
+    private $profil;
+
  
 
    
@@ -879,6 +884,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->docadmins->removeElement($docadmin)) {
             $docadmin->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): self
+    {
+        $this->profil = $profil;
 
         return $this;
     }

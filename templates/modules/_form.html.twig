@@ -43,12 +43,7 @@
 		{{ form_errors(form.coefficient) }}
 	</div>
 
-	<div class="col-md-3">
-		<br>
-		    {{ form_label(form.intervenants, "Intervenants") }}
-		{{ form_row(form.intervenants,{'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.intervenants) }}
-	</div>
+
 
 </div>
 <br>
@@ -71,7 +66,9 @@ ou
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 	var $sport = $('#modules_classes');
 // When sport gets selected ...
@@ -129,16 +126,20 @@ $('#modules_bloc').select2();
 }
 
 });
+
+$("#modules_intervenants").select2({
+  tags: true
+});
 </script>
 
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
 
 	$(document).ready(function () {
 $('#modules_classes').select2();
 $('#modules_bloc').select2();
+
+
 });
 </script>

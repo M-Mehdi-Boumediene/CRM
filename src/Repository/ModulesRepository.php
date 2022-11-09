@@ -81,15 +81,15 @@ class ModulesRepository extends ServiceEntityRepository
             
     
     
-        ->leftJoin('u.classes', 'c')
+        ->Join('u.classes', 'c')
         ->innerJoin('u.bloc', 'b')
 
-        ->orWhere('u.nom LIKE :value')
+        ->andWhere('u.nom LIKE :value')
         
 
 
-        ->orWhere('c.id = :classe')
-        ->orWhere('b.id = :bloc')
+        ->andWhere('c.id = :classe')
+        ->andWhere('b.id = :bloc')
 
 
         ->setParameter('value', '%'.$value.'%')

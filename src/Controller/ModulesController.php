@@ -32,8 +32,7 @@ class ModulesController extends AbstractController
      */
     public function index(Request $request,ModulesRepository $modulesRepository, PaginatorInterface $paginator): Response
     {
-        $form = $this->createForm(FiltreType::class);
-        $form->handleRequest($request);
+     
 
         $form2 = $this->createForm(FiltreModuleType::class);
         $form2->handleRequest($request);
@@ -45,13 +44,13 @@ class ModulesController extends AbstractController
         $filtre = $form2->get('bloc')->getData();
         $classe = $form2->get('classe')->getData();
         
-            if($filtre == null){
+            if(!$filtre){
                 $filtre = empty($filtre);
             }
-            if($value == null){
+            if(!$value){
                 $value = empty($value);
             }
-            if($classe == null){
+            if(!$classe){
                 $classe = empty($classe);
             }
        
