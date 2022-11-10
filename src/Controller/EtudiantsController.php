@@ -158,7 +158,7 @@ class EtudiantsController extends AbstractController
 
      $classes = $classesRepository->findOneBy(['id'=>$etudiant->getClasses()]);
 
-     $blocs = $blocsRepository->findBy(['Classe'=>$classes]);
+     $blocs = $blocsRepository->findBy(['classe'=>$classes]);
 
 
         return $this->render('etudiants/show.html.twig', [

@@ -573,7 +573,13 @@
 										<div class="scroll-area-xs" style="height: 150px;">
 											<div class="scrollbar-container ps">
 												<ul class="nav flex-column">
+												{% if app.user.profil %}
+													<li class="nav-item"> 
+														<a href="{{ path('app_profil_show', {'id': app.user.profil.id}) }}" class="nav-link">Voir mon profil</a>
+													</li>
+													{% else %}
 
+													{% endif %}
 													<li class="nav-item"> 
 														<a href="{{path('app_profil')}}" class="nav-link">Modifier mon profil</a>
 													</li>
