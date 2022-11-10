@@ -497,7 +497,12 @@
 							<div class="widget-content-left">
 								<div class="btn-group">
 									<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-										<img width="50" class="rounded-circle" src="{{asset('assets/images/avatars/user01.png')}}" alt="">
+										{% if app.user.profil %}
+															<img style="margin-top: 0 !important;"class="rounded-circle" width="50" src="{{ asset('uploads/' ~ app.user.profil.image)}} ">
+																{% else %}
+																<img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/user01.png')}}" alt="">
+																{% endif %}
+									
 										<i class="fa fa-angle-down ml-2 opacity-8"></i>
 									</a>
 									<div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
@@ -508,7 +513,11 @@
 													<div class="widget-content p-0">
 														<div class="widget-content-wrapper">
 															<div class="widget-content-left mr-3">
+															{% if app.user.profil %}
+															<img style="margin-top: 0 !important;"class="rounded-circle" width="42" src="{{ asset('uploads/' ~ app.user.profil.image)}} ">
+																{% else %}
 																<img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/user01.png')}}" alt="">
+																{% endif %}
 															</div>
 															<div class="widget-content-left" style="color:white;">
 																{% if is_granted('ROLE_ETUDIANT') %}

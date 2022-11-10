@@ -72,6 +72,19 @@ class ProfilController extends AbstractController
 
             $entityManager->persist($profil);
             $entityManager->flush();
+
+            $em = $this->getDoctrine()->getManager();
+            $qb = $em->createQueryBuilder();
+            $q = $qb->update(Users::class, 'u')
+
+                ->set('u.profil','?1')
+                ->where('u.id = ?2')
+                ->setParameter(1,$profil)
+                ->setParameter(2,$this->getUser())
+        
+                ->getQuery();
+            $p = $q->execute();
+          
             return $this->redirectToRoute('app_profil', ['profil' => $profil,], Response::HTTP_SEE_OTHER);  
         
 
