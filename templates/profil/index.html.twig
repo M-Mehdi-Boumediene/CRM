@@ -74,9 +74,9 @@
 		<div class="col-sm-12" style="margin-top: 23px !important;">
 										
 
-<div class="container rounded bg-white mt-5 mb-5" style="margin-top: 23px !important;">
+<div class="container rounded bg-white mt-12 mb-12" style="margin-top: -8px !important;    margin-left: 10px;">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           
         <div class="user-avatar user-avatar-xl fileinput-button">
 					{{ form_start(form) }}
@@ -91,7 +91,10 @@
 							{{ form_errors(form.image) }}
          </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4"style="
+    margin-left: -125px;
+    margin-top: 25px;
+">
   <b>nom :</b> {{app.user.nom}}<br>
     <b>prenom :</b> {{app.user.prenom}}<br>
 	    <b>Adrésse :</b> {{app.user.adresse}}<br>
@@ -99,7 +102,24 @@
 		     <b>Email :</b> {{app.user.email}}<br>
 		   </div>
  </div>
-        <div class="col-md-12 border-right">
+<br><br>
+	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+								<li class="nav-item">
+									<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+										<span>Informations Personnelles</span>
+									</a>
+								</li>
+					
+
+                                <li class="nav-item">
+									<a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+										<span>Parcour professionnel</span>
+									</a>
+								</li>
+
+							</ul>
+<div class="tab-pane tabs-animation fade show  active" id="tab-content-0" role="tabpanel">
+        <div class="col-md-12">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Informations supplémentaire</h4>
@@ -138,7 +158,17 @@
                 </div>
        
             </div>
+
         </div>
+
+		</div>
+
+
+		<div class="tab-pane tabs-animation  fade" id="tab-content-1" role="tabpanel">
+		<div class="col-md-12">
+		aaaaa
+		</div>
+		</div>
 </div>
 </div>
 </div>
