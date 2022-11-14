@@ -2,7 +2,7 @@
 
 
 	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg" style="margin-top: 114px;">
 			<div class="modal-content">
 				<div class="modal-header">
 
@@ -28,48 +28,51 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					{{ form_start(form) }}
+					{{ form_start(form2) }}
 
 					<div class="form-row">
 						<div class="col-md-6">
-							{{ form_row(form.debut,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.debut) }}
+							{{ form_row(form2.type,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.type) }}
+						</div>
+					
+						<div class="col-md-6 entreprise">
+							{{ form_row(form2.entreprise,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.entreprise) }}
+						</div>
+								<div class="col-md-6 formation">
+							{{ form_row(form2.ecole,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.ecole) }}
+						</div>
+									<div class="col-md-6 titre">
+							{{ form_row(form2.titre,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.titre) }}
+						</div>
+								<div class="col-md-6 formation">
+							{{ form_row(form2.formation,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.formation) }}
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-6">
+							{{ form_row(form2.debut,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.debut) }}
 						</div>
 						<div class="col-md-6">
-							{{ form_row(form.fin,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.fin) }}
+							{{ form_row(form2.fin,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.fin) }}
 						</div>
 					</div>
 					<br>
-					<div class="form-row">
-						<div class="col-md-6 titre">
-							{{ form_row(form.titre,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.titre) }}
-						</div>
-						<div class="col-md-6 entreprise">
-							{{ form_row(form.entreprise,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.entreprise) }}
-						</div>
-						<div class="col-md-6 formation">
-							{{ form_row(form.formation,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.formation) }}
-						</div>
-						<div class="col-md-6 formation">
-							{{ form_row(form.ecole,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.ecole) }}
-						</div>
-					</div>
+				
 
 					<br>
 					<div class="form-row">
 						<div class="col-md-12">
-							{{ form_row(form.description|raw,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.description) }}
+							{{ form_row(form2.description|raw,{'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(form2.description) }}
 						</div>
-						<div style="display:none;">
-							{{ form_row(form.type,{'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(form.type) }}
-						</div>
+					
 					</div>
 
 
@@ -79,7 +82,7 @@
 
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
-				{{ form_end(form) }}
+				{{ form_end(form2) }}
 			</div>
 		</div>
 	</div>

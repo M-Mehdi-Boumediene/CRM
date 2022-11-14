@@ -187,6 +187,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $profil;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cv::class, mappedBy="user")
+     */
+    private $cvs;
+
  
 
    
@@ -214,6 +219,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->signatures = new ArrayCollection();
         $this->entreprises = new ArrayCollection();
         $this->docadmins = new ArrayCollection();
+        $this->cvs = new ArrayCollection();
       
  
      
@@ -896,6 +902,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfil(?Profil $profil): self
     {
         $this->profil = $profil;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cv>
+     */
+    public function getCvs(): Collection
+    {
+        return $this->cvs;
+    }
+
+    public function addCv(Cv $cv): self
+    {
+        if (!$this->cvs->contains($cv)) {
+            $this->cvs[] = $cv;
+            $cv->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCv(Cv $cv): self
+    {
+        if ($this->cvs->removeElement($cv)) {
+            // set the owning side to null (unless already changed)
+            if ($cv->getUser() === $this) {
+                $cv->setUser(null);
+            }
+        }
 
         return $this;
     }

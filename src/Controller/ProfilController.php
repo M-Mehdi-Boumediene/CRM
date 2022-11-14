@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Entity\Profil;
+use App\Entity\Cv;
+use App\Form\CvType;
 use App\Form\ProfilType;
 use App\Repository\UsersRepository;
+use App\Repository\CvRepository;
 use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +21,7 @@ class ProfilController extends AbstractController
    /**
      * @Route("/profil", name="app_profil", methods={"GET", "POST"})
      */
-    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EntityManagerInterface $entityManager): Response
+    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EntityManagerInterface $entityManager, CvRepository $cvRepository): Response
     {
 
         $profil = new Profil();
@@ -38,6 +41,10 @@ class ProfilController extends AbstractController
 
          $form = $this->createForm(ProfilType::class, $profil);
          $form->handleRequest($request);
+
+    
+
+
  
          if ($form->isSubmitted() && $form->isValid()) {
            
@@ -90,17 +97,45 @@ class ProfilController extends AbstractController
 
 
         }
+        $form2 = $this->createForm(CvType::class);
+        $form2->handleRequest($request);
+        
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $cv = new Cv();
+          
+          
+            $cv->setUser($this->getUser());
+            $cv->setType($form2->get('type')->getData());
+            $cv->setEntreprise($form2->get('entreprise')->getData());
+            $cv->setEntreprise($form2->get('entreprise')->getData());
+            $cv->setEcole($form2->get('ecole')->getData());
+            $cv->setTitre($form2->get('titre')->getData());
+            $cv->setFormation($form2->get('formation')->getData());
+            $cv->setDebut($form2->get('debut')->getData());
+            $cv->setFin($form2->get('fin')->getData());
+            $cv->setDescription($form2->get('description')->getData());
 
+            $cvRepository->add($cv, true);
+
+             return $this->redirectToRoute('app_profil', ['profil' => $profil,], Response::HTTP_SEE_OTHER);  
+         
+ 
+ 
+         }
+ 
         $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
 
        
-        
+        $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
+
         return $this->renderForm('profil/index.html.twig', [
             'nom' => $nom,
             'prenom' => $prenom,
             'form' => $form,
+            'form2' => $form2,
             'profil' => $profil,
             'photoprofil'=>$photoprofil,
+            'lecv'=>$lecv,
      
         ]);
     }
@@ -111,6 +146,7 @@ class ProfilController extends AbstractController
     {
 
      
+
         return $this->render('profil/show.html.twig', [
       
             'profil' => $profil,

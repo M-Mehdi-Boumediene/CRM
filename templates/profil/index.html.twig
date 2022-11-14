@@ -1,58 +1,65 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Profil {% endblock %} {% block body %} {{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+<div class="app-main">
+    {{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
-{% block title %}Profil
-{% endblock %}
+    <style>
+        form {
+            display: contents;
+        }
 
-{% block body %}
+        .select2 {
+            width: 100% !important;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+        }
 
-	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
-	<div class="app-main">
-		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
+        .page,
+        .current,
+        .previous,
+        .first,
+        .next,
+        .last {
+            border: solid 1px;
+            padding: 5px;
+            margin: 2px;
+        }
 
-		<style>
-			form {
-				display: contents;
-			}
-			.select2 {
-				width: 100% !important;
+        .blockOverlay,
+        .modal-backdrop {
+            background-color: #9f8e8e00;
+            height: 100vh;
+            left: 0;
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            z-index: 0;
+        }
 
+        .vertical-timeline-element-content .vertical-timeline-element-date {
+            left: -120px;
+        }
+    </style>
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            <div class="app-page-title">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="page-title-icon">
+                            <i class="pe-7s-id icon-gradient bg-strong-bliss"></i>
+                        </div>
+                        <div>Mon Profil
+                            <div class="page-title-subheading">Informations du compte</div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions">
 
-				font-size: 1rem;
-				font-weight: 400;
-				line-height: 1.5;
-				color: #495057;
-				background-color: #fff;
-				background-clip: padding-box;
-
-				border-radius: 0.25rem;
-			}
-			.page,
-			.current,
-			.previous,
-			.first,
-			.next,
-			.last {
-				border: solid 1px;
-				padding: 5px;
-				margin: 2px;
-			}
-		</style>
-		<div class="app-main__outer">
-			<div class="app-main__inner">
-				<div class="app-page-title">
-					<div class="page-title-wrapper">
-						<div class="page-title-heading">
-							<div class="page-title-icon">
-								<i class="pe-7s-id icon-gradient bg-strong-bliss"></i>
-							</div>
-							<div>Mon Profil
-								<div class="page-title-subheading">Informations du compte</div>
-							</div>
-						</div>
-						<div class="page-title-actions">
-
-							<div class="d-inline-block dropdown">
-							<a href="#">
+                        <div class="d-inline-block dropdown">
+                            <a href="#">
 									<button class="btn-shadow btn btn-primary">
 										<span class="btn-icon-wrapper pr-2 opacity-7">
 											<i class="fa fa-plus fa-w-20"></i>
@@ -60,134 +67,173 @@
 										Modifier mon parcours pro
 									</button>
 								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-				<div class="tabs-animation">
-					<div class="main-card mb-3 card">
-				
-						
-					
-		<div class="row">
-		<div class="col-sm-12" style="margin-top: 23px !important;">
-										
+            <div class="tabs-animation">
+                <div class="main-card mb-3 card">
 
-<div class="container rounded bg-white mt-12 mb-12" style="margin-top: -8px !important;    margin-left: 10px;">
-    <div class="row">
-        <div class="col-md-3">
-          
-        <div class="user-avatar user-avatar-xl fileinput-button">
-					{{ form_start(form) }}
 
-					{% if photoprofil %}
-						<img style="margin-top: 0 !important;"class="rounded-circle mt-5" width="150px" src="{{ asset('uploads/' ~ photoprofil.image)}} ">
-				{% else %}
-				
-				{% endif %}
-							{{ form_row(form.image,{'attr': {'class': 'form-control'}}) }}
 
-							{{ form_errors(form.image) }}
-         </div>
-  </div>
-  <div class="col-md-4"style="
-    margin-left: -125px;
-    margin-top: 25px;
-">
-  <b>nom :</b> {{app.user.nom}}<br>
-    <b>prenom :</b> {{app.user.prenom}}<br>
-	    <b>Adrésse :</b> {{app.user.adresse}}<br>
-		   <b>Téléphone :</b> {{app.user.telephone}}<br>
-		     <b>Email :</b> {{app.user.email}}<br>
-		   </div>
- </div>
-<br><br>
-	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-								<li class="nav-item">
-									<a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-top: 23px !important;">
+
+
+                            <div class="container rounded bg-white mt-12 mb-12" style="margin-top: -8px !important;    margin-left: 10px;">
+
+                                <br>
+                                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                                    <li class="nav-item">
+                                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
 										<span>Informations Personnelles</span>
 									</a>
-								</li>
-					
+                                    </li>
 
-                                <li class="nav-item">
-									<a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+
+                                    <li class="nav-item">
+                                        <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
 										<span>Parcour professionnel</span>
 									</a>
-								</li>
+                                    </li>
 
-							</ul>
-<div class="tab-pane tabs-animation fade show  active" id="tab-content-0" role="tabpanel">
-        <div class="col-md-12">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Informations supplémentaire</h4>
-                </div>
-               
-                <div class="row mt-2">
-				
-                    <div class="col-md-6">
-                        {{ form_row(form.nom,{'attr': {'class': 'form-control','value': nom }}) }}
-                        {{ form_errors(form.nom) }}
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane tabs-animation fade show  active" id="tab-content-0" role="tabpanel">
 
-                    </div>
-                    <div class="col-md-6">
-                        {{ form_row(form.prenom,{'attr': {'class': 'form-control','value': prenom }}) }}
-                        {{ form_errors(form.prenom) }}
-                    
-                    </div>
-                </div>
-				  <div class="row mt-2">
-                    <div class="col-md-6">
-                        {{ form_row(form.adresse,{'attr': {'class': 'form-control','value': nom }}) }}
-                        {{ form_errors(form.adresse) }}
+                                        <div class="row">
+                                            <div class="main-card ">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
 
+                                                            <div class="user-avatar user-avatar-xl fileinput-button">
+                                                                {{ form_start(form) }} {% if photoprofil %}
+                                                                <img style="margin-top: 0 !important;" class="rounded-circle mt-5" width="150px" src="{{ asset('uploads/' ~ photoprofil.image)}} "> {% else %} {% endif %} {{ form_row(form.image,{'attr':
+                                                                {'class': 'form-control'}}) }} {{ form_errors(form.image) }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4" style="margin-left: -125px;margin-top: 25px;">
+                                                            <b>nom :</b> {{app.user.nom}}<br>
+                                                            <b>prenom :</b> {{app.user.prenom}}<br>
+                                                            <b>Adrésse :</b> {{app.user.adresse}}<br>
+                                                            <b>Téléphone :</b> {{app.user.telephone}}<br>
+                                                            <b>Email :</b> {{app.user.email}}<br>
+                                                        </div>
+
+
+														   <div class="col-md-6">
+														          
+                                                            {{ form_row(form.nom,{'attr': {'class': 'form-control','value': nom }}) }} {{ form_errors(form.nom) }}
+
+                                                      
+                                                     
+                                                            {{ form_row(form.prenom,{'attr': {'class': 'form-control','value': prenom }}) }} {{ form_errors(form.prenom) }}
+
+                                                       
+                                                    
+                                                            {{ form_row(form.adresse,{'attr': {'class': 'form-control','value': nom }}) }} {{ form_errors(form.adresse) }}
+
+                                                     
+                                                            {{ form_row(form.telephone,{'attr': {'class': 'form-control','value': prenom }}) }} {{ form_errors(form.telephone) }}
+
+                                                        </div>
+                                                    </div>
+														   </div>
+                                                    </div>
+
+
+
+                                                
+                                        
+                                                    <div class="mt-5 text-left">
+                                                        <button type="submit" class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button> {{ form_end(form) }}
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <br><br><br>
+
+
+                                </div>
+
+
+                                <div class="tab-pane tabs-animation  fade" id="tab-content-1" role="tabpanel">
+                                    <div class="row">
+                                        <div class="">
+                                            <div class="card-body">
+
+
+                                                <div class="card-body">
+
+
+                                                    <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+
+
+                                                        {% if lecv %} {% for cv in lecv %}
+                                                        <div class="vertical-timeline-item vertical-timeline-element">
+                                                            <div>
+                                                                <span class="vertical-timeline-element-icon bounce-in">
+<i class="badge badge-dot badge-dot-xl badge-success"> </i>
+</span>
+
+                                                                <div class="vertical-timeline-element-content bounce-in">
+                                                                    <h4 class="timeline-title">{% if cv.type == 'Formation' %} Formation {{cv.formation }} école {{cv.ecole }} {% else %} {% endif %} {% if cv.type == 'Expérience' %} Expérience {{cv.titre }} {{cv.entreprise }} {%
+                                                                        else %} {% endif %} </h4>
+                                                                    {{cv.description|nl2br}}
+                                                                    <span class="vertical-timeline-element-date">Du {{cv.debut|date("d/m/Y") }} <br> Au {{cv.fin|date("d/m/Y") }}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %} {% else %} {% endif %}
+
+                                                    </div>
+                                                    <br>
+                                                    <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Ajouter une expérience
+</button> {{ block("modalcv", "Menus/modalcv.html.twig") }}
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        {{ form_row(form.telephone,{'attr': {'class': 'form-control','value': prenom }}) }}
-                        {{ form_errors(form.telephone) }}
-                    
-                    </div>
+
                 </div>
-                  
-                <div class="mt-5 text-center">     
-              	 <button type="submit" class="mt-1 btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
-                
-                {{ form_end(form) }}
-                </div>
-       
+                <br><br><br>
+
             </div>
 
         </div>
 
-		</div>
 
+    </div>
 
-		<div class="tab-pane tabs-animation  fade" id="tab-content-1" role="tabpanel">
-		<div class="col-md-12">
-		aaaaa
-		</div>
-		</div>
 </div>
+
 </div>
+
 </div>
-									</div>
-								</div>
 
+</div>
 
-							</div>
-						</div>
-					</div>
+</div>
 
+</div>
 
-				</div>
-			</div>
-
-		</div>
-	</div>
-	{{ block("Footer", "Menus/Footer.html.twig") }}
-
-
-
-{% endblock %}
+{{ block("Footer", "Menus/Footer.html.twig") }} {% endblock %}

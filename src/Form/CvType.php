@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Intervenants;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +20,17 @@ class CvType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type')
+        ->add('type',ChoiceType::class, [
+            'choices' => [
+                'Formation' => 'Formation',
+                'Expérience' => 'Expérience',
+                
+            ],
+            'expanded' => false,
+            'multiple' => false,
+            'required' => false,
+            'label' => 'Type' 
+        ])
             ->add('entreprise',TextType::class,[
                 'label'=> 'Entreprise',
                 'required'=>false,
@@ -38,7 +49,7 @@ class CvType extends AbstractType
                 'empty_data' => null,
             ])
             ->add('fin',DateType::class,[
-                'label' => 'Date début',
+                'label' => 'Date fin',
                 'widget' => "single_text",
                 'empty_data' => null,
             ])

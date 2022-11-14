@@ -61,6 +61,11 @@ class Cv
      */
     private $formation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="cvs")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +165,18 @@ class Cv
     public function setFormation(?string $formation): self
     {
         $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
