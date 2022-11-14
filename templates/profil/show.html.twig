@@ -21,6 +21,11 @@
 			padding: 0.5rem 0.75rem;
 			vertical-align: middle;
 		}
+		.vertical-timeline-element-content .vertical-timeline-element-date {
+
+    left: -120px;
+
+}
 	</style>
 	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
 	<div class="app-main">
@@ -243,7 +248,31 @@
 
 													<div class="card-body">
 
-												
+												<div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+
+
+	{% if lecv %}
+	{% for cv in lecv %}
+    <div class="vertical-timeline-item vertical-timeline-element">
+        <div>
+		<span class="vertical-timeline-element-icon bounce-in">
+<i class="badge badge-dot badge-dot-xl badge-success"> </i>
+</span>
+      
+            <div class="vertical-timeline-element-content bounce-in">
+                <h4 class="timeline-title">{% if cv.type == 'Formation' %} Formation  {{cv.formation }}  école {{cv.ecole }}  {% else %}   {% endif %} {% if cv.type == 'Expérience' %} Expérience {{cv.titre }}  {{cv.entreprise }}   {% else %}   {% endif %} </h4>
+                {{cv.description|nl2br}}
+                <span class="vertical-timeline-element-date">Du {{cv.debut|date("d/m/Y") }} <br> Au {{cv.fin|date("d/m/Y") }}</span>
+            </div>
+        </div>
+    </div>
+	{% endfor %}
+
+	{% else %}
+
+{% endif %}
+
+</div>
 
 													</div>
 

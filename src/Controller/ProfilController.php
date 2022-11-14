@@ -142,14 +142,15 @@ class ProfilController extends AbstractController
      /**
      * @Route("/profil/{id}", name="app_profil_show", methods={"GET"})
      */
-    public function show(Profil $profil): Response
+    public function show(Profil $profil, CvRepository $cvRepository): Response
     {
 
-     
+        $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
 
         return $this->render('profil/show.html.twig', [
       
             'profil' => $profil,
+            'lecv'=>$lecv,
         ]);
     }
 }
