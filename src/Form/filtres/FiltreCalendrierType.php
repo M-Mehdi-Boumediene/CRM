@@ -39,7 +39,7 @@ class FiltreCalendrierType extends AbstractType
             },
             'choice_label' => 'nom',
             'label'=>false,
-            'empty_data'=>'',
+            'empty_data'=>null,
             'multiple' => false,
             'required' => false
         ])
@@ -57,25 +57,11 @@ class FiltreCalendrierType extends AbstractType
             },
 
             'label'=>false,
-            'empty_data'=>'',
+            'empty_data'=>null,
             'multiple' => false,
             'required' => false
         ])
-        ->add('apprenant', EntityType::class, [
-            'class' => Etudiants::class,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->orderBy('u.nom', 'ASC');
-            },
-            'choice_label' => function($apprenant, $key, $index) {
-                /** @var Apprenants $apprenant */
-                return $apprenant->getNom() . ' ' . $apprenant->getPrenom();
-            },
-            'label'=>false,
-            'empty_data'=>'',
-            'multiple' => false,
-            'required' => false
-        ])
+
 
         ;
 

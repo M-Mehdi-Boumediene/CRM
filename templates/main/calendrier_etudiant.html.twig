@@ -34,6 +34,9 @@
 			.duréeduretard {
 				display: none;
 			}
+			form{
+				display:none
+			}
 		</style>
 		<div class="app-main__outer">
 			<div class="app-main__inner">
@@ -74,10 +77,10 @@
 
 				<div class="tabs-animation">
 					<div class="main-card mb-3 card">
-						<div class="card-body">
+						<div class="card-body" >
 
 
-							<div class="row">
+							<div class="row" style="display:none;">
 								<div class="col-md-12" style="padding-bottom: 5px;">
 									<b>Recherche</b>
 								</div>
@@ -100,12 +103,7 @@
 
 
 									</div>
-									<div class="col-md-3">
-										{{ form_row(form2.apprenant,{'attr': {'class': 'form-control'}}) }}
-										{{ form_errors(form2.apprenant) }}
-
-
-									</div>
+						
 									<div class="col-md-3">
 										<button type="submit" class="btn-shadow btn btn-primary">
 											<span class="btn-icon-wrapper pr-2 opacity-7">
@@ -150,7 +148,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js" integrity="sha512-vFABRuf5oGUaztndx4KoAEUVQnOvAIFs59y4tO0DILGWhQiFnFHiR+ZJfxLDyJlXgeut9Z07Svuvm+1Jv89w5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-{% if events %}
+
 	<script>
 
 
@@ -372,10 +370,9 @@ calendar.render()
 
 }
 	</script>
-	{% else %}
 
 
-{% endif %}{% endblock %}
+{% endblock %}
 
 {% block modal %}
 

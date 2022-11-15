@@ -45,26 +45,38 @@ class CalendrierRepository extends ServiceEntityRepository
         }
     }
     
-    public function searchMot($classe,$intervenant,$apprenant)
-    {
-        return $this->createQueryBuilder('u')
+    public function searchMot($classe,$intervenant)
+    { 
+        if(!empty($classe)){
+            return $this->createQueryBuilder('u')
 
             ->innerJoin('u.classe', 'c')
-            ->innerJoin('c.intervenants', 'i')
-            ->innerJoin('c.etudiants', 'e')
         
             ->andWhere('c.id = :classe')
             
-            ->andWhere('i.id = :intervenant')
-            ->andWhere('e.id = :etudiant')
+
             
             ->setParameter('classe', $classe)
-            ->setParameter('intervenant', $intervenant)
-            ->setParameter('etudiant', $apprenant)
+
            
             ->getQuery()
             ->getResult()
         ;
+        }
+        if(!empty($intervenant)){
+            return $this->createQueryBuilder('u')
+
+
+            ->leftJoin('u.intervenant', 'i')
+            ->andWhere('i.id = :intervenant')
+
+            ->setParameter('intervenant', $intervenant)
+
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+
     }
  
     public function horaires($start,$end,$classe,$intervenant)

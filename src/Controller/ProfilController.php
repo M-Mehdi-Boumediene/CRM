@@ -62,6 +62,8 @@ class ProfilController extends AbstractController
             $images=$profil ->setImage($form->get('image')->getData());
 
               $img=  $form->get('image')->getData();
+              $photodeprofil = $profilRepository->findOneBy(['user'=>$this->getUser()]);
+
               
               
                 // On génère un nouveau nom de fichier
@@ -77,8 +79,11 @@ class ProfilController extends AbstractController
             $profil ->setImage($fichier);
       
 
+
             $entityManager->persist($profil);
             $entityManager->flush();
+
+
 
             $em = $this->getDoctrine()->getManager();
             $qb = $em->createQueryBuilder();
@@ -91,6 +96,9 @@ class ProfilController extends AbstractController
         
                 ->getQuery();
             $p = $q->execute();
+
+
+
           
             return $this->redirectToRoute('app_profil', ['profil' => $profil,], Response::HTTP_SEE_OTHER);  
         

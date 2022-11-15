@@ -7,6 +7,7 @@ use App\Repository\UsersRepository;
 use App\Repository\AbsencesRepository;
 use App\Repository\ApprenantsRepository;
 use App\Repository\ProfilRepository;
+use App\Repository\ClassesRepository;
 use App\Entity\Absences;
 use App\Entity\TableauAbsences;
 use App\Entity\Users;
@@ -29,7 +30,7 @@ use App\Repository\IntervenantsRepository;
 use App\Repository\TableauNotesRepository;
 use App\Repository\FilesRepository;
 use App\Repository\ModulesRepository;
-use App\Repository\ClassesRepository;
+
 use App\Repository\MessagesRepository;
 use App\Repository\EntreprisesRepository;
 use App\Repository\BlocsRepository;
@@ -122,22 +123,13 @@ class MainController extends AbstractController
          $classe = $form2->get('classe')->getData();
 
          $intervenant = $form2->get('intervenant')->getData();
-         $apprenant = $form2->get('apprenant')->getData();
+ 
 
-         if($classe == null){
-            $classe = empty($classe);
-        }
-        if($intervenant == null){
-            $intervenant = empty($intervenant);
-        }
-        if($apprenant == null){
-            $apprenant = empty($apprenant);
-        }
-
-         $events = $calendrier->findAll();
+         $events = $calendrier->searchMot($classe,$intervenant);
          $rdvs = [];
          $rdvs2 = [];
-         foreach ($events as $event){
+         if ($events){
+foreach ($events as $event){
              
              $rdvs[] = [
                  'id' => $event->getId(),
@@ -168,6 +160,8 @@ class MainController extends AbstractController
       
              
          }
+         }
+         
          
          if($events){
             $etudiants = $apprenants->findByClasse($classe);
@@ -531,10 +525,12 @@ class MainController extends AbstractController
     /**
      * @Route("/calendrier_etudiant", name="app_calendrier_etudiant")
      */
-    public function calendrierEtudiant(UsersRepository $users, Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository ): Response
+    public function calendrierEtudiant(UsersRepository $users,ClassesRepository $classRepository, Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository ): Response
     {
 
-        $events = $calendrier->findAll();
+        $laclasse = $etudiantsRepository->findOneBy(array('email'=>$this->getUser()->getEmail()));
+
+        $events = $calendrier->findBy(array('classe'=>$laclasse->getClasses()));
         $rdvs = [];
         foreach ($events as $event){
 
@@ -569,228 +565,7 @@ class MainController extends AbstractController
 
     
 
-        if ($form2->isSubmitted() && $form2->isValid()) {
-
-       
-         $classe = $form2->get('classe')->getData();
-
-         $intervenant = $form2->get('intervenant')->getData();
-         $apprenant = $form2->get('apprenant')->getData();
-
-         if($classe == null){
-            $classe = empty($classe);
-        }
-        if($intervenant == null){
-            $intervenant = empty($intervenant);
-        }
-        if($apprenant == null){
-            $apprenant = empty($apprenant);
-        }
-
-         $events = $calendrier->findAll();
-         $rdvs = [];
-         $rdvs2 = [];
-         foreach ($events as $event){
-             
-             $rdvs[] = [
-                 'id' => $event->getId(),
-                 'start' => $event->getStart()->format('Y-m-d H:i'),
-                 'end' => $event->getEnd()->format('Y-m-d H:i'),
-                 'backgroundColor' => $event->getBackgroundColor(),
-                 'borderColor' => $event->getBackgroundColor(),
-                 'textColor' => $event->getTextColor(),
-                 'title' => $event->getTitre(),
-                 'description' => $event->getDescription(),
-                 'classe' => $event->getClasse()->getNom(),
-              
-                 'module' => $event->getModule()->getNom(),
-                 'intervenant' => $event->getIntervenant()->getNom(),
-                 'textColor' => $event->getTextColor(),
-                 'allDay' => $event->getAllDay(),
-                 'type' => $event->getType(),
- 
- 
-             ];
- 
- 
-             
-             $classe= $event->getClasse()->getId();
- 
- 
-             $data = json_encode($rdvs);
-      
-             
-         }
-         
-         if($events){
-            $etudiants = $apprenants->findByClasse($classe);
-         }else{
-            $etudiants = null;
-            $data = null;
-         }
-       
-         $absence = new Absences();
-     
-         $form4 = $this->createForm(AbsencesType::class);
-         $form4->handleRequest($request);
- 
-         if ($form4->isSubmitted() && $form4->isValid()) {
-           
-             $tableau = $form4->get('tableau');
-             foreach($tableau as $tableau){
-                 $tableauabsences = new TableauAbsences();
-         
- 
-                 
-                     $TableauAbsencesRepository->add($tableauabsences);
- 
-                     $tableauabsences->addAbsence($absence);
-                     $absence->addTableau($tableauabsences);
-                     
- 
-                 $etudiants = $tableau->get('etudiant')->getData();
-                 
-                 
-                 $tableauabsences->addEtudiant($etudiants[0]);
-                 
-                 $retard = $tableau->get('retard')->getData();
-                 $presence = $tableau->get('presence')->getData();
-                 $enretard = $tableau->get('enretard')->getData();
-                 $retard = $tableau->get('retard')->getData();
-                 $absencedate = $tableau->get('absence')->getData();
-
-                 $du = $tableau->get('du')->getData();
-                 $au = $tableau->get('au')->getData();
-                 $tableauabsences->setPresence($presence);
-                 $tableauabsences->setEnretard($enretard);
-                 $tableauabsences->setRetard($retard);
-                 $tableauabsences->setAbsence($absencedate);
-                 $tableauabsences->setDu($du);
-                 $tableauabsences->setAu($au);
-            
-             
-                
- 
     
- 
-             }
-             $absence->setClasse($form4->get('classe')->getData());
-             $absence->setDate(new \DateTimeImmutable('now'));
-           
-       
-    
-             $absencesRepository->add($absence, true);
-   
-             // Je boucle sur les documents
-            
-     
- 
-             return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
-         }
- 
-        
-         $form3 = $this->createForm(NotesType::class);
-         $form3->handleRequest($request);
- 
-         if ($form3->isSubmitted() && $form3->isValid()) {
-           
-             $tableau = $form3->get('tableau');
-             foreach($tableau as $tableau){
-                 $tableaunotes = new TableauNotes();
-                 $newfile= new Files();
-             $files = $tableau->get('copie')->getData();
- 
-             foreach($files as $file){
-                 $em = $this->getDoctrine()->getManager();
-                 // Je génère un nouveau nom de fichier
-                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
- 
-                 // Je copie le fichier dans le dossier uploads
-                 $file->move(
-                     $this->getParameter('videos_directory'),
-                     $fichier
-                 );
- 
-                 // Je stocke le document dans la BDD (nom du fichier)
-               
-                 $date = new \DateTimeImmutable('now');
-                 $newfile->setName($fichier);
-                 $newfile->setTableauNotes($tableaunotes);
-                 $newfile->setNom('Copie');
- 
-                
-  
-             }
-             $TableauNotesRepository->add($tableaunotes);
-
-             $note = new Notes();
-             $tableaunotes->addNote($note);
-       
-             $note->addTableau($tableaunotes);
-             
-             $note->setType($form3->get('type')->getData());
-             $note->setClasses($form3->get('classes')->getData());
-             $note->setModule($form3->get('moduleid')->getData());
-             $note->setBloc($form3->get('blocid')->getData());
-             $note->setSemestre($form3->get('semestre')->getData());
-             $note->setEtudiantid($form3->get('etudiant')->getData());
-            
-             $etudiants = $tableau->get('etudiant')->getData();
-             foreach($etudiants as $etudiants){
-             $note->setEtudiantid($etudiants->getId());
-             }
-             
- 
-            $etudiants = $tableau->get('etudiant')->getData();
-           
-                  $tableaunotes->addEtudiant($etudiants[0]);
- 
-        
-  
-                 
-             $tableaunotes->addEtudiant($form3->get('etudiant')->getData());
-  
-           
- 
-             
-             $tableaunotes->setNote1($tableau->get('note1')->getData());
-             $tableaunotes->setObservation1($tableau->get('observation1')->getData());
-          
-             $tableaunotes->setNote2($tableau->get('note2')->getData());
-             $tableaunotes->setObservation2($tableau->get('observation2')->getData());
- 
-             $tableaunotes->setNote3($tableau->get('note3')->getData());
-             $tableaunotes->setObservation3($tableau->get('observation3')->getData());
- 
-             $tableaunotes->addCopie($newfile);
-             $FilesRepository->add($newfile);
-             }
-             
-           
-       
-    
-             $notesRepository->add($note, true);
-   
-             // Je boucle sur les documents
-            
-     
- 
-             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
-         }
-         
-            return $this->renderForm('main/calendrier_etudiant.html.twig', [
-      
-                'etudiants_calendar' => $etudiants,
-                'etudiants' => $etudiants,
-                'data' => compact('data'),
-                'form2' => $form2,
-                'form3' => $form3,
-                'form4' => $form4,
-                'events'=>$events,
-            ]);
-        }
-
-        
 
   
 
@@ -935,8 +710,7 @@ class MainController extends AbstractController
              return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
          }
 
-         $events = null;
-         $etudiants = null;
+ 
 
         return $this->renderForm('main/calendrier_etudiant.html.twig', [
             'etudiants_calendar' => $etudiants,
