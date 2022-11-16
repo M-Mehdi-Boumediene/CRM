@@ -7,6 +7,7 @@ use App\Entity\Classes;
 use App\Entity\Etudiants;
 use App\Entity\Intervenants;
 use App\Entity\Modules;
+use App\Entity\Entreprises;
 use App\Entity\Blocs;
 use App\Entity\Notes;
 use Doctrine\ORM\EntityRepository;
@@ -54,7 +55,7 @@ class FiltreApprenantType extends AbstractType
         ])
 
         ->add('module', EntityType::class, [
-            'class' => Modules::class,
+            'class' => Entreprises::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
                     ->orderBy('u.nom', 'ASC');

@@ -102,6 +102,8 @@ class NotesController extends AbstractController
        */
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+       
             $notesRepository->add($note, true);
 
             return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
@@ -174,7 +176,7 @@ class NotesController extends AbstractController
             $note->getCreatedAt($date);
             $note->setType($form->get('type')->getData());
             $note->setClasses($form->get('classes')->getData());
-            $note->setModule($form->get('moduleid')->getData());
+            $note->setModule($form->get('module')->getData());
     
             $note->setBloc($form->get('blocid')->getData());
             $note->setSemestre($form->get('semestre')->getData());

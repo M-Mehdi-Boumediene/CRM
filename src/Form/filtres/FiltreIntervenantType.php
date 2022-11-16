@@ -53,18 +53,18 @@ class FiltreIntervenantType extends AbstractType
             'required' => false
         ])
 
-        ->add('module', EntityType::class, [
-            'class' => Modules::class,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->orderBy('u.nom', 'ASC');
-            },
-            'choice_label' => 'nom',
-            'label'=>false,
-            'empty_data'=>'',
+        ->add('module',ChoiceType::class, [
+            'choices' => [
+                'Intervenant permanent' => 'Intervenant permanent',
+                'Intervenant remplaçant' => 'Intervenant remplaçant',
+                
+            ],
+            'expanded' => false,
             'multiple' => false,
-            'required' => false
+            'required' => false,
+            'label' => false,
         ])
+
 
         ;
 

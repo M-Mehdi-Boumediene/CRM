@@ -104,26 +104,63 @@ class EtudiantsRepository extends ServiceEntityRepository
 
     public function searchMot($value,$module,$classe)
     {
-        return $this->createQueryBuilder('u')
-
-        ->innerJoin('u.classes', 'c')
-        ->innerJoin('c.modules', 'm')
 
 
-        ->where('u.nom LIKE :value')
-        ->orWhere('u.prenom LIKE :value')
-        ->orWhere('c.id = :classe')
-        ->andWhere('m.id = :module')
 
-        ->setParameter('value', '%'.$value.'%')
-        ->setParameter('classe', $classe)
-        ->setParameter('module', $module)
 
+
+
+        if(!empty($value)){
+
+            return $this->createQueryBuilder('u')
+        
+            ->orWhere('u.nom LIKE :value')
+            ->orWhere('u.prenom LIKE :value')
+            ->orWhere('u.email LIKE :value')
+            ->orWhere('u.telephone LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+  
 
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
+        }
+
+
+        if(!empty($module)){
+
+            return $this->createQueryBuilder('u')
+
+          
+
+            ->andWhere('u.entreprise = :module')
+
+            ->setParameter('module', $module)
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+
+
+        if(!empty($classe)){
+
+            return $this->createQueryBuilder('u')
+    
+            ->andWhere('u.classes = :classe')
+
+            ->setParameter('classe', $classe)
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+
+
+       
     }
 
     /*

@@ -55,15 +55,7 @@ class EtudiantsController extends AbstractController
         $module = $form2->get('module')->getData();
         $classe = $form2->get('classe')->getData();
         
-            if($module == null){
-                $module = empty($module);
-            }
-            if($value == null){
-                $value = empty($value);
-            }
-            if($classe == null){
-                $classe = empty($classe);
-            }
+
        
         $etudiants =  $etudiantsRepository->searchMot($value,$module,$classe);
 

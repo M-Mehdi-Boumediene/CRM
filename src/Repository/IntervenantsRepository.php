@@ -78,29 +78,59 @@ class IntervenantsRepository extends ServiceEntityRepository
 
     public function searchMot($value,$module,$classe)
     {
-        return $this->createQueryBuilder('u')
 
-            ->innerJoin('u.classes', 'c')
-            ->innerJoin('c.modules', 'm')
-   
 
+        if(!empty($value)){
+
+            return $this->createQueryBuilder('u')
         
-      
-            ->Where('c.id = :classe')
-            ->andWhere('m.id = :module')
             ->orWhere('u.nom LIKE :value')
             ->orWhere('u.prenom LIKE :value')
             ->orWhere('u.email LIKE :value')
             ->orWhere('u.telephone LIKE :value')
             ->setParameter('value', '%'.$value.'%')
-            ->setParameter('classe', $classe)
-            ->setParameter('module', $module)
-
+  
 
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
+        }
+
+
+        if(!empty($module)){
+
+            return $this->createQueryBuilder('u')
+
+          
+
+            ->andWhere('u.cat = :module')
+
+            ->setParameter('module', $module)
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+
+
+        if(!empty($classe)){
+
+            return $this->createQueryBuilder('u')
+    
+            ->andWhere('u.classes = :classe')
+
+            ->setParameter('classe', $classe)
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+
+
+       
     }
 
 }

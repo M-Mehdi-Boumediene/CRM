@@ -44,18 +44,9 @@ class ModulesController extends AbstractController
         $filtre = $form2->get('bloc')->getData();
         $classe = $form2->get('classe')->getData();
         
-            if(!$filtre){
-                $filtre = empty($filtre);
-            }
-            if(!$value){
-                $value = empty($value);
-            }
-            if(!$classe){
-                $classe = empty($classe);
-            }
        
         $modules =  $modulesRepository->searchMot($value,$filtre,$classe);
-
+            
         $modules = $paginator->paginate(
             $modules, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page

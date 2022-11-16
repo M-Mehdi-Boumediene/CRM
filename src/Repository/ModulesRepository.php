@@ -77,28 +77,50 @@ class ModulesRepository extends ServiceEntityRepository
 
     public function searchMot($value,$bloc,$classe)
     {
-        return $this->createQueryBuilder('u')
+      
             
-    
-    
-        ->Join('u.classes', 'c')
-        ->innerJoin('u.bloc', 'b')
 
-        ->andWhere('u.nom LIKE :value')
+        if(!empty($value)){
+
+            return $this->createQueryBuilder('u')
         
-
-
-        ->andWhere('c.id = :classe')
-        ->andWhere('b.id = :bloc')
-
-
-        ->setParameter('value', '%'.$value.'%')
-        ->setParameter('classe', $classe)
-        ->setParameter('bloc', $bloc)
-        ->orderBy('u.id', 'ASC')
-        ->getQuery()
-        ->getResult()
+            ->andWhere('u.nom LIKE :value')
+            
+            ->setParameter('value', '%'.$value.'%')
+      
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            
         ;
+        }
+        if(!empty($bloc)){
+            return $this->createQueryBuilder('u')
+
+
+
+            ->andWhere('u.bloc = :bloc')
+    
+ 
+            ->setParameter('bloc', $bloc)
+        
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+        if(!empty($classe)){
+            return $this->createQueryBuilder('u')
+
+            ->andWhere('u.classes = :classe')
+            ->setParameter('classe', $classe)
+
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+    
+
+        
     }
     // /**
     //  * @return Modules[] Returns an array of Modules objects

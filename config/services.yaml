@@ -6,6 +6,12 @@
 parameters:
   videos_directory: "%kernel.project_dir%/public/uploads"
 services:
+  fm.mail_alert.form.alert_type:
+      class: AppBundle\Form\filtres\NotesType
+      arguments:
+          - '@security.token_storage'
+      tags:
+          - { name: form.type }
   # default configuration for services in *this* file
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
@@ -25,3 +31,6 @@ services:
   
   Bezhanov\Faker\Provider\Commerce: ~
   Bezhanov\Faker\Provider\Educator: ~
+
+
+  
