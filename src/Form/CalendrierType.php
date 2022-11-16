@@ -116,7 +116,7 @@ class CalendrierType extends AbstractType
                         ;
                 },
                 'choice_label' => function ($category) {
-                    return $category->getNom() . ' ' . $category->getPrenom();
+                    return $category->getNom() . ' ' . $category->getPrenom() .'('. $category->getCat().')';
                 },
                 'multiple'=>false,
                 'required' => true,
@@ -165,7 +165,7 @@ class CalendrierType extends AbstractType
                 'choices' => $positions2,
                 'label' => false,
                 'choice_label' => function ($category) {
-                    return $category->getNom() . ' ' . $category->getPrenom();
+                    return $category->getNom() . ' ' . $category->getPrenom() .'('. $category->getCat().')';
                 },
             ]);
         };
@@ -204,7 +204,7 @@ class CalendrierType extends AbstractType
                 'choices' => $positions2,
                 'label' => false,
                 'choice_label' => function ($category) {
-                    return $category->getNom() . ' ' . $category->getPrenom();
+                    return $category->getNom() . ' ' . $category->getPrenom() .' ('. $category->getCat().')';
                 },
             ]);
         };
