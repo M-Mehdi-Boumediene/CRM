@@ -35,102 +35,199 @@ class NotesType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+        if($this->tokenStorage->getToken()->getUser()->getRoles() == "ROLE_INTERVENANT"){
+            $builder
+            ->add('coefficient')
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+          
+                    'DEVOIR' => 'DEVOIR',
+                    'EXAMEN' => 'EXAMEN',
+                    
+    
+                ],
+     
+                'required' => true,
+               
+                'label' => false 
+            ])
+            ->add('semestre', ChoiceType::class, [
+                'choices' => [
+                    '1er semestre' => '1',
+                    '2ème semestre' => '2',
+                    '3ème semestre' => '3',
+    
+                ],
+     
+                'required' => true,
+               
+                'label' => false 
+            ])
+                ->add('module', EntityType::class, [
+                    'class' => Modules::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+    
+                        ->andWhere('u.classes = :user')
+    
+                        ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
+                            ->orderBy('u.nom', 'ASC');
+                    },
+                    'choice_label' => 'nom',
+                    'label'=>false,
+                    'required' => true,
+                ])
+    
+         
+                ->add('classes', EntityType::class, [
+                    'class' => Classes::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+    
+                        ->innerJoin('u.modules', 'm')
+    
+                        ->andWhere('m.classes = :user')
+    
+                        ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
+                            ->orderBy('u.nom', 'ASC');
+                    },
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choice_label' => 'nom',
+                    'empty_data'=>'',
+                    'required' => true,
+                    'label'=>false,
+                    'placeholder'=>'',
+             
+                ])
+                ->add('blocid', EntityType::class, [
+                    'class' => Blocs::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+    
+                        ->andWhere('u.classe = :user')
+    
+                        ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
+                            ->orderBy('u.nom', 'ASC');
+                    },
+                    'label'=>false,
+                    'choice_label' => 'nom',
+                    'empty_data'=>'',
+                    'required' => true,
+                  
+             
+                ])
+          
+                ->add('tableau', CollectionType::class, [
+                    'entry_type' => TableauNotesType::class,
+                    'entry_options' => ['label' => false],
+                    'allow_add' => true,
+                    'prototype' => true,
+          
+                    'attr' => array (
+                            'class' => "child-collection",
+                    ),
+                    'by_reference' => false,
+                    'label' => false
+                    
+                ])
+    
+            ;
+        }else{
+
+            $builder
+            ->add('coefficient')
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+          
+                    'DEVOIR' => 'DEVOIR',
+                    'EXAMEN' => 'EXAMEN',
+                    
+    
+                ],
+     
+                'required' => true,
+               
+                'label' => false 
+            ])
+            ->add('semestre', ChoiceType::class, [
+                'choices' => [
+                    '1er semestre' => '1',
+                    '2ème semestre' => '2',
+                    '3ème semestre' => '3',
+    
+                ],
+     
+                'required' => true,
+               
+                'label' => false 
+            ])
+                ->add('module', EntityType::class, [
+                    'class' => Modules::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+    
+                  
+                            ->orderBy('u.nom', 'ASC');
+                    },
+                    'choice_label' => 'nom',
+                    'label'=>false,
+                    'required' => true,
+                ])
+    
+         
+                ->add('classes', EntityType::class, [
+                    'class' => Classes::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+    
+            
+                            ->orderBy('u.nom', 'ASC');
+                    },
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choice_label' => 'nom',
+                    'empty_data'=>'',
+                    'required' => true,
+                    'label'=>false,
+                    'placeholder'=>'',
+             
+                ])
+                ->add('blocid', EntityType::class, [
+                    'class' => Blocs::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+    
+                 
+                            ->orderBy('u.nom', 'ASC');
+                    },
+                    'label'=>false,
+                    'choice_label' => 'nom',
+                    'empty_data'=>'',
+                    'required' => true,
+                  
+             
+                ])
+          
+                ->add('tableau', CollectionType::class, [
+                    'entry_type' => TableauNotesType::class,
+                    'entry_options' => ['label' => false],
+                    'allow_add' => true,
+                    'prototype' => true,
+          
+                    'attr' => array (
+                            'class' => "child-collection",
+                    ),
+                    'by_reference' => false,
+                    'label' => false
+                    
+                ])
+    
+            ;
+        }
         
-        $builder
-        ->add('coefficient')
-        ->add('type', ChoiceType::class, [
-            'choices' => [
-      
-                'DEVOIR' => 'DEVOIR',
-                'EXAMEN' => 'EXAMEN',
-                
-
-            ],
- 
-            'required' => true,
-           
-            'label' => false 
-        ])
-        ->add('semestre', ChoiceType::class, [
-            'choices' => [
-                '1er semestre' => '1',
-                '2ème semestre' => '2',
-                '3ème semestre' => '3',
-
-            ],
- 
-            'required' => true,
-           
-            'label' => false 
-        ])
-            ->add('module', EntityType::class, [
-                'class' => Modules::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-
-                    ->andWhere('u.classes = :user')
-
-                    ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'choice_label' => 'nom',
-                'label'=>false,
-                'required' => true,
-            ])
-            ->add('classes', EntityType::class, [
-                'class' => Classes::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-
-                    ->innerJoin('u.modules', 'm')
-
-                    ->andWhere('m.classes = :user')
-
-                    ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'expanded' => false,
-                'multiple' => false,
-                'choice_label' => 'nom',
-                'empty_data'=>'',
-                'required' => true,
-                'label'=>false,
-                'placeholder'=>'',
-         
-            ])
-            ->add('blocid', EntityType::class, [
-                'class' => Blocs::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-
-                    ->andWhere('u.classe = :user')
-
-                    ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'label'=>false,
-                'choice_label' => 'nom',
-                'empty_data'=>'',
-                'required' => true,
-              
-         
-            ])
-      
-            ->add('tableau', CollectionType::class, [
-                'entry_type' => TableauNotesType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'prototype' => true,
-      
-                'attr' => array (
-                        'class' => "child-collection",
-                ),
-                'by_reference' => false,
-                'label' => false
-                
-            ])
-
-        ;
+      ;
     
 
     

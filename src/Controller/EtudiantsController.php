@@ -143,7 +143,20 @@ class EtudiantsController extends AbstractController
     public function show(Etudiants $etudiant, NotesRepository $notesRepository,ClassesRepository $classesRepository,BlocsRepository $blocsRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
 
-        $tableaunotes = $TableauNotesRepository->paretudiant($etudiant);
+        $classe = $classesRepository->findOneBy(array('id'=>$etudiant->getClasses()));
+
+
+
+        $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
+        $tableaunotes2 = $TableauNotesRepository->paretudiant2($etudiant);
+        
+        $tableaunotes3 = $TableauNotesRepository->paretudiant3($etudiant);
+        $tableaunotes4 = $TableauNotesRepository->paretudiant4($etudiant);
+
+        $tableaunotesexam = $TableauNotesRepository->paretudiant1exam($etudiant);
+        $tableaunotes2exam = $TableauNotesRepository->paretudiant2exam($etudiant);
+        $tableaunotes3exam = $TableauNotesRepository->paretudiant3exam($etudiant);
+        $tableaunotes4exam = $TableauNotesRepository->paretudiant4exam($etudiant);
 
      $notes = $notesRepository->findByetudiant($etudiant);
 
@@ -153,9 +166,20 @@ class EtudiantsController extends AbstractController
      $blocs = $blocsRepository->findBy(['classe'=>$classes]);
 
 
+
+    
+
+
         return $this->render('etudiants/show.html.twig', [
             'etudiant' => $etudiant,
             'tableaunotes' => $tableaunotes,
+            'tableaunotesexam' => $tableaunotesexam,
+            'tableaunotes2' => $tableaunotes2,
+            'tableaunotes2exam' => $tableaunotes2exam,
+            'tableaunotes3' => $tableaunotes3,
+            'tableaunotes3exam' => $tableaunotes3exam,
+            'tableaunotes4' => $tableaunotes4,
+            'tableaunotes4exam' => $tableaunotes4exam,
             'blocs' => $blocs,
             'notes' => $notes,
         ]);

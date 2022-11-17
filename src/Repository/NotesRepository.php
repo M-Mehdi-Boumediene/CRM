@@ -70,6 +70,7 @@ class NotesRepository extends ServiceEntityRepository
  {
       return $this->createQueryBuilder('n')
           ->andWhere('n.etudiantid = :val')
+          ->andWhere('n.semestre = 1')
         ->setParameter('val', $etudiant)
         ->getQuery()
         ->getResult()

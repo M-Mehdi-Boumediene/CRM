@@ -64,17 +64,150 @@ class TableauNotesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    public function paretudiant($etudiant)
+    public function paretudiant1($etudiant)
     {
         return $this->createQueryBuilder('u')
 
             ->innerJoin('u.etudiant', 'c')
-     
+            ->innerJoin('u.notes', 'n')
             ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
     
-
             ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 1)
+      
 
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function paretudiant1exam($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 1)
+            ->setParameter('type', 'EXAMEN')
+
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function paretudiant2($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 2)
+            ->setParameter('type', 'DEVOIR')
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function paretudiant2exam($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 2)
+            ->setParameter('type', 'EXAMEN')
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function paretudiant3($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 3)
+            ->setParameter('type', 'DEVOIR')
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function paretudiant3exam($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 3)
+            ->setParameter('type', 'EXAMEN')
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    public function paretudiant4($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 4)
+            ->setParameter('type', 'DEVOIR')
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function paretudiant4exam($etudiant)
+    {
+        return $this->createQueryBuilder('u')
+
+            ->innerJoin('u.etudiant', 'c')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('c.id = :etudiant')
+            ->andWhere('n.semestre = :semestre')
+            ->andWhere('n.type = :type')
+            ->setParameter('etudiant', $etudiant)
+            ->setParameter('semestre', 4)
+            ->setParameter('type', 'EXAMEN')
 
             ->orderBy('u.id', 'ASC')
             ->getQuery()
