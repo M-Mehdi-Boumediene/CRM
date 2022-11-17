@@ -266,12 +266,12 @@
 																	{% for note in tableaunotes %}
 
 
-                                                                  
+                                                                    <tr>
 
                                                                         {% set coefmodule = 0 %}
 																		
 																		 {% for module in note.notes %}
-  <tr>
+
 
 
 
@@ -281,16 +281,14 @@
                                                                                 <br><br> Coef: {{module.bloc.coefficient}}
                                                                             </th>
                                                                         </tr>
-                                                                    
+                                                                        <tr>
                                                                             <th scope="row">{{module.module.nom}}</th>
 
                                                                             <td>{{module.module.coefficient}}</td>
 
                                                                             {% set coefmodule =+ module.module.coefficient %} 
 																			
-																			{% endfor %}
-																			
-																			 {% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
+																			{% endfor %} {% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
 																		
 																		
                                                                             <td>{{note.note1}}/20</td>
@@ -299,7 +297,7 @@
                                                                     
                                                                             <td>{{moyenne|number_format}}/20</td>
 
-                                                                   
+                                                                        </tr>
 
 
                                                                     </tr>
