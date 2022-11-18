@@ -14,37 +14,86 @@ use App\Entity\Absences;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 class AbsencesType extends AbstractType
 {
+    private $em;
+
+    private $tokenStorage;
+    public function __construct(TokenStorageInterface   $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
+        if(in_array('ROLE_INTERVENANT', $this->tokenStorage->getToken()->getUser()->getRoles())){
+            $builder
 
-        ->add('classe', EntityType::class, [
-            'class' => Classes::class,
-            'expanded' => false,
-            'multiple' => false,
-            'choice_label' => 'nom',
-            'empty_data'=>'',
-            'required'=>false,
-            'label'=>'Classe',
-        ])
-     
-        ->add('tableau', CollectionType::class, [
-            'entry_type' => TableauAbsencesType::class,
-            'entry_options' => ['label' => false],
-            'allow_add' => true,
-            'prototype' => true,
-  
-       
-            'by_reference' => false,
-            'label' => false
-            
-        ])
+            ->add('classe', EntityType::class, [
+                'class' => Classes::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+
+                    ->innerJoin('u.modules', 'm')
+
+                    ->andWhere('m.classes = :user')
+
+                    ->setParameter('user',5)
+                        ->orderBy('u.nom', 'ASC');
+                },
+                'expanded' => false,
+                'multiple' => false,
+                'choice_label' => 'nom',
+                'empty_data'=>'',
+                'required' => true,
+                'label'=>false,
+                'placeholder'=>'',
+         
+            ])
+         
+            ->add('tableau', CollectionType::class, [
+                'entry_type' => TableauAbsencesType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'prototype' => true,
+      
            
-            
-        ;
+                'by_reference' => false,
+                'label' => false
+                
+            ])
+               
+                
+            ;
+        }else{
+            $builder
+
+            ->add('classe', EntityType::class, [
+                'class' => Classes::class,
+                'expanded' => false,
+                'multiple' => false,
+                'choice_label' => 'nom',
+                'empty_data'=>'',
+                'required'=>false,
+                'label'=>'Classe',
+            ])
+         
+            ->add('tableau', CollectionType::class, [
+                'entry_type' => TableauAbsencesType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'prototype' => true,
+      
+           
+                'by_reference' => false,
+                'label' => false
+                
+            ])
+               
+                
+            ;
+        }
+   
     }
 
    
