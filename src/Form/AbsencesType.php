@@ -38,7 +38,7 @@ class AbsencesType extends AbstractType
 
                     ->andWhere('m.classes = :user')
 
-                    ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
+                    ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse()->getId())
                         ->orderBy('u.nom', 'ASC');
                 },
                 'expanded' => false,
