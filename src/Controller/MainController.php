@@ -106,15 +106,7 @@ class MainController extends AbstractController
                     'lintervenant'=>$lintervenant, 
                     'classes' => $classesRepository->findByIntervenantEtudiant(1),
                     'profil' => $profil,
-                    'etudiant'=>$etudiant,
-                    'tableaunotes' => $tableaunotes,
-                    'tableaunotesexam' => $tableaunotesexam,
-                    'tableaunotes2' => $tableaunotes2,
-                    'tableaunotes2exam' => $tableaunotes2exam,
-                    'tableaunotes3' => $tableaunotes3,
-                    'tableaunotes3exam' => $tableaunotes3exam,
-                    'tableaunotes4' => $tableaunotes4,
-                    'tableaunotes4exam' => $tableaunotes4exam,
+  
               
                   
               
