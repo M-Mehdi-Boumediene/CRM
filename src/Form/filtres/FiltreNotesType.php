@@ -55,7 +55,7 @@ class FiltreNotesType extends AbstractType
 
                 ->andWhere('m.classes = :user')
 
-                ->setParameter('user',5)
+                ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
                     ->orderBy('u.nom', 'ASC');
             },
             'expanded' => false,
@@ -67,6 +67,7 @@ class FiltreNotesType extends AbstractType
             'placeholder'=>'',
      
         ])
+
         ->add('modules', EntityType::class, [
             'class' => Modules::class,
             'query_builder' => function (EntityRepository $er) {
