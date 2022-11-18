@@ -89,7 +89,7 @@ class NotesType extends AbstractType
     
                         ->andWhere('m.classes = :user')
     
-                        ->setParameter('user',5)
+                        ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
                             ->orderBy('u.nom', 'ASC');
                     },
                     'expanded' => false,
