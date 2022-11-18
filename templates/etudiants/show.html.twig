@@ -245,8 +245,12 @@
 
                                                     <div class="tab-content">
                                                         <div class="tab-pane tabs-animation fade show active" id="devoirs-s1" role="tabpanel">
-
-
+            
+  
+            
+            
+            
+                 
                                                             <table>
                                                                 <tbody>
 
@@ -256,9 +260,10 @@
 
                                                                     <th scope="col">Coef</th>
 
-                                                                    <th scope="col">Note </th>
-													
-                                                           			<th scope="col">Type </th>
+                                                                    <th scope="col">Note 1</th>
+													<th scope="col">Note 2</th>
+                                                    <th scope="col"> Examen</th>
+                                                           			
 
                                                                     <th scope="col">Moyenne</th>
 
@@ -292,10 +297,11 @@
 																		
 																		
                                                                             <td>{{note.note1}}/20</td>
+																		<td>{{note.note2}}/20</td>
+                                                                        <td>{{note.note3}}/20</td>
 																		
-																			<td>{{note.notes[0].type}}</td>
                                                                     
-                                                                            <td>{{moyenne|number_format}}/20</td>
+                                                                            <td>{{moyenne|number_format(2, '.', ',') }}/20</td>
 
                                                                         </tr>
 
@@ -312,7 +318,7 @@
 
                                                             </table>
 														
-                                                            <br> Total Moyenne  : {{moyennegeneral|number_format / nb }}/20
+                                                            <br> Total Moyenne  : {{moyennegeneral|number_format(2, '.', ',') / nb }}/20
 
                                                         </div>
 

@@ -40,29 +40,62 @@ class TableauNotesRepository extends ServiceEntityRepository
     }
 
 
-    public function searchMot($value,$classe)
+    public function searchMot($value,$classe,$module,$apprenant)
     {
-        return $this->createQueryBuilder('u')
 
-            ->innerJoin('u.etudiant', 'c')
-            ->innerJoin('c.classes', 'm')
-   
-      
-            ->Where('c.id = :classe')
-           
-            ->orWhere('c.nom LIKE :value')
-            ->orWhere('c.prenom LIKE :value')
-            ->orWhere('c.email LIKE :value')
-            ->orWhere('c.telephone LIKE :value')
+        if(!empty($value)){
+
+            return $this->createQueryBuilder('u')
+        
+            ->andWhere('u.nom LIKE :value')
+            
             ->setParameter('value', '%'.$value.'%')
-            ->setParameter('classe', $classe)
       
-
-
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
+            
         ;
+        }
+
+        if(!empty($classe)){
+            return $this->createQueryBuilder('u')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('n.classes = :classe')
+            ->setParameter('classe', $classe)
+
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+
+        if(!empty($module)){
+            return $this->createQueryBuilder('u')
+
+
+
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('n.module = :module')
+    
+ 
+            ->setParameter('module', $module)
+        
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+ 
+       if(!empty($apprenant)){
+            return $this->createQueryBuilder('u')
+            ->innerJoin('u.notes', 'n')
+            ->andWhere('n.etudiantid = :etudiant')
+            ->setParameter('etudiant', $apprenant)
+
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+        
     }
     public function paretudiant1($etudiant)
     {

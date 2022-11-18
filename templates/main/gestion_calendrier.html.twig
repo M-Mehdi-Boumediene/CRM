@@ -113,6 +113,8 @@
 								<br>
 								{{ form_end(form2) }}
 
+								<h5>{% if resultclasse %} Classe: {{resultclasse.nom}} {% endif %} {% if resultintervenant %} Intervenant: {{resultintervenant.nom}} {{resultintervenant.prenom}}{% endif %}  </h5><br><br>
+
 								{% if events %}
 
 									{% set start = events[0].start|date("Y-m-d")  %}

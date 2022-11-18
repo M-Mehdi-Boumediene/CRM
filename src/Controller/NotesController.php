@@ -41,20 +41,13 @@ class NotesController extends AbstractController
 
         if ($form2->isSubmitted() && $form2->isValid()) {
             $value = $form2->get('search')->getData();
-            $apprenant = $form2->get('apprenant')->getData();
+            $apprenant = $form2->get('etudiant')->getData();
         $classe = $form2->get('classe')->getData();
+        $module = $form2->get('modules')->getData();
         
-            if($apprenant == null){
-                $apprenant = empty($apprenant);
-            }
-            if($value == null){
-                $value = empty($value);
-            }
-            if($classe == null){
-                $classe = empty($classe);
-            }
+      
        
-        $tableNotes =  $TableauNotesRepository->searchMot($value,$apprenant,$classe);
+        $tableNotes =  $TableauNotesRepository->searchMot($value,$classe,$module,$apprenant);
 
         $tableNotes = $paginator->paginate(
             $tableNotes, // Requête contenant les données à paginer (ici nos articles)

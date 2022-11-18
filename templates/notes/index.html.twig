@@ -67,7 +67,14 @@
 									{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
 									{{ form_errors(form2.classe) }}
 								</div>
-						
+							<div class="col-md-3">
+									{{ form_row(form2.modules,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.modules) }}
+								</div>
+									<div class="col-md-3">
+									{{ form_row(form2.etudiant,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.etudiant) }}
+								</div>
 								<button type="submit" class="btn-shadow btn btn-primary" style="    width: 116px;">
 									<span class="btn-icon-wrapper pr-2 opacity-7">
 										<i class="fa fa-search fa-w-20"></i>
@@ -85,11 +92,10 @@
 												<tr role="row">
 													<th>Classe</th>
 													<th>Apprenant</th>
-													<th>Type</th>
 													<th>Module</th>
 													<th>Note1</th>
 													<th>Note2</th>
-													<th>Note3</th>
+													<th>Examen</th>
 													<th>Copies</th>
 													<th>actions</th>
 													<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 110.2px;" aria-label="Start date: activate to sort column ascending">Info</th>
@@ -111,9 +117,7 @@
 															{% endfor %}
 														</td>
 														
-														<td>		{% for note in note.notes %}
-														{{note.type}} 
-															{% endfor %}</td>
+														
 																<td>
 														{% for classe in note.notes %}
 														{{classe.module.nom}} 
@@ -124,7 +128,7 @@
 														<td>{% if note.note3 %}{{note.note3}}/20 {% else %} {% endif %}</td>
 														<td>
 																		{% for copie in note.copie %}
-																		<a target="_blank" href="{{asset('uploads/')}}{{copie.name}}">Copie - {{copie|length}} </a><br>
+																		<a target="_blank" href="{{asset('uploads/')}}{{copie.name}}">Télécharger  </a><br>
 														 
 															{% endfor %}
 														</td>
@@ -163,5 +167,21 @@
 
 		</div>
 	</div>
+
+
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+	<script>
+
+		$(document).ready(function () {
+$("#filtre_notes_classe").select2({placeholder: "Filtrer par classe", allowClear: true});
+$("#filtre_notes_modules").select2({placeholder: "Filtrer par module", allowClear: true});
+$("#filtre_notes_etudiant").select2({placeholder: "Filtrer par apprenant", allowClear: true});
+});
+	</script>
 	{{ block("Footer", "Menus/Footer.html.twig") }}
 {% endblock %}

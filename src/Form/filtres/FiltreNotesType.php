@@ -53,7 +53,31 @@ class FiltreNotesType extends AbstractType
             'required' => false
         ])
 
+        ->add('modules', EntityType::class, [
+            'class' => Modules::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.nom', 'ASC');
+            },
+            'choice_label' => 'nom',
+            'label'=>false,
+            'empty_data'=>'',
+            'multiple' => false,
+            'required' => false
+        ])
 
+        ->add('etudiant', EntityType::class, [
+            'class' => Etudiants::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.nom', 'ASC');
+            },
+            'choice_label' => 'nom',
+            'label'=>false,
+            'empty_data'=>'',
+            'multiple' => false,
+            'required' => false
+        ])
 
         ;
 

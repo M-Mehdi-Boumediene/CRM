@@ -108,7 +108,7 @@ class MainController extends AbstractController
     /**
      * @Route("/gestion/calendrier", name="app_gestion_calendrier", methods={"GET", "POST"})
      */
-    public function calendrier(Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository): Response
+    public function calendrier(Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository, ClassesRepository $classesRepository, IntervenantsRepository $intervenantRepository): Response
     {
 
 
@@ -318,12 +318,19 @@ foreach ($events as $event){
  
              return $this->redirectToRoute('app_notes_index', [], Response::HTTP_SEE_OTHER);
          }
-         
+         $classe = $form2->get('classe')->getData();
+
+         $intervenant = $form2->get('intervenant')->getData();
+         $resultclasse = $classesRepository->findOneBy(array('id'=>$classe));
+         $resultintervenant = $intervenantRepository->findOneBy(array('id'=>$intervenant));
+ 
             return $this->renderForm('main/gestion_calendrier.html.twig', [
       
                 'etudiants_calendar' => $etudiants,
                 'etudiants' => $etudiants,
                 'data' => compact('data'),
+                'resultclasse' => $resultclasse,
+                'resultintervenant'=>$resultintervenant,
                 'form2' => $form2,
                 'form3' => $form3,
                 'form4' => $form4,
@@ -478,10 +485,20 @@ foreach ($events as $event){
 
          $events = null;
          $etudiants = null;
-      
+
+
+         $classe = $form2->get('classe')->getData();
+
+         $intervenant = $form2->get('intervenant')->getData();
+         
+         
+        $resultclasse = $classesRepository->findOneBy(array('id'=>$classe));
+        $resultintervenant = $intervenantRepository->findOneBy(array('id'=>$intervenant));
+
         return $this->renderForm('main/gestion_calendrier.html.twig', [
   
-            
+            'resultclasse' => $resultclasse,
+            'resultintervenant'=>$resultintervenant,
             'note' => $note,
             'etudiants'=>$etudiants,
             'form2' => $form2,
