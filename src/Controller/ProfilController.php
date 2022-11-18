@@ -59,8 +59,7 @@ class ProfilController extends AbstractController
             $profil ->setTelephone($form->get('telephone')->getData());
             //  $profil ->setUser($idUser);
 
-            $user->setNom($form->get('nom')->getData());
-            $user->setPrenom($form->get('prenom')->getData());
+          
 
             $images=$profil ->setImage($form->get('image')->getData());
 
