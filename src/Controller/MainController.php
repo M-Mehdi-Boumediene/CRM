@@ -68,15 +68,7 @@ class MainController extends AbstractController
 
         $etudiant = $apprenantsRepository->findOneBy(array('user'=>$this->getUser()));
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
-        $tableaunotes2 = $TableauNotesRepository->paretudiant2($etudiant);
-        
-        $tableaunotes3 = $TableauNotesRepository->paretudiant3($etudiant);
-        $tableaunotes4 = $TableauNotesRepository->paretudiant4($etudiant);
 
-        $tableaunotesexam = $TableauNotesRepository->paretudiant1exam($etudiant);
-        $tableaunotes2exam = $TableauNotesRepository->paretudiant2exam($etudiant);
-        $tableaunotes3exam = $TableauNotesRepository->paretudiant3exam($etudiant);
-        $tableaunotes4exam = $TableauNotesRepository->paretudiant4exam($etudiant);
 
 
         foreach ($intervenant as $inter){
@@ -86,6 +78,8 @@ class MainController extends AbstractController
         { 
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
+                        'etudiant' => $etudiant,
+            'tableaunotes' => $tableaunotes,
                 'apprenantsAdmin' => $apprenantsAdmin,
                 'classesAdmin' => $classesAdmin,
                 'intervenantsAdmin' => $intervenantsAdmin,
@@ -101,6 +95,8 @@ class MainController extends AbstractController
             ]);         }else{
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
+                    'etudiant' => $etudiant,
+                    'tableaunotes' => $tableaunotes,
                     'apprenantsAdmin' => $apprenantsAdmin,
                     'classesAdmin' => $classesAdmin,
                     'intervenantsAdmin' => $intervenantsAdmin,
