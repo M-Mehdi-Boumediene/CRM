@@ -119,7 +119,8 @@ class AbsencesController extends AbstractController
 
                 $etudiants = $tableau->get('etudiant')->getData();
                 
-                
+                $absence->setUser($etudiants);
+      
                 $tableauabsences->addEtudiant($etudiants[0]);
                 $dateabsence =$tableau->get('dateabsence')->getData();
                 $retard = $tableau->get('retard')->getData();
@@ -140,8 +141,7 @@ class AbsencesController extends AbstractController
             }
             $absence->setClasse($form->get('classe')->getData());
             $absence->setDate(new \DateTimeImmutable('now'));
-          
-      
+       
    
             $absencesRepository->add($absence, true);
   
