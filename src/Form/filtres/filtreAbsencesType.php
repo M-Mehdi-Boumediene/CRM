@@ -19,11 +19,17 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\DataTransformer\ClassesToNumbersTransformer;
-
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class FiltreAbsencesType extends AbstractType
 {
     private $em;
+
+    private $tokenStorage;
+    public function __construct(TokenStorageInterface   $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
     
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
