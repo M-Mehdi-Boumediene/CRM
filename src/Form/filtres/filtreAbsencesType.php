@@ -80,7 +80,6 @@ class FiltreAbsencesType extends AbstractType
             ])
     
     
-          
             ->add('classe', EntityType::class, [
                 'class' => Classes::class,
                 'query_builder' => function (EntityRepository $er) {
