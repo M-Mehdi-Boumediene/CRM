@@ -98,7 +98,7 @@ class IntervenantsController extends AbstractController
       
             $password = $passwordEncoder->encodePassword($user, $form->get('user')->get('password')->getData());
             $user->setPassword($password);
-          
+            $user->setClasse($form->get('classes')->getData());
             $date = new \DateTimeImmutable('now');
          
             $user->setCreatedBy($this->getUser()->getEmail());

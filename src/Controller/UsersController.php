@@ -59,6 +59,7 @@ class UsersController extends AbstractController
             $user->setUser($user);
             $user->setCreatedAt($date);
             $user->setPassword($encoded);
+            $user->setClasse($form->get('classes')->getData());
             $usersRepository->add($user);
 
             if($form->get('roles')->getData() == ['ROLE_ETUDIANT']){
@@ -136,6 +137,7 @@ class UsersController extends AbstractController
             $plainpwd = $user->getPassword();
             $encoded = $this->passwordEncoder->encodePassword($user,$plainpwd);
             $user->setPassword($encoded);
+            $user->setClasse($form->get('classes')->getData());
             $usersRepository->add($user);
             return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
         }
