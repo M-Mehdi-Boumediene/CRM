@@ -28,7 +28,7 @@ class TableauAbsencesType extends AbstractType
                 'label' => 'Date absence',
                 'widget' => "single_text",
                 'empty_data' => null,
-                
+                'required' => false,
                 
             ])
             ->add('presence', CheckboxType::class, [
