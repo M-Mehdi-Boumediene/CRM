@@ -92,9 +92,9 @@
 														{% for absence in tableAbsences %}
 															<tr>
 																<td>
-																
-																		{{absence.classes.nom}}
-																
+																		{% for classe in absence.absences %}
+																		{{classe.nom}}
+																	{% endfor %}
 																
 																</td>
 																<td>
