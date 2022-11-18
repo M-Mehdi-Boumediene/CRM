@@ -32,11 +32,12 @@ class ProfilController extends AbstractController
        // $users = $usersRepository -> findById($idUser);
        
             
-         $user = $usersRepository->findOneBy(['id'=>$idUser]);
-         $nom = $user->getNom();
-         $prenom = $user->getPrenom();
-         $adresse = $user->getAdresse();
-         $telephone = $user->getTelephone();
+         $userr = $usersRepository->findOneBy(array('id'=>$idUser));
+         
+         $nom = $userr->getNom();
+         $prenom = $userr->getPrenom();
+         $adresse = $userr->getAdresse();
+         $telephone = $userr->getTelephone();
 
 
 
@@ -135,7 +136,7 @@ class ProfilController extends AbstractController
  
         $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
 
-        $etudiant = $etudiantRepository->findOneBy(array('user'=>$this->getUser()));
+        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$this->getUser()));
        
         $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
 
