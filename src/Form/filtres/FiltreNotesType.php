@@ -21,14 +21,20 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\DataTransformer\ClassesToNumbersTransformer;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+
 class FiltreNotesType extends AbstractType
 {
     private $em;
 
-    
+    private $tokenStorage;
+    public function __construct(TokenStorageInterface   $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        
+        if(in_array('ROLE_INTERVENANT', $this->tokenStorage->getToken()->getUser()->getRoles())){
         $builder
         ->add('search', TextType::class, [
             'attr' => array(
@@ -44,32 +50,47 @@ class FiltreNotesType extends AbstractType
             'class' => Classes::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
+
+                ->innerJoin('u.modules', 'm')
+
+                ->andWhere('m.classes = :user')
+
+                ->setParameter('user',5)
                     ->orderBy('u.nom', 'ASC');
             },
-            'choice_label' => 'nom',
-            'label'=>false,
-            'empty_data'=>'',
+            'expanded' => false,
             'multiple' => false,
-            'required' => false
+            'choice_label' => 'nom',
+            'empty_data'=>'',
+            'required' => true,
+            'label'=>false,
+            'placeholder'=>'',
+     
         ])
-
         ->add('modules', EntityType::class, [
             'class' => Modules::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
+
+                ->andWhere('u.classes = :user')
+
+                ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
                     ->orderBy('u.nom', 'ASC');
             },
             'choice_label' => 'nom',
             'label'=>false,
-            'empty_data'=>'',
-            'multiple' => false,
-            'required' => false
+            'required' => true,
         ])
 
         ->add('etudiant', EntityType::class, [
             'class' => Etudiants::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
+                
+                ->andWhere('u.classes = :user')
+
+                ->setParameter('user',$this->tokenStorage->getToken()->getUser()->getClasse())
+        
                     ->orderBy('u.nom', 'ASC');
             },
             'choice_label' => 'nom',
@@ -82,7 +103,59 @@ class FiltreNotesType extends AbstractType
         ;
 
    
-
+        }else{
+            $builder
+            ->add('search', TextType::class, [
+                'attr' => array(
+                    'placeholder' => 'Mot clé ou n° de…'
+                ),
+                'label' => false ,
+                'required' => false
+            ])
+    
+    
+          
+            ->add('classe', EntityType::class, [
+                'class' => Classes::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+                'label'=>false,
+                'empty_data'=>'',
+                'multiple' => false,
+                'required' => false
+            ])
+    
+            ->add('modules', EntityType::class, [
+                'class' => Modules::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+                'label'=>false,
+                'empty_data'=>'',
+                'multiple' => false,
+                'required' => false
+            ])
+    
+            ->add('etudiant', EntityType::class, [
+                'class' => Etudiants::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+                'label'=>false,
+                'empty_data'=>'',
+                'multiple' => false,
+                'required' => false
+            ])
+    
+            ;
+        }
    
         
     }

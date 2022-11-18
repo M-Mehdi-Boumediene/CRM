@@ -10,6 +10,8 @@ use App\Form\ProfilType;
 use App\Repository\UsersRepository;
 use App\Repository\CvRepository;
 use App\Repository\ProfilRepository;
+use App\Repository\EtudiantsRepository;
+use App\Repository\TableauNotesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,7 @@ class ProfilController extends AbstractController
    /**
      * @Route("/profil", name="app_profil", methods={"GET", "POST"})
      */
-    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EntityManagerInterface $entityManager, CvRepository $cvRepository): Response
+    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EtudiantsRepository $etudiantsRepository,EntityManagerInterface $entityManager, CvRepository $cvRepository): Response
     {
 
         $profil = new Profil();
@@ -133,6 +135,7 @@ class ProfilController extends AbstractController
  
         $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
 
+        $etudiant = $etudiantRepository->findOneBy(array('user'=>$this->getUser()));
        
         $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
 
@@ -150,13 +153,36 @@ class ProfilController extends AbstractController
      /**
      * @Route("/profil/{id}", name="app_profil_show", methods={"GET"})
      */
-    public function show(Profil $profil, CvRepository $cvRepository): Response
+    public function show(Profil $profil, CvRepository $cvRepository, TableauNotesRepository $TableauNotesRepository, ProfilRepository $profilRepository, EtudiantsRepository $etudiantsRepository): Response
     {
 
         $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
 
+        
+        $tableaunotes = $TableauNotesRepository->paretudiant1($profil);
+        $tableaunotes2 = $TableauNotesRepository->paretudiant2($profil);
+        
+        $tableaunotes3 = $TableauNotesRepository->paretudiant3($profil);
+        $tableaunotes4 = $TableauNotesRepository->paretudiant4($profil);
+
+        $tableaunotesexam = $TableauNotesRepository->paretudiant1exam($profil);
+        $tableaunotes2exam = $TableauNotesRepository->paretudiant2exam($profil);
+        $tableaunotes3exam = $TableauNotesRepository->paretudiant3exam($profil);
+        $tableaunotes4exam = $TableauNotesRepository->paretudiant4exam($profil);
+        $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
+        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$this->getUser()));
         return $this->render('profil/show.html.twig', [
-      
+            'photoprofil'=>$photoprofil,
+            'etudiant'=>$etudiant,
+            'tableaunotes' => $tableaunotes,
+            'tableaunotesexam' => $tableaunotesexam,
+            'tableaunotes2' => $tableaunotes2,
+            'tableaunotes2exam' => $tableaunotes2exam,
+            'tableaunotes3' => $tableaunotes3,
+            'tableaunotes3exam' => $tableaunotes3exam,
+            'tableaunotes4' => $tableaunotes4,
+            'tableaunotes4exam' => $tableaunotes4exam,
+     
             'profil' => $profil,
             'lecv'=>$lecv,
         ]);

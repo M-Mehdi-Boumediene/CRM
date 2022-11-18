@@ -45,7 +45,7 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_main")
      */
-    public function index(IntervenantsRepository $intervenantRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository,ProfilRepository $profilRepository): Response
+    public function index(IntervenantsRepository $intervenantRepository,TableauNotesRepository $TableauNotesRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository,ProfilRepository $profilRepository): Response
     {
 
         $classesAdmin = $classesRepository->findAll();
@@ -65,6 +65,20 @@ class MainController extends AbstractController
 
         $intervenant = $user->getIntervenants();
 
+
+        $etudiant = $apprenantsRepository->findOneBy(array('user'=>$this->getUser()));
+        $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
+        $tableaunotes2 = $TableauNotesRepository->paretudiant2($etudiant);
+        
+        $tableaunotes3 = $TableauNotesRepository->paretudiant3($etudiant);
+        $tableaunotes4 = $TableauNotesRepository->paretudiant4($etudiant);
+
+        $tableaunotesexam = $TableauNotesRepository->paretudiant1exam($etudiant);
+        $tableaunotes2exam = $TableauNotesRepository->paretudiant2exam($etudiant);
+        $tableaunotes3exam = $TableauNotesRepository->paretudiant3exam($etudiant);
+        $tableaunotes4exam = $TableauNotesRepository->paretudiant4exam($etudiant);
+
+
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses()->getId();
         }
@@ -81,7 +95,7 @@ class MainController extends AbstractController
                 'lintervenant'=>$lintervenant, 
                 'classes' => $classesRepository->findByIntervenantEtudiant($classe),
                 'profil' => $profil,
-          
+
               
           
             ]);         }else{
@@ -96,6 +110,15 @@ class MainController extends AbstractController
                     'lintervenant'=>$lintervenant, 
                     'classes' => $classesRepository->findByIntervenantEtudiant(1),
                     'profil' => $profil,
+                    'etudiant'=>$etudiant,
+                    'tableaunotes' => $tableaunotes,
+                    'tableaunotesexam' => $tableaunotesexam,
+                    'tableaunotes2' => $tableaunotes2,
+                    'tableaunotes2exam' => $tableaunotes2exam,
+                    'tableaunotes3' => $tableaunotes3,
+                    'tableaunotes3exam' => $tableaunotes3exam,
+                    'tableaunotes4' => $tableaunotes4,
+                    'tableaunotes4exam' => $tableaunotes4exam,
               
                   
               
@@ -209,7 +232,7 @@ foreach ($events as $event){
                  $tableauabsences->setDu($du);
                  $tableauabsences->setAu($au);
             
-             
+                 $absence->setUser($etudiants);
                 
  
     
@@ -217,6 +240,7 @@ foreach ($events as $event){
              }
              $absence->setClasse($form4->get('classe')->getData());
              $absence->setDate(new \DateTimeImmutable('now'));
+     
            
        
     
@@ -542,12 +566,14 @@ foreach ($events as $event){
     /**
      * @Route("/calendrier_etudiant", name="app_calendrier_etudiant")
      */
-    public function calendrierEtudiant(UsersRepository $users,ClassesRepository $classRepository, Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository ): Response
+    public function calendrierEtudiant(UsersRepository $users,ClassesRepository $classRepository, IntervenantsRepository $intervenantsRepository,Request $request, NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository, CalendrierRepository $calendrier,EtudiantsRepository $apprenants, AbsencesRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository ): Response
     {
 
         $laclasse = $etudiantsRepository->findOneBy(array('email'=>$this->getUser()->getEmail()));
 
-        $events = $calendrier->findBy(array('classe'=>$laclasse->getClasses()));
+        
+
+        $events = $calendrier->findBy(array('classe'=>3));
         $rdvs = [];
         foreach ($events as $event){
 

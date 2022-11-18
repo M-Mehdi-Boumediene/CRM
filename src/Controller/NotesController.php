@@ -179,7 +179,7 @@ class NotesController extends AbstractController
             $ee = $etudiants->getId();
 
 
-            $lemodule = $form->get('moduleid')->getData();
+            $lemodule = $form->get('module')->getData();
             $lesemestre = $form->get('semestre')->getData();
             $letype= $form->get('type')->getData();
             $latable = $TableauNotesRepository->findByetudiant($ee,$lemodule,$lesemestre,$letype);

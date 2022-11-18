@@ -741,9 +741,13 @@
 
 						<div class="tabs-animation">
 							<div class="row">
+									 <a href="{{path('app_absences_apprenants')}}">
 								<div class="col-md-6 col-xl-4">
+								
 									<div class="card mb-3 widget-content bg-night-fade">
+							
 										<div class="widget-content-wrapper text-white">
+										
 											<div class="widget-content-left">
 												<div class="widget-heading">Nombre d'absence</div>
 												<div class="widget-subheading">Année 2022</div>
@@ -752,11 +756,11 @@
 												<div class="widget-numbers text-white">
 													{% for apprenant in apprenant.tableauAbsences %}
 
-															{% if apprenant.absence %}
+															{% if apprenant.dateabsence %}
 													
-<span>{{apprenant.absence|length}}</span>
+													<span>{{apprenant.dateabsence|length}}</span>
 																{% else %}
-<span>0</span>
+													
 															{% endif %}
 
 														{% endfor %}
@@ -764,10 +768,13 @@
 													
 												</div>
 											</div>
+										
 										</div>
+
+											
 									</div>
-
-
+</a>
+ <a href="{{path('app_absences_apprenants')}}">
 									<div class="card mb-3 widget-content bg-night-fade entreprise">
 										<div class="widget-content-wrapper text-white">
 											<div class="widget-content-left">
@@ -778,11 +785,11 @@
 												<div class="widget-numbers text-white">
 																		{% for apprenant in apprenant.tableauAbsences %}
 
-															{% if apprenant.enretard %}
+															{% if apprenant.retard %}
 													
-<span>{{apprenant.retard|length}}</span>
+											<span>{{apprenant.retard|length}}</span>
 																{% else %}
-<span>0</span>
+
 															{% endif %}
 
 														{% endfor %}
@@ -791,7 +798,7 @@
 											</div>
 										</div>
 									</div>
-
+</a>
 
 									<div class="mb-3 card">
 
@@ -826,7 +833,36 @@
 											</div>
 											<div class="widget-content-right">
 												<div class="widget-numbers text-white">
-													<span>16</span>
+
+
+														     {% set moyennegeneral = 0 %} {% set nb = 0 %} 
+																	{% for note in tableaunotes %}
+
+
+
+                                                                        {% set coefmodule = 0 %}
+																		
+																		 {% for module in note.notes %}
+
+
+                                                                            {% set coefmodule =+ module.module.coefficient %} 
+																			
+																			{% endfor %} {% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
+																		
+																		
+                                                              
+                                                            
+
+
+                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %} {% endfor %}
+
+
+
+													<span>			{% if nb %}
+																 {{moyennegeneral|number_format(2, '.', ',') / nb }}/20
+																{% else %}
+ 															{{moyennegeneral|number_format(2, '.', ',') / 1 }}/20
+															{% endif %}</span>
 												</div>
 											</div>
 										</div>

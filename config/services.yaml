@@ -7,11 +7,20 @@ parameters:
   videos_directory: "%kernel.project_dir%/public/uploads"
 services:
   fm.mail_alert.form.alert_type:
-      class: AppBundle\Form\filtres\NotesType
+      class: AppBundle\Form\NotesType
       arguments:
           - '@security.token_storage'
       tags:
           - { name: form.type }
+
+
+  fm.mail_alert.form.alert_type2:
+      class: AppBundle\Form\filtres\filtresNotesType
+      arguments:
+          - '@security.token_storage'
+      tags:
+          - { name: form.type }
+
   # default configuration for services in *this* file
   _defaults:
     autowire: true # Automatically injects dependencies in your services.

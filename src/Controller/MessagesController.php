@@ -14,6 +14,7 @@ use App\Entity\Signatures;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UsersRepository;
 use App\Repository\MessagesRepository;
+use App\Repository\ProfilRepository;
 use App\Repository\SignaturesRepository;
 use App\Repository\SignatureRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,7 +24,7 @@ class MessagesController extends AbstractController
     /**
      * @Route("/messages", name="app_messages", methods={"GET", "POST"})
      */
-    public function index(Request $request, MessagesRepository $messagesRepository,PaginatorInterface $paginator): Response
+    public function index(Request $request,ProfilRepository $profilRepository,  MessagesRepository $messagesRepository,PaginatorInterface $paginator): Response
     {
         
         $user = $this->getUser();
@@ -52,7 +53,7 @@ class MessagesController extends AbstractController
  /**
      * @Route("/messages/envoyés", name="app_messages_envoyés", methods={"GET", "POST"})
      */
-    public function elements(Request $request,MessagesRepository $messagesRepository, PaginatorInterface $paginator): Response
+    public function elements(Request $request,MessagesRepository $messagesRepository, ProfilRepository $profilRepository, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
         $messages =  $messagesRepository->findBysender($user);
@@ -61,6 +62,7 @@ class MessagesController extends AbstractController
         $brouillons =  $messagesRepository->findBybrouillonisread($user);
         $suppressions =  $messagesRepository->findBysuppisread($user);
         $recus =  $messagesRepository->findByrecusisread($user);
+        $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
         $messages = $paginator->paginate(
             $messages, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
@@ -69,6 +71,7 @@ class MessagesController extends AbstractController
         return $this->render('messages/elementsEnvoyer.html.twig', [
             'controller_name' => 'MessagesController',
             'messages' =>  $messages,
+            'photoprofil'=>$photoprofil,
             'elements' =>  $elements,
             'brouillons' =>  $brouillons,
             'suppressions' =>  $suppressions,
@@ -79,7 +82,7 @@ class MessagesController extends AbstractController
  /**
      * @Route("/messages/brouillons", name="app_messages_brouillons", methods={"GET", "POST"})
      */
-    public function brouillons(Request $request,MessagesRepository $messagesRepository, PaginatorInterface $paginator): Response
+    public function brouillons(Request $request,MessagesRepository $messagesRepository,ProfilRepository $profilRepository,  PaginatorInterface $paginator): Response
     {
 
         $user = $this->getUser();
@@ -107,7 +110,7 @@ class MessagesController extends AbstractController
      /**
      * @Route("/messages/corbeille", name="app_messages_corbeille", methods={"GET", "POST"})
      */
-    public function corbeille(Request $request,MessagesRepository $messagesRepository, PaginatorInterface $paginator): Response
+    public function corbeille(Request $request,MessagesRepository $messagesRepository, ProfilRepository $profilRepository, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
         $messages =  $messagesRepository->findBysupp($user);
@@ -176,7 +179,7 @@ class MessagesController extends AbstractController
      /**
      * @Route("/messages-envoi", name="app_envoi_messages")
      */
-    public function envoiMessages(Request $request): Response
+    public function envoiMessages(Request $request,ProfilRepository $profilRepository): Response
     {
         $message = new Messages;
         $user = new Users;
@@ -243,17 +246,18 @@ class MessagesController extends AbstractController
             
             return $this->redirectToRoute('app_messages');
         }
-
+        $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
         return $this->render('messages/envoiMessages.html.twig', [
             'controller_name' => 'MessagesController',
             'form'=> $form->createView(),
+            'photoprofil'=>$photoprofil,
         ]);
     }
 
     /**
      * @Route("/messages/{id}", name="app_read_messages")
      */
-    public function readMessage(Request $request,Messages $messager,MessagesRepository $MessagesRepository): Response
+    public function readMessage(Request $request,Messages $messager,MessagesRepository $MessagesRepository, ProfilRepository $profilRepository, ): Response
     {
         $messager->setIsRead(true);
         $em = $this->getDoctrine()->getManager();
@@ -306,10 +310,13 @@ class MessagesController extends AbstractController
         $elements =  $MessagesRepository->findBysenderisread($user);
         $brouillons =  $MessagesRepository->findBybrouillonisread($user);
         $recus =  $MessagesRepository->findByrecusisread($user);
+
+        $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
         return $this->render('messages/readMessage.html.twig', [
             'controller_name' => 'MessagesController',
             'form'=> $form->createView(),
            'message'=> $messager,
+           'photoprofil'=>$photoprofil,
            'messages' =>  $messages,
            'elements' =>  $elements,
            'brouillons' =>  $brouillons,

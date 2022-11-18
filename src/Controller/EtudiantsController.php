@@ -13,6 +13,7 @@ use App\Repository\TableauNotesRepository;
 use App\Repository\UsersRepository;
 use App\Repository\ClassesRepository;
 use App\Repository\BlocsRepository;
+use App\Repository\ProfilRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -140,7 +141,7 @@ class EtudiantsController extends AbstractController
     /**
      * @Route("/{id}", name="app_etudiants_show", methods={"GET"})
      */
-    public function show(Etudiants $etudiant, NotesRepository $notesRepository,ClassesRepository $classesRepository,BlocsRepository $blocsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function show(ProfilRepository $profilRepository, Etudiants $etudiant, NotesRepository $notesRepository,ClassesRepository $classesRepository,BlocsRepository $blocsRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
 
         $classe = $classesRepository->findOneBy(array('id'=>$etudiant->getClasses()));
@@ -166,11 +167,12 @@ class EtudiantsController extends AbstractController
      $blocs = $blocsRepository->findBy(['classe'=>$classes]);
 
 
-
+     $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
     
 
 
         return $this->render('etudiants/show.html.twig', [
+            'photoprofil'=>$photoprofil,
             'etudiant' => $etudiant,
             'tableaunotes' => $tableaunotes,
             'tableaunotesexam' => $tableaunotesexam,

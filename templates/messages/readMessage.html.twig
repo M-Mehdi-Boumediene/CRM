@@ -180,8 +180,13 @@
 											<div class="col-md-2" style="    max-width: 50px;">
 												<div class="avatar-icon-wrapper mr-1">
 													<div class="avatar-icon avatar-icon-lg rounded">
+		{% if photoprofil %}
+	<img src="{{ asset('uploads' ~ photoprofil.image)}}" alt=""><br>
 
-														<img src="{{asset('assets/images/avatars/3.jpg')}}" alt=""><br>
+				{% else %}
+<img src="{{asset('assets/images/avatars/user01.png')}}" alt=""><br>
+				{% endif %}
+														
 
 													</div>
 

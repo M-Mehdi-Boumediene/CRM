@@ -109,67 +109,135 @@
 						<div class="col-md-12">
 							<div class="main-card mb-3 card">
 								<div class="card-body">
-
-									{% for etudiant in etudiant %}
-									
-										<div class="table-scroll">
-															<table>
-
-																<tbody>
-
-																	<tr>
-																		<td style="    border-top: solid 1px white;
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    border-left: solid 1px white; border-right: solid 1px white;"></td>
-																		<td style="    border-top: solid 1px white;
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												    border-left: solid 1px white;"></td>
-																		<th scope="col">Coef</th>
-																		<th scope="col">Note 1</th>
-																		<th scope="col">Note 2</th>
-																		<th scope="col">Note 3</th>
-																		<th scope="col">Moyenne</th>
-
-																		{% for bloc in etudiant.classes.blocs %}
-																			<tr>
-
-																				<th rowspan="3" scope="rowgroup">{{bloc.nom}}
-																					<br><br>
-																					Coef:
-																					{{bloc.coefficient}}</th>
-
-																				{% for module in bloc.modules %}
-																					<tr>
-
-																						<th scope="row">{{module.nom}}</th>
-
-																						<td>{{module.coefficient}}</td>
-																						
-
-																						{% for tableau in module.classes.notes %}
-
-																						
-
-																								<td>{{tableau.tableau[0].note1}}</td>
-																								<td>{{tableau.tableau[0].note2}}</td>
-																								<td>{{tableau.tableau[0].note3}}</td>
-																								<td></td>
-																						
+	<div class="row">
+										<div class="col-md-12">
+											<div class="main-card mb-3 card">
+												<div class="card-body">
 
 
-																						{% endfor %}
-																					</tr>
+												
+                                                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                                                    <li class="nav-item">
+                                                        <a role="tab" class="nav-link active" id="tabs-1" data-toggle="tab" href="#semestre1">
+																<span>1er semestre</span>
+															</a>
+                                                    </li>
+
+                                                    <li class="nav-item">
+                                                        <a role="tab" class="nav-link" id="tabs-2" data-toggle="tab" href="#semestre2">
+																<span>2ème semestre</span>
+															</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a role="tab" class="nav-link" id="tabs-3" data-toggle="tab" href="#semestre3">
+																<span>3ème semestre</span>
+															</a>
+                                                    </li>
+
+                                                    <li class="nav-item">
+                                                        <a role="tab" class="nav-link" id="tabs-4" data-toggle="tab" href="#semestre4">
+																<span>4ème semestre</span>
+															</a>
+                                                    </li>
+
+                                                </ul>
 
 
-																				{% endfor %}
-																			</tr>
-																		{% endfor %}
 
-																	</tr>
-																</tbody>
+                                                <div class="tab-pane tabs-animation fade show active " id="semestre1" role="tabpanel">
 
-															</table>
-														</div>
 
-									{% endfor %}
+
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane tabs-animation fade show active" id="devoirs-s1" role="tabpanel">
+            
+  
+            
+            
+            
+                 
+                                                            <table>
+                                                                <tbody>
+
+                                                                    <td style="    border-top: solid 1px white;    border-left: solid 1px white;    border-right: solid 1px white;"></td>
+
+                                                                    <td style="    border-top: solid 1px white;"></td>
+
+                                                                    <th scope="col">Coef</th>
+
+                                                                    <th scope="col">Note 1</th>
+													<th scope="col">Note 2</th>
+                                                    <th scope="col"> Examen</th>
+                                                           			
+
+                                                                    <th scope="col">Moyenne</th>
+
+                                                                    {% set moyennegeneral = 0 %} {% set nb = 0 %} 
+																	{% for note in tableaunotes %}
+
+
+                                                                    <tr>
+
+                                                                        {% set coefmodule = 0 %}
+																		
+																		 {% for module in note.notes %}
+
+
+
+
+                                                                        <tr>
+
+                                                                            <th rowspan="3" scope="rowgroup">{{module.bloc.nom}}
+                                                                                <br><br> Coef: {{module.bloc.coefficient}}
+                                                                            </th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">{{module.module.nom}}</th>
+
+                                                                            <td>{{module.module.coefficient}}</td>
+
+                                                                            {% set coefmodule =+ module.module.coefficient %} 
+																			
+																			{% endfor %} {% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
+																		
+																		
+                                                                            <td>{{note.note1}}/20</td>
+																		<td>{{note.note2}}/20</td>
+                                                                        <td>{{note.note3}}/20</td>
+																		
+                                                                    
+                                                                            <td>{{moyenne|number_format(2, '.', ',') }}/20</td>
+
+                                                                        </tr>
+
+
+                                                                    </tr>
+
+
+                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %} {% endfor %}
+
+
+
+
+                                                                </tbody>
+
+                                                            </table>
+														
+                                                            <br> Moyenne Générale :
+															{% if nb %}
+																 {{moyennegeneral|number_format(2, '.', ',') / nb }}/20
+																{% else %}
+ 															{{moyennegeneral|number_format(2, '.', ',') / 1 }}/20
+															{% endif %}
+															
+
+
+												</div>
+
+											</div>
+										</div>
+
+									</div>
 								</div>
 
 

@@ -66,7 +66,7 @@ class AbsencesController extends AbstractController
         );
         return $this->renderForm('absences/index.html.twig', [
             'absences' => $absencesRepository->findAll(),
-            'tableAbsences' => null,
+            'tableAbsences' => $tableAbsences,
             'form2' => $form2,
         ]);
     }

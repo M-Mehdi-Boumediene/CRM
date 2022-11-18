@@ -24,14 +24,32 @@ class ProgressionsAprenantController extends AbstractController
 
         $user = $this->getUser();
         $classe = $user->getClasse();
-        $etudiant = $etudiantsRepository->findBy(array('user'=>$user));
-    
+        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$user));
+
+
+        $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
+        $tableaunotes2 = $TableauNotesRepository->paretudiant2($etudiant);
+        
+        $tableaunotes3 = $TableauNotesRepository->paretudiant3($etudiant);
+        $tableaunotes4 = $TableauNotesRepository->paretudiant4($etudiant);
+
+        $tableaunotesexam = $TableauNotesRepository->paretudiant1exam($etudiant);
+        $tableaunotes2exam = $TableauNotesRepository->paretudiant2exam($etudiant);
+        $tableaunotes3exam = $TableauNotesRepository->paretudiant3exam($etudiant);
+        $tableaunotes4exam = $TableauNotesRepository->paretudiant4exam($etudiant);
 
         return $this->render('progressions_aprenant/index.html.twig', [
             'controller_name' => 'ProgressionsAprenantController',
             'etudiants' => $etudiantsRepository->findBy(array('user'=>$user)),
 
-            'notes' => $TableauNotesRepository->paretudiant($etudiant),
+            'tableaunotes' => $tableaunotes,
+            'tableaunotesexam' => $tableaunotesexam,
+            'tableaunotes2' => $tableaunotes2,
+            'tableaunotes2exam' => $tableaunotes2exam,
+            'tableaunotes3' => $tableaunotes3,
+            'tableaunotes3exam' => $tableaunotes3exam,
+            'tableaunotes4' => $tableaunotes4,
+            'tableaunotes4exam' => $tableaunotes4exam,
             'etudiant' => $etudiant,
          
         ]);
