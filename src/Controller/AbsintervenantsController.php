@@ -18,7 +18,7 @@ class AbsintervenantsController extends AbstractController
     /**
      * @Route("/", name="app_absintervenants_index", methods={"GET","POST"})
      */
-    public function index(request $request, AbsintervenantsRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository, PaginatorInterface $paginator): Response
+    public function index(request $request, AbsintervenantsRepository $absintervenantsRepository, TableauAbsencesRepository $TableauAbsencesRepository, PaginatorInterface $paginator): Response
     {
 
 
