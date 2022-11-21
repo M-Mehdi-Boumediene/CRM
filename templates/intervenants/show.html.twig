@@ -136,15 +136,22 @@
 								<h5 class="fs-0 fw-normal">
                     		 		<b>  Modules </b>:
 				
- 
- 
                                 {% for module in modules %}
                               
 							   		{{module.nom}}<br>
 								
                                 {% endfor %}
+								</h5>
  
- 
+ 							<h5 class="fs-0 fw-normal">
+                    		 		<b>  Apprenants </b>:
+				
+                                {% for apprenant in intervenant.apprenants %}
+                              
+							   		{{apprenant.nom}}<br>
+								
+                                {% endfor %}
+								</h5>
                        
                       
                     </h5>
