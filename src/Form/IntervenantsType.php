@@ -87,7 +87,9 @@ class IntervenantsType extends AbstractType
             ->add('apprenants', EntityType::class, [
                 'mapped' => false,
                 'class' => Etudiants::class,
-                'choice_label' => 'nom',
+                'choice_label' => function ($category) {
+                    return $category->getNom() . ' ' . $category->getPrenom();
+                },
                 'placeholder' => ' Apprenants',
                 'label' => false,
                 'multiple' => true,
