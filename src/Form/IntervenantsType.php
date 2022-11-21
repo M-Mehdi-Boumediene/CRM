@@ -87,6 +87,12 @@ class IntervenantsType extends AbstractType
             ->add('apprenants', EntityType::class, [
                 'mapped' => false,
                 'class' => Etudiants::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC')
+            
+                        ;
+                },
                 'choice_label' => function ($category) {
                     return $category->getNom() . ' ' . $category->getPrenom();
                 },
