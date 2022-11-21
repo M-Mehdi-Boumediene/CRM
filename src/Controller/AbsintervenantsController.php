@@ -71,7 +71,7 @@ class AbsintervenantsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_absences_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_absintervenants_new", methods={"GET", "POST"})
      */
     public function new(Request $request, AbsintervenantsRepository $absintervenantsRepository, IntervenantsRepository $intervenantsRepository): Response
     {
