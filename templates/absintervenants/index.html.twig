@@ -1,57 +1,154 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Absintervenants index{% endblock %}
+{% block title %}Absences
+{% endblock %}
 
 {% block body %}
-    <h1>Absintervenants index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Created_at</th>
-                <th>Created_by</th>
-                <th>Du</th>
-                <th>Au</th>
-                <th>Absent</th>
-                <th>Dateabsence</th>
-                <th>Enretard</th>
-                <th>Dateretard</th>
-                <th>Present</th>
-                <th>Datepresence</th>
-                <th>Userid</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for absintervenant in absintervenants %}
-            <tr>
-                <td>{{ absintervenant.id }}</td>
-                <td>{{ absintervenant.date ? absintervenant.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.createdAt ? absintervenant.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.createdBy }}</td>
-                <td>{{ absintervenant.du ? absintervenant.du|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.au ? absintervenant.au|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.absent ? 'Yes' : 'No' }}</td>
-                <td>{{ absintervenant.dateabsence ? absintervenant.dateabsence|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.enretard ? 'Yes' : 'No' }}</td>
-                <td>{{ absintervenant.dateretard ? absintervenant.dateretard|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.present ? 'Yes' : 'No' }}</td>
-                <td>{{ absintervenant.datepresence ? absintervenant.datepresence|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ absintervenant.userid }}</td>
-                <td>
-                    <a href="{{ path('app_absintervenants_show', {'id': absintervenant.id}) }}">show</a>
-                    <a href="{{ path('app_absintervenants_edit', {'id': absintervenant.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="14">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	{{ block("MenuTop", "Menus/MenuTop.html.twig") }}
+	<div class="app-main">
+		{{ block("MenuLeft", "Menus/MenuLeft.html.twig") }}
 
-    <a href="{{ path('app_absintervenants_new') }}">Create new</a>
-{% endblock %}
+
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div class="page-title-icon">
+								<i class="pe-7s-alarm icon-gradient bg-strong-bliss"></i>
+							</div>
+							<div>Absences
+								<div class="page-title-subheading">Gestion des absences</div>
+							</div>
+						</div>
+						<div class="page-title-actions">
+
+							<div class="d-inline-block dropdown">
+								<a href="{{ path('app_absences_new') }}">
+									<button class="btn-shadow btn btn-primary">
+										<span class="btn-icon-wrapper pr-2 opacity-7">
+											<i class="fa fa-plus fa-w-20"></i>
+										</span>
+										Ajouter une absence
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tabs-animation">
+					<div class="main-card mb-3 card">
+						<div class="card-body">
+
+							{{ form_start(form2) }}
+							<div class="row">
+								<div class="col-md-12" style="padding-bottom: 5px;">
+									<b>Recherche</b>
+								</div>
+							</div>
+							<div class="row">
+								{{ form_start(form2) }}
+
+								<div class="col-md-3">
+									{{ form_row(form2.search,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.search) }}
+								</div>
+
+								<div class="col-md-3">
+									{{ form_row(form2.classe,{'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form2.classe) }}
+								</div>
+
+								<button type="submit" class="btn-shadow btn btn-primary" style="    width: 116px;">
+									<span class="btn-icon-wrapper pr-2 opacity-7">
+										<i class="fa fa-search fa-w-20"></i>
+									</span>
+									Rechercher
+								</button>
+
+								{{ form_end(form2) }}
+								<div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+									<div class="row">
+										<div class="col-sm-12">
+											<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+												<thead>
+													<tr role="row">
+
+
+														<th>Classe</th>
+														<th>Apprenant</th>
+														<th>Date d'absence</th>
+														<th>Durée de retard</th>
+														<th>actions</th>
+
+
+													</tr>
+												</thead>
+												<tbody>
+												
+														{% for absence in tableAbsences %}
+															<tr>
+																<td>
+																		{% for classe in absence.absences %}
+																		{{classe.classe.nom}}
+																	{% endfor %}
+																
+																</td>
+																<td>
+																	{% for intervenant in absence.intervenant %}
+																		{{intervenant.nom}}
+																		{{intervenant.prenom}}
+																	{% endfor %}
+																</td>
+
+																<td>
+																	{% if absence.dateabsence %}
+																		{{ absence.dateabsence|date('Y-m-d') }}
+																		{% else %}
+
+																	{% endif %}
+																</td>
+
+																<td>
+																	{% if absence.retard %}
+																		{{ absence.retard|date('H:i') }}
+																		{% else %}
+																		
+																	{% endif %}
+																</td>
+
+																<td>
+																	<a href="{{ path('app_absences_show', {'id': absence.id}) }}">show</a>
+																	<a href="{{ path('app_absences_edit', {'id': absence.id}) }}">edit</a>
+																</td>
+															
+															</tr>
+														
+														
+														{% endfor %}
+													</tbody>
+												</tbody>
+											</table>
+											<nav class="" aria-label="Page navigation example" style="float:right;">
+										
+											</nav>
+										
+										
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}
