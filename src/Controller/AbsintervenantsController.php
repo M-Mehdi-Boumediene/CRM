@@ -47,7 +47,7 @@ class AbsintervenantsController extends AbstractController
                 10 // Nombre de résultats par page
             );
        
-            return $this->renderForm('absences/index.html.twig', [
+            return $this->renderForm('absencabsences/index.html.twig', [
                 'tableAbsences' => $tableAbsences,
                 'form2' => $form2,
             ]);
