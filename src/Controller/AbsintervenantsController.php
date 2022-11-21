@@ -161,7 +161,7 @@ class AbsintervenantsController extends AbstractController
        }
        $etudiant = $IntervenantsRepository->findByclasse($id);
 
-       return $this->renderForm('absences/newByclasse.html.twig', [
+       return $this->renderForm('absintervenants/newByclasse.html.twig', [
            'absences' => $absence,
            'id'=>$id,
            'form' => $form,
