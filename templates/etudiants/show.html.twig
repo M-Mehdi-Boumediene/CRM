@@ -315,8 +315,14 @@
                                                                 </tbody>
 
                                                             </table>
+
+                                                            {% if nb %}
 														
                                                             <br> Moyenne Générale : {{moyennegeneral|number_format(2, '.', ',') / nb }}/20
+
+                                                            {% else %}
+  <br> Moyenne Générale : {{moyennegeneral|number_format(2, '.', ',')  }}/20
+                                                            {% endif %}
 
                                                         </div>
 

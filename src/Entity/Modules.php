@@ -101,6 +101,11 @@ class Modules
      */
     private $telechargements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Absintervenants::class, mappedBy="module")
+     */
+    private $absintervenants;
+
  
 
 
@@ -120,6 +125,7 @@ class Modules
         $this->files = new ArrayCollection();
         $this->notes = new ArrayCollection();
         $this->cours = new ArrayCollection();
+        $this->absintervenants = new ArrayCollection();
 
         
     }
@@ -465,6 +471,36 @@ class Modules
         }
 
         $this->telechargements = $telechargements;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Absintervenants>
+     */
+    public function getAbsintervenants(): Collection
+    {
+        return $this->absintervenants;
+    }
+
+    public function addAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if (!$this->absintervenants->contains($absintervenant)) {
+            $this->absintervenants[] = $absintervenant;
+            $absintervenant->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if ($this->absintervenants->removeElement($absintervenant)) {
+            // set the owning side to null (unless already changed)
+            if ($absintervenant->getModule() === $this) {
+                $absintervenant->setModule(null);
+            }
+        }
 
         return $this;
     }

@@ -192,6 +192,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $cvs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Absintervenants::class, mappedBy="user")
+     */
+    private $absintervenants;
+
  
 
    
@@ -220,6 +225,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->entreprises = new ArrayCollection();
         $this->docadmins = new ArrayCollection();
         $this->cvs = new ArrayCollection();
+        $this->absintervenants = new ArrayCollection();
       
  
      
@@ -930,6 +936,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($cv->getUser() === $this) {
                 $cv->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Absintervenants>
+     */
+    public function getAbsintervenants(): Collection
+    {
+        return $this->absintervenants;
+    }
+
+    public function addAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if (!$this->absintervenants->contains($absintervenant)) {
+            $this->absintervenants[] = $absintervenant;
+            $absintervenant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if ($this->absintervenants->removeElement($absintervenant)) {
+            // set the owning side to null (unless already changed)
+            if ($absintervenant->getUser() === $this) {
+                $absintervenant->setUser(null);
             }
         }
 

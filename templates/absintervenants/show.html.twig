@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Absintervenants{% endblock %}
+
+{% block body %}
+    <h1>Absintervenants</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ absintervenant.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ absintervenant.date ? absintervenant.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ absintervenant.createdAt ? absintervenant.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Created_by</th>
+                <td>{{ absintervenant.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Du</th>
+                <td>{{ absintervenant.du ? absintervenant.du|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Au</th>
+                <td>{{ absintervenant.au ? absintervenant.au|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Absent</th>
+                <td>{{ absintervenant.absent ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Dateabsence</th>
+                <td>{{ absintervenant.dateabsence ? absintervenant.dateabsence|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enretard</th>
+                <td>{{ absintervenant.enretard ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Dateretard</th>
+                <td>{{ absintervenant.dateretard ? absintervenant.dateretard|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Present</th>
+                <td>{{ absintervenant.present ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Datepresence</th>
+                <td>{{ absintervenant.datepresence ? absintervenant.datepresence|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ absintervenant.userid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_absintervenants_index') }}">back to list</a>
+
+    <a href="{{ path('app_absintervenants_edit', {'id': absintervenant.id}) }}">edit</a>
+
+    {{ include('absintervenants/_delete_form.html.twig') }}
+{% endblock %}

@@ -111,6 +111,11 @@ class Intervenants
      */
     private $apprenants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Absintervenants::class, mappedBy="intervenant")
+     */
+    private $absintervenants;
+
    
 
     public function __construct()
@@ -120,6 +125,7 @@ class Intervenants
         $this->documents = new ArrayCollection();
         $this->calendriers = new ArrayCollection();
         $this->apprenants = new ArrayCollection();
+        $this->absintervenants = new ArrayCollection();
 
     }
 
@@ -420,6 +426,33 @@ class Intervenants
             if ($apprenant->getIntervenants() === $this) {
                 $apprenant->setIntervenants(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Absintervenants>
+     */
+    public function getAbsintervenants(): Collection
+    {
+        return $this->absintervenants;
+    }
+
+    public function addAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if (!$this->absintervenants->contains($absintervenant)) {
+            $this->absintervenants[] = $absintervenant;
+            $absintervenant->addIntervenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if ($this->absintervenants->removeElement($absintervenant)) {
+            $absintervenant->removeIntervenant($this);
         }
 
         return $this;

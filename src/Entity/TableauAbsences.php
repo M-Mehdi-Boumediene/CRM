@@ -71,6 +71,11 @@ class TableauAbsences
      */
     private $enretard;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Absintervenants::class, mappedBy="tableau")
+     */
+    private $absintervenants;
+
 
 
     public function __construct()
@@ -78,6 +83,7 @@ class TableauAbsences
         $this->etudiant = new ArrayCollection();
         $this->copie = new ArrayCollection();
         $this->absences = new ArrayCollection();
+        $this->absintervenants = new ArrayCollection();
 
     }
 
@@ -247,6 +253,33 @@ class TableauAbsences
     public function setEnretard(?bool $enretard): self
     {
         $this->enretard = $enretard;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Absintervenants>
+     */
+    public function getAbsintervenants(): Collection
+    {
+        return $this->absintervenants;
+    }
+
+    public function addAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if (!$this->absintervenants->contains($absintervenant)) {
+            $this->absintervenants[] = $absintervenant;
+            $absintervenant->addTableau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if ($this->absintervenants->removeElement($absintervenant)) {
+            $absintervenant->removeTableau($this);
+        }
 
         return $this;
     }

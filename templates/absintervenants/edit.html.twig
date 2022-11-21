@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Absintervenants{% endblock %}
+
+{% block body %}
+    <h1>Edit Absintervenants</h1>
+
+    {{ include('absintervenants/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_absintervenants_index') }}">back to list</a>
+
+    {{ include('absintervenants/_delete_form.html.twig') }}
+{% endblock %}

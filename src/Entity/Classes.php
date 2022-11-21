@@ -112,6 +112,11 @@ class Classes
      */
     private $blocs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Absintervenants::class, mappedBy="classe")
+     */
+    private $absintervenants;
+
 
     public function __toString() {
         return $this->nom;
@@ -132,6 +137,7 @@ class Classes
         $this->users = new ArrayCollection();
         $this->docadmins = new ArrayCollection();
         $this->blocs = new ArrayCollection();
+        $this->absintervenants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -514,6 +520,36 @@ class Classes
             // set the owning side to null (unless already changed)
             if ($bloc->getClasse() === $this) {
                 $bloc->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Absintervenants>
+     */
+    public function getAbsintervenants(): Collection
+    {
+        return $this->absintervenants;
+    }
+
+    public function addAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if (!$this->absintervenants->contains($absintervenant)) {
+            $this->absintervenants[] = $absintervenant;
+            $absintervenant->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsintervenant(Absintervenants $absintervenant): self
+    {
+        if ($this->absintervenants->removeElement($absintervenant)) {
+            // set the owning side to null (unless already changed)
+            if ($absintervenant->getClasse() === $this) {
+                $absintervenant->setClasse(null);
             }
         }
 

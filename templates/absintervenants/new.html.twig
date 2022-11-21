@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Absintervenants{% endblock %}
+
+{% block body %}
+    <h1>Create new Absintervenants</h1>
+
+    {{ include('absintervenants/_form.html.twig') }}
+
+    <a href="{{ path('app_absintervenants_index') }}">back to list</a>
+{% endblock %}
