@@ -100,6 +100,77 @@ class AbsintervenantsController extends AbstractController
         ]);
     }
 
+
+    **
+    * @Route("/new/{id}", name="app_absintervenants_newbyclass", methods={"GET", "POST"})
+    */
+   public function newbyclasse(Request $request, $id,AbsencesRepository $absencesRepository,etudiantsRepository $etudiantsRepository,TableauAbsencesRepository $TableauAbsencesRepository): Response
+   {
+     
+       $absence = new Absintervenants();
+    
+       $form = $this->createForm(AbsintervenantsType::class);
+       $form->handleRequest($request);
+
+       if ($form->isSubmitted() && $form->isValid()) {
+         
+           $tableau = $form->get('tableau');
+           foreach($tableau as $tableau){
+               $tableauabsences = new TableauAbsences();
+       
+
+               
+                   $TableauAbsencesRepository->add($tableauabsences);
+
+                   $tableauabsences->addAbsence($absence);
+                   $absence->addTableau($tableauabsences);
+                   
+
+               $etudiants = $tableau->get('intervenant')->getData();
+               
+               $absence->setUserid( $tableau->get('intervenant')->getData());
+     
+               $tableauabsences->addIntervenant($etudiants[0]);
+               $dateabsence =$tableau->get('dateabsence')->getData();
+               $retard = $tableau->get('retard')->getData();
+           
+               if( $dateabsence == null){
+                   $tableauabsences->setDateabsence(null);
+               }else{
+                   $tableauabsences->setDateabsence($dateabsence);
+               }
+               if( $retard == null){
+                   $tableauabsences->setRetard(null);
+               }else{
+                   $tableauabsences->setRetard($retard);
+               }
+
+  
+
+           }
+           $absence->setClasse($form->get('classe')->getData());
+           $absence->setDate(new \DateTimeImmutable('now'));
+      
+  
+           $absintervenantsRepository->add($absence, true);
+ 
+           // Je boucle sur les documents
+          
+   
+
+           return $this->redirectToRoute('app_absences_index', [], Response::HTTP_SEE_OTHER);
+       }
+       $etudiant = $absintervenantsRepository->findByclasse($id);
+
+       return $this->renderForm('absences/newByclasse.html.twig', [
+           'absences' => $absence,
+           'id'=>$id,
+           'form' => $form,
+           'etudiants' => $etudiant,
+         
+       ]);
+   }
+
     #[Route('/{id}/edit', name: 'app_absintervenants_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Absintervenants $absintervenant, AbsintervenantsRepository $absintervenantsRepository): Response
     {
