@@ -58,6 +58,39 @@ class AbsencesRepository extends ServiceEntityRepository
         ;
     }
     
+    public function searchMot($value, $classe)
+    { 
+        if(!empty($value)){
+
+            return $this->createQueryBuilder('u')
+            ->leftJoin('u.intervenant', 'i')
+            ->orWhere('i.nom LIKE :value')
+            ->orWhere('i.prenom LIKE :value')
+            ->orWhere('i.email LIKE :value')
+            ->orWhere('i.telephone LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+  
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+        if(!empty($classe)){
+            return $this->createQueryBuilder('u')
+
+
+            ->leftJoin('u.classe', 'i')
+            ->andWhere('i.id = :classe')
+
+            ->setParameter('classe', $classe)
+
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+
+    }
 
     /*
     public function findOneBySomeField($value): ?Absences

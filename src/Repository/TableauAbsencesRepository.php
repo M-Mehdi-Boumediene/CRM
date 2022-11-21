@@ -42,47 +42,41 @@ class TableauAbsencesRepository extends ServiceEntityRepository
 
 
 
-    public function searchMot($value,$classe)
-    {
-        return $this->createQueryBuilder('u')
+    public function searchMot($value, $classe)
+    { 
+        if(!empty($value)){
 
-            ->innerJoin('u.etudiant', 'c')
-            ->innerJoin('c.classes', 'm')
-   
-      
-            ->Where('c.id = :classe')
-      
-            ->orWhere('c.nom LIKE :value')
-            ->orWhere('c.prenom LIKE :value')
-            ->orWhere('c.email LIKE :value')
-            ->orWhere('c.telephone LIKE :value')
+            return $this->createQueryBuilder('u')
+            ->leftJoin('u.intervenant', 'i')
+            ->orWhere('i.nom LIKE :value')
+            ->orWhere('i.prenom LIKE :value')
+            ->orWhere('i.email LIKE :value')
+            ->orWhere('i.telephone LIKE :value')
             ->setParameter('value', '%'.$value.'%')
+  
+
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
+        if(!empty($classe)){
+            return $this->createQueryBuilder('u')
+
+
+            ->leftJoin('u.classe', 'i')
+            ->andWhere('i.id = :classe')
+
             ->setParameter('classe', $classe)
-      
 
-
-            ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
+        }
+
     }
-    public function paretudiant($etudiant)
-    {
-        return $this->createQueryBuilder('u')
-
-            ->innerJoin('u.etudiant', 'c')
-     
-            ->andWhere('c.id = :etudiant')
-    
-
-            ->setParameter('etudiant', $etudiant)
 
 
-            ->orderBy('u.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
 //    /**
 //     * @return TableauAbsences[] Returns an array of TableauAbsences objects
 //     */

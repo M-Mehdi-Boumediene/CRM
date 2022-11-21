@@ -33,13 +33,7 @@ class AbsintervenantsController extends AbstractController
    
         $classe = $form2->get('classe')->getData();
         
-    
-            if($value == null){
-                $value = empty($value);
-            }
-            if($classe == null){
-                $classe = empty($classe);
-            }
+
             $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$classe);
             $tableAbsences = $paginator->paginate(
                 $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
