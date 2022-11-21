@@ -7,6 +7,7 @@ use App\Form\filtres\FiltreAbsintervenantsType;
 use App\Form\AbsintervenantsType;
 use App\Repository\AbsintervenantsRepository;
 use App\Repository\TableauAbsencesRepository;
+use App\Repository\IntervenantsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,8 +70,10 @@ class AbsintervenantsController extends AbstractController
 
     }
 
-    #[Route('/new', name: 'app_absintervenants_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AbsintervenantsRepository $absintervenantsRepository): Response
+    /**
+     * @Route("/new", name="app_absences_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, AbsintervenantsRepository $absintervenantsRepository, IntervenantsRepository $intervenantsRepository): Response
     {
         $absintervenant = new Absintervenants();
         $form = $this->createForm(AbsintervenantsType::class, $absintervenant);
@@ -81,9 +84,10 @@ class AbsintervenantsController extends AbstractController
 
             return $this->redirectToRoute('app_absintervenants_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        $intervenants = $intervenantsRepository->findAll();
         return $this->renderForm('absintervenants/new.html.twig', [
             'absintervenant' => $absintervenant,
+            'intervenants' => $intervenants,
             'form' => $form,
         ]);
     }
