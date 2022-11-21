@@ -123,31 +123,29 @@
         <h5 class="card-title">Renseignements Scolaire</h5>
 
                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
+                        
                      
-                            
 								<h5 class="fs-0 fw-normal">
 								<b>	Classe </b>:
 								{{intervenant.classes.nom}}
 
 									</h5>
-                            </ul>
+                      
 
 
 								<h5 class="fs-0 fw-normal">
                     		 		<b>  Modules </b>:
-					 		<ul class="list-group list-group-flush">
+				
  
  
                                 {% for module in modules %}
-                               <div class="container">     
+                              
 							   		{{module.nom}}<br>
-								</div>
+								
                                 {% endfor %}
  
  
-                            </ul>
-
+                       
                       
                     </h5>
                         </div>
