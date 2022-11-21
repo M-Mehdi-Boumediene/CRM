@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Absintervenants;
 use App\Form\filtres\FiltreAbsintervenantsType;
 use App\Repository\AbsintervenantsRepository;
+use App\Repository\TableauAbsencesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
