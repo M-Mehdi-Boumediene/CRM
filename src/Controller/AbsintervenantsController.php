@@ -13,8 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/absintervenants')]
 class AbsintervenantsController extends AbstractController
 {
-    #[Route('/', name: 'app_absintervenants_index', methods: ['GET'])]
-    public function index(AbsintervenantsRepository $absintervenantsRepository): Response
+    /**
+     * @Route("/", name="app_absintervenants_index", methods={"GET","POST"})
+     */
+    public function index(request $request, AbsintervenantsRepository $absencesRepository, TableauAbsencesRepository $TableauAbsencesRepository, PaginatorInterface $paginator): Response
     {
 
 
