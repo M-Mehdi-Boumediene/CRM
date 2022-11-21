@@ -103,7 +103,7 @@ class AbsintervenantsController extends AbstractController
   /**
      * @Route("/new/{id}", name="app_absintervenants_newbyclass", methods={"GET", "POST"})
      */
-   public function newbyclasse(Request $request, $id,AbsintervenantsRepository $absencesRepository,IntervenantsRepository $etudiantsRepository,TableauAbsencesRepository $TableauAbsencesRepository): Response
+   public function newbyclasse(Request $request, $id,AbsintervenantsRepository $absencesRepository,IntervenantsRepository $IntervenantsRepository,TableauAbsencesRepository $TableauAbsencesRepository): Response
    {
      
        $absence = new Absintervenants();
@@ -159,7 +159,7 @@ class AbsintervenantsController extends AbstractController
 
            return $this->redirectToRoute('app_absences_index', [], Response::HTTP_SEE_OTHER);
        }
-       $etudiant = $absintervenantsRepository->findByclasse($id);
+       $etudiant = $IntervenantsRepository->findByclasse($id);
 
        return $this->renderForm('absences/newByclasse.html.twig', [
            'absences' => $absence,
