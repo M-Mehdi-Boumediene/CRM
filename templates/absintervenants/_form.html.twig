@@ -228,7 +228,7 @@ $('.etudiant').each(function () {
 
 $( "#absences_classe" ).change(function() {
 	
-window.location = '/absences/new/'+$(this).val();
+window.location = '/absencesintervenants/new/'+$(this).val();
 
 
 });
@@ -260,7 +260,7 @@ $('.retard').show()
 $( "div#etudiant" ).each(function(index) {
 $(this).addClass( "index"+index );
 
-$(".index"+index).append($( "#absences_tableau_"+index+"_etudiant option:selected" ).text())
+$(".index"+index).append($( "#absintervenants_tableau_"+index+"_intervenant option:selected" ).text())
 
 });
 
