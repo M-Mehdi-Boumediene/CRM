@@ -16,9 +16,52 @@ class AbsintervenantsController extends AbstractController
     #[Route('/', name: 'app_absintervenants_index', methods: ['GET'])]
     public function index(AbsintervenantsRepository $absintervenantsRepository): Response
     {
-        return $this->render('absintervenants/index.html.twig', [
+
+
+        $form2 = $this->createForm(FiltreAbsencesType::class);
+        $form2->handleRequest($request);
+
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $value = $form2->get('search')->getData();
+   
+        $classe = $form2->get('classe')->getData();
+        
+    
+            if($value == null){
+                $value = empty($value);
+            }
+            if($classe == null){
+                $classe = empty($classe);
+            }
+            $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$classe);
+            $tableAbsences = $paginator->paginate(
+                $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                10 // Nombre de résultats par page
+            );
+       
+            return $this->renderForm('absences/index.html.twig', [
+                'tableAbsences' => $tableAbsences,
+                'form2' => $form2,
+            ]);
+        }
+
+        
+        $tableAbsences =  $TableauAbsencesRepository->findAll();
+
+        $tableAbsences = $paginator->paginate(
+            $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+        return $this->renderForm('absintervenants/index.html.twig', [
             'absintervenants' => $absintervenantsRepository->findAll(),
+            'tableAbsences' => $tableAbsences,
+            'form2' => $form2,
         ]);
+
+
     }
 
     #[Route('/new', name: 'app_absintervenants_new', methods: ['GET', 'POST'])]
