@@ -40,7 +40,7 @@ class AbsintervenantsType extends AbstractType
             ])
          
             ->add('tableau', CollectionType::class, [
-                'entry_type' => TableauAbsencesType::class,
+                'entry_type' => TableauAbsencesintervenantsType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'prototype' => true,
