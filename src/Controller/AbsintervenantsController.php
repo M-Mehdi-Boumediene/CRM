@@ -18,7 +18,7 @@ class AbsintervenantsController extends AbstractController
     {
 
 
-        $form2 = $this->createForm(FiltreAbsencesType::class);
+        $form2 = $this->createForm(FiltreAbsintervenantsType::class);
         $form2->handleRequest($request);
 
 
