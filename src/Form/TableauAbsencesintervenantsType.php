@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\TableauAbsences;
 use App\Entity\Etudiants;
+use App\Entity\Intervenants;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -60,8 +61,8 @@ class TableauAbsencesintervenantsType extends AbstractType
            
                 'required'=>false,
             ])
-            ->add('etudiant', EntityType::class, [
-                'class' => Etudiants::class,
+            ->add('intervenant', EntityType::class, [
+                'class' => Intervenants::class,
           
                 'choice_label' => function($apprenant, $key, $index) {
                     /** @var Apprenants $apprenant */
