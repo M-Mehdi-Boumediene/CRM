@@ -48,7 +48,7 @@ class TableauAbsencesRepository extends ServiceEntityRepository
 
             return $this->createQueryBuilder('u')
             ->leftJoin('u.absences', 'a')
-            ->leftJoin('a.intervenant', 'i')
+            ->leftJoin('a.etudiant', 'i')
             ->orWhere('i.nom LIKE :value')
             ->orWhere('i.prenom LIKE :value')
             ->orWhere('i.email LIKE :value')
