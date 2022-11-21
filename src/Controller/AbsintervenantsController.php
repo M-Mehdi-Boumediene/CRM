@@ -165,7 +165,7 @@ class AbsintervenantsController extends AbstractController
            'absences' => $absence,
            'id'=>$id,
            'form' => $form,
-           'etudiants' => $etudiant,
+           'intervenants' => $etudiant,
          
        ]);
    }
