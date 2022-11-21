@@ -251,7 +251,7 @@ $('#intervenants_ville').select2();
 $('#intervenants_codepostale').select2();
 $('#intervenants_classes').select2();
 
-
+$('#intervenants_modules').select2();
 
 
 
@@ -259,10 +259,10 @@ $('#intervenants_classes').select2();
 $('#intervenants_istuteur').on('change', function() {
 	if($('#intervenants_istuteur').is(':checked')){
 	
-		$('#intervenants_apprenants').show();
+		$('.select2-selection--multiple').show();
 
 	}else{
-	$('#intervenants_apprenants').hide();
+	$('.select2-selection--multiple').hide();
 		
 	}
 
