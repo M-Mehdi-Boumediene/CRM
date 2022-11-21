@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Absintervenants;
-use App\Form\AbsintervenantsType;
+use App\Form\filtres\AbsintervenantsType;
 use App\Repository\AbsintervenantsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
