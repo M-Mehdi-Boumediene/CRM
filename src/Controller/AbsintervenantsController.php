@@ -7,6 +7,8 @@ use App\Form\filtres\FiltreAbsintervenantsType;
 use App\Form\AbsintervenantsType;
 use App\Repository\AbsintervenantsRepository;
 use App\Repository\TableauAbsencesRepository;
+use App\Repository\TableauAbsencesintervenantsRepository;
+
 use App\Repository\IntervenantsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +22,7 @@ class AbsintervenantsController extends AbstractController
     /**
      * @Route("/", name="app_absintervenants_index", methods={"GET","POST"})
      */
-    public function index(request $request, AbsintervenantsRepository $absintervenantsRepository, TableauAbsencesRepository $TableauAbsencesRepository, PaginatorInterface $paginator): Response
+    public function index(request $request, AbsintervenantsRepository $absintervenantsRepository, TableauAbsencesintervenantsRepository $TableauAbsencesintervenantsRepository, PaginatorInterface $paginator): Response
     {
 
 
@@ -34,7 +36,7 @@ class AbsintervenantsController extends AbstractController
         $classe = $form2->get('classe')->getData();
         
 
-            $tableAbsences =  $TableauAbsencesRepository->searchMot($value,$classe);
+            $tableAbsences =  $TableauAbsencesintervenantsRepository->searchMot($value,$classe);
             $tableAbsences = $paginator->paginate(
                 $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
