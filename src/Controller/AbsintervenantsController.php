@@ -120,7 +120,7 @@ class AbsintervenantsController extends AbstractController
                    $TableauAbsencesRepository->add($tableauabsences);
 
                    $tableauabsences->addAbsence($absence);
-                   $absence->addTableau($tableauabsences);
+                   $absence->addTableauAbsencesintervenant($tableauabsences);
                    
 
                $etudiants = $tableau->get('intervenant')->getData();
