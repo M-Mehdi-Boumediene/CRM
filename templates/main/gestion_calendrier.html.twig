@@ -271,6 +271,7 @@ $('#notes_classes option:contains("' + info.event.extendedProps.classe + '")').p
 $("#absences_classe option:selected").text(info.event.extendedProps.classe);
 $("#notes_moduleid option:selected").text(info.event.extendedProps.module);
 $("#notes_type option:selected").text(type);
+$('#absences_classe').val(info.event.extendedProps.classe);
 // change the border color just for fun
 info.el.style.borderColor = 'red';
 
