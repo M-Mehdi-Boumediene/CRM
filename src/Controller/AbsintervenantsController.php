@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Absintervenants;
 use App\Entity\TableauAbsencesintervenants;
-
+TableauAbsencesintervenants
 use App\Form\filtres\FiltreAbsintervenantsType;
 use App\Form\AbsintervenantsType;
 use App\Repository\AbsintervenantsRepository;
@@ -101,7 +101,7 @@ class AbsintervenantsController extends AbstractController
   /**
      * @Route("/new/{id}", name="app_absintervenants_newbyclass", methods={"GET", "POST"})
      */
-   public function newbyclasse(Request $request, $id,AbsintervenantsRepository $absencesRepository,IntervenantsRepository $IntervenantsRepository,TableauAbsencesRepository $TableauAbsencesRepository): Response
+   public function newbyclasse(Request $request, $id,AbsintervenantsRepository $absencesRepository,IntervenantsRepository $IntervenantsRepository,TableauAbsencesintervenantsRepository $TableauAbsencesRepository): Response
    {
      
        $absence = new Absintervenants();
@@ -120,7 +120,7 @@ class AbsintervenantsController extends AbstractController
                    $TableauAbsencesRepository->add($tableauabsences);
 
                    $tableauabsences->addAbsence($absence);
-                 
+                   $absence->addTableau($tableauabsences);
                    
 
                $etudiants = $tableau->get('intervenant')->getData();
