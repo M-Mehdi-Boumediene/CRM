@@ -155,7 +155,7 @@ class AbsintervenantsController extends AbstractController
           
    
 
-           return $this->redirectToRoute('app_absences_index', [], Response::HTTP_SEE_OTHER);
+           return $this->redirectToRoute('app_absintervenants_index', [], Response::HTTP_SEE_OTHER);
        }
        $etudiant = $IntervenantsRepository->findByclasse($id);
 
