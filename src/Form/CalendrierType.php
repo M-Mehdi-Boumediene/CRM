@@ -90,7 +90,7 @@ class CalendrierType extends AbstractType
                 'choice_label' => 'nom',
                 'placeholder' => '',
                 'multiple'=>false,
-                'required' => true,
+                'required' => false,
                 'label' => false,
             ])
 
