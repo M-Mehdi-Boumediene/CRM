@@ -149,7 +149,7 @@ class AbsintervenantsController extends AbstractController
            $absence->setDate(new \DateTimeImmutable('now'));
       
   
-           $absintervenantsRepository->add($absence, true);
+           $TableauAbsencesRepository->add($absence, true);
  
            // Je boucle sur les documents
           
