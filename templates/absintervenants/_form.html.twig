@@ -107,29 +107,29 @@
 					<div class="col-md-3"></div>
 						<div class="col-md-3" id="etudiant">
 					
-				{{ form_row(tableau.intervenant,{'attr': {'class': 'form-control etudiant'}}) }}
-				{{ form_errors(tableau.intervenant) }}
+				{{ form_row(tableauAbsencesintervenants.intervenant,{'attr': {'class': 'form-control etudiant'}}) }}
+				{{ form_errors(tableauAbsencesintervenants.intervenant) }}
 						</div>
 												<div class="col-md-3">
 						
-				{{ form_row(tableau.presence,{'attr': {'class': ' '}}) }}
-				{{ form_errors(tableau.presence) }}
+				{{ form_row(tableauAbsencesintervenants.presence,{'attr': {'class': ' '}}) }}
+				{{ form_errors(tableauAbsencesintervenants.presence) }}
 
 						</div>
 					<div class="col-md-3">
 						
-				{{ form_row(tableau.absence,{'attr': {'class': ' '}}) }}
-				{{ form_errors(tableau.absence) }}
-			{{ form_row(tableau.dateabsence,{'attr': {'class': ' '}}) }}
-				{{ form_errors(tableau.dateabsence) }}
+				{{ form_row(tableauAbsencesintervenants.absence,{'attr': {'class': ' '}}) }}
+				{{ form_errors(tableauAbsencesintervenants.absence) }}
+			{{ form_row(tableauAbsencesintervenants.dateabsence,{'attr': {'class': ' '}}) }}
+				{{ form_errors(tableauAbsencesintervenants.dateabsence) }}
 						</div>
 				
 					<div class="col-md-3">
 						
 	
 
-				{{ form_row(tableau.retard,{'attr': {'class': 'form-control retard '}}) }}
-				{{ form_errors(tableau.retard) }}
+				{{ form_row(tableauAbsencesintervenants.retard,{'attr': {'class': 'form-control retard '}}) }}
+				{{ form_errors(tableauAbsencesintervenants.retard) }}
 						</div>
 				
 			
@@ -145,7 +145,7 @@
 				<div class="panel-body" style="font-size: 11px;color: black;padding-right: 0;padding-left: 1px; padding-bottom: 20px;    display: inline;">
 
 							
-		{% for tableau in form.tableau %}
+		{% for tableau in form.tableauAbsencesintervenants %}
 
 	{{ _self.tagCollectionItem(tableau) }}
 
