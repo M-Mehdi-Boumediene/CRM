@@ -220,7 +220,7 @@ foreach ($events as $event){
                  $tableauabsences->setDu($du);
                  $tableauabsences->setAu($au);
             
-                 $absence->setUser($etudiants);
+                 $absence->setUser($etudiants[0]);
                 
  
     
