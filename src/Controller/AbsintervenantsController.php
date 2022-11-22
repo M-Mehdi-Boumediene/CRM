@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Absintervenants;
 use App\Entity\TableauAbsencesintervenants;
-TableauAbsencesintervenants
+
 use App\Form\filtres\FiltreAbsintervenantsType;
 use App\Form\AbsintervenantsType;
 use App\Repository\AbsintervenantsRepository;
