@@ -67,7 +67,7 @@ class TableauAbsencesintervenants
     private $au;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $enretard;
 
