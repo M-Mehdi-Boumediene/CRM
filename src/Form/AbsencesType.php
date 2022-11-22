@@ -73,7 +73,6 @@ class AbsencesType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'choice_label' => 'nom',
-                'empty_data'=>'',
                 'required'=>false,
                 'label'=>'Classe',
             ])
