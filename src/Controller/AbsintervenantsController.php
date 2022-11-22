@@ -127,6 +127,7 @@ class AbsintervenantsController extends AbstractController
                 
                $tableauabsences->addIntervenant($etudiants[0]);
                $absence->setUserid( $tableau->get('intervenant')->getData());
+               
                $dateabsence =$tableau->get('dateabsence')->getData();
                $retard = $tableau->get('retard')->getData();
            
@@ -140,6 +141,7 @@ class AbsintervenantsController extends AbstractController
                }else{
                    $tableauabsences->setRetard($retard);
                }
+
 
   
 
