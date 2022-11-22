@@ -69,8 +69,8 @@ class TableauAbsencesintervenantsType extends AbstractType
                     return $apprenant->getPrenom() . ' ' . $apprenant->getNom();
                 },
                 'required'=>true,
-          
-                'multiple' => false,
+                'expanded'=>false,
+                'multiple' => true,
                 'label'=>false,
                
                 
