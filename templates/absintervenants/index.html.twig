@@ -102,9 +102,9 @@
 																
 																</td>
 																<td>
-																	{% for intervenant in absence.absences %}
-																		{{intervenant.user.nom}}
-																		{{intervenant.user.prenom}}
+																	{% for intervenant in absence.absintervenants %}
+																		{{intervenant.nom}}
+																		{{intervenant.prenom}}
 																	{% endfor %}
 																</td>
 
