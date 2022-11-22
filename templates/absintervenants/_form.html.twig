@@ -95,7 +95,7 @@
 
 	</div>
 
-	{% macro tagCollectionItem(tableau) %}
+	{% macro tagCollectionItem(tableauAbsencesintervenants) %}
 
 
 
@@ -145,9 +145,9 @@
 				<div class="panel-body" style="font-size: 11px;color: black;padding-right: 0;padding-left: 1px; padding-bottom: 20px;    display: inline;">
 
 							
-		{% for tableau in form.tableauAbsencesintervenants %}
+		{% for tableauAbsencesintervenants in form.tableauAbsencesintervenants %}
 
-	{{ _self.tagCollectionItem(tableau) }}
+	{{ _self.tagCollectionItem(tableauAbsencesintervenants) }}
 
 		{% endfor %}
 
