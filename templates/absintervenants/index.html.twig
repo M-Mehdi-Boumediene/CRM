@@ -89,7 +89,7 @@
 												</thead>
 												<tbody>
 												
-														{% for absence in tableAbsences %}
+														{% for absence in tableauAbsencesintervenants %}
 															<tr>
 																<td>
 																		{% for classe in absence.absences %}
@@ -98,7 +98,7 @@
 																
 																</td>
 																<td>
-																	{% for intervenant in absence.absintervenants %}
+																	{% for intervenant in absence.absences %}
 																		{{intervenant.nom}}
 																		{{intervenant.prenom}}
 																	{% endfor %}
