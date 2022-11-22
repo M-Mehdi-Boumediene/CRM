@@ -118,16 +118,21 @@ class AbsencesController extends AbstractController
                 $tableauabsences->addEtudiant($etudiants[0]);
                 $dateabsence =$tableau->get('dateabsence')->getData();
                 $retard = $tableau->get('retard')->getData();
-            
+                $labsence = $tableau->get('absence')->getData();
                 if( $dateabsence == null){
                     $tableauabsences->setDateabsence(null);
+                    $tableauabsences->setPresence(0);
                 }else{
+                    
                     $tableauabsences->setDateabsence($dateabsence);
+                    $tableauabsences->setPresence(1);
                 }
                 if( $retard == null){
                     $tableauabsences->setRetard(null);
+                    $tableauabsences->setPresence(0);
                 }else{
                     $tableauabsences->setRetard($retard);
+                    $tableauabsences->setPresence(0);
                 }
 
    
