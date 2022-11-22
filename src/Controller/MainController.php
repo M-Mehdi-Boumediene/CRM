@@ -226,7 +226,7 @@ foreach ($events as $event){
     
  
              }
-             $absence->setClasse($classe);
+             $absence->setClasse($form2->get('classe')->getData());
              $absence->setDate(new \DateTimeImmutable('now'));
      
            
