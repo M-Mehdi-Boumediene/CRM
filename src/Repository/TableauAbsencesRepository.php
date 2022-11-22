@@ -78,20 +78,20 @@ class TableauAbsencesRepository extends ServiceEntityRepository
     }
 
 
-//    /**
-//     * @return TableauAbsences[] Returns an array of TableauAbsences objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+
+
+   public function paretudiant($etudiant): array
+   {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('a.etudiant', 'i')
+           ->andWhere('i.id = :etudiant')
+            ->setParameter('etudiant', $etudiant)
+           ->orderBy('t.id', 'ASC')
+           ->setMaxResults(10)
+            ->getQuery()
+           ->getResult()
+      ;
+   }
 
 //    public function findOneBySomeField($value): ?TableauAbsences
 //    {
