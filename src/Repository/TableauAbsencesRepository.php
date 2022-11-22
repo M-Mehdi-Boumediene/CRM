@@ -85,6 +85,7 @@ class TableauAbsencesRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->leftJoin('t.etudiant', 'i')
            ->andWhere('i.id = :etudiant')
+           ->andWhere('t.presence = 0')
             ->setParameter('etudiant', $etudiant)
      
             ->getQuery()
