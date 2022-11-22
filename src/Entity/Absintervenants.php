@@ -101,10 +101,16 @@ class Absintervenants
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauAbsencesintervenants::class, mappedBy="absences")
+     */
+    private $tableauAbsencesintervenants;
+
 
     public function __construct()
     {
         $this->intervenant = new ArrayCollection();
+        $this->tableauAbsencesintervenants = new ArrayCollection();
      
     }
 
@@ -313,6 +319,33 @@ class Absintervenants
     public function setUser(?Users $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauAbsencesintervenants>
+     */
+    public function getTableauAbsencesintervenants(): Collection
+    {
+        return $this->tableauAbsencesintervenants;
+    }
+
+    public function addTableauAbsencesintervenant(TableauAbsencesintervenants $tableauAbsencesintervenant): self
+    {
+        if (!$this->tableauAbsencesintervenants->contains($tableauAbsencesintervenant)) {
+            $this->tableauAbsencesintervenants[] = $tableauAbsencesintervenant;
+            $tableauAbsencesintervenant->addAbsence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTableauAbsencesintervenant(TableauAbsencesintervenants $tableauAbsencesintervenant): self
+    {
+        if ($this->tableauAbsencesintervenants->removeElement($tableauAbsencesintervenant)) {
+            $tableauAbsencesintervenant->removeAbsence($this);
+        }
 
         return $this;
     }

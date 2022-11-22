@@ -59,6 +59,11 @@ class Files
      */
     private $docadmins;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TableauAbsencesintervenants::class, inversedBy="copie")
+     */
+    private $tableauAbsencesintervenants;
+
 
 
   
@@ -160,6 +165,18 @@ class Files
     public function setDocadmins(?Docadmins $docadmins): self
     {
         $this->docadmins = $docadmins;
+
+        return $this;
+    }
+
+    public function getTableauAbsencesintervenants(): ?TableauAbsencesintervenants
+    {
+        return $this->tableauAbsencesintervenants;
+    }
+
+    public function setTableauAbsencesintervenants(?TableauAbsencesintervenants $tableauAbsencesintervenants): self
+    {
+        $this->tableauAbsencesintervenants = $tableauAbsencesintervenants;
 
         return $this;
     }

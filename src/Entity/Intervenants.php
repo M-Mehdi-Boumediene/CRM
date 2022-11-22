@@ -116,6 +116,11 @@ class Intervenants
      */
     private $absintervenants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=TableauAbsencesintervenants::class, mappedBy="intervenant")
+     */
+    private $tableauAbsencesintervenants;
+
    
 
     public function __construct()
@@ -126,6 +131,7 @@ class Intervenants
         $this->calendriers = new ArrayCollection();
         $this->apprenants = new ArrayCollection();
         $this->absintervenants = new ArrayCollection();
+        $this->tableauAbsencesintervenants = new ArrayCollection();
 
     }
 
@@ -453,6 +459,33 @@ class Intervenants
     {
         if ($this->absintervenants->removeElement($absintervenant)) {
             $absintervenant->removeIntervenant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauAbsencesintervenants>
+     */
+    public function getTableauAbsencesintervenants(): Collection
+    {
+        return $this->tableauAbsencesintervenants;
+    }
+
+    public function addTableauAbsencesintervenant(TableauAbsencesintervenants $tableauAbsencesintervenant): self
+    {
+        if (!$this->tableauAbsencesintervenants->contains($tableauAbsencesintervenant)) {
+            $this->tableauAbsencesintervenants[] = $tableauAbsencesintervenant;
+            $tableauAbsencesintervenant->addIntervenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTableauAbsencesintervenant(TableauAbsencesintervenants $tableauAbsencesintervenant): self
+    {
+        if ($this->tableauAbsencesintervenants->removeElement($tableauAbsencesintervenant)) {
+            $tableauAbsencesintervenant->removeIntervenant($this);
         }
 
         return $this;
