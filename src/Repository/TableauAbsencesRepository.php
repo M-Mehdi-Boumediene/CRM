@@ -83,11 +83,10 @@ class TableauAbsencesRepository extends ServiceEntityRepository
    public function paretudiant($etudiant): array
    {
         return $this->createQueryBuilder('t')
-            ->leftJoin('a.etudiant', 'i')
+            ->leftJoin('t.etudiants', 'i')
            ->andWhere('i.id = :etudiant')
             ->setParameter('etudiant', $etudiant)
-           ->orderBy('t.id', 'ASC')
-           ->setMaxResults(10)
+     
             ->getQuery()
            ->getResult()
       ;
