@@ -93,7 +93,11 @@
 															<tr>
 																<td>
 																		{% for classe in absence.absences %}
+																				{% if classe.classe %}
 																		{{classe.classe.nom}}
+																		{% else %}
+																		
+																		{% endif %}
 																	{% endfor %}
 																
 																</td>
