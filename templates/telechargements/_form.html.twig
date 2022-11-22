@@ -1,9 +1,21 @@
 {{ form_start(form) }}
 
+
+<style>
+
+</style>
+
+
 <div class="form-row">
-	<div class="col-md-3">
+	<div class="col-md-3" style="display:none;">
 		{{ form_row(form.classe,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.classe) }}<br>
+
+
+	</div>
+		<div class="col-md-3" style="display:none;">
+		{{ form_row(form.module,{'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.module) }}<br>
 
 
 	</div>
