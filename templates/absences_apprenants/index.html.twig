@@ -64,7 +64,7 @@
 													<tr>
 
 														<td>
-															{% if absence.absence  %}
+															{% if absence.absence == 1 %}
 																Absent
 															{% elseif absence.retard %}
 																En retard
@@ -75,7 +75,7 @@
 
 														<td>
 															{% if absence.dateabsence %}
-																{{ absence.dateabsence|date('Y-m-d H:i:s') }}
+																{{ absence.du|date('Y-m-d H:i:s') }}
 															{% elseif absence.retard %}
 																{{ absence.retard|date('Y-m-d H:i:s') }}
 																{% else %}
