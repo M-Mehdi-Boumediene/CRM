@@ -51,7 +51,7 @@ class AbsencesController extends AbstractController
         }
 
         
-        $tableAbsences =  $TableauAbsencesRepository->findAll();
+        $tableAbsences =  $TableauAbsencesRepository->findBy(array('presence'=>0));
 
         $tableAbsences = $paginator->paginate(
             $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
