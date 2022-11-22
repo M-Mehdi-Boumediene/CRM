@@ -101,15 +101,11 @@ class Absintervenants
      */
     private $user;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=TableauAbsences::class, inversedBy="absintervenants")
-     */
-    private $tableau;
 
     public function __construct()
     {
         $this->intervenant = new ArrayCollection();
-        $this->tableau = new ArrayCollection();
+     
     }
 
     public function getId(): ?int
@@ -321,27 +317,5 @@ class Absintervenants
         return $this;
     }
 
-    /**
-     * @return Collection<int, TableauAbsences>
-     */
-    public function getTableau(): Collection
-    {
-        return $this->tableau;
-    }
 
-    public function addTableau(TableauAbsences $tableau): self
-    {
-        if (!$this->tableau->contains($tableau)) {
-            $this->tableau[] = $tableau;
-        }
-
-        return $this;
-    }
-
-    public function removeTableau(TableauAbsences $tableau): self
-    {
-        $this->tableau->removeElement($tableau);
-
-        return $this;
-    }
 }
