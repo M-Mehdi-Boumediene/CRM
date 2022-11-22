@@ -124,8 +124,6 @@ class AbsintervenantsController extends AbstractController
                    
 
                $etudiants = $tableau->get('intervenant')->getData();
-               
-               $absence->setUserid( $tableau->get('intervenant')->getData());
                 
                $tableauabsences->addIntervenant($etudiants[0]);
                $dateabsence =$tableau->get('dateabsence')->getData();
@@ -148,7 +146,7 @@ class AbsintervenantsController extends AbstractController
            $absence->setClasse($form->get('classe')->getData());
            $absence->setDate(new \DateTimeImmutable('now'));
       
-           $absence->setUserid($form->get('classe')->getData());
+           $absence->setUserid($tableau->get('intervenant')->getData());
            $absencesRepository->add($absence, true);
  
            // Je boucle sur les documents
