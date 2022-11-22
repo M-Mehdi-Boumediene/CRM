@@ -50,7 +50,7 @@ class AbsintervenantsController extends AbstractController
         }
 
         
-        $tableAbsences =  $TableauAbsencesRepository->findAll();
+        $tableAbsences =  $TableauAbsencesintervenantsRepository->findAll();
 
         $tableAbsences = $paginator->paginate(
             $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
@@ -58,7 +58,7 @@ class AbsintervenantsController extends AbstractController
             10 // Nombre de résultats par page
         );
         return $this->renderForm('absintervenants/index.html.twig', [
-            'absintervenants' => $absintervenantsRepository->findAll(),
+            'absintervenants' => $TableauAbsencesintervenantsRepository->findAll(),
             'tableAbsences' => $tableAbsences,
             'form2' => $form2,
         ]);
