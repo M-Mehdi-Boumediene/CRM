@@ -508,7 +508,7 @@ foreach ($events as $event){
         $resultintervenant = $intervenantRepository->findOneBy(array('id'=>$intervenant));
 
         return $this->renderForm('main/gestion_calendrier.html.twig', [
-  
+            'classe'=>$classe,
             'resultclasse' => $resultclasse,
             'resultintervenant'=>$resultintervenant,
             'note' => $note,
