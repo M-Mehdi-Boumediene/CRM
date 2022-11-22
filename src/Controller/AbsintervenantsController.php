@@ -111,7 +111,7 @@ class AbsintervenantsController extends AbstractController
          
            $tableau = $form->get('tableauAbsencesintervenants');
            foreach($tableau as $tableau){
-               $tableauabsences = new TableauAbsences();
+               $tableauabsences = new TableauAbsencesintervenants();
        
 
                
