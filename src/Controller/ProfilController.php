@@ -201,6 +201,9 @@ class ProfilController extends AbstractController
                 $justification = new Justifications();
                 $justification->setPath($fichier);
                 $justification->setMessage($message);
+                $justification->setUser($this->getUser());
+                $justification->setTableauabsence();
+
              
             }
             
