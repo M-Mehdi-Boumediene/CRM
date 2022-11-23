@@ -71,6 +71,11 @@ class TableauAbsences
      */
     private $enretard;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Justifications::class, mappedBy="tableauabsence")
+     */
+    private $justifications;
+
  
 
 
@@ -80,6 +85,7 @@ class TableauAbsences
         $this->etudiant = new ArrayCollection();
         $this->copie = new ArrayCollection();
         $this->absences = new ArrayCollection();
+        $this->justifications = new ArrayCollection();
     
     }
 
@@ -249,6 +255,36 @@ class TableauAbsences
     public function setEnretard(?bool $enretard): self
     {
         $this->enretard = $enretard;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Justifications>
+     */
+    public function getJustifications(): Collection
+    {
+        return $this->justifications;
+    }
+
+    public function addJustification(Justifications $justification): self
+    {
+        if (!$this->justifications->contains($justification)) {
+            $this->justifications[] = $justification;
+            $justification->setTableauabsence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJustification(Justifications $justification): self
+    {
+        if ($this->justifications->removeElement($justification)) {
+            // set the owning side to null (unless already changed)
+            if ($justification->getTableauabsence() === $this) {
+                $justification->setTableauabsence(null);
+            }
+        }
 
         return $this;
     }

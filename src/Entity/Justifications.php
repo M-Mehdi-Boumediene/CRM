@@ -44,6 +44,11 @@ class Justifications
      */
     private $absence;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TableauAbsences::class, inversedBy="justifications")
+     */
+    private $tableauabsence;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +110,18 @@ class Justifications
     public function setAbsence(?Absences $absence): self
     {
         $this->absence = $absence;
+
+        return $this;
+    }
+
+    public function getTableauabsence(): ?TableauAbsences
+    {
+        return $this->tableauabsence;
+    }
+
+    public function setTableauabsence(?TableauAbsences $tableauabsence): self
+    {
+        $this->tableauabsence = $tableauabsence;
 
         return $this;
     }
