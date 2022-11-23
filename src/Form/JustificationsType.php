@@ -37,7 +37,7 @@ class JustificationsType extends AbstractType
                     return   $user->getId();
                 },
                 'label'=>false,
-                'multiple' => true,
+                'multiple' => false,
                 'required' => false
             ])
         ;
