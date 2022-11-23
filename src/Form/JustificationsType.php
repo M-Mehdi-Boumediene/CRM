@@ -7,7 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\TableauAbsences;
 class JustificationsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -23,8 +24,21 @@ class JustificationsType extends AbstractType
         
             
             ])
-            ->add('tableauabsence')
-     
+      
+            ->add('tableauabsence', EntityType::class, [
+                'class' => TableauAbsences::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.email', 'ASC');
+                },
+                'choice_label' => function($user, $key, $index) {
+                    /** @var Users $user */
+                    return  $user->getPrenom() . ' ' . $user->getNom();
+                },
+                'label'=>false,
+                'multiple' => true,
+                'required' => false
+            ])
         ;
     }
 
