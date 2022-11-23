@@ -13,7 +13,15 @@ class JustificationsType extends AbstractType
     {
         $builder
             ->add('message')
-         
+            ->add('files',FileType::class,[
+                'label'=> false,
+                'multiple' => true,
+                'mapped'=> false,
+                'required'=> false,
+              
+        
+            
+            ])
      
         ;
     }
