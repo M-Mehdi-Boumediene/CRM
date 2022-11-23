@@ -181,7 +181,8 @@ class ProfilController extends AbstractController
         $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
         $etudiant = $etudiantsRepository->findOneBy(array('user'=>$this->getUser()));
 
-        $form3 = $this->createForm(JustificationsType::class, $justification);
+        $form3 = $this->createForm(JustificationsType::class);
+
         $form3->handleRequest($request);
 
         if ($form3->isSubmitted() && $form3->isValid()) {
