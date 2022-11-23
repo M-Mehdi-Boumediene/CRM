@@ -377,6 +377,8 @@ $('.abs'+index).remove();
 }
 
 
+});
+
 $( ".absOne" ).each(function( index ) {
 		if($(this).text()){
 
@@ -385,10 +387,6 @@ $( ".absOne" ).each(function( index ) {
 			$(this).append('aaaa')
 		}
 	});
-
-});
-
-
 </script>
 {{ block("Footer", "Menus/Footer.html.twig") }}
 <div class="app-drawer-overlay d-none animated fadeIn"></div>{% endblock %}
