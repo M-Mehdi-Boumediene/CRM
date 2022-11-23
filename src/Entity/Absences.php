@@ -116,6 +116,11 @@ class Absences
      */
     private $tableau;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Justifications::class, mappedBy="absence")
+     */
+    private $justifications;
+
  
 
 
@@ -130,6 +135,7 @@ class Absences
         $this->intervenant = new ArrayCollection();
     
         $this->tableau = new ArrayCollection();
+        $this->justifications = new ArrayCollection();
 
     
     }
@@ -418,6 +424,36 @@ class Absences
     public function removeTableau(TableauAbsences $tableau): self
     {
         $this->tableau->removeElement($tableau);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Justifications>
+     */
+    public function getJustifications(): Collection
+    {
+        return $this->justifications;
+    }
+
+    public function addJustification(Justifications $justification): self
+    {
+        if (!$this->justifications->contains($justification)) {
+            $this->justifications[] = $justification;
+            $justification->setAbsence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJustification(Justifications $justification): self
+    {
+        if ($this->justifications->removeElement($justification)) {
+            // set the owning side to null (unless already changed)
+            if ($justification->getAbsence() === $this) {
+                $justification->setAbsence(null);
+            }
+        }
 
         return $this;
     }

@@ -197,6 +197,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $absintervenants;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Justifications::class, mappedBy="user")
+     */
+    private $justifications;
+
  
 
    
@@ -226,6 +231,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->docadmins = new ArrayCollection();
         $this->cvs = new ArrayCollection();
         $this->absintervenants = new ArrayCollection();
+        $this->justifications = new ArrayCollection();
       
  
      
@@ -966,6 +972,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($absintervenant->getUser() === $this) {
                 $absintervenant->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Justifications>
+     */
+    public function getJustifications(): Collection
+    {
+        return $this->justifications;
+    }
+
+    public function addJustification(Justifications $justification): self
+    {
+        if (!$this->justifications->contains($justification)) {
+            $this->justifications[] = $justification;
+            $justification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJustification(Justifications $justification): self
+    {
+        if ($this->justifications->removeElement($justification)) {
+            // set the owning side to null (unless already changed)
+            if ($justification->getUser() === $this) {
+                $justification->setUser(null);
             }
         }
 
