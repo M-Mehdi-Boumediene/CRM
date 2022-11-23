@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Justifications index{% endblock %}
+
+{% block body %}
+    <h1>Justifications index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Path</th>
+                <th>Message</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for justification in justifications %}
+            <tr>
+                <td>{{ justification.id }}</td>
+                <td>{{ justification.nom }}</td>
+                <td>{{ justification.path }}</td>
+                <td>{{ justification.message }}</td>
+                <td>
+                    <a href="{{ path('app_justifications_show', {'id': justification.id}) }}">show</a>
+                    <a href="{{ path('app_justifications_edit', {'id': justification.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_justifications_new') }}">Create new</a>
+{% endblock %}

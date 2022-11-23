@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Justifications{% endblock %}
+
+{% block body %}
+    <h1>Edit Justifications</h1>
+
+    {{ include('justifications/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_justifications_index') }}">back to list</a>
+
+    {{ include('justifications/_delete_form.html.twig') }}
+{% endblock %}

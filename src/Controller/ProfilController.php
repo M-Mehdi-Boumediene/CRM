@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Entity\Profil;
+use App\Entity\Justifications;
 use App\Entity\Cv;
 use App\Form\CvType;
 use App\Form\ProfilType;
+use App\Form\JustificationsType;
 use App\Repository\UsersRepository;
 use App\Repository\CvRepository;
 use App\Repository\ProfilRepository;
+use App\Repository\JustificationsRepository;
 use App\Repository\EtudiantsRepository;
 use App\Repository\TableauNotesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +26,7 @@ class ProfilController extends AbstractController
    /**
      * @Route("/profil", name="app_profil", methods={"GET", "POST"})
      */
-    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EtudiantsRepository $etudiantsRepository,EntityManagerInterface $entityManager, CvRepository $cvRepository): Response
+    public function index(ProfilRepository $profilRepository,Request $request ,UsersRepository $usersRepository,EtudiantsRepository $etudiantsRepository,EntityManagerInterface $entityManager, CvRepository $cvRepository, JustificationsRepository $justificationsRepository): Response
     {
 
         $profil = new Profil();
@@ -139,11 +142,27 @@ class ProfilController extends AbstractController
        
         $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
 
+
+
+
+        $justification = new Justifications();
+        $form3 = $this->createForm(JustificationsType::class, $justification);
+        $form3->handleRequest($request);
+
+        if ($form3->isSubmitted() && $form3->isValid()) {
+
+            
+            $justificationsRepository->add($justification, true);
+
+            return $this->redirectToRoute('app_justifications_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->renderForm('profil/index.html.twig', [
             'nom' => $nom,
             'prenom' => $prenom,
             'form' => $form,
             'form2' => $form2,
+            'form3' => $form3,
             'profil' => $profil,
             'photoprofil'=>$photoprofil,
             'lecv'=>$lecv,
