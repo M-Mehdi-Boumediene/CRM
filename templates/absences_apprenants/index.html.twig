@@ -86,17 +86,14 @@
 														</td>
 														<td>
 											
-													
-																{% if absence.justifications %}
-												             Absence justifiée
-
-													    
-															{% endif %}
+															{% for tableau in  absence.justifications  %}
+												
 
 															
+																Absence justifiée
 														
 
-														
+															{% endfor %}
 															
 														</td>
 
