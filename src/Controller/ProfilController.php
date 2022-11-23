@@ -193,7 +193,7 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('app_justifications_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('profil/show.html.twig', [
+        return $this->renderForm('profil/show.html.twig', [
             'photoprofil'=>$photoprofil,
             'etudiant'=>$etudiant,
             'tableaunotes' => $tableaunotes,
