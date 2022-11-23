@@ -211,7 +211,7 @@ class ProfilController extends AbstractController
             
             $justificationsRepository->add($justification, true);
 
-            return $this->redirectToRoute('app_justifications_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_profil', ['profil' => $profil,], Response::HTTP_SEE_OTHER);  
         }
 
         return $this->renderForm('profil/show.html.twig', [
