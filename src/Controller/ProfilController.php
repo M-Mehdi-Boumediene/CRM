@@ -145,24 +145,14 @@ class ProfilController extends AbstractController
 
 
 
-        $justification = new Justifications();
-        $form3 = $this->createForm(JustificationsType::class, $justification);
-        $form3->handleRequest($request);
-
-        if ($form3->isSubmitted() && $form3->isValid()) {
-
-            
-            $justificationsRepository->add($justification, true);
-
-            return $this->redirectToRoute('app_justifications_index', [], Response::HTTP_SEE_OTHER);
-        }
+     
 
         return $this->renderForm('profil/index.html.twig', [
             'nom' => $nom,
             'prenom' => $prenom,
             'form' => $form,
             'form2' => $form2,
-            'form3' => $form3,
+        
             'profil' => $profil,
             'photoprofil'=>$photoprofil,
             'lecv'=>$lecv,
@@ -172,7 +162,7 @@ class ProfilController extends AbstractController
      /**
      * @Route("/profil/{id}", name="app_profil_show", methods={"GET"})
      */
-    public function show(Profil $profil, CvRepository $cvRepository, TableauNotesRepository $TableauNotesRepository, ProfilRepository $profilRepository, EtudiantsRepository $etudiantsRepository): Response
+    public function show(Profil $profil, CvRepository $cvRepository, TableauNotesRepository $TableauNotesRepository, ProfilRepository $profilRepository, EtudiantsRepository $etudiantsRepository, JustificationsRepository $justificationsRepository): Response
     {
 
         $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
@@ -190,6 +180,19 @@ class ProfilController extends AbstractController
         $tableaunotes4exam = $TableauNotesRepository->paretudiant4exam($profil);
         $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
         $etudiant = $etudiantsRepository->findOneBy(array('user'=>$this->getUser()));
+
+        $justification = new Justifications();
+        $form3 = $this->createForm(JustificationsType::class, $justification);
+        $form3->handleRequest($request);
+
+        if ($form3->isSubmitted() && $form3->isValid()) {
+
+            
+            $justificationsRepository->add($justification, true);
+
+            return $this->redirectToRoute('app_justifications_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('profil/show.html.twig', [
             'photoprofil'=>$photoprofil,
             'etudiant'=>$etudiant,
@@ -201,7 +204,7 @@ class ProfilController extends AbstractController
             'tableaunotes3exam' => $tableaunotes3exam,
             'tableaunotes4' => $tableaunotes4,
             'tableaunotes4exam' => $tableaunotes4exam,
-     
+            'form3' => $form3,
             'profil' => $profil,
             'lecv'=>$lecv,
         ]);
