@@ -160,9 +160,9 @@ class ProfilController extends AbstractController
         ]);
     }
      /**
-     * @Route("/profil/{id}", name="app_profil_show", methods={"GET"})
+     * @Route("/profil/{id}", name="app_profil_show", methods={"GET","POST"})
      */
-    public function show(Profil $profil, CvRepository $cvRepository, TableauNotesRepository $TableauNotesRepository, ProfilRepository $profilRepository, EtudiantsRepository $etudiantsRepository, JustificationsRepository $justificationsRepository): Response
+    public function show(Request $request,Profil $profil, CvRepository $cvRepository, TableauNotesRepository $TableauNotesRepository, ProfilRepository $profilRepository, EtudiantsRepository $etudiantsRepository, JustificationsRepository $justificationsRepository): Response
     {
 
         $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
