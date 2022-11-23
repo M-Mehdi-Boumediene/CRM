@@ -23,6 +23,7 @@ class JustificationsType extends AbstractType
         
             
             ])
+            ->add('tableau')
      
         ;
     }
