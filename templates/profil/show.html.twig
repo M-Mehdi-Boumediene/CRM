@@ -152,7 +152,7 @@
 													<div class="card-body">
                                                     {% for etudiant in etudiant.tableauAbsences %} {% if etudiant.enretard %} Retard de {{etudiant.retard|date("i")}} minutes le {{etudiant.du|date("d/m/y h:i")}} {% else %} {% endif %} {% endfor %}
 
-												{{ block("modal_justification", "Menus/modal_justification.html.twig") }}
+												
 
 													</div>
 
@@ -363,7 +363,7 @@
 	</div>
 </div>
 
-
+{{ block("modal_justification", "Menus/modal_justification.html.twig") }}
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
