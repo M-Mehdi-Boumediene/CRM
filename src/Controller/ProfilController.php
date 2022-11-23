@@ -188,6 +188,7 @@ class ProfilController extends AbstractController
         if ($form3->isSubmitted() && $form3->isValid()) {
             $files = $form3->get('files')->getData();
             $message = $form3->get('message')->getData();
+            $tableau = $form3->get('tableau')->getData();
             foreach($files as $file){
                 // Je génère un nouveau nom de fichier
                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
@@ -203,7 +204,7 @@ class ProfilController extends AbstractController
                 $justification->setPath($fichier);
                 $justification->setMessage($message);
                 $justification->setUser($this->getUser());
-                $justification->setTableauabsence();
+                $justification->setTableauabsence($tableau);
 
              
             }
