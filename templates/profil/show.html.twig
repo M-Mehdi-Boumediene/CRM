@@ -168,7 +168,7 @@
 
 													<div class="card-body">
 
-											             {% for etudiant in etudiant.tableauAbsences %} {% if etudiant.absence %} <div class="idabsence">{{absence.id}}</div> Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% if etudiant.justifications == null %}  {% else %} <a data-toggle="modal" data-target=".bd-example-modal-lg"><span style="color:#c55303;cursor: pointer;">Justifier l'absence </span></a>  {% endif %} <br> {% endfor %}
+											             {% for etudiant in etudiant.tableauAbsences %} {% if etudiant.absence %} <div class="idabsence">{{etudiant.absence.id}}</div> Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% if etudiant.justifications == null %}  {% else %} <a data-toggle="modal" data-target=".bd-example-modal-lg"><span style="color:#c55303;cursor: pointer;">Justifier l'absence </span></a>  {% endif %} <br> {% endfor %}
 
 
 													</div>
