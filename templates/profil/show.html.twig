@@ -167,12 +167,13 @@
 													<h5 class="card-title">Absences</h5>
 
 													<div class="card-body">
-													{% set justif = null %}
+								
 						
 
 											
 
-											             {% for etudiant in etudiant.tableauAbsences %} <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% for justification in etudiant.justifications %} {% set justif = "Absence justifiée" %}  {% endfor %}   		{% if justif %}
+											             {% for etudiant in etudiant.tableauAbsences %} <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  					{% set justif = null %} {% for justification in etudiant.justifications %} {% set justif = "Absence justifiée" %}  {% endfor %}   	
+														 	{% if justif %}
 															Absence justifiée
 															{% else %}
 															Absence non justifiée
