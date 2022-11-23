@@ -29,12 +29,9 @@ class JustificationsType extends AbstractType
                 'class' => TableauAbsences::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                        ->orderBy('u.email', 'ASC');
+                        ->orderBy('u.id', 'ASC');
                 },
-                'choice_label' => function($user, $key, $index) {
-                    /** @var Users $user */
-                    return  $user->getPrenom() . ' ' . $user->getNom();
-                },
+           
                 'label'=>false,
                 'multiple' => true,
                 'required' => false
