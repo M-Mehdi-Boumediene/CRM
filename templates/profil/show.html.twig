@@ -168,7 +168,7 @@
 
 													<div class="card-body">
 
-											             {% for etudiant in etudiant.tableauAbsences %} <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% for justification in etudiant.justifications %} {% if justification  %} <span class="absOne"> Absence justifiée </span> {% endif %} {% endfor %}   {% if etudiant.justifications  %}  <a data-toggle="modal" data-target=".bd-example-modal-lg"><span style="color:#c55303;cursor: pointer;">Justifier l'absence </span></a>  {% else %}   {% endif %}<br> {% endfor %}
+											             {% for etudiant in etudiant.tableauAbsences %} <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% for justification in etudiant.justifications %} {% if justification  %} <span class="absOne">Absence justifiée</span> {% endif %} {% endfor %}   {% if etudiant.justifications  %}  <a data-toggle="modal" data-target=".bd-example-modal-lg"><span style="color:#c55303;cursor: pointer;">Justifier l'absence </span></a>  {% else %}   {% endif %}<br> {% endfor %}
 
 
 													</div>
@@ -367,6 +367,11 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
+<script>
+if ($('.absOne').text()=='Absence justifiée'){
 
+}
+
+</script>
 {{ block("Footer", "Menus/Footer.html.twig") }}
 <div class="app-drawer-overlay d-none animated fadeIn"></div>{% endblock %}
