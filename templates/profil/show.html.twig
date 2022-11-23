@@ -168,7 +168,7 @@
 
 													<div class="card-body">
 
-											             {% for etudiant in etudiant.tableauAbsences %} <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% for justification in etudiant.justification %} a {% endfor %}<br> {% endfor %}
+											             {% for etudiant in etudiant.tableauAbsences %} <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  {% for justification in etudiant.justifications %} a {% endfor %}<br> {% endfor %}
 
 
 													</div>
