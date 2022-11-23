@@ -13,10 +13,8 @@ class JustificationsType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('path')
-            ->add('message')
-            ->add('user')
-            ->add('absence')
+         
+     
         ;
     }
 
