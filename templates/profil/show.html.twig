@@ -369,11 +369,13 @@
 
 <script>
 
-$( "div.absences" ).each(function( index ) {
+$( "div.absences" ).each(function( abs ) {
+	$('.aaa').addClass( "abs"+abs )
+
 	$( ".absOne" ).each(function( index ) {
 if($(this).text() == "Absence justifiée"){
 
-$('.aaa').addClass( "abs"+index )
+$('.aaa').addClass( "abs"+abs )
 
 
 }
