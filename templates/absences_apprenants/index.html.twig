@@ -87,13 +87,17 @@
 														<td>
 											
 															{% for tableau in  absence.justifications  %}
+											
+																{% set justif = "Absence justifiée" %}
 												
 
-															
-																Absence justifiée
-														
-
 															{% endfor %}
+
+															{% if justif %}
+															aaa
+															{% else %}
+															bb	
+															{% endif %}
 															
 														</td>
 
