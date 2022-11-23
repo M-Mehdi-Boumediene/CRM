@@ -85,7 +85,11 @@
 
 														</td>
 														<td>
-														
+														{% if absence.justifications[0]   %}
+														aaa
+															{% else %}
+																bbb
+														{% endif %}
 															{% for tableau in  absence.justifications  %}
 
 															
