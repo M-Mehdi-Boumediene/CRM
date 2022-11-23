@@ -371,12 +371,11 @@
 
 $( "div.absences" ).each(function( index ) {
 
-	if($('.absOne')){
-	$('.aaa').addClass( "abs"+index )	
+if($('.absOne').text() == "Absence justifiée"){
 
-	}else{
-		$("abs"+index).addClass( "remove" )	
-	}
+$('.aaa').addClass( "abs"+index )	
+
+}
 
 
 });
