@@ -371,11 +371,11 @@
 
 $( "div.absences" ).each(function( index ) {
 
-if($('.absOne').text() == "Absence justifiée"){
+if($('.absOne')){
 $('.aaa').addClass( "abs"+index )	
 
 }else{
-	$('.aaa').removeClass( "abs"+index )	
+	$('.aaa').addClass( "remove"+index )	
 }
 
 
