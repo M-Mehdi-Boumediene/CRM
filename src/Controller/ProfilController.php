@@ -181,12 +181,28 @@ class ProfilController extends AbstractController
         $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
         $etudiant = $etudiantsRepository->findOneBy(array('user'=>$this->getUser()));
 
-        $justification = new Justifications();
         $form3 = $this->createForm(JustificationsType::class, $justification);
         $form3->handleRequest($request);
 
         if ($form3->isSubmitted() && $form3->isValid()) {
+            $files = $form3>get('files')->getData();
+            $message = $form3>get('message')->getData();
+            foreach($files as $file){
+                // Je génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $file->guessExtension();
 
+                // Je copie le fichier dans le dossier uploads
+                $file->move(
+                    $this->getParameter('videos_directory'),
+                    $fichier
+                );
+
+                // Je stocke le document dans la BDD (nom du fichier)
+                $justification = new Justifications();
+                $justification->setPath($fichier);
+                $justification->setMessage($message);
+             
+            }
             
             $justificationsRepository->add($justification, true);
 
