@@ -370,12 +370,16 @@
 <script>
 
 $( "div.absences" ).each(function( index ) {
+	$( ".absOne" ).each(function( index ) {
+if($(this).text() == "Absence justifiée"){
 
-if($('.absOne').text() == "Absence justifiée"){
+$('.aaa').addClass( "abs"+index )
 
-$('.aaa').addClass( "abs"+index )	
 
 }
+
+		});
+
 
 
 });
