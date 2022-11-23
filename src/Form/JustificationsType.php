@@ -27,10 +27,7 @@ class JustificationsType extends AbstractType
       
             ->add('tableauabsence', EntityType::class, [
                 'class' => TableauAbsences::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.id', 'ASC');
-                },
+      
            
                 'label'=>false,
                 'multiple' => true,
