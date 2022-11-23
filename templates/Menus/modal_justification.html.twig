@@ -219,10 +219,11 @@
 {{ form_start(form3) }}
 
 
-		{{ form_row(form3.message,{'attr': {'class': 'form-control select'}}) }}
-		{{ form_errors(form3.message) }}</div>
+		{{ form_row(form3.message,{'attr': {'class': 'form-control '}}) }}
+		{{ form_errors(form3.message) }}
 
-	
+		{{ form_row(form3.files,{'attr': {'class': 'form-control '}}) }}
+		{{ form_errors(form3.files) }}
 
 <br>
 
