@@ -216,7 +216,8 @@
 		{{ form_errors(form3.files) }}
 
 <br>
-
+		{{ form_row(form3.tableau,{'attr': {'class': 'form-control ','value': }}) }}
+		{{ form_errors(form3.tableau) }}
 
 <button type="submit" class="mt-1 btn btn-success">Envoyer</button>
 {{ form_end(form3) }}
@@ -225,5 +226,8 @@
 
 		<br></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>
 
+<script>
 
+$('#justifications_tableau').val($('idabsence').text());
+</script>
 {% endblock %}
