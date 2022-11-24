@@ -14,6 +14,7 @@ use App\Repository\UsersRepository;
 use App\Repository\ClassesRepository;
 use App\Repository\BlocsRepository;
 use App\Repository\ProfilRepository;
+use App\Repository\CvRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -141,7 +142,7 @@ class EtudiantsController extends AbstractController
     /**
      * @Route("/{id}", name="app_etudiants_show", methods={"GET"})
      */
-    public function show(ProfilRepository $profilRepository, Etudiants $etudiant, NotesRepository $notesRepository,ClassesRepository $classesRepository,BlocsRepository $blocsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function show(ProfilRepository $profilRepository, CvRepository $cvRepository, Etudiants $etudiant, NotesRepository $notesRepository,ClassesRepository $classesRepository,BlocsRepository $blocsRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
 
         $classe = $classesRepository->findOneBy(array('id'=>$etudiant->getClasses()));
