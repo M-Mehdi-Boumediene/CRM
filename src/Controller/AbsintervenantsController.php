@@ -52,7 +52,7 @@ class AbsintervenantsController extends AbstractController
         }
 
         
-        $tableAbsences =  $TableauAbsencesintervenantsRepository->findAll();
+        $tableAbsences =  $TableauAbsencesintervenantsRepository->findByabs();
 
         $tableAbsences = $paginator->paginate(
             $tableAbsences, // Requête contenant les données à paginer (ici nos articles)
