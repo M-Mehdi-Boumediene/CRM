@@ -144,6 +144,10 @@ class AbsintervenantsController extends AbstractController
                    $tableauabsences->setRetard($retard);
                }
 
+               if( $retard == null and $dateabsence == null){
+                $tableauabsences->setPresence($tableau->get('presence')->getData());
+               }
+
 
   
 
