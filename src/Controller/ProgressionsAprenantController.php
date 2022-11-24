@@ -40,8 +40,6 @@ class ProgressionsAprenantController extends AbstractController
 
         return $this->render('progressions_aprenant/index.html.twig', [
             'controller_name' => 'ProgressionsAprenantController',
-            'etudiants' => $etudiantsRepository->findBy(array('user'=>$user)),
-
             'tableaunotes' => $tableaunotes,
             'tableaunotesexam' => $tableaunotesexam,
             'tableaunotes2' => $tableaunotes2,
