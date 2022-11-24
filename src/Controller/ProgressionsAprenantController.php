@@ -24,7 +24,7 @@ class ProgressionsAprenantController extends AbstractController
 
         $user = $this->getUser();
         $classe = $user->getClasse();
-        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$this->getUser()));
+        $etudiant = $etudiantsRepository->findOneBy(array('user'=>$user));
 
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
 
