@@ -168,7 +168,8 @@ class EtudiantsController extends AbstractController
 
 
      $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
-    
+     $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
+
 
 
         return $this->render('etudiants/show.html.twig', [
@@ -184,6 +185,7 @@ class EtudiantsController extends AbstractController
             'tableaunotes4exam' => $tableaunotes4exam,
             'blocs' => $blocs,
             'notes' => $notes,
+            'lecv'=>$lecv,
         ]);
     }
 

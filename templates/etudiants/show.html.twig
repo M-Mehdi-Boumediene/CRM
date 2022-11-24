@@ -85,7 +85,7 @@
                             </li>
                             <li class="nav-item">
                                 <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
-										<span>Classe</span>
+										<span>parcour professionnel</span>
 									</a>
                             </li>
                             <li class="nav-item">
@@ -145,22 +145,43 @@
 
                             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="main-card mb-3 card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Classes</h5>
+                             			<div class="main-card mb-3 card">
+													<div class="card-body">
+														<h5 class="card-title">Parcour professionnel</h5>
 
-                                                <div class="card-body">
+														<div class="card-body">
 
-                                                    {{etudiant.classes.nom}}
+													<div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
 
 
-                                                </div>
+														{% if lecv %}
+														{% for cv in lecv %}
+														<div class="vertical-timeline-item vertical-timeline-element">
+															<div>
+															<span class="vertical-timeline-element-icon bounce-in">
+													<i class="badge badge-dot badge-dot-xl badge-success"> </i>
+													</span>
+														
+																<div class="vertical-timeline-element-content bounce-in">
+																	<h4 class="timeline-title">{% if cv.type == 'Formation' %} Formation  {{cv.formation }}  école {{cv.ecole }}  {% else %}   {% endif %} {% if cv.type == 'Expérience' %} Expérience {{cv.titre }}  {{cv.entreprise }}   {% else %}   {% endif %} </h4>
+																	{{cv.description|nl2br}}
+																	<span class="vertical-timeline-element-date">Du {{cv.debut|date("d/m/Y") }} <br> Au {{cv.fin|date("d/m/Y") }}</span>
+																</div>
+															</div>
+														</div>
+														{% endfor %}
 
-                                            </div>
+														{% else %}
 
-                                        </div>
-                                    </div>
+													{% endif %}
+
+													</div>
+
+														</div>
+
+													</div>
+
+												</div>
                                 </div>
                             </div>
 
