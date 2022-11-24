@@ -169,7 +169,7 @@ class EtudiantsController extends AbstractController
 
 
      $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
-     $lecv = $cvRepository->findBy(array('user'=>$this->getUser()));
+     $lecv = $cvRepository->findBy(array('user'=>$etudiant->getUser()));
 
 
 
