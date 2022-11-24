@@ -168,7 +168,7 @@ class EtudiantsController extends AbstractController
      $blocs = $blocsRepository->findBy(['classe'=>$classes]);
 
 
-     $photoprofil = $profilRepository->findOneBy(array('user'=>$this->getUser()));
+     $photoprofil = $profilRepository->findOneBy(array('user'=>$etudiant->getUser()));
      $lecv = $cvRepository->findBy(array('user'=>$etudiant->getUser()));
 
 
