@@ -44,6 +44,7 @@ class TableauAbsencesintervenantsRepository extends ServiceEntityRepository
     {
       return $this->createQueryBuilder('t')
           ->andWhere('t.absence = :val')
+          ->andWhere('t.enretard = :val')
           ->setParameter('val', 1)
            ->orderBy('t.id', 'ASC')
           
