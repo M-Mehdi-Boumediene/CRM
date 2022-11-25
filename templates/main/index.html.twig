@@ -229,7 +229,7 @@
                                                             
 
 
-                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %}
+                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral|number_format(2, '.') + moyenne|number_format(2, '.'))   %}
 																		 {% for etudiant in note.etudiant %}
 																			<li class="list-group-item">
 															<div class="widget-content p-0">
