@@ -64,10 +64,12 @@ class AbsencesRepository extends ServiceEntityRepository
 
             return $this->createQueryBuilder('u')
             ->leftJoin('u.etudiant', 'i')
+
             ->orWhere('i.nom LIKE :value')
             ->orWhere('i.prenom LIKE :value')
             ->orWhere('i.email LIKE :value')
-            ->orWhere('i.telephone LIKE :value')
+            ->orWhere('t.telephone LIKE :value')
+
             ->setParameter('value', '%'.$value.'%')
   
 
