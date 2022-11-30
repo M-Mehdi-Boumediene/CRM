@@ -95,7 +95,7 @@ class CoursController extends AbstractController
                 $file= new Files();
                 $file->setName($fichier);
                 $file->setNom($fichier);
-                $cour->addFiles($file);
+                $cour->addFile($file);
 
             }
             foreach($videos as $video){
@@ -112,7 +112,7 @@ class CoursController extends AbstractController
                 $media= new Documents();
                 $media->setName($fichier);
                 $media->setNom($fichier);
-                $cour->addDocuments($media);
+                $cour->addDocument($media);
 
             }
 
