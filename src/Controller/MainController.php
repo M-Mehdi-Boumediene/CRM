@@ -746,6 +746,7 @@ foreach ($events as $event){
 
         return $this->renderForm('main/calendrier_etudiant.html.twig', [
             'etudiants_calendar' => $etudiants,
+            'etudiants' => $etudiants,
             'data' => compact('data'),
             'form2' => $form2,
             'form3' => $form3,
