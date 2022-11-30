@@ -56,19 +56,29 @@
 
 			
 {{ cour.description|raw }}
-
-{% for document in cour.documents %}
+{% if cour.documents %}
 <h4>Documents: </h4>
-{{document.nom}}
+{% for document in cour.documents %}
+
+<a href="{{ asset('uploads/' ~ document.nom)}}">{{document.nom}}</a><br>
 
 {% endfor %}
+{% else %}
 
-{% for file in cour.files %}
+{% endif %}
+<br><br>
+
+
+{% if file.files %}
 <h4>Videos: </h4>
+{% for file in cour.files %}
 
+{{file.nom}}<br>
 
 {% endfor %}
-								
+{% else %}
+
+{% endif %}								
 								</div>
 							</div>
 						</div>
