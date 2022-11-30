@@ -15,7 +15,7 @@ services:
 
 
   fm.mail_alert.form.alert_type2:
-      class: AppBundle\Form\filtres\filtresNotesType
+      class: AppBundle\Form\filtres\FiltresNotesType
       arguments:
           - '@security.token_storage'
       tags:
