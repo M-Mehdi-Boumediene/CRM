@@ -561,7 +561,7 @@ foreach ($events as $event){
 
         
 
-        $events = $calendrier->findBy(array('classe'=>$this->getUser()->getClasse));
+        $events = $calendrier->findBy(array('classe'=>$this->getUser()->getClasse()));
         $rdvs = [];
         foreach ($events as $event){
 
@@ -590,7 +590,7 @@ foreach ($events as $event){
            
 
         }
-        $etudiants = $apprenants->findByClasse($this->getUser()->getClasses());
+        $etudiants = $apprenants->findByClasse($this->getUser()->getClasse());
 
         $form2 = $this->createForm(FiltreCalendrierType::class);
         $form2->handleRequest($request);
