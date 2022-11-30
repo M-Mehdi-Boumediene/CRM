@@ -57,11 +57,16 @@
 			
 {{ cour.description|raw }}
 
-{% for cour in cour.documents %}
+{% for document in cour.documents %}
 <h4>Documents: </h4>
+{{document.nom}}
+
 {% endfor %}
-{% for cour in cour.files %}
+
+{% for file in cour.files %}
 <h4>Videos: </h4>
+
+
 {% endfor %}
 								
 								</div>
