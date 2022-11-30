@@ -586,14 +586,15 @@ foreach ($events as $event){
 
             $data = json_encode($rdvs);
             
-            $classe= $event->getClasse()->getId();
+            if($event->getClasse()->getId()){
+                $classe= $event->getClasse()->getId();
+            }else{
+                $classe= null;
+            }
+         
         }
-        if ($classe){
-            $etudiants = $apprenants->findByClasse($classe);
-        }else{
-            $etudiants = null ;
-        }
-        
+
+        $etudiants = $apprenants->findByClasse($classe);
 
 
         $form2 = $this->createForm(FiltreCalendrierType::class);
