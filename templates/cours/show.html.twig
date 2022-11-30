@@ -60,7 +60,7 @@
 <h4>Documents: </h4>
 {% for document in cour.documents %}
 
-<a href="{{ asset('uploads/' ~ document.nom)}}">{{document.nom}}</a><br>
+<a target="_blank" href="{{ asset('uploads/' ~ document.nom)}}">{{document.nom}}</a><br>
 
 {% endfor %}
 {% else %}
@@ -73,7 +73,7 @@
 <h4>Videos: </h4>
 {% for file in cour.files %}
 
-{{file.nom}}<br>
+<a target="_blank" href="{{ asset('uploads/' ~ file.nom)}}">{{file.nom}}</a><br>
 
 {% endfor %}
 {% else %}
