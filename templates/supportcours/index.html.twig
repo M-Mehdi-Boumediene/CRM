@@ -102,12 +102,12 @@
 											{% for module in bloc.modules %}
 										
 													<button class="accordion module">{{module.nom}}</button>
-											
+										
 													<div class="panel">
 																	{% for cours in module.cours %}
-									
+											<a href="{{path('app_cours_show',{id:cours.id })}}">
 													<button class="accordion cours">{{cours.nom}}</button>
-												
+												</a>
 												
 											
 
