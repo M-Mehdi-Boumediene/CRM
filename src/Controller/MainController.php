@@ -588,7 +588,12 @@ foreach ($events as $event){
             
             $classe= $event->getClasse()->getId();
         }
-        $etudiants = $apprenants->findByClasse($classe);
+        if ($classe){
+            $etudiants = $apprenants->findByClasse($classe);
+        }else{
+            $etudiants = null ;
+        }
+        
 
 
         $form2 = $this->createForm(FiltreCalendrierType::class);
