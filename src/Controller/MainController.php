@@ -561,7 +561,7 @@ foreach ($events as $event){
 
         
 
-        $events = $calendrier->findBy(array('classe'=>3));
+        $events = $calendrier->findBy(array('classe'=>$this->getUser()->getClasse()));
         $rdvs = [];
         foreach ($events as $event){
 
