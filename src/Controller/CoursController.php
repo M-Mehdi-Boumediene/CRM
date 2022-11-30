@@ -75,8 +75,45 @@ class CoursController extends AbstractController
         $cour = new Cours();
         $form = $this->createForm(CoursType::class, $cour);
         $form->handleRequest($request);
-
+        $files = $form->get('files')->getData();
+        $videos = $form->get('documents')->getData();
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach($files as $file){
+                // Je génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+
+                // Je copie le fichier dans le dossier uploads
+                $file->move(
+                    $this->getParameter('videos_directory'),
+                    $fichier
+                );
+
+                // Je stocke le document dans la BDD (nom du fichier)
+                $file= new Files();
+                $file->setName($fichier);
+                $file->setNom($fichier);
+                $cour->addFiles($file);
+
+            }
+            foreach($videos as $video){
+                // Je génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $video->guessExtension();
+
+                // Je copie le fichier dans le dossier uploads
+                $video->move(
+                    $this->getParameter('videos_directory'),
+                    $fichier
+                );
+
+                // Je stocke la video dans la BDD (nom du fichier)
+                $media= new Documents();
+                $media->setName($fichier);
+                $media->setNom($fichier);
+                $cour->addDocuments($media);
+
+            }
+
             $date = new \DateTimeImmutable('now');
             $cour->setCreatedAt($date);
             $cour->setCreatedBy($this->getUser()->getEmail());
