@@ -64,6 +64,11 @@ class Files
      */
     private $tableauAbsencesintervenants;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="files")
+     */
+    private $cours;
+
 
 
   
@@ -177,6 +182,18 @@ class Files
     public function setTableauAbsencesintervenants(?TableauAbsencesintervenants $tableauAbsencesintervenants): self
     {
         $this->tableauAbsencesintervenants = $tableauAbsencesintervenants;
+
+        return $this;
+    }
+
+    public function getCours(): ?Cours
+    {
+        return $this->cours;
+    }
+
+    public function setCours(?Cours $cours): self
+    {
+        $this->cours = $cours;
 
         return $this;
     }

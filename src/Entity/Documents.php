@@ -69,6 +69,11 @@ class Documents
      */
     private $messages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="documents")
+     */
+    private $cours;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -190,6 +195,18 @@ class Documents
     public function setMessages(?Messages $messages): self
     {
         $this->messages = $messages;
+
+        return $this;
+    }
+
+    public function getCours(): ?Cours
+    {
+        return $this->cours;
+    }
+
+    public function setCours(?Cours $cours): self
+    {
+        $this->cours = $cours;
 
         return $this;
     }
