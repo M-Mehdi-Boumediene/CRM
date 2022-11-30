@@ -56,7 +56,7 @@
 
 			
 {{ cour.description|raw }}
-{% if cour.documents[0] %}
+{% if cour.documents == true %}
 <h4>Documents: </h4>
 {% for document in cour.documents %}
 
@@ -69,7 +69,7 @@
 <br><br>
 
 
-{% if cour.files[0] %}
+{% if cour.files == true %}
 <h4>Videos: </h4>
 {% for file in cour.files %}
 
