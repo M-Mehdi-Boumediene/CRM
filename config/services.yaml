@@ -29,7 +29,7 @@ services:
           - { name: form.type }
 
   fm.mail_alert.form.alert_type4:
-      class: AppBundle\Form\filtres\filtresAbsencesType
+      class: AppBundle\Form\filtres\FiltreAbsencesType
       arguments:
           - '@security.token_storage'
       tags:
