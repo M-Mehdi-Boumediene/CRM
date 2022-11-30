@@ -58,7 +58,10 @@
 {{ cour.description|raw }}
 
 {% for cour in cour.documents %}
-Documents: 
+<h4>Documents: </h4>
+{% endfor %}
+{% for cour in cour.files %}
+<h4>Videos: </h4>
 {% endfor %}
 								
 								</div>
