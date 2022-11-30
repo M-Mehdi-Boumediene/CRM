@@ -15,7 +15,7 @@ services:
 
 
   fm.mail_alert.form.alert_type2:
-      class: AppBundle\Form\filtres\FiltreNotesType
+      class: AppBundle\Form\filtres\FiltresNotesType
       arguments:
           - '@security.token_storage'
       tags:
@@ -28,7 +28,12 @@ services:
       tags:
           - { name: form.type }
 
-
+  fm.mail_alert.form.alert_type4:
+      class: AppBundle\Form\filtres\FiltreAbsencesType
+      arguments:
+          - '@security.token_storage'
+      tags:
+          - { name: form.type }
 
 
   # default configuration for services in *this* file
