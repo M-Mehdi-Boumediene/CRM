@@ -47,12 +47,12 @@ class Cours
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Documents::class, mappedBy="cours")
+     * @ORM\OneToMany(targetEntity=Documents::class, mappedBy="cours", cascade={"all"})
      */
     private $documents;
 
     /**
-     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="cours")
+     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="cours", cascade={"all"})
      */
     private $files;
 
