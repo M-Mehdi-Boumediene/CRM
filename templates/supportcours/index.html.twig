@@ -46,6 +46,14 @@
 			background-color: #c7c7c7;
 			color: white;
 		}
+			.classe {
+			background-color: #1a1a1a;
+			color: white;
+		}
+		.classe:hover {
+			background-color: #1a1a1a;
+			color: white;
+		}
 		.chapitre {
 			background-color: #7587a7;
 			color: white;
@@ -94,7 +102,7 @@
 						<div class="card-body">
 
 							{% for etudiant in etudiants %}
-								<button class="accordion bloc">{{etudiant.classes.nom}}</button>
+								<button class="accordion classe">{{etudiant.classes.nom}}</button>
 								<div class="panel">
 									{% for bloc in etudiant.classes.blocs %}
 										<button class="accordion bloc">{{bloc.nom}}</button>
