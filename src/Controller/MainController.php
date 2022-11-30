@@ -590,7 +590,7 @@ foreach ($events as $event){
            
 
         }
-        $etudiants = $apprenants->findByClasse($this->getUser()->getClasse());
+        $etudiants = $apprenants->findByClasse(2);
 
         $form2 = $this->createForm(FiltreCalendrierType::class);
         $form2->handleRequest($request);
