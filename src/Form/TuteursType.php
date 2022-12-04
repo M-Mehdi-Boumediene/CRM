@@ -46,6 +46,7 @@ class TuteursType extends AbstractType
                 'required' => false,
                 'label'=> "Entreprise de rattachement"
             ])
+            ->add('users', UsersType::class)
             ->add('etudiants', EntityType::class, [
                 'class' => Etudiants::class,
                 'query_builder' => function (EntityRepository $er) {
