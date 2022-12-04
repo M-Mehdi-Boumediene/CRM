@@ -139,7 +139,7 @@ class TuteursController extends AbstractController
   
             foreach($apprenants as $apprenant){
       
-            $tuteur->addEtudiants($apprenant);
+            $tuteur->addEtudiant($apprenant);
                
  
             }
