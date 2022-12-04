@@ -65,7 +65,7 @@ class Tuteurs
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="tuteur",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="tuteur",cascade={"all"})
      */
     private $users;
 
