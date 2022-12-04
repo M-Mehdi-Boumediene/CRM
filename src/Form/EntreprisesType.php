@@ -37,7 +37,7 @@ class EntreprisesType extends AbstractType
             ->add('numeortelephone2', TextType::class,[
                 'label'=>'Numéro de Téléphone 2'
             ])
-            ->add('users', UsersType::class)
+           
             ->remove('created_at')
             ->remove('created_by')
         ;
