@@ -78,13 +78,7 @@ class TuteursController extends AbstractController
             $tuteur->setCreatedBy($this->getUser()->getEmail());
             $tuteur->setUsers($user);
             $tuteur->setCreatedAt($date);
-            foreach($apprenants as $apprenant){
-      
-            $tuteur->addEtudiant($apprenant);
-               
- 
-            }
-
+   
             $tuteursRepository->add($tuteur);
             
             $password = $passwordEncoder->encodePassword($user, $form->get('users')->get('password')->getData());
