@@ -59,7 +59,7 @@ class TuteursType extends AbstractType
                 },
                 'multiple' => true,
                 'required' => false,
-                'label'=> "Entreprise de rattachement"
+                'label'=> "Etudiants"
             ])
             ->remove('created_at')
             ->remove('created_by')
