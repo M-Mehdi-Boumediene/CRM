@@ -74,10 +74,17 @@ class TuteursController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $date = new \DateTimeImmutable('now');
-         
+            $apprenants = $form2->get('etudiants')->getData();
             $tuteur->setCreatedBy($this->getUser()->getEmail());
             $tuteur->setUsers($user);
             $tuteur->setCreatedAt($date);
+            foreach($apprenants as $apprenant){
+      
+            $tuteur->addEtudiants($apprenant);
+               
+ 
+            }
+
             $tuteursRepository->add($tuteur);
             
             $password = $passwordEncoder->encodePassword($user, $form->get('users')->get('password')->getData());
@@ -127,6 +134,16 @@ class TuteursController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $apprenants = $form2->get('etudiants')->getData();
+  
+            foreach($apprenants as $apprenant){
+      
+            $tuteur->addEtudiants($apprenant);
+               
+ 
+            }
+
             $tuteursRepository->add($tuteur);
             return $this->redirectToRoute('app_tuteurs_index', [], Response::HTTP_SEE_OTHER);
         }
