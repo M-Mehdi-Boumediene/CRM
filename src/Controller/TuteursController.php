@@ -74,13 +74,13 @@ class TuteursController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $date = new \DateTimeImmutable('now');
-            $apprenants = $form2->get('etudiants')->getData();
+            $apprenants = $form->get('etudiants')->getData();
             $tuteur->setCreatedBy($this->getUser()->getEmail());
             $tuteur->setUsers($user);
             $tuteur->setCreatedAt($date);
             foreach($apprenants as $apprenant){
       
-            $tuteur->addEtudiants($apprenant);
+            $tuteur->addEtudiant($apprenant);
                
  
             }
