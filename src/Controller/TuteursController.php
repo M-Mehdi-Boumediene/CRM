@@ -135,7 +135,7 @@ class TuteursController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $apprenants = $form2->get('etudiants')->getData();
+            $apprenants = $form->get('etudiants')->getData();
   
             foreach($apprenants as $apprenant){
       
