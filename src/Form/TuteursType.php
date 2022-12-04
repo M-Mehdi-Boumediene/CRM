@@ -53,7 +53,10 @@ class TuteursType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.nom', 'ASC');
                 },
-                'choice_label' => 'nom',
+                'choice_label' => function($user, $key, $index) {
+                  
+                    return  $user->getPrenom() . ' ' . $user->getNom();
+                },
                 'multiple' => true,
                 'required' => false,
                 'label'=> "Entreprise de rattachement"
