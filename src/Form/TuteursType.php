@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Entreprises;
+use App\Entity\Etudiants;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -45,7 +46,17 @@ class TuteursType extends AbstractType
                 'required' => false,
                 'label'=> "Entreprise de rattachement"
             ])
-            ->add('users', UsersType::class)
+            ->add('etudiants', EntityType::class, [
+                'class' => Etudiants::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'required' => false,
+                'label'=> "Entreprise de rattachement"
+            ])
             ->remove('created_at')
             ->remove('created_by')
             
