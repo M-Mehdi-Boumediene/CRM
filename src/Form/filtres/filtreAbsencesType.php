@@ -31,6 +31,7 @@ class FiltreAbsencesType extends AbstractType
         $this->tokenStorage = $tokenStorage;
     }
     
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if(in_array('ROLE_INTERVENANT', $this->tokenStorage->getToken()->getUser()->getRoles())){
