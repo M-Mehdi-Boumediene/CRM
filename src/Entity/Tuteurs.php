@@ -70,7 +70,7 @@ class Tuteurs
     private $users;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Etudiants::class, mappedBy="tuteurs")
+     * @ORM\ManyToMany(targetEntity=Etudiants::class, mappedBy="tuteurs",cascade={"all"})
      */
     private $etudiants;
 
