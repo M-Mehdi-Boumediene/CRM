@@ -128,6 +128,7 @@ class IntervenantsType extends AbstractType
         $form->add('modules', EntityType::class, [
             'class' => Modules::class,
             'mapped' => false,
+            'multiple' => true,
             'autocomplete' => true,
             'choice_label' => function ($category) {
                 return $category->getNom() ;

@@ -47,7 +47,7 @@ class Intervenants
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Modules::class, inversedBy="intervenants",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Modules::class, inversedBy="intervenants",cascade={"all"})
      */
     private $modules;
 
