@@ -104,7 +104,7 @@ class IntervenantsController extends AbstractController
             $apprenants = $form->get('apprenants')->getData();
             foreach($apprenants as $apprenant){
                 $intervenant->addApprenant($apprenant);
-                $apprenant->addIntervenant($intervenant);
+                $apprenant->setIntervenants($intervenant);
             
             }
             $intervenantsRepository->add($intervenant);
