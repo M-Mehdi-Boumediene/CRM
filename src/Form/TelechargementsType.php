@@ -73,7 +73,7 @@ class TelechargementsType extends AbstractType
             ])
             ->add('user', EntityType::class, [
                 'mapped' => false,
-                'label' => 'Apprenants',
+                'label' => 'Apprenant',
                 'class' => Users::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
@@ -84,7 +84,6 @@ class TelechargementsType extends AbstractType
                 'choice_label' => function ($category) {
                     return $category->getNom() . ' ' . $category->getPrenom();
                 },
-                'placeholder' => ' Apprenants',
                 
                 'multiple' => false,
                 'autocomplete' => true,
