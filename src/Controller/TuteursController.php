@@ -79,9 +79,9 @@ class TuteursController extends AbstractController
             $tuteur->setUsers($user);
             $tuteur->setCreatedAt($date);
             $apprenants = $form->get('etudiants')->getData();
-            foreach($apprenants as $apprenants){
-         
-                $apprenants->addEtudiant($recipients);
+            foreach($apprenants as $apprenant){
+                $tuteur->addEtudiant($apprenants);
+                $apprenant->addTuteur($tuteur);
             
             }
             $tuteursRepository->add($tuteur);
