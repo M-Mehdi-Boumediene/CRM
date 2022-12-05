@@ -36,6 +36,8 @@ class CalendrierType extends AbstractType
                 'COURS' => 'COURS',
                 'EXAMEN' => 'EXAMEN',
                 'DEVOIR' => 'DEVOIR',
+                "VISITE ENTREPRISE" => "VISITE ENTREPRISE",
+                
                 'ATELIER' => 'ATELIER',
                 'CONFÉRENCE' => 'CONFÉRENCE',
                 'DIVERS' => 'DIVERS',
