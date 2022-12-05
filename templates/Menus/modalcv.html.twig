@@ -1,6 +1,20 @@
 {% block modalcv %}
 
+<style>
+#cv_formation{
+ display:none;
+}
+#cv_ecole{
+ display:none;
+}
+#cv_entreprise{
+ display:none;
+}
+#cv_titre{
+ display:none;
+}
 
+</style>
 	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" style="margin-top: 114px;    margin-left: 30%;">
 			<div class="modal-content">
@@ -89,19 +103,18 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 	<script>
-		$(".lancer").click(function () {
-$('#cv_type').val('Expérience')
-$('.formation').hide();
-$('.ecole').hide();
-$('.titre').show();
-$('.entreprise').show();
-});
-$(".lancer2").click(function () {
-$('#cv_type').val('Formation')
-$('.titre').hide();
-$('.entreprise').hide();
-$('.formation').show();
-$('.ecole').show();
+
+	$('#cv_ecole').hide();
+			$('#cv_formation').hide();
+$( "#cv_type" ).change(function() {
+	
+	if($(this).val() == "Formation"){
+			$('#cv_ecole').show();
+			$('#cv_formation').show()
+			
+	}
+
+
 });
 	</script>
 
