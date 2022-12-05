@@ -251,8 +251,10 @@ $('#intervenants_ville').select2();
 $('#intervenants_codepostale').select2();
 $('#intervenants_classes').select2();
 
-
-
+			$("#intervenants_modules").select2({
+tags: true,
+tokenSeparators: [',', ' ']
+})
 
 $('.select2-selection--multiple').hide();
 
@@ -273,6 +275,10 @@ $('#intervenants_istuteur').on('change', function() {
 });
 
 			$("#intervenants_apprenants").select2({
+tags: true,
+tokenSeparators: [',', ' ']
+})
+			$("#intervenants_modules").select2({
 tags: true,
 tokenSeparators: [',', ' ']
 })
