@@ -189,7 +189,7 @@
 								<a class="nav-link informations" href="#">Informations
 								</a>
 							</li>
-							{% if app.user.roles[0] == 'ROLE_ADMIN' OR 'ROLE_INTERVENANT' %}
+							{% if app.user.roles[0] == ['ROLE_ADMIN', 'ROLE_INTERVENANT'] %}
 							<li class="nav-item etudiants">
 								<a class="nav-link" href="#">Gérer Les Absences</a>
 							</li>
