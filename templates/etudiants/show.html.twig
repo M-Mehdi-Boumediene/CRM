@@ -132,6 +132,11 @@
                                                     <h5 class="fs-0 fw-normal">
                                                         Email : {{etudiant.email}}
                                                     </h5>
+                                                    <br>
+                                                    <h5 class="card-title">Tuteurs</h5>
+                                                    	{% for tuteur in etudiant.tuteurs %}
+									{{tuteur.prenom}} {{tuteur.nom}}<br>
+									{% endfor %}
                                                 </div>
 
 
