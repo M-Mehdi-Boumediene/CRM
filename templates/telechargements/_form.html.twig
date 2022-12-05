@@ -1,9 +1,18 @@
 {{ form_start(form) }}
 
-
+{% if app.user.roles[0] == "ROLE_ETUDIANT" %}
 <style>
-
+.classe{
+	display:none;
+}
+.module{
+	display:none;
+}
+.users{
+	display:none;
+}
 </style>
+{% endif %}
 
 
 <div class="form-row">
@@ -39,7 +48,7 @@
 
 	</div>
 
-	<div class="col-md-3">
+	<div class="col-md-3 users">
 		{{ form_row(form.user,{'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.user) }}
 
