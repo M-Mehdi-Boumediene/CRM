@@ -93,6 +93,20 @@ class IntervenantsController extends AbstractController
             /*
             $intervenant->setVille($form->get('ville')->getData());
             */
+
+
+            $modules = $form->get('modules')->getData();
+            foreach($modules as $module){
+                $intervenant->addModule($module);
+                $module->addTuteur($intervenant);
+            
+            }
+            $apprenants = $form->get('apprenants')->getData();
+            foreach($apprenants as $apprenant){
+                $intervenant->addApprenant($apprenant);
+                $apprenant->addIntervenant($intervenant);
+            
+            }
             $intervenantsRepository->add($intervenant);
 
       
