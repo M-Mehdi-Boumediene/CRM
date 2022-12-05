@@ -89,10 +89,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $user;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="user")
-     */
-    private $users;
+
 
    
 
