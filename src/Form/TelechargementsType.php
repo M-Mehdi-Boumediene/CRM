@@ -56,7 +56,7 @@ class TelechargementsType extends AbstractType
             ])
             ->add('classe', EntityType::class, [
                 'class' => Classes::class,
-                'label' => false,
+                'label' => 'Classe',
                 'choice_label' => 'nom',
                 'empty_data'=>'',
                 'required'=>false,
@@ -65,7 +65,7 @@ class TelechargementsType extends AbstractType
             
             ->add('module', EntityType::class, [
                 'class' => Modules::class,
-                'label' => false,
+                'label' => 'Module',
                 'choice_label' => 'nom',
                 'empty_data'=>'',
                 'required'=>false,
@@ -73,6 +73,7 @@ class TelechargementsType extends AbstractType
             ])
             ->add('user', EntityType::class, [
                 'mapped' => false,
+                'label' => 'Apprenants',
                 'class' => Users::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
