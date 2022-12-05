@@ -85,8 +85,8 @@ class TelechargementsType extends AbstractType
                     return $category->getNom() . ' ' . $category->getPrenom();
                 },
                 'placeholder' => ' Apprenants',
-                'label' => false,
-                'multiple' => true,
+                
+                'multiple' => false,
                 'autocomplete' => true,
                 'required' => false
             ])
