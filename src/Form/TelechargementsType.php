@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Modules;
 use App\Entity\Formations;
+use App\Entity\Users;
 use App\Entity\Medias;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -70,7 +71,24 @@ class TelechargementsType extends AbstractType
                 'required'=>false,
          
             ])
-
+            ->add('user', EntityType::class, [
+                'mapped' => false,
+                'class' => Users::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC')
+            
+                        ;
+                },
+                'choice_label' => function ($category) {
+                    return $category->getNom() . ' ' . $category->getPrenom();
+                },
+                'placeholder' => ' Apprenants',
+                'label' => false,
+                'multiple' => true,
+                'autocomplete' => true,
+                'required' => false
+            ])
         ;
     }
 

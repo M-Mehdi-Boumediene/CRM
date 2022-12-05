@@ -56,6 +56,7 @@ class TelechargementsController extends AbstractController
                 $telechargement->setName($fichier);
                 $telechargement->setCreatedAt($date);
                 $telechargement->setUser($this->getUser());
+                $telechargement->setClasse($this->getUser()->getClasse());
                 $file->setNom($form->get('nom')->getData());
                 $telechargement->addFile($file);
 
