@@ -237,6 +237,12 @@ $('#etudiants_classes').select2();
 
 
 $('#etudiants_cursus').change(function (){
+if($(this).val()=='Alternance'){
 $('.entreprise').show();
+}else{
+	$('.entreprise').hide();
+}
+
+
 })
 </script>
