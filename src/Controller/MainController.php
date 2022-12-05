@@ -583,8 +583,13 @@ foreach ($events as $event){
 
 
             ];
-
-            $data = json_encode($rdvs);
+            
+            if($events){
+                $data = json_encode($rdvs);
+            }else{
+                $data = null;
+            }
+           
             
             $classe= $event->getClasse()->getId();
            
