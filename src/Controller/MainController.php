@@ -748,7 +748,7 @@ foreach ($events as $event){
         }else{
             $data = null;
         }
-        $etudiants = $apprenants->findByClasse($this->getUser()->getClasse());
+
         return $this->renderForm('main/calendrier_etudiant.html.twig', [
             'etudiants_calendar' => $etudiants,
             'etudiants' => $etudiants,
