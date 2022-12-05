@@ -584,11 +584,7 @@ foreach ($events as $event){
 
             ];
             
-            if($events){
-                $data = json_encode($rdvs);
-            }else{
-                $data = null;
-            }
+     
            
             
             $classe= $event->getClasse()->getId();
@@ -747,7 +743,11 @@ foreach ($events as $event){
              return $this->redirectToRoute('app_gestion_calendrier', [], Response::HTTP_SEE_OTHER);
          }
 
- 
+         if($events){
+            $data = json_encode($rdvs);
+        }else{
+            $data = null;
+        }
 
         return $this->renderForm('main/calendrier_etudiant.html.twig', [
             'etudiants_calendar' => $etudiants,
