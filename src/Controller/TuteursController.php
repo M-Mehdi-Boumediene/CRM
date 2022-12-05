@@ -80,7 +80,7 @@ class TuteursController extends AbstractController
             $tuteur->setCreatedAt($date);
             $apprenants = $form->get('etudiants')->getData();
             foreach($apprenants as $apprenant){
-                $tuteur->addEtudiant($apprenants);
+                $tuteur->addEtudiant($apprenant);
                 $apprenant->addTuteur($tuteur);
             
             }
