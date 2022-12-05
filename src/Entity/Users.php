@@ -84,12 +84,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $etudiants;
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="users")
-     */
-    private $user;
-
-
 
    
 
@@ -213,7 +207,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->blocs = new ArrayCollection();
         $this->intervenants = new ArrayCollection();
         $this->etudiants = new ArrayCollection();
-        $this->users = new ArrayCollection();
+
         $this->documents = new ArrayCollection();
         $this->module = new ArrayCollection();
         $this->tuteur = new ArrayCollection();
@@ -501,35 +495,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, self>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(self $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(self $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getUser() === $this) {
-                $user->setUser(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
    
 
