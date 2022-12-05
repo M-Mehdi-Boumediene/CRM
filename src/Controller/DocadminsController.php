@@ -18,7 +18,7 @@ class DocadminsController extends AbstractController
     public function index(DocadminsRepository $docadminsRepository): Response
     {
         return $this->render('docadmins/index.html.twig', [
-            'docadmins' => $docadminsRepository->findBy(array('user'=>contains($this->getUser))),
+            'docadmins' => $docadminsRepository->findBy(array('classe'=>$this->getUser()->getClasse())),
         ]);
     }
 
