@@ -195,7 +195,12 @@ class MessagesController extends AbstractController
             
                 $message->addUser($recipients);
                 $message->setObjet($form->get('objet')->getData());
-                $message->setMessage($form->get('message')->getData());
+                if($form->get('message')->getData()){
+                    $message->setMessage($form->get('message')->getData());
+                }else{
+                    
+                }
+           
             
             }
 
