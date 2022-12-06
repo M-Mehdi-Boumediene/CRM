@@ -18,7 +18,8 @@ class DocadminsController extends AbstractController
     public function index(DocadminsRepository $docadminsRepository): Response
     {
         $user = $this->getUser()
-        if( $user->getRoles() == ["ROLE_ETUDIANT"])
+
+        if($user->getRoles() == ["ROLE_ETUDIANT"] )
         { 
             return $this->render('docadmins/index.html.twig', [
                 'docadmins' => $docadminsRepository->findBy(array('classe'=>$this->getUser()->getClasse())),
