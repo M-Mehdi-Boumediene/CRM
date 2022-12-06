@@ -28,7 +28,7 @@ class MessagesType extends AbstractType
                 'label'=>false,
                 ])
 
-            ->add('message',TexteareaType::class, [
+            ->add('message',TextareaType::class, [
                 
                 'required'=>false,
                 ])
