@@ -189,7 +189,7 @@ class MessagesController extends AbstractController
 
             $recipients = $form->get('recipient')->getData();
             $messagee = $form->get('message')->getData();
-            $userr = $this->getUser()->getId();
+            $userr = $this->getUser();
             foreach($recipients as $recipients){
                
                 $message->setSender($userr);
@@ -207,7 +207,7 @@ class MessagesController extends AbstractController
             }
 
             $users = $form->get('users')->getData();
-            $userr = $this->getUser()->getId();
+            $userr = $this->getUser();
             foreach($users as $users){
                
                 $message->setSender($userr);
