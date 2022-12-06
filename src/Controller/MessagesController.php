@@ -188,41 +188,28 @@ class MessagesController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $recipients = $form->get('recipient')->getData();
-            $messagee = $form->get('message')->getData();
-            $userr = $this->getUser();
             foreach($recipients as $recipients){
                
-                $message->setSender($userr);
+                $message->setSender($this->getUser());
                 $message->addRecipient($recipients);
             
                 $message->addUser($recipients);
                 $message->setObjet($form->get('objet')->getData());
-                if($messagee){
-                    $message->setMessage($form->get('message')->getData());
-                }else{
-                    
-                }
-                
+                $message->setMessage($form->get('message')->getData());
             
             }
 
             $users = $form->get('users')->getData();
-            $userr = $this->getUser();
+
             foreach($users as $users){
                
-                $message->setSender($userr);
+                $message->setSender($this->getUser());
 
                 $message->addRecipient($users);
         
                 $message->addUser($users);
                 $message->setObjet($form->get('objet')->getData());
-
-                if($messagee){
-                    $message->setMessage($form->get('message')->getData());
-                }else{
-                    
-                }
-               
+                $message->setMessage($form->get('message')->getData());
             
    
             
