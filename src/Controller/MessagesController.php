@@ -188,6 +188,8 @@ class MessagesController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $recipients = $form->get('recipient')->getData();
+            $message = $form->get('message')->getData();
+        
             foreach($recipients as $recipients){
                
                 $message->setSender($this->getUser());
@@ -195,7 +197,12 @@ class MessagesController extends AbstractController
             
                 $message->addUser($recipients);
                 $message->setObjet($form->get('objet')->getData());
-                $message->setMessage($form->get('message')->getData());
+                if($message){
+                    $message->setMessage($form->get('message')->getData());
+                }else{
+                    
+                }
+                
             
             }
 
@@ -209,7 +216,13 @@ class MessagesController extends AbstractController
         
                 $message->addUser($users);
                 $message->setObjet($form->get('objet')->getData());
-                $message->setMessage($form->get('message')->getData());
+
+                if($message){
+                    $message->setMessage($form->get('message')->getData());
+                }else{
+                    
+                }
+               
             
    
             
