@@ -31,9 +31,9 @@ class DocadminsController extends AbstractController
                 'docadmins' => $docadminsRepository->findBy(array('classe'=>$this->getUser()->getClasse())),
             ]);
         } 
-        
- 
-    
+        return $this->render('docadmins/index.html.twig', [
+            'docadmins' => $docadminsRepository->findBy(array('classe'=>$this->getUser()->getClasse())),
+        ]);
     }
 
     #[Route('/new', name: 'app_docadmins_new', methods: ['GET', 'POST'])]
