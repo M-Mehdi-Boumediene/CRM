@@ -188,16 +188,16 @@ class MessagesController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $recipients = $form->get('recipient')->getData();
-            $message = $form->get('message')->getData();
-        
+            $messagee = $form->get('message')->getData();
+            $userr = $this->getUser()->getId();
             foreach($recipients as $recipients){
                
-                $message->setSender($this->getUser());
+                $message->setSender($userr);
                 $message->addRecipient($recipients);
             
                 $message->addUser($recipients);
                 $message->setObjet($form->get('objet')->getData());
-                if($message){
+                if($messagee){
                     $message->setMessage($form->get('message')->getData());
                 }else{
                     
@@ -207,17 +207,17 @@ class MessagesController extends AbstractController
             }
 
             $users = $form->get('users')->getData();
-
+            $userr = $this->getUser()->getId();
             foreach($users as $users){
                
-                $message->setSender($this->getUser());
+                $message->setSender($userr);
 
                 $message->addRecipient($users);
         
                 $message->addUser($users);
                 $message->setObjet($form->get('objet')->getData());
 
-                if($message){
+                if($messagee){
                     $message->setMessage($form->get('message')->getData());
                 }else{
                     
