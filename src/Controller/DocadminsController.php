@@ -32,7 +32,7 @@ class DocadminsController extends AbstractController
             ]);
         } 
         
-        if( $user->getRoles() == ["ROLE_ETUDIANT"])
+        if( $user->getRoles() == ["ROLE_INTERVENANT"])
         { 
             return $this->render('docadmins/index.html.twig', [
                 'docadmins' => $docadminsRepository->findAll(),
