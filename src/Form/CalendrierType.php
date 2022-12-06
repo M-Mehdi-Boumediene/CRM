@@ -146,7 +146,7 @@ class CalendrierType extends AbstractType
                 'label' => false
             ])
             ->remove('heurefin', TimeType::class, [
-                'widget' => 'choice',
+                'widget' => 'single_text',
                 'format' => 'hh:mm',
               
                 'label' => false
