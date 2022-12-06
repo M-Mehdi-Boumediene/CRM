@@ -137,6 +137,10 @@ class CalendrierType extends AbstractType
             ->add('heurdebut', TimeType::class, [
         
                 'widget' => 'single_text',
+                'html5' => true,
+        
+                'view_timezone' => 'Europe/Paris',
+                'model_timezone' => 'UTC',
                 'label' => 'Heure début'
             ])
             ->add('duree', TimeType::class, [
@@ -145,7 +149,10 @@ class CalendrierType extends AbstractType
                 'label' => false
             ])
             ->remove('heurefin', TimeType::class, [
-             
+                'html5' => true,
+ 
+    'view_timezone' => 'Europe/Paris',
+    'model_timezone' => 'UTC',
                 'widget' => 'single_text',
                 'label' => false
             ]);
