@@ -17,20 +17,28 @@ class DocadminsController extends AbstractController
     #[Route('/', name: 'app_docadmins_index', methods: ['GET'])]
     public function index(DocadminsRepository $docadminsRepository): Response
     {
-        $user = $this->getUser()
-
-        if($user->getRoles() == ["ROLE_ETUDIANT"] )
-        { 
-            return $this->render('docadmins/index.html.twig', [
-                'docadmins' => $docadminsRepository->findBy(array('classe'=>$this->getUser()->getClasse())),
-            ]);
-        }    
+        $user = $this->getUser();
         if( $user->getRoles() == ["ROLE_ADMIN"])
         { 
             return $this->render('docadmins/index.html.twig', [
                 'docadmins' => $docadminsRepository->findAll(),
             ]);
         }    
+
+        if( $user->getRoles() == ["ROLE_ETUDIANT"])
+        { 
+            return $this->render('docadmins/index.html.twig', [
+                'docadmins' => $docadminsRepository->findBy(array('classe'=>$this->getUser()->getClasse())),
+            ]);
+        } 
+        
+        if( $user->getRoles() == ["ROLE_ETUDIANT"])
+        { 
+            return $this->render('docadmins/index.html.twig', [
+                'docadmins' => $docadminsRepository->findAll(),
+            ]);
+        }    
+    
     }
 
     #[Route('/new', name: 'app_docadmins_new', methods: ['GET', 'POST'])]
