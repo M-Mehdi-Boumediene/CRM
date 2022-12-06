@@ -65,6 +65,9 @@ class DocadminsType extends AbstractType
                 'choice_label' => 'nom',
                 'multiple'=>true,
                 'empty_data'=>'',
+                'choice_label' => function ($category) {
+                    return $category->getNom() . ' ' . $category->getPrenom();
+                },
                 'required'=>false,
          
             ])
