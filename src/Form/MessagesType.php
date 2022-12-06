@@ -28,9 +28,9 @@ class MessagesType extends AbstractType
                 'label'=>false,
                 ])
 
-            ->add('message',CkEditorType::class, [
-
-               
+            ->add('message',TexteareaType::class, [
+                
+                'required'=>false,
                 ])
     
             ->add('recipient', EntityType::class, [
