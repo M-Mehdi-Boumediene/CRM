@@ -148,9 +148,9 @@
 
 														<td class="sorting_1 dtr-control">
 															<a href="{{ path('app_etudiants_show', {'id': etudiant.id}) }}">
-																{% if etudiant.cursus =='Initiale ' %}
+																{% if etudiant.cursus =='Initiale' %}
 																	{{ etudiant.cursus }}
-																{% elseif etudiant.cursus =='Alternance ' %}
+																{% elseif etudiant.cursus =='Alternance' %}
 																	{{ etudiant.entreprise.nom }}
 																{% endif %}
 															</a>
