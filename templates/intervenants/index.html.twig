@@ -118,8 +118,16 @@
 												</tr>
 											</thead>
 											<tbody>
+										     {# Calculate age #}
+												{% set birth = null %}
+												{% set currentYear =   %}
+												{% set age = null %}
 
+											{#-------------------------#}	
 												{% for intervenant in intervenants %}
+												  {% set birth = intervenant.createdAt|date('Y') %}
+
+												  {% set age = birth - "now"|date("Y") %}
 													<tr role="row" class="odd">
 
 
@@ -162,7 +170,7 @@
 														<td class="sorting_1 dtr-control">
 															<a href="{{ path('app_intervenants_edit', {'id': intervenant.id}) }}">
 																<button class="mb-2 mr-2 btn-icon btn-pill btn btn-link">
-																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier</button>
+																	<i class="pe-7s-tools btn-icon-wrapper"></i>Modifier  {{age}}</button>
 															</a>
 														</td>
 
