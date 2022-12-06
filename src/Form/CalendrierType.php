@@ -136,17 +136,21 @@ class CalendrierType extends AbstractType
 
             ->add('heurdebut', TimeType::class, [
         
-                'widget' => 'single_text',
+             
+                'input'  => 'timestamp',
+                'widget' => 'choice',
                 'label' => 'Heure début'
             ])
             ->add('duree', TimeType::class, [
         
-                'widget' => 'single_text',
+                'input'  => 'timestamp',
+                'widget' => 'choice',
                 'label' => false
             ])
             ->remove('heurefin', TimeType::class, [
              
-                'widget' => 'single_text',
+                'input'  => 'timestamp',
+                'widget' => 'choice',
                 'label' => false
             ]);
         ;
