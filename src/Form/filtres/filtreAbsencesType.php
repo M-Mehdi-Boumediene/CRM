@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use App\Form\DataTransformer\ClassesToNumbersTransformer;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+
 class FiltreAbsencesType extends AbstractType
 {
     private $em;
