@@ -16,7 +16,7 @@ services:
 
   fm.mail_alert.form.type5:
   
-      class: AppBundle\Form\filtres\FiltreAbsencesType
+      class: AppBundle\Form\filtres\filtreAbsencesType
       arguments:
           - '@security.token_storage'
       tags:
