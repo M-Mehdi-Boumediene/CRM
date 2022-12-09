@@ -38,7 +38,7 @@ class CoursType extends AbstractType
        
          
                 ->add('files',FileType::class,[
-                    'label'=> 'Documents',
+                    'label'=> 'Video (mp4)',
                     'multiple' => true,
                     'mapped'=> false,
                     'required'=> false,
@@ -48,7 +48,7 @@ class CoursType extends AbstractType
                 ])
                
                 ->add('documents',FileType::class,[
-                    'label'=> 'Video (mp4)',
+                    'label'=> 'Documents',
                     'multiple' => true,
                     'mapped'=> false,
                     'required'=> false,
