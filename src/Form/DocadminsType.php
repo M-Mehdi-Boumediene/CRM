@@ -65,8 +65,8 @@ class DocadminsType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                     ->andWhere('u.roles = :val')
-                    ->setParameter('val', ['ROLE_ETUDIANT'])
-                        ->orderBy('u.nom', 'ASC');
+                    ->setParameter('val', '["ROLE_ETUDIANT"]')
+                        ;
                 },
                 'label' => false,
                 'choice_label' => 'nom',
