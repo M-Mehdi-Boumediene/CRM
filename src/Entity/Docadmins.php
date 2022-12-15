@@ -32,7 +32,7 @@ class Docadmins
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="docadmins", nullable=true)
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="docadmins")
      */
     private $users;
 
