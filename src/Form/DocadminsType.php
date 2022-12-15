@@ -69,6 +69,7 @@ class DocadminsType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
                 'label' => false,
+                'required'=>false,
                 'choice_label' => 'nom',
                 'multiple'=>true,
                 'empty_data'=>'',
