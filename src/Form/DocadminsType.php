@@ -60,25 +60,7 @@ class DocadminsType extends AbstractType
          
             ])
             
-            ->add('users', EntityType::class, [
-                'class' => Users::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                    ->andWhere('u.roles = :val')
-                    ->setParameter('val', ["ROLE_ETUDIANT"])
-                        ->orderBy('u.nom', 'ASC');
-                },
-                'label' => false,
-                'required'=>false,
-                'choice_label' => 'nom',
-                'multiple'=>true,
-                'empty_data'=>'',
-                'choice_label' => function ($category) {
-                    return $category->getNom() . ' ' . $category->getPrenom();
-                },
-                'required'=>false,
-         
-            ])
+
         ;
     }
 
