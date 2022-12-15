@@ -6,6 +6,7 @@ use App\Entity\Formations;
 use App\Entity\Classes;
 use App\Entity\Users;
 use App\Entity\Medias;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -61,6 +62,10 @@ class DocadminsType extends AbstractType
             
             ->add('users', EntityType::class, [
                 'class' => Users::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
                 'label' => false,
                 'choice_label' => 'nom',
                 'multiple'=>true,
