@@ -60,7 +60,7 @@ class DocadminsType extends AbstractType
          
             ])
             
-            ->add('users', EntityType::class, [
+            ->remove('users', EntityType::class, [
                 'class' => Users::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
