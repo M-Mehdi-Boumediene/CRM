@@ -56,7 +56,7 @@ class IntervenantsType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
-                  'multiple' => true,
+                
                 'label'=>false,
                 'placeholder'=>'',
                 'autocomplete' => true,
@@ -148,7 +148,7 @@ class IntervenantsType extends AbstractType
             // this would be your entity, i.e. SportMeetup
             $data = $event->getData();
 
-            $formModifier($event->getForm(), $data->getClasses());
+            $formModifier($event->getForm(), $data->getClasse());
         }
     );
 
@@ -163,7 +163,7 @@ class IntervenantsType extends AbstractType
             // this would be your entity, i.e. SportMeetup
             $data = $event->getData();
 
-            $formModifier($event->getForm(), $data->getClasses());
+            $formModifier($event->getForm(), $data->getClasse());
         }
     );
 
@@ -191,4 +191,10 @@ class IntervenantsType extends AbstractType
     
    
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Intervenants::class,
+        ]);
+    }
 }
