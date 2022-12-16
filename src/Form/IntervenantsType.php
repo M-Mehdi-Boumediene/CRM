@@ -56,7 +56,7 @@ class IntervenantsType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
-                'multiple' => true,
+                  'multiple' => true,
                 'label'=>false,
                 'placeholder'=>'',
                 'autocomplete' => true,
@@ -148,7 +148,7 @@ class IntervenantsType extends AbstractType
             // this would be your entity, i.e. SportMeetup
             $data = $event->getData();
 
-            $formModifier($event->getForm(), $data->getClasses());
+            $formModifier($event->getForm());
         }
     );
 
