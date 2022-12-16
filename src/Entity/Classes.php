@@ -44,10 +44,7 @@ class Classes
      */
     private $etudiants;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Intervenants::class, mappedBy="classes")
-     */
-    private $intervenants;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Modules::class, mappedBy="classes")
@@ -117,6 +114,11 @@ class Classes
      */
     private $absintervenants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Intervenants::class, mappedBy="classes")
+     */
+    private $intervenants;
+
 
     public function __toString() {
         return $this->nom;
@@ -126,7 +128,7 @@ class Classes
     {
      
         $this->etudiants = new ArrayCollection();
-        $this->intervenants = new ArrayCollection();
+
         $this->modules = new ArrayCollection();
         $this->calendriers = new ArrayCollection();
    
@@ -138,6 +140,7 @@ class Classes
         $this->docadmins = new ArrayCollection();
         $this->blocs = new ArrayCollection();
         $this->absintervenants = new ArrayCollection();
+        $this->intervenants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,35 +217,9 @@ class Classes
         return $this;
     }
 
-    /**
-     * @return Collection<int, Intervenants>
-     */
-    public function getIntervenants(): Collection
-    {
-        return $this->intervenants;
-    }
+  
 
-    public function addIntervenant(Intervenants $intervenant): self
-    {
-        if (!$this->intervenants->contains($intervenant)) {
-            $this->intervenants[] = $intervenant;
-            $intervenant->setClasses($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIntervenant(Intervenants $intervenant): self
-    {
-        if ($this->intervenants->removeElement($intervenant)) {
-            // set the owning side to null (unless already changed)
-            if ($intervenant->getClasses() === $this) {
-                $intervenant->setClasses(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Modules>
@@ -551,6 +528,33 @@ class Classes
             if ($absintervenant->getClasse() === $this) {
                 $absintervenant->setClasse(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intervenants>
+     */
+    public function getIntervenants(): Collection
+    {
+        return $this->intervenants;
+    }
+
+    public function addIntervenant(Intervenants $intervenant): self
+    {
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants[] = $intervenant;
+            $intervenant->addClass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervenant(Intervenants $intervenant): self
+    {
+        if ($this->intervenants->removeElement($intervenant)) {
+            $intervenant->removeClass($this);
         }
 
         return $this;
