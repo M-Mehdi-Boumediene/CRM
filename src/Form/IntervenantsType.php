@@ -56,7 +56,6 @@ class IntervenantsType extends AbstractType
                         ->orderBy('u.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
-                
                 'label'=>false,
                 'placeholder'=>'',
                 'autocomplete' => true,
