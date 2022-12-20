@@ -113,9 +113,15 @@ class Calendrier
      */
     private $absences;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TableauAbsences::class, mappedBy="calendrier")
+     */
+    private $tableauAbsences;
+
     public function __construct()
     {
         $this->absences = new ArrayCollection();
+        $this->tableauAbsences = new ArrayCollection();
     }
 
    
@@ -354,6 +360,36 @@ class Calendrier
             // set the owning side to null (unless already changed)
             if ($absence->getCalendrier() === $this) {
                 $absence->setCalendrier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TableauAbsences>
+     */
+    public function getTableauAbsences(): Collection
+    {
+        return $this->tableauAbsences;
+    }
+
+    public function addTableauAbsence(TableauAbsences $tableauAbsence): self
+    {
+        if (!$this->tableauAbsences->contains($tableauAbsence)) {
+            $this->tableauAbsences[] = $tableauAbsence;
+            $tableauAbsence->setCalendrier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTableauAbsence(TableauAbsences $tableauAbsence): self
+    {
+        if ($this->tableauAbsences->removeElement($tableauAbsence)) {
+            // set the owning side to null (unless already changed)
+            if ($tableauAbsence->getCalendrier() === $this) {
+                $tableauAbsence->setCalendrier(null);
             }
         }
 
