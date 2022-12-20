@@ -11,6 +11,8 @@ use App\Form\filtres\FiltreIntervenantType;
 use App\Repository\IntervenantsRepository;
 use App\Repository\ModulesRepository;
 use App\Repository\UsersRepository;
+use App\Repository\ProfilRepository;
+use App\Repository\CvRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -154,7 +156,7 @@ class IntervenantsController extends AbstractController
     /**
      * @Route("/{id}", name="app_intervenants_show", methods={"GET"})
      */
-    public function show(Intervenants $intervenant,ModulesRepository $modulesRepository): Response
+    public function show(Intervenants $intervenant,ModulesRepository $modulesRepository,ProfilRepository $profilRepository, CvRepository $cvRepository,): Response
     {
 
    
