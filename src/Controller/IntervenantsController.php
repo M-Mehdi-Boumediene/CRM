@@ -172,7 +172,7 @@ class IntervenantsController extends AbstractController
     {
         $form = $this->createForm(IntervenantsType::class, $intervenant);
         $form->handleRequest($request);
-        $user =  $usersRepository->findOneBy(array('email'=>$this->getUser()->getEmail()));
+        $user =  $usersRepository->findOneBy(array('id'=>$intervenant->getUser()));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(Users::class)->findOneBy(array('email'=>$this->getUser()->getEmail()));
         $originalPassword = $user->getPassword();
