@@ -185,15 +185,14 @@ class IntervenantsController extends AbstractController
             if (!empty($plainPassword))  {  
                 $encoded = $this->passwordEncoder->encodePassword($user,$plainPassword);
                 $user->setPassword($encoded);
-
+                $em->persist($user);
+                $em->flush();
+    
             }
             else {
-                $encoded = $this->passwordEncoder->encodePassword($user,$originalPassword);
-                $user->setPassword($originalPassword);
+              
             }
-            $em->persist($user);
-            $em->flush();
-
+       
 
             $intervenantsRepository->add($intervenant);
       
