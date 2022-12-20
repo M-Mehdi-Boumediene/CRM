@@ -223,27 +223,24 @@
 													<div class="card-body">
 								
 						
-
-											
+                                                         {% for aa in etudiant.tableauAbsences %} 
+                                                             {% for calendrier in aa.calendrier %} 
+                                                          Absent du {{calendrier.start|date("d/m/y")}} 	au {{calendrier.start|date("d/m/y")}} 				
+                                                           {% endfor %}  
+											  {% endfor %}  
 
 											             {% for etudiant in etudiant.tableauAbsences %} 
                                                          
-                                                            <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div>
-
-                                                               {% for calendrier in etudiant.calendrier %} 
-                                                          Absent du {{calendrier.start|date("d/m/y")}} 	au {{calendrier.start|date("d/m/y")}} 				
-                                                           {% endfor %}  
+                                                         <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div>
+                                                          {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  				
+                                                          
                                                           	{% set justif = null %} 
-                                                                {% for justification in etudiant.justifications %} 
-                                                                {% set justif = "Absence justifiée" %}  
-                                                                {% endfor %}   	
+                                                            {% for justification in etudiant.justifications %} {% set justif = "Absence justifiée" %}  {% endfor %}   	
 														 	{% if justif %}
 															<a style="cursor:pointer; color:green;">Absence justifiée</a>
 															{% else %}
 															<a style="cursor:pointer; color:orange;"data-toggle="modal" data-target=".bd-example-modal-lg">Justifier l'absence</a>
-															{% endif %}  <br> </div> 
-                                                            
-                                                        {% endfor %} 
+															{% endif %}  <br> </div> {% endfor %} 
 
 
 													</div>
