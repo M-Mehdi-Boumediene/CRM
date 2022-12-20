@@ -188,7 +188,7 @@ class IntervenantsController extends AbstractController
                 $em->persist($user);
                 $em->flush();
             }
-            else {
+            if($plainPassword == null ) {
             
             }
            
