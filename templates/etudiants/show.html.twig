@@ -34,23 +34,23 @@
                         <div class="app-page-title">
                             <div class="page-title-wrapper">
                                 <div class="page-title-heading">
-		{% if photoprofil %}
-	
-                        <div class="avatar avatar-5xl e"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('uploads/' ~ photoprofil.image)}}" width="200" alt=""></div>
+                                        {% if photoprofil %}
+                                    
+                                                        <div class="avatar avatar-5xl e"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('uploads/' ~ photoprofil.image)}}" width="200" alt=""></div>
 
-				{% else %}
-				  <div class="avatar avatar-5xl e"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('assets/images/avatars/user01.png')}}" width="200" alt=""></div>
+                                                {% else %}
+                                                <div class="avatar avatar-5xl e"><img class="rounded-circle img-thumbnail shadow-sm" src="{{ asset('assets/images/avatars/user01.png')}}" width="200" alt=""></div>
 
-				{% endif %}
+                                                {% endif %}
 
-                                    <div style="margin-left:20px;">
-                                        <h4 class="mb-1">
-                                            {{ etudiant.nom }} {{ etudiant.prenom }}<span data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Verified">
-											
-                                        </h4>
-                                        <h5 class="fs-0 fw-normal">Classe: {{etudiant.classes.nom}}</h5>
-                                      
-                                    </div>
+                                        <div style="margin-left:20px;">
+                                            <h4 class="mb-1">
+                                                {{ etudiant.nom }} {{ etudiant.prenom }}<span data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Verified">
+                                                
+                                            </h4>
+                                            <h5 class="fs-0 fw-normal">Classe: {{etudiant.classes.nom}}</h5>
+                                        
+                                        </div>
                                 </div>
                                 <div class="page-title-actions">
 
@@ -200,7 +200,12 @@
 													<h5 class="card-title">Retard</h5>
 
 													<div class="card-body">
-                                                    {% for etudiant in etudiant.tableauAbsences %} {% if etudiant.enretard %} Retard de {{etudiant.retard|date("i")}} minutes le {{etudiant.du|date("d/m/y h:i")}} {% else %} {% endif %} {% endfor %}
+                                                    {% for etudiant in etudiant.tableauAbsences %}
+                                                     {% if etudiant.enretard %}
+                                                      Retard de {{etudiant.retard|date("i")}} minutes le {{etudiant.du|date("d/m/y h:i")}} 
+                                                      {% else %} {% endif %} 
+                                                      
+                                                      {% endfor %}
 
 												
 
@@ -222,12 +227,24 @@
 
 											
 
-											             {% for etudiant in etudiant.tableauAbsences %} <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div> {% if etudiant.absence %}  Absent le {{etudiant.du|date("d/m/y")}}  {% else %} {% endif %}  					{% set justif = null %} {% for justification in etudiant.justifications %} {% set justif = "Absence justifiée" %}  {% endfor %}   	
+											             {% for etudiant in etudiant.tableauAbsences %} 
+                                                         <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div>
+                                                        
+                                                          Absent le {{etudiant.du|date("d/m/y")}}
+                                                           
+                                                            {% endif %}  					
+                                                            {% set justif = null %} 
+                                                            {% for justification in etudiant.justifications %}
+                                                             {% set justif = "Absence justifiée" %} 
+                                                             
+                                                              {% endfor %}   	
 														 	{% if justif %}
 															<a style="cursor:pointer; color:green;">Absence justifiée</a>
 															{% else %}
 															<a style="cursor:pointer; color:orange;"data-toggle="modal" data-target=".bd-example-modal-lg">Justifier l'absence</a>
-															{% endif %}  <br> </div> {% endfor %} 
+															{% endif %}  <br> </div> 
+                                                            
+                                                            {% endfor %} 
 
 
 													</div>
