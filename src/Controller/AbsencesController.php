@@ -114,10 +114,10 @@ class AbsencesController extends AbstractController
                     
 
                 $etudiants = $tableau->get('etudiant')->getData();
-                $user = $em->getRepository(Users::class)->findOneBy(array('etudiants'=>$etudiants[0]));
+       
                 
-                $absence->setUserid($user);
-                $absence->setUser($user);
+                $absence->setUserid($etudiants[0]);
+                $absence->setUser($etudiants[0]);
                 $tableauabsences->addEtudiant($etudiants[0]);
                 $dateabsence =$tableau->get('dateabsence')->getData();
                 $retard = $tableau->get('retard')->getData();
