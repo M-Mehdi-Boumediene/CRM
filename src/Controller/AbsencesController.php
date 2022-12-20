@@ -89,14 +89,14 @@ class AbsencesController extends AbstractController
   /**
      * @Route("/new/{id}", name="app_absences_newbyclass", methods={"GET", "POST"})
      */
-    public function newbyclasse(Request $request, $id,AbsencesRepository $absencesRepository,etudiantsRepository $etudiantsRepository,TableauAbsencesRepository $TableauAbsencesRepository): Response
+    public function newbyclasse(Request $request, $id,AbsencesRepository $absencesRepository,  UsersRepository $usersRepository, etudiantsRepository $etudiantsRepository,TableauAbsencesRepository $TableauAbsencesRepository): Response
     {
       
         $absence = new Absences();
      
         $form = $this->createForm(AbsencesType::class);
         $form->handleRequest($request);
-
+        $user = $em->getRepository(Users::class)->findOneBy(array('id'=>$etudiant->getUser()));
         if ($form->isSubmitted() && $form->isValid()) {
           
             $tableau = $form->get('tableau');
@@ -112,9 +112,10 @@ class AbsencesController extends AbstractController
                     
 
                 $etudiants = $tableau->get('etudiant')->getData();
+                $user = $em->getRepository(Users::class)->findOneBy(array('etudiant'=>$etudiants[0]));
                 
                 $absence->setUserid( $tableau->get('etudiant')->getData());
-               
+                $absence->setUser();
                 $tableauabsences->addEtudiant($etudiants[0]);
                 $dateabsence =$tableau->get('dateabsence')->getData();
                 $retard = $tableau->get('retard')->getData();
