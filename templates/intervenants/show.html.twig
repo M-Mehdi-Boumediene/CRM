@@ -126,9 +126,10 @@
                         
                      
 								<h5 class="fs-0 fw-normal">
-								<b>	Classe </b>:
-								{{intervenant.classes.nom}}
-
+								<b>	Classes </b>:
+								  {% for classe in intervenant.classes %}
+								{{classe.nom}}
+  								{% endfor %}
 									</h5>
                       
 
