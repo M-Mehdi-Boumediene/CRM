@@ -231,7 +231,7 @@
                                                          <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div>
                                                            {% for absence in etudiant.absences %} 
                                                                {% for calendrier in absence.calendrier %} 
-                                                          Absent du {{calendrier.du|date("d/m/y")}} au {{calendrier.au|date("d/m/y")}}
+                                                          Absent du {{calendrier.start|date("d/m/y")}} au {{calendrier.end|date("d/m/y")}}
                                                        			 {% endfor %} 
                                                                  	 {% endfor %} 
                                                             {% set justif = null %} 
