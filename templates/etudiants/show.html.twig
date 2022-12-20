@@ -223,17 +223,16 @@
 													<div class="card-body">
 								
 						
-                                                         {% for aa in etudiant.tableauAbsences %} 
-                                                         
-                                                          
-                                                            {{aa.calendrier.titre}}		
-                                                           {{aa.calendrier.start|date("d/m/y")}}		
-											            {% endfor %}  
+                                                   
 
 											             {% for etudiant in etudiant.tableauAbsences %} 
                                                          
                                                          <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div>
-                                                          {% if etudiant.absence %}  Absent le {{etudiant.calendrier.start|date("d/m/y")}}  {% else %} {% endif %}  				
+                                                              {% for aa in etudiant.tableauAbsences %} 
+                                                         
+                                                          		
+                                                          Absent du  {{aa.calendrier.start|date("d/m/y h:i")}}		au {{aa.calendrier.end|date("d/m/y h:i")}}		
+											            {% endfor %} 			
                                                           
                                                           	{% set justif = null %} 
                                                             {% for justification in etudiant.justifications %} {% set justif = "Absence justifiée" %}  {% endfor %}   	
