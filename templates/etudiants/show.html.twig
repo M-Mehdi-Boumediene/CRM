@@ -224,6 +224,7 @@
 								
 						
                                                          {% for aa in etudiant.tableauAbsences %} 
+                                                         aaa
                                                              {% for calendrier in aa.calendrier %} 
                                                           Absent du {{calendrier.start|date("d/m/y")}} 	au {{calendrier.start|date("d/m/y")}} 				
                                                            {% endfor %}  
