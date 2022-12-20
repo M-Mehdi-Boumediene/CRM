@@ -168,12 +168,14 @@ class IntervenantsController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_intervenants_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Intervenants $intervenant, IntervenantsRepository $intervenantsRepository): Response
+    public function edit(Request $request,Users $user, Intervenants $intervenant, IntervenantsRepository $intervenantsRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(IntervenantsType::class, $intervenant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $form->get('user')->get('password')->getData());
+            $user->setPassword($password);
             $intervenantsRepository->add($intervenant);
             return $this->redirectToRoute('app_intervenants_index', [], Response::HTTP_SEE_OTHER);
         }
