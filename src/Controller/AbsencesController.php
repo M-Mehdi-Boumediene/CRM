@@ -114,7 +114,7 @@ class AbsencesController extends AbstractController
                     
 
                 $etudiants = $tableau->get('etudiant')->getData();
-                $user = $em->getRepository(Users::class)->findOneBy(array('apprenant'=>$etudiants[0]));
+                $user = $em->getRepository(Users::class)->findOneBy(array('etudiants'=>$etudiants[0]));
                 
                 $absence->setUserid($user);
                 $absence->setUser($user);
