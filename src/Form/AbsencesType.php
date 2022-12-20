@@ -94,7 +94,7 @@ class AbsencesType extends AbstractType
                 'multiple' => false,
                 'choice_label' => 'nom',
                 'required'=>false,
-                'label'=>'Classe',
+                'label'=>'Calendrier',
                 'choice_label' => function ($category) {
                     return $category->getTitre() . ' ' . 'du '.$category->getStart()->format('d/m/Y H:m') .' au '. $category->getEnd()->format('d/m/Y  H:m').'';
                 },
