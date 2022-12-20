@@ -157,10 +157,10 @@ class IntervenantsController extends AbstractController
     public function show(Intervenants $intervenant,ModulesRepository $modulesRepository): Response
     {
 
-        $id = $intervenant->getClasses()->getId();
+   
     
         return $this->render('intervenants/show.html.twig', [
-            'modules' => $modulesRepository->findByClasse($id),
+    
             'intervenant' => $intervenant,
         ]);
     }

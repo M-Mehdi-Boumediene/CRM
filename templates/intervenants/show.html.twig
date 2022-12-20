@@ -136,7 +136,9 @@
 								<h5 class="fs-0 fw-normal">
                     		 		<b>  Modules </b>:
 				
-                                {% for module in modules %}
+                                {% for classe in intervenant.classes %}
+
+								   {% for module in classe.modules %}
                               
 							   		{{module.nom}}<br>
 								
