@@ -188,6 +188,7 @@ class IntervenantsController extends AbstractController
 
             }
             else {
+                $encoded = $this->passwordEncoder->encodePassword($user,$originalPassword);
                 $user->setPassword($originalPassword);
             }
             $em->persist($user);
