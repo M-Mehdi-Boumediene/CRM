@@ -123,6 +123,7 @@ class AbsencesController extends AbstractController
                 $dateabsence =$tableau->get('dateabsence')->getData();
                 $retard = $tableau->get('retard')->getData();
                 $labsence = $tableau->get('absence')->getData();
+                $tableauabsences->setCalendrier($form->get('calendrier')->getData());
                 if( $dateabsence == null){
                     $tableauabsences->setDateabsence(null);
                     $tableauabsences->setPresence(0);
