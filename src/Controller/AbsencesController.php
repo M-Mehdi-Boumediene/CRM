@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Absences;
+use App\Entity\Users;
 use App\Entity\TableauAbsences;
 use App\Form\AbsencesType;
 use App\Form\filtres\FiltreAbsencesType;
@@ -116,8 +117,8 @@ class AbsencesController extends AbstractController
                 $etudiants = $tableau->get('etudiant')->getData();
                 $user = $em->getRepository(Users::class)->findOneBy(array('etudiant'=>$etudiants[0]));
                 
-                $absence->setUserid( $tableau->get('etudiant')->getData());
-                $absence->setUser();
+                $absence->setUserid($user);
+                $absence->setUser($user);
                 $tableauabsences->addEtudiant($etudiants[0]);
                 $dateabsence =$tableau->get('dateabsence')->getData();
                 $retard = $tableau->get('retard')->getData();
