@@ -197,8 +197,27 @@ class EtudiantsController extends AbstractController
     {
         $form = $this->createForm(EtudiantsType::class, $etudiant)->remove('password');
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(Users::class)->findOneBy(array('id'=>$etudiant->getUser()));
+        $originalPassword = $user->getPassword();
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $plainPassword = $form->get('user')->get('password')->getData();
+
+
+
+            if ($plainPassword)  {  
+                $encoded = $this->passwordEncoder->encodePassword($user,$plainPassword);
+                $user->setPassword($encoded);
+                $em->persist($user);
+                $em->flush();
+            }
+            if($plainPassword == null ) {
+                $encoded = $this->passwordEncoder->encodePassword($user,$originalPassword);
+                $user->setPassword($encoded);
+                $em->persist($user);
+                $em->flush();
+            }
             $etudiantsRepository->add($etudiant);
             return $this->redirectToRoute('app_etudiants_index', [], Response::HTTP_SEE_OTHER);
         }
