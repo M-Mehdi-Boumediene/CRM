@@ -180,11 +180,13 @@ class IntervenantsController extends AbstractController
 
 
             $plainPassword = $form->get('user')->get('password')->getData();
+
+
+
             if (!empty($plainPassword))  {  
-                //encode the password   
-                $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity); //get encoder for hashing pwd later
-                $tempPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt()); 
-                $user->setPassword($tempPassword);                
+                $encoded = $this->passwordEncoder->encodePassword($user,$plainPassword);
+                $user->setPassword($encoded);
+
             }
             else {
                 $user->setPassword($originalPassword);
