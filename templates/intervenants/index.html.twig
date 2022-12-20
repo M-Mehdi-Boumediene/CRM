@@ -148,7 +148,10 @@
 
 														<td class="sorting_1 dtr-control">
 															{% if intervenant.classes %}
-																<a href="{{ path('app_classes_show', {'id': intervenant.classes.id}) }}">{{ intervenant.classes.nom }}</a>
+															{% for classe in intervenant.classes %}
+															
+															<a href="{{ path('app_classes_show', {'id': classe.id}) }}">{{classe.nom }}</a>
+																{% endfor %}
 															{% else %}
 																<span style="color:red;">
 																	Sans classe

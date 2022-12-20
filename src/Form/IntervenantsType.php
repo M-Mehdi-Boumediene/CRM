@@ -57,8 +57,8 @@ class IntervenantsType extends AbstractType
                 },
                 'choice_label' => 'nom',
                 'label'=>false,
-                'placeholder'=>'',
-                'autocomplete' => true,
+                'multiple'=>true,
+       
             ])
 
             ->remove('ville', EntityType::class, [
@@ -122,9 +122,9 @@ class IntervenantsType extends AbstractType
             
           
        ;
-       $formModifier = function (FormInterface $form, Classes $sport = null) {
-        $positions = null === $sport ? [] : $sport->getModules();
-        $positions2 = null === $sport ? [] : $sport->getIntervenants();
+       $formModifier = function (FormInterface $form) {
+ 
+
         $form->add('modules', EntityType::class, [
             'class' => Modules::class,
             'mapped' => false,
@@ -135,7 +135,7 @@ class IntervenantsType extends AbstractType
             },
             'placeholder' => '',
             'label' => false,
-            'choices' => $positions,
+   
         ]);
 
   

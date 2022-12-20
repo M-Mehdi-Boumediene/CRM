@@ -71,10 +71,6 @@ class Intervenants
      */
     private $documents;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Classes::class, inversedBy="intervenants")
-     */
-    private $classes;
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="intervenants",cascade={"all"})
@@ -121,6 +117,11 @@ class Intervenants
      */
     private $tableauAbsencesintervenants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Classes::class, mappedBy="intervenants")
+     */
+    private $classes;
+
    
 
     public function __construct()
@@ -132,6 +133,7 @@ class Intervenants
         $this->apprenants = new ArrayCollection();
         $this->absintervenants = new ArrayCollection();
         $this->tableauAbsencesintervenants = new ArrayCollection();
+        $this->classes = new ArrayCollection();
 
     }
 
@@ -305,17 +307,7 @@ class Intervenants
         return $this;
     }
 
-    public function getClasses(): ?Classes
-    {
-        return $this->classes;
-    }
-
-    public function setClasses(?Classes $classes): self
-    {
-        $this->classes = $classes;
-
-        return $this;
-    }
+   
 
     public function getUser(): ?Users
     {
@@ -486,6 +478,33 @@ class Intervenants
     {
         if ($this->tableauAbsencesintervenants->removeElement($tableauAbsencesintervenant)) {
             $tableauAbsencesintervenant->removeIntervenant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classes>
+     */
+    public function getClasses(): Collection
+    {
+        return $this->classes;
+    }
+
+    public function addClass(Classes $class): self
+    {
+        if (!$this->classes->contains($class)) {
+            $this->classes[] = $class;
+            $class->addIntervenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClass(Classes $class): self
+    {
+        if ($this->classes->removeElement($class)) {
+            $class->removeIntervenant($this);
         }
 
         return $this;

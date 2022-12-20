@@ -121,6 +121,11 @@ class Absences
      */
     private $justifications;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Calendrier::class, inversedBy="absences")
+     */
+    private $calendrier;
+
  
 
 
@@ -454,6 +459,18 @@ class Absences
                 $justification->setAbsence(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCalendrier(): ?Calendrier
+    {
+        return $this->calendrier;
+    }
+
+    public function setCalendrier(?Calendrier $calendrier): self
+    {
+        $this->calendrier = $calendrier;
 
         return $this;
     }

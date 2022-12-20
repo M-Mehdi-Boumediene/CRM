@@ -101,6 +101,13 @@ class IntervenantsController extends AbstractController
                 $module->addIntervenant($intervenant);
             
             }
+            $lesclasses = $form->get('classes')->getData();
+
+            foreach($lesclasses as $lesclasse){
+                $intervenant->addClass($lesclasse);
+                $lesclasse->addIntervenant($intervenant);
+            
+            }
             $apprenants = $form->get('apprenants')->getData();
             foreach($apprenants as $apprenant){
                 $intervenant->addApprenant($apprenant);
@@ -112,7 +119,12 @@ class IntervenantsController extends AbstractController
       
             $password = $passwordEncoder->encodePassword($user, $form->get('user')->get('password')->getData());
             $user->setPassword($password);
-            $user->setClasse($form->get('classes')->getData());
+
+ 
+
+
+
+
             $date = new \DateTimeImmutable('now');
          
             $user->setCreatedBy($this->getUser()->getEmail());

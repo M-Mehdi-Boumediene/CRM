@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\Classes;
+use App\Entity\Calendrier;
 use App\Entity\Blocs;
 use App\Entity\Modules;
 use App\Entity\Users;
@@ -62,7 +63,18 @@ class AbsencesType extends AbstractType
                 'label' => false
                 
             ])
-               
+              
+            ->add('calendrier', EntityType::class, [
+                'class' => Calendrier::class,
+                'expanded' => false,
+                'multiple' => false,
+                'choice_label' => 'nom',
+                'required'=>false,
+                'label'=>'Classe',
+                'choice_label' => function ($category) {
+                    return $category->getTitre() . ' ' . 'du '.$category->getStart()->format('d/m/Y H:m') .' au '. $category->getEnd()->format('d/m/Y  H:m').'';
+                },
+            ])
                 
             ;
         }else{
@@ -76,7 +88,17 @@ class AbsencesType extends AbstractType
                 'required'=>false,
                 'label'=>'Classe',
             ])
-         
+            ->add('calendrier', EntityType::class, [
+                'class' => Calendrier::class,
+                'expanded' => false,
+                'multiple' => false,
+                'choice_label' => 'nom',
+                'required'=>false,
+                'label'=>'Classe',
+                'choice_label' => function ($category) {
+                    return $category->getTitre() . ' ' . 'du '.$category->getStart()->format('d/m/Y H:m') .' au '. $category->getEnd()->format('d/m/Y  H:m').'';
+                },
+            ])
             ->add('tableau', CollectionType::class, [
                 'entry_type' => TableauAbsencesType::class,
                 'entry_options' => ['label' => false],

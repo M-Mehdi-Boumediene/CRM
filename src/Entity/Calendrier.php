@@ -108,6 +108,16 @@ class Calendrier
      */
     private $intervenant;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Absences::class, mappedBy="calendrier")
+     */
+    private $absences;
+
+    public function __construct()
+    {
+        $this->absences = new ArrayCollection();
+    }
+
    
 
     public function getId(): ?int
@@ -316,6 +326,36 @@ class Calendrier
     public function setIntervenant(?Intervenants $intervenant): self
     {
         $this->intervenant = $intervenant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Absences>
+     */
+    public function getAbsences(): Collection
+    {
+        return $this->absences;
+    }
+
+    public function addAbsence(Absences $absence): self
+    {
+        if (!$this->absences->contains($absence)) {
+            $this->absences[] = $absence;
+            $absence->setCalendrier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsence(Absences $absence): self
+    {
+        if ($this->absences->removeElement($absence)) {
+            // set the owning side to null (unless already changed)
+            if ($absence->getCalendrier() === $this) {
+                $absence->setCalendrier(null);
+            }
+        }
 
         return $this;
     }
