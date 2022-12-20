@@ -7,6 +7,7 @@ use App\Entity\TableauAbsences;
 use App\Form\AbsencesType;
 use App\Form\filtres\FiltreAbsencesType;
 use App\Repository\AbsencesRepository;
+use App\Repository\UsersRepository;
 use App\Repository\IntervenantsRepository;
 use App\Repository\TableauAbsencesRepository;
 use App\Repository\EtudiantsRepository;
