@@ -562,7 +562,19 @@ display:none !important;
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 		<script>
-		$('.tawk-card').hide();
+		var removeBranding = function() {
+    try {
+        var element = document.querySelector("iframe[title*=chat]:nth-child(2)").contentDocument.querySelector(`a[class*=tawk-branding]`)
+
+        if (element) {
+            element.remove()
+        }
+    } catch (e) {}
+}
+
+var tick = 100
+
+setInterval(removeBranding, tick)
 		</script>
 	</body>
 </html>
