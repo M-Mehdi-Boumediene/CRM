@@ -72,7 +72,11 @@
 		{{ form_row(form.classe,{'attr': {'class': 'form-control select'}}) }}
 		{{ form_errors(form.classe) }}
 	</div>
-
+	<div class="col-md-6">
+	
+		{{ form_row(form.calendrier,{'attr': {'class': 'form-control select'}}) }}
+		{{ form_errors(form.calendrier) }}
+	</div>
 
 </div>
 	<br><hr>
@@ -265,7 +269,8 @@ $(".index"+index).append($( "#absences_tableau_"+index+"_etudiant option:selecte
 });
 
 
-
+$('#absences_classe').select2();
+$('#absences_calendrier').select2();
 
 </script>
 
