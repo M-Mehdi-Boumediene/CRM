@@ -229,9 +229,11 @@
 
 											             {% for etudiant in etudiant.tableauAbsences %} 
                                                          <div class="absences"> <div class="idabsence" style="display:none;">{{etudiant.id}}</div>
-                                                           {% for etudiant in etudiant.absences %} 
-                                                          Absent le {{etudiant.date|date("d/m/y")}}
-                                                       					       {% endfor %} 
+                                                           {% for absence in etudiant.absences %} 
+                                                               {% for calendrier in absence.calendrier %} 
+                                                          Absent du {{calendrier.du|date("d/m/y")}} au {{calendrier.au|date("d/m/y")}}
+                                                       			 {% endfor %} 
+                                                                 	 {% endfor %} 
                                                             {% set justif = null %} 
                                                             {% for justification in etudiant.justifications %}
                                                              {% set justif = "Absence justifiée" %} 
