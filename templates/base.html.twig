@@ -542,7 +542,11 @@ s0.parentNode.insertBefore(s1,s0);
 
 			{% endblock %}
 
-
+<style>
+.tawk-card{
+display:none !important;
+}
+</style>
 		</div>
 		{% for message in app.flashes('message') %}
 			<div id="toast-container" class="toast-top-right">
