@@ -520,7 +520,21 @@ display:none !important;
 	<body>
 		<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar"> {% block body %}{% endblock %}
 
+		<script>
+		var removeBranding = function() {
+    try {
+        var element = document.querySelector("iframe[title*=chat]:nth-child(2)").contentDocument.querySelector(`a[class*=tawk-branding]`)
 
+        if (element) {
+            element.remove()
+        }
+    } catch (e) {}
+}
+
+var tick = 100
+
+setInterval(removeBranding, tick)
+		</script>
 			{# <script type="text/javascript" src="{{asset('assets/scripts/main.d810cf0ae7f39f28f336.js')}}"></script> #}
 			{% block javascripts %}
 
@@ -559,23 +573,8 @@ display:none !important;
 
 
 		{% endfor %}
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-		<script>
-		var removeBranding = function() {
-    try {
-        var element = document.querySelector("iframe[title*=chat]:nth-child(2)").contentDocument.querySelector(`a[class*=tawk-branding]`)
 
-        if (element) {
-            element.remove()
-        }
-    } catch (e) {}
-}
-
-var tick = 100
-
-setInterval(removeBranding, tick)
-		</script>
 	</body>
 </html>
 {% block modal %}{% endblock %}
