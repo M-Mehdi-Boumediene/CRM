@@ -174,7 +174,7 @@ class IntervenantsController extends AbstractController
         $form->handleRequest($request);
         $user =  $usersRepository->findOneBy(array('email'=>$this->getUser()->getEmail()));
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('App:Users')->findOneBy(array('email'=>$this->getUser()->getEmail()));
+        $user = $em->getRepository(Users::class)->findOneBy(array('email'=>$this->getUser()->getEmail()));
         $originalPassword = $user->getPassword();
         if ($form->isSubmitted() && $form->isValid()) {
 
