@@ -97,6 +97,7 @@ class AbsencesController extends AbstractController
      
         $form = $this->createForm(AbsencesType::class);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(Users::class)->findOneBy(array('id'=>$etudiant->getUser()));
         if ($form->isSubmitted() && $form->isValid()) {
           
