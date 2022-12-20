@@ -138,13 +138,12 @@
 								<h5 class="fs-0 fw-normal">
                     		 		<b>  Modules </b>:
 				<br>
-                                {% for classe in intervenant.classes %}
+                            
 
-								   {% for module in classe.modules %}
+								   {% for module in intervenant.modules %}
                               
 							   		{{module.nom}}<br>
 								
-                                {% endfor %}
 								   {% endfor %}
 								</h5>
  
