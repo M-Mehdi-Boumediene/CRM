@@ -225,10 +225,10 @@
 						
                                                          {% for aa in etudiant.tableauAbsences %} 
                                                          
-                                                             {% for calendrier in aa.calendrier %} 
-                                                            aaa		
-                                                           {% endfor %}  
-											  {% endfor %}  
+                                                          
+                                                            {{aa.calendrier.titre}}		
+                                                         
+											            {% endfor %}  
 
 											             {% for etudiant in etudiant.tableauAbsences %} 
                                                          
