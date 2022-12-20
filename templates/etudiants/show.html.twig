@@ -223,11 +223,10 @@
 													<div class="card-body">
 								
 						
-                                                         {% for aa in etudiant.tableauAbsences %} 
-                                                         aaa
-                                                             {% for calendrier in aa.calendrier %} 
-                                                          Absent du {{calendrier.start|date("d/m/y")}} 	au {{calendrier.start|date("d/m/y")}} 				
-                                                           {% endfor %}  
+                                                         {% for aa in etudiant.tableauAbsences.calendrier %} 
+                                                       
+                                                          Absent du {{aa.start|date("d/m/y")}} 	au {{aa.end|date("d/m/y")}} 				
+                                                          
 											  {% endfor %}  
 
 											             {% for etudiant in etudiant.tableauAbsences %} 
