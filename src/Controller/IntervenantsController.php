@@ -168,15 +168,33 @@ class IntervenantsController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_intervenants_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request,Users $user, Intervenants $intervenant, IntervenantsRepository $intervenantsRepository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, Intervenants $intervenant, IntervenantsRepository $intervenantsRepository, UsersRepository $usersRepository): Response
     {
         $form = $this->createForm(IntervenantsType::class, $intervenant);
         $form->handleRequest($request);
-
+        $user =  $usersRepository->findOneBy(array('email'=>$this->getUser()->getEmail()));
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('App:Users')->findOneBy(array('email'=>$this->getUser()->getEmail()));
+        $originalPassword = $user->getPassword();
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $form->get('user')->get('password')->getData());
-            $user->setPassword($password);
+
+
+            $plainPassword = $form->get('password')->getData();
+            if (!empty($plainPassword))  {  
+                //encode the password   
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity); //get encoder for hashing pwd later
+                $tempPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt()); 
+                $user->setPassword($tempPassword);                
+            }
+            else {
+                $user->setPassword($originalPassword);
+            }
+            $em->persist($user);
+            $em->flush();
+
+
             $intervenantsRepository->add($intervenant);
+      
             return $this->redirectToRoute('app_intervenants_index', [], Response::HTTP_SEE_OTHER);
         }
 
