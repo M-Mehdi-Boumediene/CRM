@@ -147,7 +147,15 @@
 								   {% endfor %}
 								</h5>
  
- 					
+ 							<h5 class="fs-0 fw-normal">
+                    		 		<b>  Apprenants </b>:
+				
+                                {% for classe in intervenant.classes %}
+                                 {% for apprenant in classe.apprenants %}
+							   		{{apprenant.nom}}<br>
+								    {% endfor %}
+                                {% endfor %}
+								</h5>
                        
                       
                     </h5>
