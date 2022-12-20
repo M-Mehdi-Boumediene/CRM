@@ -158,9 +158,11 @@ class IntervenantsController extends AbstractController
     {
 
    
-    
+        $photoprofil = $profilRepository->findOneBy(array('user'=>$intervenant->getUser()));
+        $lecv = $cvRepository->findBy(array('user'=>$intervenant->getUser()));
         return $this->render('intervenants/show.html.twig', [
-    
+            'photoprofil'=>$photoprofil,
+            'lecv'=>$lecv,
             'intervenant' => $intervenant,
         ]);
     }
