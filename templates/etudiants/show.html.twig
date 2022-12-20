@@ -232,7 +232,7 @@
 
                                                                {% for calendrier in etudiant.calendrier %} 
                                                           Absent du {{calendrier.start|date("d/m/y")}} 	au {{calendrier.start|date("d/m/y")}} 				
-                                                          
+                                                           {% endfor %}  
                                                           	{% set justif = null %} 
                                                                 {% for justification in etudiant.justifications %} 
                                                                 {% set justif = "Absence justifiée" %}  
