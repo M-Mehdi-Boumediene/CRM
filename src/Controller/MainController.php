@@ -72,7 +72,7 @@ class MainController extends AbstractController
 
 
         foreach ($intervenant as $inter){
-          $classe =  $inter->getClasses()->getId();
+          $classe =  $inter->getClasses();
         }
         if( $user->getRoles() == ["ROLE_ENTREPRISE"])
         { 
