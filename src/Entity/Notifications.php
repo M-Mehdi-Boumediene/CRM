@@ -29,6 +29,11 @@ class Notifications
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="notifications")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +59,18 @@ class Notifications
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

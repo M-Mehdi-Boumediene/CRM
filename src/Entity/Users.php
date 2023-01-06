@@ -193,6 +193,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $justifications;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Notifications::class, mappedBy="user")
+     */
+    private $notifications;
+
  
 
    
@@ -223,6 +228,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->cvs = new ArrayCollection();
         $this->absintervenants = new ArrayCollection();
         $this->justifications = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
       
  
      
@@ -965,6 +971,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($justification->getUser() === $this) {
                 $justification->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notifications>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notifications $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notifications $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
             }
         }
 
