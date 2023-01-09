@@ -131,6 +131,7 @@ class NotesController extends AbstractController
            
             foreach($tableau as $tableau){
                 $tableaunotes = new TableauNotes();
+                $notification = new Notifications();
                 $tableaunotes->setCreatedBy($this->getUser()->getEmail());
                 $date = new \DateTimeImmutable('now');
                 $tableaunotes->setCreatedAt($date);
@@ -162,7 +163,7 @@ class NotesController extends AbstractController
             $TableauNotesRepository->add($tableaunotes);
 
             $note = new Notes();
-            $notification = new Notifications();
+          
       
             $note->addTableau($tableaunotes);
             $date = new \DateTimeImmutable('now');
@@ -187,14 +188,14 @@ class NotesController extends AbstractController
             $latable = $TableauNotesRepository->findByetudiant($ee,$lemodule,$lesemestre,$letype);
 
 
-
+            $notification->setEtudiantid($ee);
+          
          
 
             $notification->setTitre("Nouvelle note");
             $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
            
-            $notification->setEtudiantid($ee);
-            $notificationsRepository->add($notification, true);
+
             $notesRepository->add($note, true);
         }
        
@@ -226,6 +227,8 @@ class NotesController extends AbstractController
     
     
                 $FilesRepository->add($newfile);
+
+                $notificationsRepository->add($notification, true);
             }
     
 
