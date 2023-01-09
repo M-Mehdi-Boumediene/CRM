@@ -192,7 +192,7 @@ class NotesController extends AbstractController
 
             $notification->setTitre("Nouvelle note");
             $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
-            $notification->setEtudiant($ee);
+            $notification->setEtudiant($etudiants->getId());
             
             $notificationsRepository->add($notification, true);
 
