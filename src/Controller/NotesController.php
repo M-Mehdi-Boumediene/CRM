@@ -194,6 +194,8 @@ class NotesController extends AbstractController
             $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
            
             $notification->setEtudiantid($ee);
+
+            $notesRepository->add($note, true);
         }
        
             
@@ -238,7 +240,7 @@ class NotesController extends AbstractController
             
             $notificationsRepository->add($notification, true);
    
-            $notesRepository->add($note, true);
+            
            
             // Je boucle sur les documents
            
