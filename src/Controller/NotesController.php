@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etudiants;
 use App\Entity\Notes;
+use App\Entity\Notifications;
 use App\Entity\TableauNotes;
 use App\Form\NotesType;
 use App\Form\filtres\FiltreNotesType;
@@ -13,6 +14,7 @@ use App\Repository\TableauNotesRepository;
 use App\Repository\FilesRepository;
 use App\Repository\EtudiantsRepository;
 use App\Repository\ModulesRepository;
+use App\Repository\NotificationsRepository;
 use App\Repository\BlocsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -114,7 +116,7 @@ class NotesController extends AbstractController
     /**
      * @Route("/new/{id}", name="app_notes_newbyclass", methods={"GET", "POST"})
      */
-    public function newbyclasse(Request $request,EntityManagerInterface $em, $id,NotesRepository $notesRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function newbyclasse(Request $request,EntityManagerInterface $em, $id,NotesRepository $notesRepository, NotificationsRepository $notificationsRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
     {
       
         $note = new Notes();
@@ -183,6 +185,15 @@ class NotesController extends AbstractController
             $lesemestre = $form->get('semestre')->getData();
             $letype= $form->get('type')->getData();
             $latable = $TableauNotesRepository->findByetudiant($ee,$lemodule,$lesemestre,$letype);
+
+
+
+            $notification = new Notifications();
+
+            $notification->setTitre("Nouvelle note");
+            $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
+            $notification->setEtudiant($ee);
+
         }
        
             
@@ -217,15 +228,16 @@ class NotesController extends AbstractController
     
 
 
-
+                
             
             }
             
           
+
       
    
             $notesRepository->add($note, true);
-  
+             $notificationsRepository->add($notification, true);
             // Je boucle sur les documents
            
     

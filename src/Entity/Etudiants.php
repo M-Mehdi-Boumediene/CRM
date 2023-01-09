@@ -116,6 +116,11 @@ class Etudiants
      */
     private $intervenants;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Notifications::class, mappedBy="etudiant")
+     */
+    private $notifications;
+
 
 
 
@@ -132,6 +137,7 @@ class Etudiants
         $this->tuteurs = new ArrayCollection();
         $this->tableauNotes = new ArrayCollection();
         $this->tableauAbsences = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
 
    
     }
@@ -434,6 +440,36 @@ class Etudiants
     public function setIntervenants(?Intervenants $intervenants): self
     {
         $this->intervenants = $intervenants;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notifications>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notifications $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notifications $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getEtudiant() === $this) {
+                $notification->setEtudiant(null);
+            }
+        }
 
         return $this;
     }

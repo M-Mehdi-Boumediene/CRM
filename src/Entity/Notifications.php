@@ -34,6 +34,11 @@ class Notifications
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Etudiants::class, inversedBy="notifications")
+     */
+    private $etudiant;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class Notifications
     public function setUser(?Users $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEtudiant(): ?Etudiants
+    {
+        return $this->etudiant;
+    }
+
+    public function setEtudiant(?Etudiants $etudiant): self
+    {
+        $this->etudiant = $etudiant;
 
         return $this;
     }
