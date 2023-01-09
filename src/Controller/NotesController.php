@@ -162,7 +162,7 @@ class NotesController extends AbstractController
             $TableauNotesRepository->add($tableaunotes);
 
             $note = new Notes();
-        
+            $notification = new Notifications();
       
             $note->addTableau($tableaunotes);
             $date = new \DateTimeImmutable('now');
@@ -188,7 +188,7 @@ class NotesController extends AbstractController
 
 
 
-            $notification = new Notifications();
+         
 
             $notification->setTitre("Nouvelle note");
             $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
