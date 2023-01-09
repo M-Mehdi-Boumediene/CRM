@@ -131,14 +131,14 @@ class NotesController extends AbstractController
            
             foreach($tableau as $tableau){
                 $tableaunotes = new TableauNotes();
-                $notification = new Notifications();
+              
                 $tableaunotes->setCreatedBy($this->getUser()->getEmail());
                 $date = new \DateTimeImmutable('now');
                 $tableaunotes->setCreatedAt($date);
                 $newfile= new Files();
-            $files = $tableau->get('copie')->getData();
+             $files = $tableau->get('copie')->getData();
 
-            foreach($files as $file){
+             foreach($files as $file){
                 $em = $this->getDoctrine()->getManager();
                 // Je génère un nouveau nom de fichier
                 $fichier = md5(uniqid()) . '.' . $file->guessExtension();
@@ -162,7 +162,7 @@ class NotesController extends AbstractController
           
             $TableauNotesRepository->add($tableaunotes);
 
-            $note = new Notes();
+           
           
       
             $note->addTableau($tableaunotes);
@@ -186,7 +186,7 @@ class NotesController extends AbstractController
             $lesemestre = $form->get('semestre')->getData();
             $letype= $form->get('type')->getData();
             $latable = $TableauNotesRepository->findByetudiant($ee,$lemodule,$lesemestre,$letype);
-
+            $notification = new Notifications();
 
             $notification->setEtudiantid($ee);
           
@@ -195,7 +195,7 @@ class NotesController extends AbstractController
             $notification->setTitre("Nouvelle note");
             $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
            
-
+          
             $notesRepository->add($note, true);
         }
        
