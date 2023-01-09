@@ -39,6 +39,11 @@ class Notifications
      */
     private $etudiant;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Etudiantid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Notifications
     public function setEtudiant(?Etudiants $etudiant): self
     {
         $this->etudiant = $etudiant;
+
+        return $this;
+    }
+
+    public function getEtudiantid(): ?string
+    {
+        return $this->Etudiantid;
+    }
+
+    public function setEtudiantid(?string $Etudiantid): self
+    {
+        $this->Etudiantid = $Etudiantid;
 
         return $this;
     }
