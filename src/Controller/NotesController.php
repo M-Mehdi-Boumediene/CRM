@@ -195,7 +195,7 @@ class NotesController extends AbstractController
             $notification->setTitre("Nouvelle note");
             $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
            
-          
+            $notificationsRepository->add($notification, true);
             $notesRepository->add($note, true);
         }
        
@@ -228,7 +228,7 @@ class NotesController extends AbstractController
     
                 $FilesRepository->add($newfile);
 
-                $notificationsRepository->add($notification, true);
+               
             }
     
 
