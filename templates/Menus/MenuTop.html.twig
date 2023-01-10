@@ -470,7 +470,7 @@
 													<div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column">
 										
 						{% for notification in app.user.notifications %}
-															{% if message.isRead == 0 %}
+															{% if notification  %}
 																{% set bold = "fw-bold" %}
 															{% else %}
 																{% set bold = "" %}
