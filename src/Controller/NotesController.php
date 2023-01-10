@@ -131,7 +131,9 @@ class NotesController extends AbstractController
            
             foreach($tableau as $tableau){
                 $tableaunotes = new TableauNotes();
+                $notification= new Notifications();
              
+
                 $tableaunotes->setCreatedBy($this->getUser()->getEmail());
                 $date = new \DateTimeImmutable('now');
                 $tableaunotes->setCreatedAt($date);
@@ -159,20 +161,7 @@ class NotesController extends AbstractController
                
                
             }
-
-          
-            $etudiants = $tableau->get('etudiant')->getData();
-            foreach($etudiants as $etudiants){
-                $notification = new Notifications();
-                $ee = $etudiants->getId();
-                $notification->setEtudiantid($ee);
-          
-         
-
-                $notification->setTitre("Nouvelle note");
-                $notification->setDescription("Vous avez eu une nouvelle note veuilez consulter vos notes");
-                $notificationsRepository->add($notification, true);
-            }
+  
             $TableauNotesRepository->add($tableaunotes);
 
            
@@ -190,11 +179,13 @@ class NotesController extends AbstractController
             $note->setBloc($form->get('blocid')->getData());
             $note->setSemestre($form->get('semestre')->getData());
             $etudiants = $tableau->get('etudiant')->getData();
+
             foreach($etudiants as $etudiants){
             $note->setEtudiantid($etudiants->getId());
             $ee = $etudiants->getId();
 
-
+            $notification->setTitre('Nouvelle note');
+            $notification->setEtudiantid($ee);
             $lemodule = $form->get('module')->getData();
             $lesemestre = $form->get('semestre')->getData();
             $letype= $form->get('type')->getData();
@@ -204,9 +195,9 @@ class NotesController extends AbstractController
            
        
             $notesRepository->add($note, true);
-        }
+          }
        
-            
+            $notificationsRepository->add($notification);
           
 
             if($latable){
