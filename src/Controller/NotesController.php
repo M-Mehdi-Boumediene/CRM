@@ -185,7 +185,7 @@ class NotesController extends AbstractController
             $note->setEtudiantid($etudiants->getId());
             $ee = $etudiants->getId();
             $leuser = $etudiantsRepository->findOneBy(array('id'=>$ee));
-            $notification->setTitre('Nouvelle note '. $form->get('type')->getData(). $form->get('module')->getData());
+            $notification->setTitre('Nouvelle note '. $form->get('type')->getData() );
             $notification->setDescription("Veuillez consulter vos notes");
             $notification->setUser($leuser->getUser());
            
