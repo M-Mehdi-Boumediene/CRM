@@ -9,6 +9,7 @@ use App\Entity\TableauNotes;
 use App\Form\NotesType;
 use App\Form\filtres\FiltreNotesType;
 use App\Repository\NotesRepository;
+use App\Repository\UsersRepository;
 use App\Repository\IntervenantsRepository;
 use App\Repository\TableauNotesRepository;
 use App\Repository\FilesRepository;
@@ -116,7 +117,7 @@ class NotesController extends AbstractController
     /**
      * @Route("/new/{id}", name="app_notes_newbyclass", methods={"GET", "POST"})
      */
-    public function newbyclasse(Request $request,EntityManagerInterface $em, $id,NotesRepository $notesRepository, NotificationsRepository $notificationsRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository): Response
+    public function newbyclasse(Request $request,EntityManagerInterface $em, $id,NotesRepository $notesRepository, NotificationsRepository $notificationsRepository, FilesRepository $FilesRepository,etudiantsRepository $etudiantsRepository,TableauNotesRepository $TableauNotesRepository,UsersRepository $usersRepository): Response
     {
       
         $note = new Notes();
@@ -183,8 +184,11 @@ class NotesController extends AbstractController
             foreach($etudiants as $etudiants){
             $note->setEtudiantid($etudiants->getId());
             $ee = $etudiants->getId();
-
-            $notification->setTitre('Nouvelle note');
+            $leuser = $etudiantsRepository->findOneBy(array('id'=>$ee));
+            $notification->setTitre('Nouvelle note '. $form->get('type')->getData(). $form->get('module')->getData());
+            $notification->Description("Veuillez consulter vos notes");
+            $notification->setUser($leuser->getUser());
+           
             $notification->setEtudiantid($ee);
             $lemodule = $form->get('module')->getData();
             $lesemestre = $form->get('semestre')->getData();
