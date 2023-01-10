@@ -469,7 +469,35 @@
 												<div class="notifications-box">
 													<div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column">
 										
+						{% for notification in app.user.notifications %}
+															{% if message.isRead == 0 %}
+																{% set bold = "fw-bold" %}
+															{% else %}
+																{% set bold = "" %}
+															{% endif %}
+															<div class="vertical-timeline-item dot-success  vertical-timeline-element">
+																<div>
+																	<span class="vertical-timeline-element-icon bounce-in"></span>
 
+																	<div class="vertical-timeline-element-content bounce-in">
+
+																		<a href="{{path('app_read_messages', {id: notification.id})}}">
+																			<h4 class="timeline-title {{bold}}">
+																			
+																				{{notification.titre}}
+																				<span class="text-success">
+																					<br>
+																					Le
+																					{{message.createdAt|date('d/m/Y h:i')}}</span>
+																			</h4>
+																		</a>
+																		<span class="vertical-timeline-element-date"></span>
+
+																	</div>
+
+																</div>
+															</div>
+														{% endfor %}
 
 													</div>
 												</div>
