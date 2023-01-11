@@ -82,7 +82,7 @@ class MainController extends AbstractController
         foreach ($events as $event){
             foreach ($event->getNotes() as $event){
                 $rdvs[] = [
-                    'name' => $event->getModule()->getNom(),
+                    'name' => $event->getModules()->getNom(),
 
                 ];
                 foreach ($event->getTableau() as $event){
