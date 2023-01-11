@@ -45,7 +45,7 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_main")
      */
-    public function index(IntervenantsRepository $intervenantRepository,TableauNotesRepository $TableauNotesRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository,ProfilRepository $profilRepository): Response
+    public function index(EtudiantsRepository $etudiantsRepository,IntervenantsRepository $intervenantRepository,TableauNotesRepository $TableauNotesRepository,EtudiantsRepository $apprenantsRepository,ClassesRepository $classesRepository,EntreprisesRepository $entrprisesRepository,MessagesRepository $messagesRepository,ProfilRepository $profilRepository): Response
     {
 
         $classesAdmin = $classesRepository->findAll();

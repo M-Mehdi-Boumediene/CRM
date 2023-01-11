@@ -173,14 +173,14 @@
                                                                     <th scope="col">Moyenne</th>
 
                                                                     {% set moyennegeneral = 0 %} {% set nb = 0 %} 
-																	{% for note in tableaunotes %}
+															{% for note in tableaunotes %}
 
 
                                                                     <tr>
 
                                                                         {% set coefmodule = 0 %}
 																		
-																		 {% for module in note.notes %}
+																 {% for module in note.notes %}
 
 
 
@@ -214,7 +214,10 @@
                                                                     </tr>
 
 
-                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %} {% endfor %}
+                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %}
+																	
+																	
+																 {% endfor %}
 
 
 
