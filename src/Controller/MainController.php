@@ -84,7 +84,7 @@ class MainController extends AbstractController
 
                 $rdvs[] = [
                 
-                    'data' => [12],
+                    [12],
     
                 ];
                 $rdvs2[] = [
