@@ -1652,36 +1652,6 @@
 
 
 
-																{% for note in tableaunotes %}
-
-                                                                        {% set coefmodule = 0 %}
-																		
-																			 {% for module in note.notes %}
-
-
-                                                                            {% set coefmodule =+ module.module.coefficient %} 
-																			<span> {{module.module[0].nom}} </span>
-																			
-																			{% endfor %}
-																			
-																			
-																			 {% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
-															
-
-                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %}
-																		 {% for etudiant in note.etudiant %}
-																	<div class="widget-heading" style="color:black !important; ">{{etudiant.nom}} {{etudiant.prenom}}</div>
-
-																			{% if nb %}
-																					{{ (moyennegeneral / nb)|number_format(2, '.', ',') }}/20
-																					{% else %}
-																				{{ (moyennegeneral / 1)|number_format(2, '.', ',') }}/20
-																			{% endif %}
-
-																		{% endfor %}	
-																	
-																	
-																{% endfor %}
 
 
 <script>
