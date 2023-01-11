@@ -76,6 +76,19 @@ class MainController extends AbstractController
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
 
 
+        $events = $TableauNotesRepository->paretudiant1($etudiant);
+        $rdvs = [];
+        foreach ($events as $event){
+
+            $rdvs[] = [
+                'name' => $event->getModules()->getNom(),
+                'data' => 12,
+
+            ];
+
+            $data = json_encode($rdvs);
+        }
+
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
         }
