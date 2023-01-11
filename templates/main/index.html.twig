@@ -1674,16 +1674,7 @@
 
 								{% set coefmodule =+ module.module.coefficient %} 
 
-								<script>
-								var options = {
-											series: [{
-											name: "{{module.module.nom}}",
-											
-												},
-											],
-										
-											};
-								</script>
+					
 								
 								{% endfor %} 
 								{% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
@@ -1717,8 +1708,7 @@
 
  var options = {
           series: [{
-          name: 'semestre 1',
-          data: {{ data.data|raw() }}
+          {{ data.data|raw() }}
         }, {
           name: 'semestre 2',
           data: [18, 13, 17,15, 11]
