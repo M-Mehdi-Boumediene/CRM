@@ -1707,12 +1707,14 @@
 <script>
 
  var options = {
-          series:{{ data|raw() }},
+          series:{{ data.data|raw() }},
+		    xaxis: {
+    categories: [1991]
+  },
           chart: {
           type: 'bar',
           height: 350
         },
-		
         plotOptions: {
           bar: {
             horizontal: false,
