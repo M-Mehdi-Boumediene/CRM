@@ -87,11 +87,12 @@ class MainController extends AbstractController
                     'data' => [12],
     
                 ];
+                $rdvs2[] = [
+                    $event->getModule()->getNom(),
+                ];
             }
    
-            $rdvs2[] = [
-                "aaa",
-            ];
+          
 
             $data = json_encode($rdvs);
             $data2 = json_encode($rdvs2);
