@@ -124,7 +124,8 @@ class MainController extends AbstractController
                 'lintervenant'=>$lintervenant, 
                 'classes' => $classesRepository->findByIntervenantEtudiant($classe),
                 'profil' => $profil,
-
+                'data' => compact('data'),
+                'data2' => compact('data2'),
               
           
             ]);         }else{
