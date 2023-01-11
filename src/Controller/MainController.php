@@ -90,7 +90,7 @@ class MainController extends AbstractController
         
                 foreach ($event->getTableau() as $event){
                     $rdvs[] = [
-                        'name' => $event->getNote()->getModules()->getNom(),
+                        'name' => $event->getNotes()->getModules()->getNom(),
                         'data' => [$event->getNote1(),$event->getNote2(),$event->getNote3()],
                     
         
