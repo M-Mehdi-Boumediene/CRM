@@ -69,6 +69,11 @@ class MainController extends AbstractController
         $etudiant = $apprenantsRepository->findOneBy(array('user'=>$this->getUser()));
         $tableaunotes = $TableauNotesRepository->findAll();
 
+        $user = $this->getUser();
+        $classe = $user->getClasse();
+        $etudiant = $etudiantsRepository->findByUser($user);
+
+        $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
 
 
         foreach ($intervenant as $inter){
