@@ -1707,10 +1707,7 @@
 <script>
 
  var options = {
-          series: [{
-       
-         {{ data.data|raw() }}
-        }],
+          series:  {{ data.data|raw() }}  ,
           chart: {
           type: 'bar',
           height: 350
