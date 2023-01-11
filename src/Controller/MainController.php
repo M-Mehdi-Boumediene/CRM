@@ -86,8 +86,8 @@ class MainController extends AbstractController
 
                 foreach ($notes->getTableau() as $tableau){
                     $rdvs[] = [
-                        'name' =>'aaa',
-                        'data' => [$tableau->getNote1()],
+                    
+                        $tableau->getNote1(),
         
                     ];
                       

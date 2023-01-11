@@ -1707,8 +1707,12 @@
 <script>
 
  var options = {
-          series:{{ data.data|raw() }}  ,
-		    xaxis: {
+          series: [{
+          name: {{ data2.data2|raw() }}
+          data: {{ data.data|raw() }}
+        }],
+
+				    xaxis: {
     categories: {{ data2.data2|raw() }}
   },
           chart: {
