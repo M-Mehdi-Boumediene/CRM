@@ -93,7 +93,7 @@ class MainController extends AbstractController
                 }   
 
                 $rdvs2[] = 
-                    $notes->getModule()->getNom(),
+                    $notes->getModule()->getNom();
                  
     
                 ;
