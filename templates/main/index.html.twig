@@ -621,40 +621,7 @@
 							<div class="row">
 							
 		 							<div class="main-card mb-3 card">
-									            {% set moyennegeneral = 0 %} {% set nb = 0 %} 
-															{% for note in tableaunotes %}
 
-
-                                                                    <tr>
-
-                                                                        {% set coefmodule = 0 %}
-																		
-																 {% for module in note.notes %}
-
-
-                                                        
-                                                                        <tr>
-                                                                            <th scope="row">{{module.module.nom}}</th>
-
-                                                                            <td>{{module.module.coefficient}}</td>
-
-                                                                            {% set coefmodule =+ module.module.coefficient %} 
-																			
-																			{% endfor %} 
-																			{% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
-																		
-																		
-                                                                    
-                                                                            <td>{{moyenne|number_format(2, '.', ',') }} /20</td>
-
-                                                                        </tr>
-
-
-                                                                    </tr>
-
-
-																	
-																 {% endfor %}
 
                                                      
 											<div class="card-body">
@@ -1688,9 +1655,49 @@
 
 
 
+		{% set moyennegeneral = 0 %} {% set nb = 0 %} 
+					{% for note in tableaunotes %}
 
+
+							<tr>
+
+								{% set coefmodule = 0 %}
+								
+							{% for module in note.notes %}
+
+<script>
+ var options = {
+       xaxis: {
+          categories: [{{module.module.nom}}],
+        },
+
+		  };
+</script>		
+				
+								<tr>
+									<th scope="row">{{module.module.nom}}</th>
+
+									<td>{{module.module.coefficient}}</td>
+
+									{% set coefmodule =+ module.module.coefficient %} 
+									
+									{% endfor %} 
+									{% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
+								
+								
+							
+									<td>{{moyenne|number_format(2, '.', ',') }} /20</td>
+
+								</tr>
+
+
+							</tr>
+
+
+							
+							{% endfor %}
                                                         
-															
+													
 
 
 
@@ -1726,9 +1733,7 @@
           width: 2,
           colors: ['transparent']
         },
-        xaxis: {
-          categories: ['aaa', 'bbb', 'ccc', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        },
+ 
         yaxis: {
           title: {
             text: 'Moyenne Générale'
