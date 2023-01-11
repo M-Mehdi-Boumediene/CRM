@@ -79,18 +79,19 @@ class MainController extends AbstractController
         $events = $TableauNotesRepository->paretudiant1($etudiant);
         $rdvs = [];
         $rdvs2 = [];
+        $modules = [];
         foreach ($events as $event){
        
             foreach ($event->getNotes() as $event){
 
                 $rdvs2[] = [
-                    $event->getModule()->getNom(),
+                    $modules = [$event->getModule()->getNom(),] 
                 
     
                 ];
                 foreach ($event->getTableau() as $event){
                     $rdvs[] = [
-                        'name'=> ['Note1','Note2','Note3'],
+                        'name'=> $modules,
                         'data' => [$event->getNote1(),$event->getNote2(),$event->getNote3()],
                     ];
                 }
