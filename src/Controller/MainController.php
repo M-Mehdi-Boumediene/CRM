@@ -80,6 +80,11 @@ class MainController extends AbstractController
         $rdvs = [];
         $rdvs2 = [];
         foreach ($events as $event){
+            $rdvs2[] = [
+                $event->getModule()->getNom(),
+            
+
+            ];
             foreach ($event->getNotes() as $event){
 
                 foreach ($event->getTableau() as $event){
@@ -87,11 +92,7 @@ class MainController extends AbstractController
                       
                         'data' => [$event->getNote1()],
                     ];
-                    $rdvs2[] = [
-                        $event->getModule()->getNom(),
-                    
-        
-                    ];
+              
                 }
           
             }
