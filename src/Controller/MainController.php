@@ -79,13 +79,32 @@ class MainController extends AbstractController
         $events = $TableauNotesRepository->paretudiant1($etudiant);
         $rdvs = [];
         $rdvs2 = [];
+        foreach ($events as $event){
 
+      
+            foreach ($event->getNotes() as $notes){
+
+                foreach ($notes->getTableau() as $tableau){
+                    $rdvs[] =
+                    
+                        $tableau->getNote1()
+        ;
+                      
+                }   
+
+                $rdvs2[] = 
+                    $notes->getModule()->getNom()
+                 
+    
+                ;
+                
+            }
    
           
 
             $data = json_encode($rdvs);
             $data2 = json_encode($rdvs2);
-        
+        }
 
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
@@ -111,7 +130,7 @@ class MainController extends AbstractController
           
             ]);         }else{
 
-
+                
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
