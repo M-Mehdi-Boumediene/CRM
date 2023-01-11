@@ -1707,10 +1707,10 @@
 <script>
 
  var options = {
-          series:{{ data.data|raw() }},
-		    xaxis: {
-    categories: {{ data2.data2|raw() }},
-  },
+          series: [{
+          name: 'semestre 1',
+          data: {{ data.data|raw() }}
+        }],
           chart: {
           type: 'bar',
           height: 350
@@ -1730,6 +1730,7 @@
           width: 2,
           colors: ['transparent']
         },
+ 
         yaxis: {
           title: {
             text: 'Moyenne Générale'
