@@ -95,7 +95,7 @@ class MainController extends AbstractController
     
        
                 $rdvs2[] = [
-                    $event->getModule()->getNom(),
+                    $event->getModules()->getNom(),
                 
     
                 ];
