@@ -78,6 +78,7 @@ class MainController extends AbstractController
 
         $events = $TableauNotesRepository->paretudiant1($etudiant);
         $rdvs = [];
+        $rdvs2 = [];
         foreach ($events as $event){
 
             $rdvs[] = [
@@ -85,8 +86,12 @@ class MainController extends AbstractController
                 'data' => [12],
 
             ];
+            $rdvs2[] = [
+                "aaa",
+            ];
 
             $data = json_encode($rdvs);
+            $data2 = json_encode($rdvs2);
         }
 
         foreach ($intervenant as $inter){
@@ -115,6 +120,7 @@ class MainController extends AbstractController
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
                     'data' => compact('data'),
+                    'data2' => compact('data2'),
                     'tableaunotes' => $tableaunotes,
                     'apprenantsAdmin' => $apprenantsAdmin,
                     'classesAdmin' => $classesAdmin,

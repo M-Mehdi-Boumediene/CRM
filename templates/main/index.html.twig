@@ -1709,7 +1709,7 @@
  var options = {
           series:{{ data.data|raw() }},
 		    xaxis: {
-    categories: [1991]
+    categories: {{ data2.data2|raw() }},
   },
           chart: {
           type: 'bar',
