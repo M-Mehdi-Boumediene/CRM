@@ -74,39 +74,37 @@ class MainController extends AbstractController
         $etudiant = $etudiantsRepository->findByUser($user);
 
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
-        if( $user->getRoles() == ["ROLE_ETUDIANT"])
-        { 
 
-            $events = $TableauNotesRepository->paretudiant1($etudiant);
-            $rdvs = [];
-            $rdvs2 = [];
-            foreach ($events as $event){
 
-        
-                foreach ($event->getNotes() as $notes){
+        $events = $TableauNotesRepository->paretudiant1($etudiant);
+        $rdvs = [];
+        $rdvs2 = [];
+        foreach ($events as $event){
 
-                    foreach ($notes->getTableau() as $tableau){
-                        $rdvs[] =
-                        
-                            $tableau->getNote1()
-            ;
-                        
-                    }   
+      
+            foreach ($event->getNotes() as $notes){
 
-                    $rdvs2[] = 
-                        $notes->getModule()->getNom()
+                foreach ($notes->getTableau() as $tableau){
+                    $rdvs[] =
                     
-        
-                    ;
-                    
-                }
+                        $tableau->getNote1()
+        ;
+                      
+                }   
+
+                $rdvs2[] = 
+                    $notes->getModule()->getNom(),
+                 
     
-            
+                ;
+                
+            }
+   
+          
 
-                $data = json_encode($rdvs);
-                $data2 = json_encode($rdvs2);
+            $data = json_encode($rdvs);
+            $data2 = json_encode($rdvs2);
         }
-    }
 
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
@@ -126,13 +124,10 @@ class MainController extends AbstractController
                 'lintervenant'=>$lintervenant, 
                 'classes' => $classesRepository->findByIntervenantEtudiant($classe),
                 'profil' => $profil,
-                'data' => compact('data'),
-                'data2' => compact('data2'),
+
               
           
             ]);         }else{
-
-                
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
