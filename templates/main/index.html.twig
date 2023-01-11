@@ -1653,6 +1653,62 @@
 
 
 
+                                                                    {% set moyennegeneral = 0 %} {% set nb = 0 %} 
+															{% for note in tableaunotes %}
+
+
+                                                                    <tr>
+
+                                                                        {% set coefmodule = 0 %}
+																		
+																 {% for module in note.notes %}
+
+
+
+
+                                                                        <tr>
+
+                                                                            <th rowspan="3" scope="rowgroup">{{module.bloc.nom}}
+                                                                                <br><br> Coef: {{module.bloc.coefficient}}
+                                                                            </th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">{{module.module.nom}}</th>
+
+                                                                            <td>{{module.module.coefficient}}</td>
+
+                                                                            {% set coefmodule =+ module.module.coefficient %} 
+																			
+																			{% endfor %} {% set moyenne = ((note.note1 * coefmodule) + (note.note2 * coefmodule) + (note.note3 * coefmodule)) / (coefmodule) /3 %}
+																		
+																		
+                                                                            <td>{{note.note1}}/20</td>
+																		<td>{{note.note2}}/20</td>
+                                                                        <td>{{note.note3}}/20</td>
+																		
+                                                                    
+                                                                            <td>{{moyenne|number_format(2, '.', ',') }}/20</td>
+
+                                                                        </tr>
+
+
+                                                                    </tr>
+
+
+                                                                    {% set nb = nb + 1 %} {% set moyennegeneral = (moyennegeneral + moyenne)   %}
+																	
+																	
+																 {% endfor %}
+
+                                                            <br> Moyenne Générale :
+															{% if nb %}
+																 {{moyennegeneral|number_format(2, '.', ',') / nb }}/20
+																{% else %}
+ 															{{moyennegeneral|number_format(2, '.', ',') / 1 }}/20
+															{% endif %}
+															
+
+
 
 <script>
 
