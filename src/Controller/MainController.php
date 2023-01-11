@@ -87,12 +87,13 @@ class MainController extends AbstractController
                       
                         'data' => [$event->getNote1()],
                     ];
+                    $rdvs2[] = [
+                        $event->getModule()->getNom(),
+                    
+        
+                    ];
                 }
-                $rdvs2[] = [
-                    $event->getModule()->getNom(),
-                
-    
-                ];
+          
             }
    
           
