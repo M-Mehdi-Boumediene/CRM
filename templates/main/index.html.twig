@@ -1702,18 +1702,18 @@
                                                         
 													
 
-{% if data %}
+
 
 <script>
 
  var options = {
           series: [{
-          name: {{ data.data|raw() }},
+          name: {{ data2.data2|raw() }},
           data: {{ data.data|raw() }}
         }],
 
 				    xaxis: {
-    categories: {{ data.data|raw() }}
+    categories: {{ data2.data2|raw() }}
   },
           chart: {
           type: 'bar',
@@ -1757,6 +1757,4 @@ var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options
 chart.render();
 
 </script>
-
-	{% endif %}
 {% endblock %}

@@ -88,7 +88,7 @@ class MainController extends AbstractController
                     $rdvs[] =
                     
                         $tableau->getNote1()
-            ;
+        ;
                       
                 }   
 
@@ -111,10 +111,6 @@ class MainController extends AbstractController
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
         }
-
-        
-        $data = json_encode($rdvs);
-        $data2 = json_encode($rdvs2);
         if( $user->getRoles() == ["ROLE_ENTREPRISE"])
         { 
             return $this->render('main/index.html.twig', [
@@ -134,7 +130,6 @@ class MainController extends AbstractController
               
           
             ]);         }
-            
             if( $user->getRoles() == ["ROLE_ETUDIANT"]){
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
@@ -158,7 +153,7 @@ class MainController extends AbstractController
                 ]);
          }else{
 
-     
+            $data = null;
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
                 'etudiant' => $etudiant,
