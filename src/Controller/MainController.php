@@ -131,8 +131,7 @@ class MainController extends AbstractController
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
-                    'data' => compact('data'),
-                    'data2' => compact('data2'),
+                 
                     'tableaunotes' => $tableaunotes,
                     'apprenantsAdmin' => $apprenantsAdmin,
                     'classesAdmin' => $classesAdmin,
