@@ -76,6 +76,33 @@ class MainController extends AbstractController
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
 
 
+
+        foreach ($intervenant as $inter){
+          $classe =  $inter->getClasses();
+        }
+        if( $user->getRoles() == ["ROLE_ENTREPRISE"])
+        { 
+            return $this->render('main/index.html.twig', [
+                'controller_name' => 'MainController',
+                        'etudiant' => $etudiant,
+            'tableaunotes' => $tableaunotes,
+                'apprenantsAdmin' => $apprenantsAdmin,
+                'classesAdmin' => $classesAdmin,
+                'intervenantsAdmin' => $intervenantsAdmin,
+                'entreprisesAdmin' => $entreprisesAdmin,
+                'messages' =>  $messages,
+                'apprenant' =>  $apprenant,
+                'lintervenant'=>$lintervenant, 
+                'classes' => $classesRepository->findByIntervenantEtudiant($classe),
+                'profil' => $profil,
+
+              
+          
+            ]);         }else{
+
+
+
+                
         $events = $TableauNotesRepository->paretudiant1($etudiant);
         $rdvs = [];
         $rdvs2 = [];
@@ -105,29 +132,6 @@ class MainController extends AbstractController
             $data = json_encode($rdvs);
             $data2 = json_encode($rdvs2);
         }
-
-        foreach ($intervenant as $inter){
-          $classe =  $inter->getClasses();
-        }
-        if( $user->getRoles() == ["ROLE_ENTREPRISE"])
-        { 
-            return $this->render('main/index.html.twig', [
-                'controller_name' => 'MainController',
-                        'etudiant' => $etudiant,
-            'tableaunotes' => $tableaunotes,
-                'apprenantsAdmin' => $apprenantsAdmin,
-                'classesAdmin' => $classesAdmin,
-                'intervenantsAdmin' => $intervenantsAdmin,
-                'entreprisesAdmin' => $entreprisesAdmin,
-                'messages' =>  $messages,
-                'apprenant' =>  $apprenant,
-                'lintervenant'=>$lintervenant, 
-                'classes' => $classesRepository->findByIntervenantEtudiant($classe),
-                'profil' => $profil,
-
-              
-          
-            ]);         }else{
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
