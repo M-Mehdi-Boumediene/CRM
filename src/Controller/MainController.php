@@ -151,6 +151,8 @@ class MainController extends AbstractController
               
                 ]);
          }else{
+
+            $data = null;
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
                 'etudiant' => $etudiant,
@@ -160,6 +162,7 @@ class MainController extends AbstractController
                 'intervenantsAdmin' => $intervenantsAdmin,
                 'entreprisesAdmin' => $entreprisesAdmin,
                 'messages' =>  $messages,
+                'data'=>$data,
                 'apprenant' =>  $apprenant,
                 'lintervenant'=>$lintervenant, 
                 'classes' => $classesRepository->findByIntervenantEtudiant(1),
