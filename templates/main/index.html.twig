@@ -1718,9 +1718,7 @@
           name: 'Module 3',
           data: [11, 16, 19]
         }],
-        };
-	var options2 = {
-   chart2: {
+          chart: {
           type: 'bar',
           height: 350
         },
@@ -1757,11 +1755,12 @@
             }
           }
         }
-	};
+        };
 
-var chart2 = new ApexCharts(document.querySelector("#chart-apex-column"), options, options2);
 
-chart2.render();
+var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options);
+
+chart.render();
 
 </script>
 
