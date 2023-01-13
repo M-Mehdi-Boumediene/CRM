@@ -74,36 +74,7 @@ class MainController extends AbstractController
         $etudiant = $etudiantsRepository->findByUser($user);
 
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
-        $user = $this->getUser();
-        $etudiant = $etudiantsRepository->findByUser($user);
-    $events = $TableauNotesRepository->paretudiant1($etudiant);
-    $rdvs = [];
-    $rdvs2 = [];
-    foreach ($events as $event){
 
-  
-        foreach ($event->getNotes() as $notes){
-
-            foreach ($notes->getTableau() as $tableau){
-                $rdvs[] =
-                
-                    $tableau->getNote1()
-    ;
-                  
-            }   
-
-            $rdvs2[] = 
-                $notes->getModule()->getNom();
-             
-
-            ;
-            
-        }
-
-      
-
-    
-    }
 
 
         foreach ($intervenant as $inter){
@@ -132,53 +103,57 @@ class MainController extends AbstractController
         }else
         
         {
- 
 
-        if($user->getRoles() == ["ROLE_ETUDIANT"]){
+        $events = $TableauNotesRepository->paretudiant1($etudiant);
+        $rdvs = [];
+        $rdvs2 = [];
+        foreach ($events as $event){
+
+      
+            foreach ($event->getNotes() as $notes){
+
+                foreach ($notes->getTableau() as $tableau){
+                    $rdvs[] =
+                    
+                        $tableau->getNote1()
+        ;
+                      
+                }   
+
+                $rdvs2[] = 
+                    $notes->getModule()->getNom();
+                 
+    
+                ;
+                
+            }
+   
+          
+
             $data = json_encode($rdvs);
             $data2 = json_encode($rdvs2);
-            return $this->render('main/index.html.twig', [
-                'controller_name' => 'MainController',
-                'etudiant' => $etudiant,
-                'data' => compact('data'),
-                'data2' => compact('data2'),
-                'tableaunotes' => $tableaunotes,
-                'apprenantsAdmin' => $apprenantsAdmin,
-                'classesAdmin' => $classesAdmin,
-                'intervenantsAdmin' => $intervenantsAdmin,
-                'entreprisesAdmin' => $entreprisesAdmin,
-                'messages' =>  $messages,
-                'apprenant' =>  $apprenant,
-                'lintervenant'=>$lintervenant, 
-                'classes' => $classesRepository->findByIntervenantEtudiant(1),
-                'profil' => $profil,
-
-          
-              
-          
-            ]);
-
-        }else{
-            return $this->render('main/index.html.twig', [
-                'controller_name' => 'MainController',
-                'etudiant' => $etudiant,
-                'tableaunotes' => $tableaunotes,
-                'apprenantsAdmin' => $apprenantsAdmin,
-                'classesAdmin' => $classesAdmin,
-                'intervenantsAdmin' => $intervenantsAdmin,
-                'entreprisesAdmin' => $entreprisesAdmin,
-                'messages' =>  $messages,
-                'apprenant' =>  $apprenant,
-                'lintervenant'=>$lintervenant, 
-                'classes' => $classesRepository->findByIntervenantEtudiant(1),
-                'profil' => $profil,
-
-          
-              
-          
-            ]);
         }
+        
+                return $this->render('main/index.html.twig', [
+                    'controller_name' => 'MainController',
+                    'etudiant' => $etudiant,
+                    'data' => compact('data'),
+                    'data2' => compact('data2'),
+                    'tableaunotes' => $tableaunotes,
+                    'apprenantsAdmin' => $apprenantsAdmin,
+                    'classesAdmin' => $classesAdmin,
+                    'intervenantsAdmin' => $intervenantsAdmin,
+                    'entreprisesAdmin' => $entreprisesAdmin,
+                    'messages' =>  $messages,
+                    'apprenant' =>  $apprenant,
+                    'lintervenant'=>$lintervenant, 
+                    'classes' => $classesRepository->findByIntervenantEtudiant(1),
+                    'profil' => $profil,
+  
               
+                  
+              
+                ]);
          }
        
     }
