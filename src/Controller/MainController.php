@@ -104,30 +104,9 @@ class MainController extends AbstractController
 
             $data = json_encode($rdvs);
             $data2 = json_encode($rdvs2);
-
-            return $this->render('main/index.html.twig', [
-                'controller_name' => 'MainController',
-                'etudiant' => $etudiant,
-             
-                'data' => compact('data'),
-                'data2' => compact('data2'),
-                'tableaunotes' => $tableaunotes,
-                'apprenantsAdmin' => $apprenantsAdmin,
-                'classesAdmin' => $classesAdmin,
-                'intervenantsAdmin' => $intervenantsAdmin,
-                'entreprisesAdmin' => $entreprisesAdmin,
-                'messages' =>  $messages,
-                'apprenant' =>  $apprenant,
-                'lintervenant'=>$lintervenant, 
-                'classes' => $classesRepository->findByIntervenantEtudiant(1),
-                'profil' => $profil,
-
-          
-              
-          
-            ]);
         }
 
+ 
 
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
@@ -150,7 +129,29 @@ class MainController extends AbstractController
 
               
           
-            ]);         }
+            ]);         }else{
+                return $this->render('main/index.html.twig', [
+                    'controller_name' => 'MainController',
+                    'etudiant' => $etudiant,
+                 
+                    'data' => compact('data'),
+                    'data2' => compact('data2'),
+                    'tableaunotes' => $tableaunotes,
+                    'apprenantsAdmin' => $apprenantsAdmin,
+                    'classesAdmin' => $classesAdmin,
+                    'intervenantsAdmin' => $intervenantsAdmin,
+                    'entreprisesAdmin' => $entreprisesAdmin,
+                    'messages' =>  $messages,
+                    'apprenant' =>  $apprenant,
+                    'lintervenant'=>$lintervenant, 
+                    'classes' => $classesRepository->findByIntervenantEtudiant(1),
+                    'profil' => $profil,
+  
+              
+                  
+              
+                ]);
+         }
        
     }
 
