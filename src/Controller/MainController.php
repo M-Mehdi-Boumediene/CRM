@@ -109,7 +109,7 @@ class MainController extends AbstractController
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
         }
-        if( $user->getRoles() == ["ROLE_ENTREPRISE"] OR user->getRoles() == ["ROLE_ADMIN"] )
+        if( $user->getRoles() == ["ROLE_ENTREPRISE"] OR $user->getRoles() == ["ROLE_ADMIN"] )
         { 
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
