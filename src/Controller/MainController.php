@@ -128,7 +128,6 @@ class MainController extends AbstractController
             ]);
         }
 
-        $data  =  $data;
 
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
