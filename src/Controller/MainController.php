@@ -87,9 +87,8 @@ class MainController extends AbstractController
 
                     $moyene = ($tableau->getNote1() * 2 ) + ($tableau->getNote2() * 2 ) + ($tableau->getNote3() * 2 ) / 2 /3 ;
 
-                    $rdvs[] =
+                    $rdvs[] =[ 12, 18,15]
                     
-                    $moyene
         ;
                       
                 }   
