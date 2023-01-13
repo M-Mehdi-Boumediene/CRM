@@ -129,7 +129,7 @@ class MainController extends AbstractController
           
             ]);         }else{
 
-                if($data){
+                if(compact('data')){
 
                     return $this->render('main/index.html.twig', [
                         'controller_name' => 'MainController',
