@@ -104,7 +104,7 @@ class TableauNotesRepository extends ServiceEntityRepository
             ->innerJoin('u.etudiant', 'c')
             ->innerJoin('u.notes', 'n')
             ->andWhere('c.id = :etudiant')
-      
+            ->andWhere('n.etudiantid = :etudiant')
     
             ->setParameter('etudiant', $etudiant)
             
