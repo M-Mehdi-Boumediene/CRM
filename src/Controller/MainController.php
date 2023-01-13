@@ -129,7 +129,9 @@ class MainController extends AbstractController
 
               
           
-            ]);         }if( $user->getRoles() == ["ROLE_ETUDIANT"]){
+            ]);         }
+            
+            if( $user->getRoles() == ["ROLE_ETUDIANT"]){
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
@@ -152,7 +154,7 @@ class MainController extends AbstractController
                 ]);
          }else{
 
-            $data = null;
+     
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
                 'etudiant' => $etudiant,
