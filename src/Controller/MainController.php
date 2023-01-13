@@ -83,9 +83,13 @@ class MainController extends AbstractController
             foreach ($event->getNotes() as $notes){
 
                 foreach ($notes->getTableau() as $tableau){
+              
+
+                    $moyene = ($tableau->getNote1() * 2 ) + ($tableau->getNote2() * 2 ) + ($tableau->getNote3() * 2 ) / 2 /3 ;
+
                     $rdvs[] =
                     
-                        $tableau->getNote1()
+                    $moyene
         ;
                       
                 }   
