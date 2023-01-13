@@ -103,7 +103,7 @@ class MainController extends AbstractController
         }else
         
         {
-
+            $etudiant = $etudiantsRepository->findByUser($user);
         $events = $TableauNotesRepository->paretudiant1($etudiant);
         $rdvs = [];
         $rdvs2 = [];
