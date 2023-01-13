@@ -102,8 +102,7 @@ class MainController extends AbstractController
 
       
 
-        $data = json_encode($rdvs);
-        $data2 = json_encode($rdvs2);
+    
     }
 
 
@@ -136,7 +135,8 @@ class MainController extends AbstractController
  
 
         if($user->getRoles() == ["ROLE_ETUDIANT"]){
-
+            $data = json_encode($rdvs);
+            $data2 = json_encode($rdvs2);
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
                 'etudiant' => $etudiant,
