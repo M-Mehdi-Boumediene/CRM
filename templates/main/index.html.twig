@@ -1706,12 +1706,15 @@
 
 <script>
 
- 
-    var options = {
+ var options = {
           series: [{
-          name: 'Net Profit',
-          data:  {{data.data|raw()}}
+          name: {{ data2.data2|raw() }},
+          data: {{ data.data|raw() }}
         }],
+
+				    xaxis: {
+    categories: {{ data2.data2|raw() }}
+  },
           chart: {
           type: 'bar',
           height: 350
@@ -1731,12 +1734,10 @@
           width: 2,
           colors: ['transparent']
         },
-        xaxis: {
-          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        },
+ 
         yaxis: {
           title: {
-            text: '$ (thousands)'
+            text: 'Moyenne Générale'
           }
         },
         fill: {
@@ -1745,12 +1746,11 @@
         tooltip: {
           y: {
             formatter: function (val) {
-              return "$ " + val + " thousands"
+              return " " + val + " /20"
             }
           }
         }
         };
-
 
 var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options);
 
