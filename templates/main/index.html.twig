@@ -1703,16 +1703,21 @@
 													
 
 	{% if is_granted('ROLE_ETUDIANT', 'ROLE_ADMIN')  %}
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
 <script>
-		$( "li" ).each(function() {
- var options = {
 
-          series: [
-
-			{
+ 
+    var options = {
+		
+          series: [{
           name: 'Module 1',
           data: [12, 13, 14]
+        }, {
+          name: 'Module 2',
+          data: [16, 17, 15]
+        }, {
+          name: 'Module 3',
+          data: [11, 16, 19]
         }],
           chart: {
           type: 'bar',
@@ -1754,15 +1759,9 @@
         };
 
 
-		var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options);
+var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options);
 
 chart.render();
-});
- 
-   
-
-
-
 
 </script>
 
