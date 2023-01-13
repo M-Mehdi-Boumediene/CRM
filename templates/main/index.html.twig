@@ -1708,12 +1708,12 @@
 
  var options = {
           series: [{
-          name: {{ data2.data2|raw() }},
+          name: {{ data.data|raw() }},
           data: {{ data.data|raw() }}
         }],
 
 				    xaxis: {
-    categories: {{ data2.data2|raw() }}
+    categories: {{ data.data|raw() }}
   },
           chart: {
           type: 'bar',
