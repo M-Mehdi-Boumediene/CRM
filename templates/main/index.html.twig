@@ -1705,18 +1705,15 @@
 	{% if is_granted('ROLE_ETUDIANT', 'ROLE_ADMIN')  %}
 
 <script>
-
- 
-    var options = {
+		$( "li" ).each(function() {
+ var options = {
 
           series: [
-		$( "li" ).each(function() {
-		{
+
+			{
           name: 'Module 1',
           data: [12, 13, 14]
-        },
-});
-	],
+        }],
           chart: {
           type: 'bar',
           height: 350
@@ -1755,6 +1752,9 @@
           }
         }
         };
+});
+ 
+   
 
 
 var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options);
