@@ -106,7 +106,7 @@ class TableauNotesRepository extends ServiceEntityRepository
             ->andWhere('c.id = :etudiant')
             ->andWhere('n.semestre = :semestre')
     
-            ->setParameter('etudiant', 5)
+            ->setParameter('etudiant', $etudiant)
             ->setParameter('semestre', 1)
       
 
