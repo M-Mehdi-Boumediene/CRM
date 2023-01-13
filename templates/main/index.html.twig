@@ -1706,18 +1706,7 @@
 
 <script>
 
- var options2 = {
-  series: [{
-          name: 'Module 1',
-          data: [12, 13, 14]
-        }, {
-          name: 'Module 2',
-          data: [16, 17, 15]
-        }, {
-          name: 'Module 3',
-          data: [11, 16, 19]
-        }],
- };
+
     var options = {
         
           chart: {
@@ -1758,9 +1747,20 @@
           }
         }
         };
+ var options2 = {
+  series: [{
+          name: 'Module 1',
+          data: [12, 13, 14]
+        }, {
+          name: 'Module 2',
+          data: [16, 17, 15]
+        }, {
+          name: 'Module 3',
+          data: [11, 16, 19]
+        }],
+ };
 
-
-var chart = new ApexCharts(document.querySelector("#chart-apex-column"),options2, options);
+var chart = new ApexCharts(document.querySelector("#chart-apex-column"), options,options2);
 
 chart.render();
 
