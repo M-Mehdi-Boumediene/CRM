@@ -106,8 +106,6 @@ class MainController extends AbstractController
             $data2 = json_encode($rdvs2);
         }
 
- 
-
         foreach ($intervenant as $inter){
           $classe =  $inter->getClasses();
         }
@@ -129,8 +127,7 @@ class MainController extends AbstractController
 
               
           
-            ]);         }
-            if( $user->getRoles() == ["ROLE_ETUDIANT"]){
+            ]);         }else{
                 return $this->render('main/index.html.twig', [
                     'controller_name' => 'MainController',
                     'etudiant' => $etudiant,
@@ -151,28 +148,6 @@ class MainController extends AbstractController
                   
               
                 ]);
-         }else{
-
-            $data = null;
-            return $this->render('main/index.html.twig', [
-                'controller_name' => 'MainController',
-                'etudiant' => $etudiant,
-                'tableaunotes' => $tableaunotes,
-                'apprenantsAdmin' => $apprenantsAdmin,
-                'classesAdmin' => $classesAdmin,
-                'intervenantsAdmin' => $intervenantsAdmin,
-                'entreprisesAdmin' => $entreprisesAdmin,
-                'messages' =>  $messages,
-                'data'=>$data,
-                'apprenant' =>  $apprenant,
-                'lintervenant'=>$lintervenant, 
-                'classes' => $classesRepository->findByIntervenantEtudiant(1),
-                'profil' => $profil,
-
-          
-              
-          
-            ]);
          }
        
     }
