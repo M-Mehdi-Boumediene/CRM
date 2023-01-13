@@ -103,11 +103,9 @@ class MainController extends AbstractController
         }else
         
         {
-
+ 
 
         if($user->getRoles() == ["ROLE_ETUDIANT"]){
-
-
             $user = $this->getUser();
             $etudiant = $etudiantsRepository->findByUser($user);
         $events = $TableauNotesRepository->paretudiant1($etudiant);
@@ -142,8 +140,8 @@ class MainController extends AbstractController
             return $this->render('main/index.html.twig', [
                 'controller_name' => 'MainController',
                 'etudiant' => $etudiant,
-                'data' => $data ,
-                'data2' => $data2 ,
+                'data' => compact('data'),
+                'data2' => compact('data2'),
                 'tableaunotes' => $tableaunotes,
                 'apprenantsAdmin' => $apprenantsAdmin,
                 'classesAdmin' => $classesAdmin,
