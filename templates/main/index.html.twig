@@ -1712,7 +1712,9 @@
           data: {{ data.data|raw() }}
         }],
 
-				
+				    xaxis: {
+    categories: {{ data2.data2|raw() }}
+  },
           chart: {
           type: 'bar',
           height: 350
