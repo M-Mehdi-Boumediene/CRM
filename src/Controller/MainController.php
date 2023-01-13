@@ -74,6 +74,8 @@ class MainController extends AbstractController
         $etudiant = $etudiantsRepository->findByUser($user);
 
         $tableaunotes = $TableauNotesRepository->paretudiant1($etudiant);
+
+
         $events = $TableauNotesRepository->paretudiant1($etudiant);
         $rdvs = [];
         $rdvs2 = [];
@@ -83,7 +85,6 @@ class MainController extends AbstractController
             foreach ($event->getNotes() as $notes){
 
                 foreach ($notes->getTableau() as $tableau){
-                    
                     $rdvs[] =
                     
                         $tableau->getNote1()
